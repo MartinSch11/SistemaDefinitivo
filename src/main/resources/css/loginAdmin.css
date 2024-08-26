@@ -1,0 +1,19 @@
+/* Estilos para AnchorPane */
+.anchor-pane {
+    background-color: #f0f0f0; /* Color de fondo */
+}
+
+/* Estilos para botones dentro del AnchorPane */
+.button {
+    -fx-background-color: transparent; /* Botones sin fondo */
+    -fx-text-fill: #333; /* Color del texto */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+}
+
+#semibg {
+    -fx-background-color: #ecdeba; /* Asegúrate de usar el color correcto */
+    -fx-background-radius: 20px; /* Ajusta el radio según tus necesidades */
+    -fx-border-color: #a40000; /* Si deseas agregar un borde, ajusta el color aquí */
+    -fx-border-radius: 20px; /* Debe coincidir con el radio de fondo para bordes redondeados */
+    -fx-border-width: 2px; /* Ajusta el ancho del borde si es necesario */
+}

@@ -1,0 +1,20 @@
+/* Estilo por defecto de los botones */
+#btnAdmin, #btnEmple {
+    -fx-background-color: #f2e1b4;
+    -fx-text-fill: #a40000;
+    -fx-font-size: 20px;
+    -fx-font-family: "Inter Regular";
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 0, 0, 0, 0);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Hover con efecto de sombra y cambio de tamaño */
+#btnAdmin:hover, #btnEmple:hover {
+    -fx-background-color: #e0d3a7;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+}
