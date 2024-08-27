@@ -1,12 +1,18 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import utilities.Paths;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -25,6 +31,19 @@ public class eventosController {
     private YearMonth currentYearMonth;
     private Map<LocalDate, String> events = new HashMap<>();
 
+    void handleVolver(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Paths.LOGIN));
+            AnchorPane root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
+            Stage stage = (Stage) btnVolver.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void initialize() {
         currentYearMonth = YearMonth.now();
