@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+<AnchorPane prefHeight="800" prefWidth="1280" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
    <children>
-      <Pane prefHeight="600" prefWidth="800" style="-fx-background-color: f2e1b4;">
+      <Pane prefHeight="800" prefWidth="1280" style="-fx-background-color: f7ede3;">
          <children>
-            <Button fx:id="btnAdmin" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" layoutX="135.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f2e1b4;" text="Administrador" textAlignment="CENTER" textFill="#a40000">
+            <Button fx:id="btnAdmin" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" layoutX="135.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f7ede3;" text="Administrador" textAlignment="CENTER" textFill="#a40000">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,7 +27,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnEmple" contentDisplay="TOP" graphicTextGap="20.0" layoutX="490.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f2e1b4;" text="Empleado" textFill="#a40000">
+            <Button fx:id="btnEmple" contentDisplay="TOP" graphicTextGap="20.0" layoutX="490.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f7ede3;" text="Empleado" textFill="#a40000">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
