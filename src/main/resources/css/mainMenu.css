@@ -1,0 +1,22 @@
+
+.buttonsMainMenu{
+    -fx-background-color: none;
+    -fx-border-color:  #B70505;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+    -fx-text: none;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0, 4);
+    -fx-pref-width: 125px;
+    -fx-pref-height: 125px;
+    -fx-transition: all 0.3s ease;
+}
+
+.buttonsMainMenu:hover {
+    -fx-translate-y: -5px;
+}
+
+.txtButtonsMainMenu{
+    -fx-font-family: Arial;
+    -fx-text-size: 24px;
+    -fx-text-fill: black;
+}
