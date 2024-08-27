@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -15,9 +16,9 @@
     <children>
         <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3;">
             <children>
-                <Pane layoutX="32.0" layoutY="32.0" prefHeight="337.0" prefWidth="442.0">
+                <Pane layoutX="14.0" layoutY="39.0" prefHeight="337.0" prefWidth="442.0">
                     <children>
-                        <GridPane fx:id="calendarGrid" gridLinesVisible="true" layoutY="45.0" prefHeight="293.0" prefWidth="442.0" style="-fx-background-color: red;">
+                        <GridPane fx:id="calendarGrid" gridLinesVisible="true" layoutY="45.0" prefHeight="293.0" prefWidth="440.0" style="-fx-background-color: ffffff;">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -65,7 +66,7 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <Pane fx:id="monthPane" prefHeight="49.0" prefWidth="442.0" style="-fx-background-color: green;">
+                        <Pane fx:id="monthPane" layoutX="-1.0" prefHeight="49.0" prefWidth="442.0" style="-fx-background-color: cccccc;">
                             <children>
                                 <Label layoutX="207.0" layoutY="16.0" text="MES" />
                                 <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#handlePrevMonth">
@@ -90,7 +91,31 @@
                         </Pane>
                     </children>
                 </Pane>
-                    <Button layoutX="480.0" layoutY="35.0" onAction="#handleAddEvent" text="Agregar Evento" />
+                    <Button layoutX="479.0" layoutY="45.0" onAction="#handleAddEvent" text="Agregar Evento" />
+            <Pane layoutY="-1.0" prefHeight="32.0" prefWidth="600.0" style="-fx-background-color: B70505;">
+               <children>
+                  <Label layoutX="255.0" layoutY="3.0" text="Eventos" textFill="WHITE">
+                     <font>
+                        <Font name="Inter Regular" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+                <Button fx:id="btnVolver" layoutX="484.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" text="Volver">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../com.example.image/arrow_left.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Inter Regular" size="12.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
             </children>
         </Pane>
     </children>
