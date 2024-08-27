@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginAdminController">
    <children>
-      <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: f2e1b4;">
+      <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: f7ede3;">
          <children>
             <Pane fx:id="semibg" layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: ecdeba;">
                <children>
@@ -31,9 +31,10 @@
                         <Font name="Inter Regular" size="18.0" />
                      </font>
                   </Label>
-                  <PasswordField layoutX="300.0" layoutY="181.0" prefHeight="38.0" prefWidth="219.0" />
-                  <Button layoutX="336.0" layoutY="245.0" mnemonicParsing="false" text="Cancelar" />
-                  <Button layoutX="431.0" layoutY="245.0" mnemonicParsing="false" text="Aceptar" />
+                  <PasswordField fx:id="passwordField" layoutX="300.0" layoutY="181.0" prefHeight="38.0" prefWidth="219.0" />
+                  <Button fx:id="btnCancelar" layoutX="336.0" layoutY="245.0" mnemonicParsing="false" text="Cancelar" onAction="#handleVolver"/>
+                  <Button fx:id="btnAceptar" layoutX="431.0" layoutY="245.0" mnemonicParsing="false" text="Aceptar" onAction="#handleAceptar"/>
+                  <Label fx:id="errorLabel" layoutX="300.0" layoutY="290.0" textFill="red" />
                </children>
             </Pane>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" text="Volver">
