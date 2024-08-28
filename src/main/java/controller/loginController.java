@@ -27,10 +27,29 @@ public class loginController {
             // Cargar estilos específicos para la escena de login admin
             scene.getStylesheets().add(getClass().getResource("/css/loginAdmin.css").toExternalForm());
 
+
             Stage stage = (Stage) btnAdmin.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void clickEmpleado(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Paths.EMPLEADO_LOGIN));
+            AnchorPane root = loader.load();
+            Scene scene = new Scene(root);
+
+
+            scene.getStylesheets().add(getClass().getResource("/css/loginEmpleado.css").toExternalForm());
+
+
+            Stage stage = (Stage) btnEmple.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }

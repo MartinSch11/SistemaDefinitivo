@@ -31,19 +31,7 @@ public class eventosController {
     private YearMonth currentYearMonth;
     private Map<LocalDate, String> events = new HashMap<>();
 
-    void handleVolver(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Paths.LOGIN));
-            AnchorPane root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
-            Stage stage = (Stage) btnVolver.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     @FXML
     private void initialize() {
         currentYearMonth = YearMonth.now();

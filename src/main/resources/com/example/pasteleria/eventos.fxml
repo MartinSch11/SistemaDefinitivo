@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.eventosController">
     <children>
-        <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3;">
+        <Pane prefHeight="434.0" prefWidth="598.0" style="-fx-background-color: f7ede3;">
             <children>
                 <Pane layoutX="14.0" layoutY="39.0" prefHeight="337.0" prefWidth="442.0">
                     <children>
