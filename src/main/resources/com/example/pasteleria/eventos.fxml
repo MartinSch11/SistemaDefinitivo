@@ -101,7 +101,7 @@
                   </Label>
                </children>
             </Pane>
-                <Button fx:id="btnVolver" layoutX="484.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" text="Volver">
+                <Button fx:id="btnVolver" layoutX="484.0" layoutY="357.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" text="Volver">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                             <image>

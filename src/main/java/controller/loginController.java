@@ -36,7 +36,8 @@ public class loginController {
         }
     }
 
-    void clickEmpleado(ActionEvent event) {
+    @FXML
+    void clickEmpleado(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Paths.EMPLEADO_LOGIN));
             AnchorPane root = loader.load();
