@@ -5,43 +5,48 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800" prefWidth="1280" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
    <children>
-      <Pane prefHeight="800" prefWidth="1280" style="-fx-background-color: f7ede3;">
+      <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
-            <Button fx:id="btnAdmin" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" layoutX="135.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f7ede3;" text="Administrador" textAlignment="CENTER" textFill="#a40000">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.example.image/avatar_usuario.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Inter Regular" size="20.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="btnEmple" contentDisplay="TOP" graphicTextGap="20.0" layoutX="490.0" layoutY="196.0" mnemonicParsing="false" onAction="#clickEmpleado" style="-fx-background-color: f7ede3;" text="Empleado" textFill="#a40000">
-               <graphic>
-                  <ImageView fx:id="btnEmpleado" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.example.image/avatar_usuario.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Inter Regular" size="20.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+            <HBox layoutX="479.0" layoutY="256.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Button fx:id="btnAdmin" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f7ede3;" text="Administrador" textAlignment="CENTER" textFill="#a40000">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/avatar_usuario.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Inter Regular" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnEmple" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#clickEmpleado" style="-fx-background-color: f7ede3;" text="Empleado" textFill="#a40000">
+                     <graphic>
+                        <ImageView fx:id="btnEmpleado" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/avatar_usuario.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Inter Regular" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </Pane>
    </children>

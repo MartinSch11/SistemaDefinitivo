@@ -27,8 +27,8 @@ public class loginController {
             // Cargar estilos específicos para la escena de login admin
             scene.getStylesheets().add(getClass().getResource("/css/loginAdmin.css").toExternalForm());
 
-
             Stage stage = (Stage) btnAdmin.getScene().getWindow();
+            stage.setMaximized(true);
             stage.setScene(scene);
             stage.show();
         }catch (Exception e) {
@@ -43,9 +43,7 @@ public class loginController {
             AnchorPane root = loader.load();
             Scene scene = new Scene(root);
 
-
             scene.getStylesheets().add(getClass().getResource("/css/loginEmpleado.css").toExternalForm());
-
 
             Stage stage = (Stage) btnEmple.getScene().getWindow();
             stage.setScene(scene);

@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginAdminController">
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginAdminController">
    <stylesheets>
       <URL value="@../../../css/loginAdmin.css" />
    </stylesheets>
    <children>
-      <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: f7ede3;">
+      <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
-            <Pane id="paneLoginAdmin" fx:id="semibg" layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3; -fx-border-radius: 50px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);" styleClass="paneLoginAdmin" stylesheets="@../../../css/loginAdmin.css">
+            <Pane id="paneLoginAdmin" fx:id="semibg" layoutX="380.0" layoutY="160.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3; -fx-border-radius: 50px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);" styleClass="paneLoginAdmin" stylesheets="@../../../css/loginAdmin.css">
                <children>
                   <ImageView fitHeight="198.0" fitWidth="195.0" layoutX="38.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>

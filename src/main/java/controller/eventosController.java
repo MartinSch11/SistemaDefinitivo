@@ -11,12 +11,15 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import utilities.Paths;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.TextStyle;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,7 +34,6 @@ public class eventosController {
     private YearMonth currentYearMonth;
     private Map<LocalDate, String> events = new HashMap<>();
 
-
     @FXML
     private void initialize() {
         currentYearMonth = YearMonth.now();
@@ -39,13 +41,34 @@ public class eventosController {
     }
 
     private void populateCalendar(YearMonth yearMonth) {
-        calendarGrid.getChildren().clear(); // Limpiar el GridPane
+        // Limpiar el GridPane
+        calendarGrid.getChildren().clear();
+        calendarGrid.setGridLinesVisible(true);
 
+        // Obtener el primer día del mes y cuántos días tiene el mes
         LocalDate firstDayOfMonth = yearMonth.atDay(1);
         int daysInMonth = yearMonth.lengthOfMonth();
-        int dayOfWeek = firstDayOfMonth.getDayOfWeek().getValue(); // 1 = Monday, 7 = Sunday
+        int dayOfWeek = firstDayOfMonth.getDayOfWeek().getValue(); // 1 = Lunes, 7 = Domingo
 
-        // Add headers for days of the week
+        // Actualizar el label con el mes y año en español
+        Label monthLabel = (Label) monthPane.lookup("#monthLabel");
+        Locale spanishLocale = new Locale("es", "ES");
+        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
+        monthLabel.setText(monthName.substring(0, 1).toUpperCase() + monthName.substring(1) + " " + yearMonth.getYear());
+
+        // Calcular el número de filas necesarias
+        int totalSlots = dayOfWeek - 1 + daysInMonth;
+        int rowsNeeded = (totalSlots / 7) + (totalSlots % 7 == 0 ? 0 : 1);
+
+        // Asegurarse de que hay suficientes filas
+        calendarGrid.getRowConstraints().clear();
+        for (int i = 0; i < rowsNeeded + 1; i++) { // +1 para la fila de los días de la semana
+            RowConstraints row = new RowConstraints();
+            row.setPrefHeight(50);
+            calendarGrid.getRowConstraints().add(row);
+        }
+
+        // Añadir encabezados de los días de la semana
         String[] weekDays = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
         for (int i = 0; i < weekDays.length; i++) {
             Label dayLabel = new Label(weekDays[i]);
@@ -53,20 +76,61 @@ public class eventosController {
             calendarGrid.add(dayLabel, i, 0);
         }
 
-        // Add days of the month
-        for (int day = 1; day <= daysInMonth; day++) {
-            final LocalDate date = yearMonth.atDay(day); // Use final here
-            Label dayLabel = new Label(String.valueOf(day));
-            int column = (dayOfWeek - 1 + day - 1) % 7; // Ajusta para el primer día de la semana
-            int row = (dayOfWeek - 1 + day - 1) / 7 + 1; // Ajusta la fila en base a la columna
+        // Obtener el mes anterior y sus días
+        YearMonth previousMonth = yearMonth.minusMonths(1);
+        int daysInPreviousMonth = previousMonth.lengthOfMonth();
 
-            // Añadir eventos para cada día
-            dayLabel.setOnMouseClicked(event -> handleDayClick(date)); // Pasar la fecha final
+        // Variables para seguir la posición en el grid
+        int currentRow = 1; // Comienza en la primera fila de los días
+        int currentColumn = dayOfWeek - 1; // Comienza en la columna del primer día del mes
 
-            // Establecer estilo opcional
-            dayLabel.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-border-color: gray;");
+        // Colocar los últimos días del mes anterior si el primer día no es lunes
+        for (int i = currentColumn - 1; i >= 0; i--) {
+            Label dayLabel = new Label(String.valueOf(daysInPreviousMonth - (currentColumn - 1 - i)));
+            dayLabel.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-text-fill: lightgray;");
+            calendarGrid.add(dayLabel, i, currentRow); // En la primera fila
+        }
 
-            calendarGrid.add(dayLabel, column, row);
+        // Añadir días del mes actual
+        int dayNumber = 1;
+        while (dayNumber <= daysInMonth) {
+            Label dayLabel = new Label(String.valueOf(dayNumber));
+
+            // Colorear fines de semana
+            if (currentColumn == 5 || currentColumn == 6) { // Sábado y Domingo
+                dayLabel.getStyleClass().add("grid-cell");
+                dayLabel.getStyleClass().add("weekend-cell");
+            } else {
+                dayLabel.getStyleClass().add("grid-cell");
+                dayLabel.getStyleClass().add("weekday-cell");
+            }
+
+            calendarGrid.add(dayLabel, currentColumn, currentRow);
+
+            // Mover al siguiente día
+            dayNumber++;
+            currentColumn++;
+
+            // Si llegamos al final de la semana, saltamos a la siguiente fila
+            if (currentColumn == 7) {
+                currentColumn = 0;
+                currentRow++;
+            }
+        }
+
+        // Añadir días del mes siguiente en las celdas vacías después del final del mes actual
+        dayNumber = 1;
+        while (currentColumn < 7) {
+            Label dayLabel = new Label(String.valueOf(dayNumber));
+            dayLabel.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-text-fill: lightgray;");
+            calendarGrid.add(dayLabel, currentColumn, currentRow);
+            dayNumber++;
+            currentColumn++;
+        }
+
+        // Quitar la fila extra si no es necesaria (cuando el total de días no excede las 5 filas)
+        if (dayNumber - 1 <= 35) {
+            calendarGrid.getRowConstraints().remove(calendarGrid.getRowConstraints().size() - 1);
         }
     }
 

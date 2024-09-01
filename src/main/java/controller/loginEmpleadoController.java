@@ -37,6 +37,7 @@ public class loginEmpleadoController {
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             Stage stage = (Stage) btnVolverDeEmpleado.getScene().getWindow();
             stage.setScene(scene);
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

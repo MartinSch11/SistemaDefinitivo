@@ -33,6 +33,7 @@ public class loginAdminController {
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             Stage stage = (Stage) btnVolver.getScene().getWindow();
+            stage.setMaximized(true);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

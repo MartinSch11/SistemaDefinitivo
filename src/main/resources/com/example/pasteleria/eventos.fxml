@@ -12,13 +12,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.eventosController">
+<?import java.net.URL?>
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.eventosController">
+    <stylesheets>
+        <URL value="@../../../css/eventos.css" />
+    </stylesheets>
     <children>
-        <Pane prefHeight="434.0" prefWidth="598.0" style="-fx-background-color: f7ede3;">
+        <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
             <children>
-                <Pane layoutX="14.0" layoutY="39.0" prefHeight="337.0" prefWidth="442.0">
+                <Pane layoutX="58.0" layoutY="114.0" prefHeight="400.0" prefWidth="600.0">
                     <children>
-                        <GridPane fx:id="calendarGrid" gridLinesVisible="true" layoutY="45.0" prefHeight="293.0" prefWidth="440.0" style="-fx-background-color: ffffff;">
+                        <GridPane fx:id="calendarGrid" alignment="TOP_CENTER" gridLinesVisible="true" layoutY="45.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: ffffff;">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -66,9 +70,9 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <Pane fx:id="monthPane" layoutX="-1.0" prefHeight="49.0" prefWidth="442.0" style="-fx-background-color: cccccc;">
+                        <Pane fx:id="monthPane" layoutX="-1.0" layoutY="-10.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: cccccc;">
                             <children>
-                                <Label layoutX="207.0" layoutY="16.0" text="MES" />
+                                <Label fx:id="monthLabel" layoutX="289.0" layoutY="17.0" text="MES" />
                                 <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#handlePrevMonth">
                                     <graphic>
                                         <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -78,7 +82,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                                <Button layoutX="394.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleNextMonth">
+                                <Button layoutX="552.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleNextMonth">
                                     <graphic>
                                         <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -91,17 +95,17 @@
                         </Pane>
                     </children>
                 </Pane>
-                    <Button layoutX="479.0" layoutY="45.0" onAction="#handleAddEvent" text="Agregar Evento" />
-            <Pane layoutY="-1.0" prefHeight="32.0" prefWidth="600.0" style="-fx-background-color: B70505;">
+                    <Button layoutX="762.0" layoutY="114.0" onAction="#handleAddEvent" text="Agregar Evento" />
+            <Pane layoutY="-1.0" prefHeight="55.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
                <children>
-                  <Label layoutX="255.0" layoutY="3.0" text="Eventos" textFill="WHITE">
+                  <Label layoutX="635.0" layoutY="13.0" text="Eventos" textFill="WHITE">
                      <font>
                         <Font name="Inter Regular" size="24.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-                <Button fx:id="btnVolver" layoutX="484.0" layoutY="357.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" text="Volver">
+                <Button fx:id="btnVolver" layoutX="14.0" layoutY="668.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" text="Volver">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                             <image>
