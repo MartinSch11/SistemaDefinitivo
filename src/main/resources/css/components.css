@@ -1,0 +1,76 @@
+/*----------------componentes reutilizables----------------*/
+
+/*----pane principal----*/
+.pane-principal{
+    -fx-background-color: #f7ede3;
+    /*-fx-pref-width: ;
+    -fx-pref-height: ;*/
+}
+
+/*-----se adapta al tamaño de la pantalla--------*/
+/*
+.object-fullscreen{
+    -fx-pref-width: ;
+    -fx-pref-height: ;
+}
+*/
+/*---------container-login----------*/
+.container-login{
+    -fx-background-color: #f7ede3;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);
+
+}
+
+/*---pane header-----*/
+.pane-Header{
+    -fx-background-color: #B70505;
+    /*-fx-text-fill: ;
+    -fx-pref-width: ;
+    -fx-pref-height: ;*/
+}
+
+
+/*----------*/
+
+
+.button-Volver{
+    -fx-background-color: transparent;
+    -fx-text-fill: #B70505;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 95px;
+    -fx-pref-height: 40px;
+    -fx-border-radius: 4px;
+    -fx-transition: transform 0.2s ease-in-out;
+}
+
+.button-Volver:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+
+/*-----buttons en general--------*/
+.buttons{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-font-size: 12px;
+    -fx-pref-width: 65px;
+    -fx-pref-height: 5px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #B70505;
+}
+
+.buttons:hover{
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}
+
+/*-----títulos--------*/
+.title{
+    /*-fx-text-fill: ;*/
+    -fx-text-size: 18px;
+}

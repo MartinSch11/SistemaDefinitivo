@@ -8,4 +8,6 @@ public class Paths {
     public static final String EMPLEADO_LOGIN = "/com/example/pasteleria/loginEmpleado.fxml";
     public static final String EMPLEADO_MAINMENU = "/com/example/pasteleria/MainMenu.fxml";
     public static final String EVENTOS = "/com/example/pasteleria/eventos.fxml";
+    public static final String MAINMENU = "/com/example/pasteleria/MainMenu.fxml";
+    public static final String AYUDA_MENU = "/com/example/pasteleria/Ayuda.fxml";
 }

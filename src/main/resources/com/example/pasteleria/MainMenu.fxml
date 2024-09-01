@@ -49,6 +49,41 @@
             <Button id="btnEstadisticas" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0"
                     styleClass="buttonsMainMenu" stylesheets="@../../../css/mainMenu.css"
                     GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+<AnchorPane prefHeight="582.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+    <stylesheets>
+        <URL value="@../../../css/mainMenu.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="658.0" prefWidth="938.0" style="-fx-background-color: f7ede3;">
+         <children>
+            <Pane prefHeight="89.0" prefWidth="938.0" style="-fx-background-color: B70505;">
+               <children>
+                  <Button fx:id="btnAyudaMenu" layoutX="859.0" layoutY="17.0" mnemonicParsing="false" onAction="#AyudaMenu" styleClass="button-Ayuda-MainMenu" stylesheets="@../../../css/mainMenu.css">
+                     <graphic>
+                        <ImageView accessibleRole="BUTTON" fitHeight="45.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="button-Ayuda-MainMenu">
+                           <image>
+                              <Image url="@../../../com.example.image/iconAyuda.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin" wrappingWidth="88.43984985351562">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="adminLogin" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#changeUser" prefHeight="55.0" prefWidth="72.0" styleClass="login" stylesheets="@../../../css/mainMenu.css">
+                     <graphic>
+                        <ImageView fitHeight="63.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/iconAvatarEnBlanco.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+            <Button id="btnEstadisticas" layoutX="177.0" layoutY="128.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" stylesheets="@../../../css/mainMenu.css">
                <graphic>
                   <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true"
                              style="-fx-effect: none;">
