@@ -17,6 +17,7 @@ public class loginController {
     @FXML
     private Button btnEmple;
 
+
     @FXML
     void click(ActionEvent event) {
         try {
@@ -24,7 +25,7 @@ public class loginController {
             AnchorPane root = loader.load();
             Scene scene = new Scene(root);
 
-            // Cargar estilos específicos para la escena de login admin
+
             scene.getStylesheets().add(getClass().getResource("/css/loginAdmin.css").toExternalForm());
 
 

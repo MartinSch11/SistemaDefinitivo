@@ -1,6 +1,22 @@
+.login{
+    -fx-background-color: transparent;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 75px;
+    -fx-transition: transform 0.2s ease-in-out;
+}
+
+.login .image-view {
+    -fx-fit-width: 65px;
+    -fx-fit-height: 65px;
+ }
+
+ .login:hover{
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
 
 .buttonsMainMenu{
-    -fx-background-color: none;
+    -fx-background-color: transparent;
     -fx-border-color:  #B70505;
     -fx-border-radius: 5px;
     -fx-border-width: 2px;
@@ -19,4 +35,21 @@
     -fx-font-family: Arial;
     -fx-text-size: 24px;
     -fx-text-fill: black;
+}
+
+.button-Ayuda-MainMenu{
+    -fx-background-color: transparent;
+    -fx-pref-width: 55px;
+    -fx-pref-height: 55px;
+    -fx-transition: transform 0.2s ease-in-out;
+}
+
+.button-Ayuda-MainMenu .image-view {
+    -fx-fit-width: 40px;
+    -fx-fit-height: 40px;
+}
+
+.button-Ayuda-MainMenu:hover{
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
 }

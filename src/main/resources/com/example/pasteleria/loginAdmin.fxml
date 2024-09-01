@@ -15,10 +15,13 @@
    <stylesheets>
       <URL value="@../../../css/loginAdmin.css" />
    </stylesheets>
+   <stylesheets>
+      <URL value="@../../../css/components.css" />
+   </stylesheets>
    <children>
       <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: f7ede3;">
          <children>
-            <Pane id="paneLoginAdmin" fx:id="semibg" layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3; -fx-border-radius: 50px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);" styleClass="paneLoginAdmin" stylesheets="@../../../css/loginAdmin.css">
+            <Pane id="paneLoginAdmin" fx:id="semibg" layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" styleClass="container-login" stylesheets="@../../../css/components.css">
                <children>
                   <ImageView fitHeight="198.0" fitWidth="195.0" layoutX="38.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,12 +39,12 @@
                      </font>
                   </Label>
                   <PasswordField fx:id="passwordField" layoutX="300.0" layoutY="181.0" prefHeight="38.0" prefWidth="219.0" />
-                  <Button fx:id="btnCancelar" layoutX="336.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleVolver" styleClass="btn" stylesheets="@../../../css/loginEmpleado.css" text="Cancelar" />
-                  <Button fx:id="btnAceptar" layoutX="431.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleAceptar" styleClass="btn" stylesheets="@../../../css/loginEmpleado.css" text="Aceptar" />
+                  <Button fx:id="btnCancelar" layoutX="336.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleVolver" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" />
+                  <Button fx:id="btnAceptar" layoutX="431.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleAceptar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Aceptar" />
                   <Label fx:id="errorLabel" layoutX="300.0" layoutY="290.0" textFill="red" />
                </children>
             </Pane>
-            <Button fx:id="btnVolver" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" text="Volver">
+            <Button fx:id="btnVolver" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
