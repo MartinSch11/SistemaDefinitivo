@@ -19,12 +19,11 @@ public class loginController {
 
 
     @FXML
-    void click(ActionEvent event) {
+    void clickAdmin(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Paths.ADMIN_LOGIN));
             AnchorPane root = loader.load();
             Scene scene = new Scene(root);
-
 
             scene.getStylesheets().add(getClass().getResource("/css/loginAdmin.css").toExternalForm());
 

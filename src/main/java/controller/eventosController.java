@@ -1,19 +1,12 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
-import utilities.Paths;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -23,7 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-public class eventosController {
+public class EventosController {
 
     @FXML
     private GridPane calendarGrid;
