@@ -10,4 +10,6 @@ public class Paths {
     public static final String EVENTOS = "/com/example/pasteleria/Eventos.fxml";
     public static final String MAINMENU = "/com/example/pasteleria/MainMenu.fxml";
     public static final String AYUDA_MENU = "/com/example/pasteleria/Ayuda.fxml";
+    public static final String PRODUCTOS = "/com/example/pasteleria/CrudProductos.fxml";
+
 }
