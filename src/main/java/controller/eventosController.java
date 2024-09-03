@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -7,6 +8,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import utilities.Paths;
+import utilities.SceneLoader;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -173,5 +176,10 @@ public class EventosController {
             addEvent(selectedDate, event);
             populateCalendar(currentYearMonth); // Actualiza el calendario
         });
+    }
+
+    @FXML
+    void handleVolver(ActionEvent event) {
+        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
     }
 }

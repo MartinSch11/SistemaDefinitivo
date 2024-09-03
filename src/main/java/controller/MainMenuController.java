@@ -2,69 +2,41 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import utilities.Paths;
+import utilities.SceneLoader;
+import utilities.NodeSceneStrategy;
 
 public class MainMenuController {
 
     @FXML
-    public Button btnPedidos;
-
+    private Button adminLogin;
     @FXML
-    private Button btnAyudaMenu;
-
+    private Button btnProductos;
     @FXML
     private Button btnEventos;
+    @FXML
+    private Button btnAyuda;
+    @FXML
+    private Button btnPedidos;
 
     @FXML
-    private Button adminLogin;
-
-    //Método genérico para cambiar la escena en base al FXML y hoja de estilos proporcionada.
-
-    private void changeScene(String fxmlPath, String cssPath, Button button, boolean maximizeStage) {
-        try {
-            // Cargar el archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            AnchorPane root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Añadir el estilo si se proporciona
-            if (cssPath != null && !cssPath.isEmpty()) {
-                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-            }
-
-            // Obtener la ventana actual a partir de cualquier nodo de la escena
-            Stage stage = (Stage) button.getScene().getWindow();
-
-            // Maximizar la ventana si es necesario
-            if (maximizeStage) {
-                stage.setMaximized(true);
-            }
-
-            // Cambiar la escena
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void AyudaMenu(ActionEvent event) {
-        changeScene(Paths.AYUDA_MENU, "/css/components.css", btnAyudaMenu, false);
+    void handleAyuda(ActionEvent event) {
+        SceneLoader.loadScene(new NodeSceneStrategy(btnAyuda), Paths.AYUDA, "/css/components.css", false);
     }
 
     @FXML
     void changeUser(ActionEvent event) {
-        changeScene(Paths.LOGIN, "/css/login.css", adminLogin, false);
+         SceneLoader.loadScene(new NodeSceneStrategy(adminLogin), Paths.LOGIN, "/css/login.css", true);
     }
 
     @FXML
     void handleEventos(ActionEvent event) {
-        changeScene(Paths.EVENTOS, "/css/eventos.css", btnEventos, true);
+        SceneLoader.loadScene(new NodeSceneStrategy(btnEventos), Paths.EVENTOS, "/css/eventos.css", true);
+    }
+
+    @FXML
+    void handleProductos(ActionEvent event) {
+        SceneLoader.loadScene(new NodeSceneStrategy(btnProductos), Paths.PRODUCTOS, "/css/productos.css", true);
     }
 }

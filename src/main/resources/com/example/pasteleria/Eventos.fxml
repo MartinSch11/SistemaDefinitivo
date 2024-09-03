@@ -105,7 +105,7 @@
                         </Label>
                     </children>
                 </Pane>
-                <Button fx:id="btnVolver" layoutX="14.0" layoutY="668.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+                <Button fx:id="btnVolver" layoutX="14.0" layoutY="668.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                             <image>

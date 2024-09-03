@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utilities.Paths;
+import utilities.SceneLoader;
 
 public class loginEmpleadoController {
 
@@ -20,28 +21,14 @@ public class loginEmpleadoController {
     private Button btnCancelarEmpleado;
 
     @FXML
-    private Button btnVolverDeEmpleado;
-
-    @FXML
     private Label errorLabel;
 
     @FXML
     private PasswordField passwordFieldEmpleado;
 
     @FXML
-    void handleVolverEmpleado(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Paths.LOGIN));
-            AnchorPane root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
-            Stage stage = (Stage) btnVolverDeEmpleado.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setMaximized(true);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    void handleVolver(ActionEvent event) {
+        SceneLoader.handleVolver(event, Paths.LOGIN, "/css/login.css", true);
     }
 
     @FXML

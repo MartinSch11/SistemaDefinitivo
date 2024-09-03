@@ -55,7 +55,7 @@
                   </Text>
                </children>
             </Pane>
-            <Button fx:id="btnVolverAyudaMenu" layoutX="7.0" layoutY="72.0" mnemonicParsing="false" onAction="#backMainMenu" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+            <Button fx:id="btnVolver" layoutX="7.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
