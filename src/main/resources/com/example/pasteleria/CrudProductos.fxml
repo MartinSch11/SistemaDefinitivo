@@ -64,16 +64,22 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" text="Agregar" />
-                        <Button mnemonicParsing="false" text="Modificar" GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" text="Eliminar" GridPane.columnIndex="2" />
+                        <Button alignment="CENTER" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar" />
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" GridPane.columnIndex="1">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar" GridPane.columnIndex="2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                   </GridPane>
                </children>
             </Pane>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="button-Volver">
                      <image>
                         <Image url="@../../../com.example.image/arrow_left.png" />
                      </image>

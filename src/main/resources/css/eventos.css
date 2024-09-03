@@ -1,27 +1,15 @@
 /* Estilos para todo el GridPane */
-#calendarGrid {
+.calendarGrid {
     -fx-border-color: black; /* Bordes del grid */
     -fx-border-width: 1px;
     -fx-border-style: solid;
-}
-
-/* Estilos para las celdas individuales del GridPane */
-.grid-cell {
     -fx-alignment: center;
     -fx-padding: 5;
     -fx-font-family: 'Inter', sans-serif;
+
 }
 
-.weekday-cell {
-    -fx-text-fill: black;
-}
-
-.weekend-cell {
+.weekend_cell {
     -fx-text-fill: blue;
-}
-
-/* Estilo para los fines de semana (Sábado y Domingo) */
-.weekend-cell {
     -fx-background-color: #cce7ff;
-    -fx-text-fill: black;
 }
