@@ -1,8 +1,10 @@
 .login{
     -fx-background-color: transparent;
-    -fx-pref-width: 75px;
-    -fx-pref-height: 75px;
+    -fx-pref-width: 160px;
+    -fx-pref-height: 50px;
     -fx-transition: transform 0.2s ease-in-out;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
 }
 
 .login .image-view {
@@ -33,7 +35,7 @@
 
 .txtButtonsMainMenu{
     -fx-font-family: Arial;
-    -fx-text-size: 24px;
+    -fx-font-size: 24px;
     -fx-text-fill: black;
 }
 
@@ -45,8 +47,8 @@
 }
 
 .button-Ayuda-MainMenu .image-view {
-    -fx-fit-width: 40px;
-    -fx-fit-height: 40px;
+    -fx-fit-width: 50px;
+    -fx-fit-height: 50px;
 }
 
 .button-Ayuda-MainMenu:hover{

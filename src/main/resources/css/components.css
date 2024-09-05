@@ -3,17 +3,10 @@
 /*----pane principal----*/
 .pane-principal{
     -fx-background-color: #f7ede3;
-    /*-fx-pref-width: ;
-    -fx-pref-height: ;*/
+    -fx-pref-width: 1360;
+    -fx-pref-height: 720;
 }
 
-/*-----se adapta al tamaño de la pantalla--------*/
-/*
-.object-fullscreen{
-    -fx-pref-width: ;
-    -fx-pref-height: ;
-}
-*/
 /*---------container-login----------*/
 .container-login{
     -fx-background-color: #f7ede3;
@@ -25,9 +18,11 @@
 /*---pane header-----*/
 .pane-Header{
     -fx-background-color: #B70505;
-    /*-fx-text-fill: ;
-    -fx-pref-width: ;
-    -fx-pref-height: ;*/
+    /*-fx-text-fill: ;*/
+    -fx-alignment: center;
+    -fx-pref-width: 1361px;
+    -fx-pref-height: 55px;
+    -fx-padding: 15px 0 0 0;
 }
 
 
@@ -71,6 +66,8 @@
 
 /*-----títulos--------*/
 .title{
-    /*-fx-text-fill: ;*/
-    -fx-text-size: 18px;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-alignment: center;
+
 }
