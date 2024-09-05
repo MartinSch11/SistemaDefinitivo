@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AProductoController">
+   <children>
+      <Pane prefHeight="450.0" prefWidth="500.0" style="-fx-background-color: f7ede3;">
+         <children>
+            <Pane prefHeight="55.0" prefWidth="500.0" style="-fx-background-color: B70505;">
+               <children>
+                  <Label layoutX="173.0" layoutY="15.0" text="Añadir Producto" textFill="WHITE">
+                     <font>
+                        <Font name="Inter Regular" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <GridPane gridLinesVisible="true" layoutX="36.0" layoutY="61.0" prefHeight="345.0" prefWidth="428.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="105.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.0" minWidth="10.0" prefWidth="323.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="106.0" minHeight="0.0" valignment="CENTER" />
+                  <RowConstraints maxHeight="181.0" minHeight="0.0" prefHeight="77.0" />
+                <RowConstraints maxHeight="102.0" minHeight="39.0" prefHeight="39.0" />
+                <RowConstraints maxHeight="125.0" minHeight="48.0" prefHeight="49.0" />
+                <RowConstraints maxHeight="176.0" minHeight="104.0" prefHeight="104.0" />
+              </rowConstraints>
+               <children>
+                  <Label text="Producto" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Categoría" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Descripción" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Precio" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Sabor" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNomProducto" prefWidth="313.0" promptText="Nombre del producto" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextArea fx:id="txtDescProducto" prefHeight="200.0" prefWidth="200.0" promptText="Descripción del producto" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <TextField fx:id="txtPrecio" promptText="Precio" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <ChoiceBox fx:id="chbCategoria" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </GridPane.margin>
+                  </ChoiceBox>
+                  <ListView fx:id="lstSabores" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </GridPane.margin>
+                  </ListView>
+               </children>
+            </GridPane>
+            <GridPane layoutX="103.0" layoutY="406.0" prefHeight="30.0" prefWidth="294.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btnGuardarProd" alignment="CENTER" mnemonicParsing="false" onAction="#handleGuardarProd" styleClass="buttons" stylesheets="@../../../css/components.css" text="Guardar">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleCancelar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" GridPane.columnIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
