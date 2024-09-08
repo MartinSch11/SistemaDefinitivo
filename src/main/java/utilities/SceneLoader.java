@@ -1,5 +1,7 @@
 package utilities;
 
+import controller.modalProductosController;
+import controller.CrudProductosController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -35,12 +37,16 @@ public class SceneLoader {
         loadScene(strategy, fxmlPath, stylesheetPath, maximized);
     }
 
-    public static void handleModal(NodeSceneStrategy event, String fxmlPath, String stylesheetPath) {
+    public static void handleModal(NodeSceneStrategy event, String fxmlPath, String stylesheetPath, CrudProductosController crudController) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(SceneLoader.class.getResource(fxmlPath));
             AnchorPane root = fxmlLoader.load();
-            Scene scene = new Scene(root);
 
+            // Obtener el controlador y setear crudController
+            modalProductosController modalProductosController = fxmlLoader.getController();
+            modalProductosController.setCrudController(crudController);
+
+            Scene scene = new Scene(root);
             if (stylesheetPath != null && !stylesheetPath.isEmpty()) {
                 scene.getStylesheets().add(Objects.requireNonNull(SceneLoader.class.getResource(stylesheetPath)).toExternalForm());
             }

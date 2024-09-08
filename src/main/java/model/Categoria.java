@@ -1,9 +1,28 @@
 package model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name = "categorias")
 public class Categoria {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_categoria;
+
     private String nombre;
+
+    // Constructor por defecto
+    public Categoria() {}
+
+    // Constructor con nombre
+    public Categoria(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

@@ -4,19 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import model.Producto;
+import persistence.dao.ProductoDAO;
 import utilities.NodeSceneStrategy;
 import utilities.Paths;
 import utilities.SceneLoader;
 
-import java.io.IOException;
+import java.util.List;
 
 public class CrudProductosController {
 
@@ -37,43 +33,57 @@ public class CrudProductosController {
     @FXML
     private TableColumn<Producto, String> colCategoria;
     @FXML
-    private TableColumn<Producto, Double> colPrecio;
+    private TableColumn<Producto, Float> colPrecio;
     @FXML
     private TableColumn<Producto, String> colSabor;
 
     private ObservableList<Producto> listaProductos;
+    private ProductoDAO productoDAO;
 
     @FXML
     public void initialize() {
+        productoDAO = new ProductoDAO();
         listaProductos = FXCollections.observableArrayList();
 
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabor"));
+        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));
 
+        cargarProductos();
+    }
+
+    private void cargarProductos() {
+        List<Producto> productos = productoDAO.findAll();
+        listaProductos.setAll(productos);
         tableProductos.setItems(listaProductos);
     }
 
     public void agregarProducto(Producto producto) {
+        productoDAO.save(producto);
         listaProductos.add(producto);
     }
 
     @FXML
     public void handleAgregar(ActionEvent event) {
-        SceneLoader.handleModal(new NodeSceneStrategy(btnAgregar), Paths.APRODUCTOS, "/css/components.css");;
+        SceneLoader.handleModal(new NodeSceneStrategy(btnAgregar), Paths.APRODUCTOS, "/css/components.css", this);
     }
 
     @FXML
     void handleModificar(ActionEvent event) {
-        // Lógica para modificar productos
+        Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
+        if (productoSeleccionado != null) {
+            // Lógica para modificar el producto
+            productoDAO.update(productoSeleccionado);
+        }
     }
 
     @FXML
     void handleEliminar(ActionEvent event) {
         Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
+            productoDAO.delete(productoSeleccionado);
             listaProductos.remove(productoSeleccionado);
         }
     }
@@ -81,5 +91,9 @@ public class CrudProductosController {
     @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+    }
+
+    public void close() {
+        productoDAO.close();
     }
 }
