@@ -37,14 +37,15 @@ public class SceneLoader {
         loadScene(strategy, fxmlPath, stylesheetPath, maximized);
     }
 
-    public static void handleModal(NodeSceneStrategy event, String fxmlPath, String stylesheetPath, CrudProductosController crudController) {
+    // Método actualizado para retornar el controlador del modal
+    public static modalProductosController handleModalWithController(NodeSceneStrategy event, String fxmlPath, String stylesheetPath, CrudProductosController crudController) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(SceneLoader.class.getResource(fxmlPath));
             AnchorPane root = fxmlLoader.load();
 
-            // Obtener el controlador y setear crudController
+            // Obtener el controlador del modal
             modalProductosController modalProductosController = fxmlLoader.getController();
-            modalProductosController.setCrudController(crudController);
+            modalProductosController.setCrudController(crudController);  // Seta crudController si es necesario
 
             Scene scene = new Scene(root);
             if (stylesheetPath != null && !stylesheetPath.isEmpty()) {
@@ -55,8 +56,12 @@ public class SceneLoader {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+
+            // Retornar el controlador del modal
+            return modalProductosController;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

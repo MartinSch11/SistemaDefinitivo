@@ -2,15 +2,16 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import model.Evento;
 import utilities.Paths;
 import utilities.SceneLoader;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
@@ -23,159 +24,184 @@ public class EventosController {
 
     @FXML
     private GridPane calendarGrid;
-
     @FXML
     private Pane monthPane;
+    @FXML
+    private Pane PaneDetalleEvento;
+    @FXML
+    private TextField eventNameField;
+    @FXML
+    private TextArea eventDescriptionField;
 
     private YearMonth currentYearMonth;
-    private Map<LocalDate, String> events = new HashMap<>();
+    private Map<LocalDate, Evento> events = new HashMap<>();
 
     @FXML
     private void initialize() {
         currentYearMonth = YearMonth.now();
-        populateCalendar(currentYearMonth);
+        PaneDetalleEvento.setVisible(false); // Ocultar el panel inicialmente
+        llenarCalendario(currentYearMonth);
     }
 
-    private void populateCalendar(YearMonth yearMonth) {
-        // Limpiar el GridPane
+    private void llenarCalendario(YearMonth mesAnio) {
         calendarGrid.getChildren().clear();
-        calendarGrid.setGridLinesVisible(true);
 
-        // Obtener el primer día del mes y cuántos días tiene el mes
-        LocalDate firstDayOfMonth = yearMonth.atDay(1);
-        int daysInMonth = yearMonth.lengthOfMonth();
-        int dayOfWeek = firstDayOfMonth.getDayOfWeek().getValue(); // 1 = Lunes, 7 = Domingo
+        LocalDate primerDiaDelMes = mesAnio.atDay(1);
+        int diasEnElMes = mesAnio.lengthOfMonth();
+        int diaDeLaSemana = primerDiaDelMes.getDayOfWeek().getValue(); // 1 = Lunes, 7 = Domingo
 
-        // Actualizar el label con el mes y año en español
-        Label monthLabel = (Label) monthPane.lookup("#monthLabel");
-        Locale spanishLocale = new Locale("es", "ES");
-        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
-        monthLabel.setText(monthName.substring(0, 1).toUpperCase() + monthName.substring(1) + " " + yearMonth.getYear());
+        Label etiquetaMes = (Label) monthPane.lookup("#monthLabel");
+        Locale localEspanol = new Locale("es", "ES");
+        String nombreMes = mesAnio.getMonth().getDisplayName(TextStyle.FULL, localEspanol);
+        etiquetaMes.setText(nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1) + " " + mesAnio.getYear());
 
-        // Calcular el número de filas necesarias
-        int totalSlots = dayOfWeek - 1 + daysInMonth;
-        int rowsNeeded = (totalSlots / 7) + (totalSlots % 7 == 0 ? 0 : 1);
+        int espaciosTotales = diaDeLaSemana - 1 + diasEnElMes;
+        int filasNecesarias = (espaciosTotales / 7) + (espaciosTotales % 7 == 0 ? 0 : 1);
 
-        // Asegurarse de que hay suficientes filas
         calendarGrid.getRowConstraints().clear();
-        for (int i = 0; i < rowsNeeded + 1; i++) { // +1 para la fila de los días de la semana
-            RowConstraints row = new RowConstraints();
-            row.setPrefHeight(50);
-            calendarGrid.getRowConstraints().add(row);
+        for (int i = 0; i < filasNecesarias + 1; i++) {
+            RowConstraints fila = new RowConstraints();
+            calendarGrid.getRowConstraints().add(fila);
         }
 
-        // Añadir encabezados de los días de la semana
-        String[] weekDays = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
-        for (int i = 0; i < weekDays.length; i++) {
-            Label dayLabel = new Label(weekDays[i]);
-            dayLabel.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-font-weight: bold;");
-            calendarGrid.add(dayLabel, i, 0);
+        YearMonth mesAnterior = mesAnio.minusMonths(1);
+        int diasEnElMesAnterior = mesAnterior.lengthOfMonth();
+
+        int filaActual = 1;
+        int columnaActual = diaDeLaSemana - 1;
+
+        for (int i = columnaActual - 1; i >= 0; i--) {
+            Label etiquetaDia = new Label(String.valueOf(diasEnElMesAnterior - (columnaActual - 1 - i)));
+            etiquetaDia.getStyleClass().add("celda-dia-semana"); // Clase CSS
+            calendarGrid.add(etiquetaDia, i, filaActual);
         }
 
-        // Obtener el mes anterior y sus días
-        YearMonth previousMonth = yearMonth.minusMonths(1);
-        int daysInPreviousMonth = previousMonth.lengthOfMonth();
+        int numeroDia = 1;
+        while (numeroDia <= diasEnElMes) {
+            Label etiquetaDia = new Label(String.valueOf(numeroDia));
+            LocalDate fechaActual = LocalDate.of(mesAnio.getYear(), mesAnio.getMonth(), numeroDia);
 
-        // Variables para seguir la posición en el grid
-        int currentRow = 1; // Comienza en la primera fila de los días
-        int currentColumn = dayOfWeek - 1; // Comienza en la columna del primer día del mes
+            if (events.containsKey(fechaActual)) {
+                etiquetaDia.setStyle("-fx-text-fill: red;");
+            }
 
-        // Colocar los últimos días del mes anterior si el primer día no es lunes
-        for (int i = currentColumn - 1; i >= 0; i--) {
-            Label dayLabel = new Label(String.valueOf(daysInPreviousMonth - (currentColumn - 1 - i)));
-            dayLabel.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-text-fill: lightgray;");
-            calendarGrid.add(dayLabel, i, currentRow); // En la primera fila
-        }
+            etiquetaDia.setOnMouseClicked(event -> handleDayClick(fechaActual));
 
-        // Añadir días del mes actual
-        int dayNumber = 1;
-        while (dayNumber <= daysInMonth) {
-            Label dayLabel = new Label(String.valueOf(dayNumber));
-
-            // Colorear fines de semana
-            if (currentColumn == 5 || currentColumn == 6) { // Sábado y Domingo
-                dayLabel.getStyleClass().add("grid-cell");
-                dayLabel.getStyleClass().add("weekend-cell");
+            if (columnaActual == 5 || columnaActual == 6) {
+                etiquetaDia.getStyleClass().add("celda-fin-de-semana");
             } else {
-                dayLabel.getStyleClass().add("grid-cell");
-                dayLabel.getStyleClass().add("weekday-cell");
+                etiquetaDia.getStyleClass().add("celda-dia-semana");
             }
 
-            calendarGrid.add(dayLabel, currentColumn, currentRow);
+            calendarGrid.add(etiquetaDia, columnaActual, filaActual);
+            columnaActual++;
 
-            // Mover al siguiente día
-            dayNumber++;
-            currentColumn++;
-
-            // Si llegamos al final de la semana, saltamos a la siguiente fila
-            if (currentColumn == 7) {
-                currentColumn = 0;
-                currentRow++;
+            if (columnaActual == 7) {
+                columnaActual = 0;
+                filaActual++;
             }
+
+            numeroDia++;
         }
 
-        // Añadir días del mes siguiente en las celdas vacías después del final del mes actual
-        dayNumber = 1;
-        while (currentColumn < 7) {
-            Label dayLabel = new Label(String.valueOf(dayNumber));
-            dayLabel.setStyle("-fx-alignment: center; -fx-padding: 5; -fx-text-fill: lightgray;");
-            calendarGrid.add(dayLabel, currentColumn, currentRow);
-            dayNumber++;
-            currentColumn++;
+        numeroDia = 1;
+        while (columnaActual < 7) {
+            Label etiquetaDia = new Label(String.valueOf(numeroDia));
+            etiquetaDia.getStyleClass().add("celda-dia-semana");
+            calendarGrid.add(etiquetaDia, columnaActual, filaActual);
+            numeroDia++;
+            columnaActual++;
         }
 
-        // Quitar la fila extra si no es necesaria (cuando el total de días no excede las 5 filas)
-        if (dayNumber - 1 <= 35) {
+        if (numeroDia - 1 <= 35) {
             calendarGrid.getRowConstraints().remove(calendarGrid.getRowConstraints().size() - 1);
         }
     }
 
     private void handleDayClick(LocalDate date) {
-        String existingEvent = getEvent(date);
-        String eventText = existingEvent != null ? existingEvent : "No events";
+        Evento evento = events.get(date);
 
-        // Mostrar detalles del evento en una alerta
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Event Details");
-        alert.setHeaderText("Events on " + date);
-        alert.setContentText(eventText);
-        alert.showAndWait();
+        if (evento != null) {
+            PaneDetalleEvento.setVisible(true);
+
+            // Suponiendo que tienes etiquetas (Labels) en PaneDetalleEvento para mostrar los detalles:
+            Label nombreEventoLabel = (Label) PaneDetalleEvento.lookup("#nombreEventoLabel");
+            Label nombreClienteLabel = (Label) PaneDetalleEvento.lookup("#nombreClienteLabel");
+            Label telefonoClienteLabel = (Label) PaneDetalleEvento.lookup("#telefonoClienteLabel");
+            Label direccionEventoLabel = (Label) PaneDetalleEvento.lookup("#direccionEventoLabel");
+
+            nombreEventoLabel.setText(evento.getNombreEvento());
+            nombreClienteLabel.setText(evento.getNombreCliente());
+            telefonoClienteLabel.setText(evento.getTelefonoCliente());
+            direccionEventoLabel.setText(evento.getDireccionEvento());
+        } else {
+            PaneDetalleEvento.setVisible(false); // Ocultar si no hay evento
+        }
     }
 
-    private void addEvent(LocalDate date, String event) {
-        events.put(date, event);
-    }
+    private void addEvent(LocalDate date, Evento event) {
+        if (events.containsKey(date)) {
+            // Mostrar una alerta si ya existe un evento en esta fecha
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Evento Duplicado");
+            alert.setHeaderText("Ya existe un evento en esta fecha");
+            alert.setContentText("Por favor, elige otra fecha o modifica el evento existente.");
+            alert.showAndWait();
+            return;
+        }
 
-    private String getEvent(LocalDate date) {
-        return events.get(date);
+        events.put(date, event);  // Almacenar el evento en el mapa
+        if (currentYearMonth.equals(YearMonth.from(date))) {
+            llenarCalendario(currentYearMonth);  // Repintar el calendario solo si el evento pertenece al mes actual
+        }
     }
 
     @FXML
     private void handlePrevMonth() {
         currentYearMonth = currentYearMonth.minusMonths(1);
-        populateCalendar(currentYearMonth);
+        llenarCalendario(currentYearMonth);
     }
 
     @FXML
     private void handleNextMonth() {
         currentYearMonth = currentYearMonth.plusMonths(1);
-        populateCalendar(currentYearMonth);
+        llenarCalendario(currentYearMonth);
     }
 
     @FXML
     private void handleAddEvent() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Agregar Evento");
-        dialog.setHeaderText("Añadir evento a la fecha seleccionada");
-        dialog.setContentText("Evento:");
+        try {
+            // Cargar el formulario personalizado
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
+            DialogPane dialogPane = loader.load();
 
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(event -> {
-            // Suponemos que la fecha seleccionada es hoy para simplificar
-            LocalDate selectedDate = LocalDate.now(); // Cambia esto por la fecha seleccionada
-            addEvent(selectedDate, event);
-            populateCalendar(currentYearMonth); // Actualiza el calendario
-        });
+            // Crear un diálogo
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Agregar Evento");
+
+            // Obtener el controlador del formulario
+            EventoFormController controller = loader.getController();
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Recoger los datos del formulario
+                String nombreEvento = controller.getNombreEvento();
+                String descripcionEvento = controller.getDescripcionEvento();
+                String nombreCliente = controller.getNombreCliente();
+                String telefonoCliente = controller.getTelefonoCliente();
+                String direccionEvento = controller.getDireccionEvento();
+                LocalDate fechaEvento = controller.getFechaEvento();  // Recoger la fecha
+
+                // Crear el nuevo evento
+                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, nombreCliente, telefonoCliente, direccionEvento);
+
+                // Añadir el evento al mapa y actualizar el calendario
+                addEvent(fechaEvento, nuevoEvento);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

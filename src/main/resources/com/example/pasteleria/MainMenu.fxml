@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -19,7 +20,7 @@
    </stylesheets>
    <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
       <Pane prefHeight="80.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
-         <Button fx:id="btnAyuda" layoutX="1275.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleAyuda" style="-fx-background-color: B70505;" styleClass="button-Ayuda-MainMenu" stylesheets="@../../../css/mainMenu.css">
+         <Button fx:id="btnAyuda" layoutX="1290.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleAyuda" style="-fx-background-color: B70505;" styleClass="button-Ayuda-MainMenu" stylesheets="@../../../css/mainMenu.css">
             <graphic>
                <ImageView fitHeight="45.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -31,7 +32,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Button fx:id="adminLogin" alignment="BASELINE_LEFT" layoutX="24.0" layoutY="3.0" mnemonicParsing="false" onAction="#changeUser" prefHeight="55.0" prefWidth="157.0" styleClass="login" stylesheets="@../../../css/mainMenu.css" text="Admin" textFill="WHITE">
+         <Button fx:id="adminLogin" alignment="BASELINE_LEFT" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#changeUser" prefHeight="55.0" prefWidth="157.0" styleClass="login" stylesheets="@../../../css/mainMenu.css" text="Admin" textFill="WHITE">
             <graphic>
                <ImageView fitHeight="41.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../../../com.example.image/iconAvatarEnBlanco.png" />
@@ -59,17 +60,21 @@
          </rowConstraints>
 
          <!-- Estadísticas Button -->
-         <Button id="btnEstadisticas" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-            <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../../../com.example.image/iconEstadisticas.png" />
-               </ImageView>
-            </graphic>
+         <Button id="btnEstadisticas" fx:id="btnEstadistica" mnemonicParsing="false" onAction="#handleEstadistica" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
+            <graphic>
+               <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <children>
+                     <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
+                        <Image url="@../../../com.example.image/iconEstadisticas.png" />
+                     </ImageView>
+                  </children>
+               </StackPane>
+            </graphic>
          </Button>
-         <Text text="Estadísticas" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Estadísticas" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -77,16 +82,16 @@
 
          <!-- Eventos Button -->
          <Button id="btnEventos" fx:id="btnEventos" mnemonicParsing="false" onAction="#handleEventos" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-            <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../../../com.example.image/iconEventos.png" />
-               </ImageView>
-            </graphic>
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
+            <graphic>
+               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
+                  <Image url="@../../../com.example.image/iconEventos.png" />
+               </ImageView>
+            </graphic>
          </Button>
-         <Text text="Eventos" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Eventos" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -95,7 +100,7 @@
          <!-- Pedidos Button -->
          <Button id="btnPedidos" fx:id="btnPedidos" mnemonicParsing="false" onAction="#handlePedidos" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
                   <Image url="@../../../com.example.image/iconPedidos.png" />
                </ImageView>
             </graphic>
@@ -103,7 +108,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Text text="Pedidos" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Pedidos" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -111,16 +116,16 @@
 
          <!-- Caducidad Insumos Button -->
          <Button id="btnCaducidadInsumos" fx:id="btnCaducidadInsumos" mnemonicParsing="false" onAction="#handleCaducidadInsumos" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-            <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../../../com.example.image/iconCadInsumo.png" />
-               </ImageView>
-            </graphic>
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
+            <graphic>
+               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
+                  <Image url="@../../../com.example.image/iconCadInsumo.png" />
+               </ImageView>
+            </graphic>
          </Button>
-         <Text text="Caducidad Insumos" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Caducidad Insumos" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -129,7 +134,7 @@
          <!-- Productos Button -->
          <Button id="btnProductos" fx:id="btnProductos" mnemonicParsing="false" onAction="#handleProductos" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
                   <Image url="@../../../com.example.image/iconProductos.png" />
                </ImageView>
             </graphic>
@@ -137,7 +142,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Text text="Productos" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Productos" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -146,7 +151,7 @@
          <!-- Proveedores Button -->
          <Button id="btnProveedores" fx:id="btnProveedores" mnemonicParsing="false" onAction="#handleProveedores" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
                   <Image url="@../../../com.example.image/iconProveedores.png" />
                </ImageView>
             </graphic>
@@ -154,7 +159,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Text text="Proveedores" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Proveedores" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -163,7 +168,7 @@
          <!-- Stock Button -->
          <Button id="btnStock" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <graphic>
-               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
                   <Image url="@../../../com.example.image/iconStock.png" />
                </ImageView>
             </graphic>
@@ -171,7 +176,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Text text="Stock" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Stock" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>

@@ -13,6 +13,9 @@ import model.Categoria;
 import model.Producto;
 import model.Sabor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class modalProductosController {
     @FXML
     private ListView<String> lstSabores;
@@ -27,6 +30,8 @@ public class modalProductosController {
 
     @Setter
     private CrudProductosController crudController;
+    @Setter
+    private Producto productoParaEditar;
 
     private ProductoDAO productoDAO = new ProductoDAO();
     private CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -36,32 +41,63 @@ public class modalProductosController {
     public void initialize() {
         cargarCategorias();
         cargarSabores();
+
+        if (productoParaEditar != null) {
+            cargarDatosProducto(productoParaEditar);
+        }
     }
 
     private void cargarCategorias() {
-        ObservableList<String> categorias = FXCollections.observableArrayList();
-        for (Categoria categoria : categoriaDAO.findAll()) {
-            categorias.add(categoria.getNombre());
-        }
+        ObservableList<String> categorias = FXCollections.observableArrayList(
+                categoriaDAO.findAll().stream()
+                        .map(Categoria::getNombre)
+                        .collect(Collectors.toList())
+        );
         chbCategoria.setItems(categorias);
         chbCategoria.getSelectionModel().selectFirst();
     }
 
     private void cargarSabores() {
-        ObservableList<String> sabores = FXCollections.observableArrayList();
-        for (Sabor sabor : saborDAO.findAll()) {
-            sabores.add(sabor.getSabor());  // Usa getSabor en lugar de getNombre
-        }
+        ObservableList<String> sabores = FXCollections.observableArrayList(
+                saborDAO.findAll().stream()
+                        .map(Sabor::getSabor)
+                        .collect(Collectors.toList())
+        );
         lstSabores.getItems().addAll(sabores);
         lstSabores.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    private void cargarDatosProducto(Producto producto) {
+        txtNomProducto.setText(producto.getNombre());
+        txtDescProducto.setText(producto.getDescripcion());
+        chbCategoria.setValue(producto.getCategoria().getNombre());
+        txtPrecio.setText(String.valueOf(producto.getPrecio()));
+
+        List<String> saboresProducto = producto.getSabores().stream()
+                .map(Sabor::getSabor)
+                .collect(Collectors.toList());
+
+        lstSabores.getSelectionModel().clearSelection(); // Limpiar selección previa
+
+        for (String sabor : saboresProducto) {
+            int index = lstSabores.getItems().indexOf(sabor);
+            if (index >= 0) {
+                lstSabores.getSelectionModel().select(index);
+            }
+        }
     }
 
     @FXML
     private void handleGuardarProd() {
         Producto producto = crearProductoDesdeFormulario();
         if (producto != null) {
-            productoDAO.save(producto); // Guardar el producto en la base de datos
-            crudController.agregarProducto(producto);
+            if (productoParaEditar == null) {
+                productoDAO.save(producto); // Guardar nuevo producto
+                crudController.agregarProducto(producto);
+            } else {
+                productoDAO.update(producto); // Actualizar producto existente
+                crudController.actualizarProducto(producto);
+            }
             cerrarVentana();
         }
     }
@@ -71,6 +107,11 @@ public class modalProductosController {
         String descripcion = txtDescProducto.getText();
         String categoriaSeleccionada = chbCategoria.getValue();
 
+        if (nombre.isEmpty() || descripcion.isEmpty() || categoriaSeleccionada == null || txtPrecio.getText().isEmpty()) {
+            mostrarAlerta("Error", "Datos incompletos", "Por favor, completa todos los campos.");
+            return null;
+        }
+
         float precio;
         try {
             precio = Float.parseFloat(txtPrecio.getText());
@@ -79,16 +120,27 @@ public class modalProductosController {
             return null;
         }
 
-        Categoria categoria = new Categoria();
-        categoria.setNombre(categoriaSeleccionada);
+        Categoria categoria = categoriaDAO.findByName(categoriaSeleccionada);
+        if (categoria == null) {
+            mostrarAlerta("Error", "Categoría no encontrada", "La categoría seleccionada no es válida.");
+            return null;
+        }
 
-        Producto producto = new Producto(nombre, descripcion, categoria, precio);
+        Producto producto = (productoParaEditar == null) ?
+                new Producto(nombre, descripcion, categoria, precio) : productoParaEditar;
 
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setCategoria(categoria);
+        producto.setPrecio(precio);
+
+        producto.getSabores().clear();
         ObservableList<String> saboresSeleccionados = lstSabores.getSelectionModel().getSelectedItems();
         for (String saborSeleccionado : saboresSeleccionados) {
-            Sabor sabor = new Sabor();
-            sabor.setSabor(saborSeleccionado);  // Usa setSabor en lugar de setNombre
-            producto.getSabores().add(sabor);
+            Sabor sabor = saborDAO.findByName(saborSeleccionado);
+            if (sabor != null) {
+                producto.getSabores().add(sabor);
+            }
         }
 
         return producto;
@@ -109,7 +161,6 @@ public class modalProductosController {
 
     @FXML
     private void handleCancelar() {
-        Stage stage = (Stage) txtNomProducto.getScene().getWindow();
-        stage.close();
+        cerrarVentana();
     }
 }

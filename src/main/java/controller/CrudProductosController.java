@@ -52,6 +52,13 @@ public class CrudProductosController {
         colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));
 
         cargarProductos();
+
+        // Agregar Listener para habilitar los botones cuando se seleccione un producto
+        tableProductos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean productoSeleccionado = newSelection != null;
+            btnModificar.setDisable(!productoSeleccionado);
+            btnEliminar.setDisable(!productoSeleccionado);
+        });
     }
 
     private void cargarProductos() {
@@ -67,15 +74,19 @@ public class CrudProductosController {
 
     @FXML
     public void handleAgregar(ActionEvent event) {
-        SceneLoader.handleModal(new NodeSceneStrategy(btnAgregar), Paths.APRODUCTOS, "/css/components.css", this);
+        modalProductosController controller = SceneLoader.handleModalWithController(new NodeSceneStrategy(btnAgregar), Paths.APRODUCTOS, "/css/components.css", this);
+        // Si es necesario, puedes interactuar con el controlador aquí
     }
 
     @FXML
     void handleModificar(ActionEvent event) {
         Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
-            // Lógica para modificar el producto
-            productoDAO.update(productoSeleccionado);
+            // Llamar al método que retorna el controlador
+            modalProductosController controller = SceneLoader.handleModalWithController(new NodeSceneStrategy(btnModificar), Paths.APRODUCTOS, "/css/components.css", this);
+            if (controller != null) {
+                controller.setProductoParaEditar(productoSeleccionado);  // Pasa el producto al modal para editarlo
+            }
         }
     }
 
@@ -95,5 +106,12 @@ public class CrudProductosController {
 
     public void close() {
         productoDAO.close();
+    }
+
+    public void actualizarProducto(Producto producto) {
+        int index = listaProductos.indexOf(producto);  // Reemplaza 'productos' por 'listaProductos'
+        if (index >= 0) {
+            listaProductos.set(index, producto); // Actualiza el producto en la lista observable
+        }
     }
 }

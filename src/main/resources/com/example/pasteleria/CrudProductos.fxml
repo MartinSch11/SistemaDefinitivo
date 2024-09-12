@@ -47,9 +47,9 @@
                <content>
                   <TableView fx:id="tableProductos" prefHeight="470.0" prefWidth="1300.0">
                     <columns>
-                      <TableColumn prefWidth="100.0" text="Código" />
-                      <TableColumn fx:id="colNombre" prefWidth="300.0" text="Producto" />
-                        <TableColumn fx:id="colDescripcion" prefWidth="300.0" text="Descripción" />
+                      <TableColumn prefWidth="67.0" text="Código" />
+                      <TableColumn fx:id="colNombre" prefWidth="271.0" text="Producto" />
+                        <TableColumn fx:id="colDescripcion" prefWidth="394.0" text="Descripción" />
                         <TableColumn fx:id="colCategoria" prefWidth="200.0" text="Categoría" />
                         <TableColumn fx:id="colPrecio" prefWidth="150.0" text="Precio" />
                         <TableColumn fx:id="colSabor" prefWidth="200.0" text="Sabor" />

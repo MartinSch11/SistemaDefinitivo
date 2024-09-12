@@ -1,0 +1,8 @@
+.texto{
+    -fx-font-size: 16px;
+}
+
+.text-field{
+    -fx-pref-height: 25px;
+    -fx-pref-width: 200px;
+}

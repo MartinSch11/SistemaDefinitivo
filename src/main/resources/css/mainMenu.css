@@ -8,34 +8,42 @@
 }
 
 .login .image-view {
-    -fx-fit-width: 65px;
-    -fx-fit-height: 65px;
+    -fx-fit-width: 40px;
+    -fx-fit-height: 40px;
  }
 
  .login:hover{
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
-.buttonsMainMenu{
+.buttonsMainMenu {
     -fx-background-color: transparent;
     -fx-border-color:  #B70505;
     -fx-border-radius: 5px;
     -fx-border-width: 2px;
-    -fx-text: none;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0, 4);
     -fx-pref-width: 125px;
     -fx-pref-height: 125px;
-    -fx-transition: all 0.3s ease;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.3, 0, 3);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: all 0.7s ease;
+}
+
+.buttonsMainMenuImage {
+    -fx-effect: null; /* Sin sombra para las imágenes */
 }
 
 .buttonsMainMenu:hover {
-    -fx-translate-y: -5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0.3, 0, 3);
+    -fx-translate-y: -4px;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-transition: all 0.7s ease;
 }
 
 .txtButtonsMainMenu{
-    -fx-font-family: Arial;
-    -fx-font-size: 24px;
+    -fx-font-size: 16px;
     -fx-text-fill: black;
 }
 
@@ -43,15 +51,15 @@
     -fx-background-color: transparent;
     -fx-pref-width: 55px;
     -fx-pref-height: 55px;
-    -fx-transition: transform 0.2s ease-in-out;
+    -fx-transition: transform 0.7s ease-in-out;
 }
 
 .button-Ayuda-MainMenu .image-view {
-    -fx-fit-width: 50px;
-    -fx-fit-height: 50px;
+    -fx-fit-width: 40px;
+    -fx-fit-height: 40px;
 }
 
 .button-Ayuda-MainMenu:hover{
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }

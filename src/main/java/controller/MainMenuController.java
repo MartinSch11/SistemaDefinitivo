@@ -23,6 +23,8 @@ public class MainMenuController {
     private Button btnCaducidadInsumos;
     @FXML
     private Button btnProveedores;
+    @FXML
+    private Button btnEstadistica;
 
     @FXML
     void handleAyuda(ActionEvent event) {
@@ -57,5 +59,10 @@ public class MainMenuController {
     @FXML
     void handleProveedores(ActionEvent event)  {
         SceneLoader.loadScene(new NodeSceneStrategy(btnProveedores), Paths.PROVEEDORES, "/css/components.css", false);
+    }
+
+    @FXML
+    void handleEstadistica(ActionEvent event) {
+        SceneLoader.loadScene(new NodeSceneStrategy(btnEstadistica), Paths.ESTADISTICA, "/css/components.css", false);
     }
 }

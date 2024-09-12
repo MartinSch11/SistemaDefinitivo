@@ -50,7 +50,7 @@
             </HBox>
             <Label layoutX="510.0" layoutY="96.0" style="-fx-text-fill: #B70505;" text="¡Bienvenido!">
                <font>
-                  <Font name="System Bold" size="58.0" />
+                  <Font name="Inter 28pt SemiBold" size="58.0" />
                </font>
             </Label>
          </children>
