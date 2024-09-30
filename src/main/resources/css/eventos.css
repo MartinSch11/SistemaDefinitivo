@@ -1,16 +1,14 @@
 .calendarGrid {
     -fx-border-color: black;
-    -fx-border-width: 1px;
 }
 
 .calendarGrid .label {
-    -fx-alignment: center; /* Para alinear los números en el centro y arriba */
     -fx-font-family: 'Inter'; /* Cambia la fuente si es necesario */
     -fx-font-size: 16px;
 }
 
 .celda-dia-semana, .celda-fin-de-semana {
-    -fx-alignment: top-center; /* Centrado vertical y horizontal */
+    -fx-alignment: center; /* Centrado vertical y horizontal */
     -fx-border-color: black; /* Color de las líneas */
     -fx-border-width: 1px;
     -fx-padding: 25px; /* Espacio dentro de cada celda */
@@ -19,7 +17,7 @@
 }
 
 .celda-fin-de-semana {
-    -fx-text-fill: #004BA8 ;
+    -fx-text-fill: #3F88C5 ;
 }
 
 .eventoButton{
@@ -29,7 +27,6 @@
     -fx-border-width: 1px;
     -fx-border-color: #B70505;
     -fx-border-radius: 5px;
-    -fx-pref-width: 130px;
 }
 
 .eventoButton:hover{
@@ -44,10 +41,50 @@
     -fx-font-family: 'Inter';
     -fx-background-color: #e3e4e5;
     -fx-text-alignment: center;
-    -fx-border-radius: 5px;
     -fx-font-size: 16px;
 }
 .daysGrid{
     -fx-font-family: 'Inter';
     -fx-background-color: #e4e4e4;
+}
+
+.dia-con-evento {
+    -fx-background-color: #EE6352;
+    -fx-text-fill: white;
+}
+
+.eventDayTitle{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 16px;
+    -fx-text-fill: #B70505;
+}
+.eventDayText {
+    -fx-font-family: 'Inter';
+    -fx-font-size: 13px;
+}
+
+/* Días del mes anterior o siguiente */
+.celda-mes-externo {
+    -fx-text-fill: #A0A0A0;
+    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-padding: 25px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 50px;
+}
+
+/* Fines de semana del mes anterior o siguiente */
+.celda-mes-externo-fin-de-semana {
+    -fx-text-fill: #3F88C5;
+    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-padding: 25px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 50px;
+}
+
+#btnClose{
+        -fx-background-color: transparent;
 }

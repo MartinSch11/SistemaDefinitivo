@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;  // Cambiado a BigDecimal
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,35 +13,41 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "productos")  // Nombre de la tabla en la base de datos
+@Table(name = "productos")
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_producto;
+    @Column(name = "id")
+    private int id;
 
     private String nombre;
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria")  // Foreign key de la tabla Categorias
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
-    private float precio;
+    private BigDecimal precio;
 
     @ManyToMany
     @JoinTable(
-            name = "Producto_Sabor",  // Nombre de la tabla intermedia
+            name = "Producto_Sabor",
             joinColumns = @JoinColumn(name = "id_producto"),
             inverseJoinColumns = @JoinColumn(name = "id_sabor")
     )
-    private List<Sabor> sabores = new ArrayList<>();  // Relación muchos a muchos
+    private List<Sabor> sabores = new ArrayList<>();
 
-    public Producto(String nombre, String descripcion, Categoria categoria, float precio) {
+    @Lob
+    @Column(name = "imagen")
+    private byte[] imagen;
+
+    public Producto(String nombre, String descripcion, Categoria categoria, BigDecimal precio, byte[] imagen) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.precio = precio;
+        this.imagen = imagen;
     }
 
     @Override
