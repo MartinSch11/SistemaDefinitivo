@@ -1,5 +1,5 @@
 /* Estilo por defecto de los botones */
-#btnAdmin, #btnEmple {
+#btnAdmin, #btnEmple, #btnCajera {
     -fx-background-color: #f2e1b4;
     -fx-text-fill: #a40000;
     -fx-font-size: 20px;
@@ -12,7 +12,7 @@
 }
 
 /* Hover con efecto de sombra y cambio de tamaño */
-#btnAdmin:hover, #btnEmple:hover {
+#btnAdmin:hover, #btnEmple:hover, #btnCajera:hover {
     -fx-background-color: #e0d3a7;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;

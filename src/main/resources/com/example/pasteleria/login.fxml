@@ -14,7 +14,7 @@
    <children>
       <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
-            <HBox layoutX="479.0" layoutY="256.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+            <HBox layoutX="351.0" layoutY="254.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
                   <Button fx:id="btnAdmin" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#clickAdmin" style="-fx-background-color: f7ede3;" text="Administrador" textAlignment="CENTER" textFill="#a40000">
                      <graphic>
@@ -34,6 +34,21 @@
                   <Button fx:id="btnEmple" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#clickEmpleado" style="-fx-background-color: f7ede3;" text="Empleado" textFill="#a40000">
                      <graphic>
                         <ImageView fx:id="btnEmpleado" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/avatar_usuario.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Inter Regular" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnCajera" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" mnemonicParsing="false" onAction="#clickCajera" style="-fx-background-color: f7ede3;" text="Cajera" textAlignment="CENTER" textFill="#a40000">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../com.example.image/avatar_usuario.png" />
                            </image>

@@ -10,13 +10,31 @@ import javafx.stage.Stage;
 import utilities.Paths;
 
 public class loginController {
-
+    @FXML
+    private Button btnCajera;
     @FXML
     private Button btnAdmin;
 
     @FXML
     private Button btnEmple;
 
+    @FXML
+    void clickCajera(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Paths.CAJERA_LOGIN));
+            AnchorPane root = loader.load();
+            Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(getClass().getResource("/css/loginCajera.css").toExternalForm());
+
+            Stage stage = (Stage) btnCajera.getScene().getWindow();
+            stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void clickAdmin(ActionEvent event) {

@@ -1,0 +1,11 @@
+#btnNuevoPedido{
+    -fx-background-color: transparent;
+    -fx-border-radius: 4px;
+    -fx-border-color: #B70505;
+    -fx-text-fill: black;
+}
+
+#btnNuevoPedido:hover{
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}

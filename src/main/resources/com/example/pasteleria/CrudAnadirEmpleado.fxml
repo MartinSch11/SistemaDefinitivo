@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1285.0" style="-fx-background-color: #f7ede3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrudAnadirEmpleadoController">
+    <stylesheets>
+        <URL value="@../../../css/components.css" />
+    </stylesheets>
+    <children>
+      <GridPane alignment="CENTER" layoutX="499.0" layoutY="535.0" prefHeight="58.0" prefWidth="274.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="btnGuardar" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Guardar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CancelarModificacionEmpleados" prefHeight="26.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" GridPane.columnIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </GridPane>
+      <GridPane alignment="CENTER" layoutX="27.0" layoutY="58.0" prefHeight="38.0" prefWidth="622.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="187.9999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.20001220703125" minWidth="10.0" prefWidth="434.4000244140625" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Empleados actuales:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbEmpleadosActuales" prefHeight="26.0" prefWidth="435.0" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <Label layoutX="458.0" layoutY="18.0" text="Modificación de empleados">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAnadirEmpleado" alignment="CENTER" layoutX="251.0" layoutY="122.0" mnemonicParsing="false" onAction="#anadirEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" textAlignment="CENTER" />
+      <Label layoutX="31.0" layoutY="124.0" text="Añadir nuevo empleado:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="39.0" layoutY="159.0" prefHeight="158.0" prefWidth="561.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.39996337890625" minWidth="1.5999942779540959" prefWidth="99.333349609375" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="673.6000057220459" minWidth="10.0" prefWidth="559.066650390625" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="nombreTxtField" disable="true" editable="false" prefHeight="30.0" prefWidth="426.0" promptText="Insertar nombre de empleado nuevo..." GridPane.columnIndex="1" />
+            <TextField fx:id="telTxtField" disable="true" prefHeight="30.0" prefWidth="426.0" promptText="Insertar teléfono de empleado nuevo..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="DNITxtField" disable="true" prefHeight="30.0" prefWidth="426.0" promptText="Insertar DNI del empleado nuevo..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Nombre" />
+            <Label text="Teléfono" GridPane.rowIndex="1" />
+            <Label text="DNI" GridPane.rowIndex="2" />
+            <Label text="Sueldo" GridPane.rowIndex="3" />
+            <TextField fx:id="sueldoTxtField" disable="true" prefHeight="30.0" prefWidth="524.0" promptText="Insertar sueldo del empleado nuevo..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Label layoutX="679.0" layoutY="123.0" text="Modificar empleado ya existente:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="396.0" text="Eliminar empleado ya existente:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnEliminarEmpleado" layoutX="315.0" layoutY="394.0" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="31.0" prefWidth="146.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar empleado" />
+      <ComboBox fx:id="cmbEliminarEmpExistente" disable="true" layoutX="38.0" layoutY="428.0" prefHeight="26.0" prefWidth="514.0" promptText="Seleccionar empleado para eliminarlo..." />
+      <GridPane layoutX="687.0" layoutY="203.0" prefHeight="158.0" prefWidth="560.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.39996337890625" minWidth="1.5999942779540959" prefWidth="64.66669921875" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="673.6000057220459" minWidth="10.0" prefWidth="494.5333007812499" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="NombreEmpExistente" disable="true" prefHeight="30.0" prefWidth="426.0" promptText="Modificar nombre de empleado..." GridPane.columnIndex="1" />
+            <TextField fx:id="TelEmpExistente" disable="true" prefHeight="30.0" prefWidth="426.0" promptText="Modificar teléfono de empleado..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="DNIEmpExistente" disable="true" prefHeight="30.0" prefWidth="426.0" promptText="Modificar DNI del empleado..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Nombre" />
+            <Label text="Teléfono" GridPane.rowIndex="1" />
+            <Label text="DNI" GridPane.rowIndex="2" />
+            <Label text="Sueldo" GridPane.rowIndex="3" />
+            <TextField fx:id="SueldoEmpExistente" disable="true" prefHeight="30.0" prefWidth="524.0" promptText="Modificar sueldo del empleado..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <ComboBox fx:id="cmbModifEmpExistente" disable="true" layoutX="694.0" layoutY="162.0" prefHeight="26.0" prefWidth="435.0" promptText="Seleccionar empleado para modificarlo..." />
+      <Button alignment="CENTER" layoutX="912.0" layoutY="378.0" mnemonicParsing="false" onAction="#GuardarModifEmpleados" styleClass="buttons" stylesheets="@../../../css/components.css" text="Guardar cambios" textAlignment="CENTER" />
+      <Text layoutX="1044.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Los cambios han sido guardados con éxito." />
+      <Button fx:id="btnModificarEmpleado" layoutX="971.0" layoutY="122.0" mnemonicParsing="false" onAction="#modificarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" />
+      <Button layoutX="362.0" layoutY="331.0" mnemonicParsing="false" onAction="#GuardarAnadirEmpleados" styleClass="buttons" stylesheets="@../../../css/components.css" text="Guardar cambios" />
+      <Button layoutX="213.0" layoutY="467.0" mnemonicParsing="false" onAction="#GuardarEmpleadoEliminado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Guardar cambios" />
+      <Label fx:id="avisoEmpleadoGuardado" layoutX="128.0" layoutY="337.0" text="El empleado ha sido guardado con éxito." />
+   </children>
+</AnchorPane>
