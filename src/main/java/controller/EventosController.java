@@ -3,86 +3,250 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import model.Evento;
+import persistence.dao.EventoDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
-
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class EventosController {
 
-    @FXML
-    private GridPane calendarGrid;
-    @FXML
-    private Pane monthPane;
-    @FXML
-    private Pane PaneDetalleEvento;
-    @FXML
-    private TextField eventNameField;
-    @FXML
-    private TextArea eventDescriptionField;
+    @FXML private GridPane calendarGrid;
+    @FXML private Pane monthPane;
+    @FXML private Pane PaneDetalleEvento;
+    @FXML private Label lblNEvento;
+    @FXML private Label lblDetalleEvento;
+    @FXML private Label lblNomCliente;
+    @FXML private Label lblTelefono;
+    @FXML private Label lblDirecEvento;
+    @FXML private Label lblCantPersonas;
+    @FXML private Label lblPresupuesto;
 
     private YearMonth currentYearMonth;
     private Map<LocalDate, Evento> events = new HashMap<>();
+    private LocalDate fechaSeleccionada;
 
     @FXML
     private void initialize() {
         currentYearMonth = YearMonth.now();
-        PaneDetalleEvento.setVisible(false); // Ocultar el panel inicialmente
+        PaneDetalleEvento.setVisible(false);
+        reloadEvents();
         llenarCalendario(currentYearMonth);
     }
 
-    private void llenarCalendario(YearMonth mesAnio) {
+    private void llenarCalendario(YearMonth mesAño) {
         calendarGrid.getChildren().clear();
 
-        LocalDate primerDiaDelMes = mesAnio.atDay(1);
-        int diasEnElMes = mesAnio.lengthOfMonth();
+        LocalDate primerDiaDelMes = mesAño.atDay(1);
         int diaDeLaSemana = primerDiaDelMes.getDayOfWeek().getValue(); // 1 = Lunes, 7 = Domingo
+        int diasEnElMes = mesAño.lengthOfMonth();
 
+        actualizarEtiquetaMes(mesAño);
+        int filasNecesarias = calcularFilasNecesarias(diaDeLaSemana, diasEnElMes);
+        configurarFilasCalendario(filasNecesarias);
+
+        YearMonth mesAnterior = mesAño.minusMonths(1);
+        rellenarDiasMesAnterior(mesAnterior, diaDeLaSemana);
+
+        rellenarDiasMesActual(mesAño, diaDeLaSemana, diasEnElMes);
+
+        rellenarDiasMesSiguiente(diaDeLaSemana, diasEnElMes, filasNecesarias);
+    }
+
+    private void handleDayClick(LocalDate date) {
+        fechaSeleccionada = date;
+        Evento evento = events.get(date);
+
+        if (evento != null) {
+            PaneDetalleEvento.setVisible(true);
+            lblDetalleEvento.setText(evento.getDescripcion_evento());
+            lblNEvento.setText(evento.getNombre_evento());
+            lblNomCliente.setText(evento.getNombre_cliente());
+            lblTelefono.setText(evento.getTelefono_cliente());
+            lblDirecEvento.setText(evento.getDireccion_evento());
+            lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
+            lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
+        } else {
+            PaneDetalleEvento.setVisible(false);
+        }
+    }
+
+    private void addEvent(LocalDate date, Evento event) {
+        if (events.containsKey(date)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Evento Duplicado");
+            alert.setHeaderText("Ya existe un evento en esta fecha");
+            alert.setContentText("Por favor, elige otra fecha o modifica el evento existente.");
+            alert.showAndWait();
+            return;
+        }
+
+        events.put(date, event);
+        if (currentYearMonth.equals(YearMonth.from(date))) {
+            llenarCalendario(currentYearMonth);
+        }
+    }
+
+    @FXML
+    private void handlePrevMonth() {
+        currentYearMonth = currentYearMonth.minusMonths(1);
+        llenarCalendario(currentYearMonth);
+    }
+
+    @FXML
+    private void handleNextMonth() {
+        currentYearMonth = currentYearMonth.plusMonths(1);
+        llenarCalendario(currentYearMonth);
+    }
+
+    @FXML
+    private void handleAddEvent() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            // Crear un diálogo
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Agregar Evento");
+
+            EventoFormController controller = loader.getController();
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                reloadEvents();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleEditar(ActionEvent event) {
+        Evento eventoSeleccionado = obtenerEventoSeleccionado();
+        if (eventoSeleccionado != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
+                DialogPane dialogPane = loader.load();
+
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Editar Evento");
+
+                EventoFormController controller = loader.getController();
+
+                controller.setEvento(eventoSeleccionado);
+
+                Optional<ButtonType> result = dialog.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    reloadEvents();
+                    actualizarPaneDetalleEvento(eventoSeleccionado);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            mostrarAlerta("No se ha seleccionado ningún evento", "Por favor, selecciona un evento para editar.");
+        }
+    }
+
+    @FXML
+    public void handleBorrar() {
+        Evento eventoSeleccionado = obtenerEventoSeleccionado();
+
+        if (eventoSeleccionado != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Borrado");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Seguro quieres borrar este evento?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                EventoDAO eventoDAO = new EventoDAO();
+                eventoDAO.delete(eventoSeleccionado);
+                eventoDAO.close();
+
+                mostrarAlerta("Éxito", "Evento borrado exitosamente.");
+                reloadEvents();
+
+                // Cerrar el PaneDetalleEvento si está visible
+                if (PaneDetalleEvento.isVisible()) {
+                    PaneDetalleEvento.setVisible(false);
+                }
+            }
+        } else {
+            mostrarAlerta("Sin selección", "No se ha seleccionado ningún evento para borrar.");
+        }
+    }
+
+    @FXML
+    private void handleClose(ActionEvent event){
+        PaneDetalleEvento.setVisible(false);
+    }
+
+    @FXML
+    void handleVolver(ActionEvent event) {
+        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+    }
+
+    private void actualizarEtiquetaMes(YearMonth mesAño) {
         Label etiquetaMes = (Label) monthPane.lookup("#monthLabel");
-        Locale localEspanol = new Locale("es", "ES");
-        String nombreMes = mesAnio.getMonth().getDisplayName(TextStyle.FULL, localEspanol);
-        etiquetaMes.setText(nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1) + " " + mesAnio.getYear());
+        @SuppressWarnings("deprecation") Locale localEspanol = new Locale("es", "ES");
+        String nombreMes = mesAño.getMonth().getDisplayName(TextStyle.FULL, localEspanol);
+        etiquetaMes.setText(nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1) + " " + mesAño.getYear());
+    }
 
+    private int calcularFilasNecesarias(int diaDeLaSemana, int diasEnElMes) {
         int espaciosTotales = diaDeLaSemana - 1 + diasEnElMes;
-        int filasNecesarias = (espaciosTotales / 7) + (espaciosTotales % 7 == 0 ? 0 : 1);
+        return (espaciosTotales / 7) + (espaciosTotales % 7 == 0 ? 0 : 1);
+    }
 
+    private void configurarFilasCalendario(int filasNecesarias) {
         calendarGrid.getRowConstraints().clear();
         for (int i = 0; i < filasNecesarias + 1; i++) {
             RowConstraints fila = new RowConstraints();
             calendarGrid.getRowConstraints().add(fila);
         }
+    }
 
-        YearMonth mesAnterior = mesAnio.minusMonths(1);
+    private void rellenarDiasMesAnterior(YearMonth mesAnterior, int diaDeLaSemana) {
         int diasEnElMesAnterior = mesAnterior.lengthOfMonth();
-
-        int filaActual = 1;
         int columnaActual = diaDeLaSemana - 1;
+        int filaActual = 1;
 
         for (int i = columnaActual - 1; i >= 0; i--) {
             Label etiquetaDia = new Label(String.valueOf(diasEnElMesAnterior - (columnaActual - 1 - i)));
-            etiquetaDia.getStyleClass().add("celda-dia-semana"); // Clase CSS
+
+            if (i == 5 || i == 6) {
+                etiquetaDia.getStyleClass().add("celda-mes-externo-fin-de-semana");
+            } else {
+                etiquetaDia.getStyleClass().add("celda-mes-externo");
+            }
             calendarGrid.add(etiquetaDia, i, filaActual);
         }
+    }
 
+    private void rellenarDiasMesActual(YearMonth mesAnio, int diaDeLaSemana, int diasEnElMes) {
         int numeroDia = 1;
+        int columnaActual = diaDeLaSemana - 1;
+        int filaActual = 1;
+
         while (numeroDia <= diasEnElMes) {
-            Label etiquetaDia = new Label(String.valueOf(numeroDia));
             LocalDate fechaActual = LocalDate.of(mesAnio.getYear(), mesAnio.getMonth(), numeroDia);
+            Label etiquetaDia = new Label(String.valueOf(numeroDia));
 
             if (events.containsKey(fechaActual)) {
-                etiquetaDia.setStyle("-fx-text-fill: red;");
+                etiquetaDia.getStyleClass().add("dia-con-evento");
             }
 
             etiquetaDia.setOnMouseClicked(event -> handleDayClick(fechaActual));
@@ -103,11 +267,32 @@ public class EventosController {
 
             numeroDia++;
         }
+    }
 
-        numeroDia = 1;
+    private void rellenarDiasMesSiguiente(int diaDeLaSemana, int diasEnElMes, int filasNecesarias) {
+        int numeroDia = 1;
+        int columnaActual = (diaDeLaSemana - 1 + diasEnElMes) % 7;
+        int filaActual = filasNecesarias;
+
+        YearMonth mesAnioSiguiente = YearMonth.now().plusMonths(1); // O puedes pasar el mes actual y sumarle 1
+
         while (columnaActual < 7) {
             Label etiquetaDia = new Label(String.valueOf(numeroDia));
-            etiquetaDia.getStyleClass().add("celda-dia-semana");
+
+            LocalDate fechaActual = LocalDate.of(mesAnioSiguiente.getYear(), mesAnioSiguiente.getMonth(), numeroDia);
+
+            if (events.containsKey(fechaActual)) {
+                etiquetaDia.getStyleClass().add("dia-con-evento");
+            }
+
+            etiquetaDia.setOnMouseClicked(event -> handleDayClick(fechaActual));
+
+            if (columnaActual == 5 || columnaActual == 6) {
+                etiquetaDia.getStyleClass().add("celda-mes-externo-fin-de-semana");
+            } else {
+                etiquetaDia.getStyleClass().add("celda-mes-externo");
+            }
+
             calendarGrid.add(etiquetaDia, columnaActual, filaActual);
             numeroDia++;
             columnaActual++;
@@ -118,94 +303,53 @@ public class EventosController {
         }
     }
 
-    private void handleDayClick(LocalDate date) {
-        Evento evento = events.get(date);
+    public void reloadEvents() {
+        clearEvents();
 
-        if (evento != null) {
-            PaneDetalleEvento.setVisible(true);
+        EventoDAO eventoDAO = new EventoDAO();
+        List<Evento> eventos = eventoDAO.findAll();
+        eventoDAO.close();
 
-            // Suponiendo que tienes etiquetas (Labels) en PaneDetalleEvento para mostrar los detalles:
-            Label nombreEventoLabel = (Label) PaneDetalleEvento.lookup("#nombreEventoLabel");
-            Label nombreClienteLabel = (Label) PaneDetalleEvento.lookup("#nombreClienteLabel");
-            Label telefonoClienteLabel = (Label) PaneDetalleEvento.lookup("#telefonoClienteLabel");
-            Label direccionEventoLabel = (Label) PaneDetalleEvento.lookup("#direccionEventoLabel");
-
-            nombreEventoLabel.setText(evento.getNombreEvento());
-            nombreClienteLabel.setText(evento.getNombreCliente());
-            telefonoClienteLabel.setText(evento.getTelefonoCliente());
-            direccionEventoLabel.setText(evento.getDireccionEvento());
-        } else {
-            PaneDetalleEvento.setVisible(false); // Ocultar si no hay evento
-        }
-    }
-
-    private void addEvent(LocalDate date, Evento event) {
-        if (events.containsKey(date)) {
-            // Mostrar una alerta si ya existe un evento en esta fecha
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Evento Duplicado");
-            alert.setHeaderText("Ya existe un evento en esta fecha");
-            alert.setContentText("Por favor, elige otra fecha o modifica el evento existente.");
-            alert.showAndWait();
-            return;
+        for (Evento evento : eventos) {
+            addEvent(evento.getFecha_evento(), evento);
         }
 
-        events.put(date, event);  // Almacenar el evento en el mapa
-        if (currentYearMonth.equals(YearMonth.from(date))) {
-            llenarCalendario(currentYearMonth);  // Repintar el calendario solo si el evento pertenece al mes actual
-        }
-    }
-
-    @FXML
-    private void handlePrevMonth() {
-        currentYearMonth = currentYearMonth.minusMonths(1);
         llenarCalendario(currentYearMonth);
     }
 
-    @FXML
-    private void handleNextMonth() {
-        currentYearMonth = currentYearMonth.plusMonths(1);
-        llenarCalendario(currentYearMonth);
-    }
-
-    @FXML
-    private void handleAddEvent() {
-        try {
-            // Cargar el formulario personalizado
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
-            DialogPane dialogPane = loader.load();
-
-            // Crear un diálogo
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Agregar Evento");
-
-            // Obtener el controlador del formulario
-            EventoFormController controller = loader.getController();
-
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                // Recoger los datos del formulario
-                String nombreEvento = controller.getNombreEvento();
-                String descripcionEvento = controller.getDescripcionEvento();
-                String nombreCliente = controller.getNombreCliente();
-                String telefonoCliente = controller.getTelefonoCliente();
-                String direccionEvento = controller.getDireccionEvento();
-                LocalDate fechaEvento = controller.getFechaEvento();  // Recoger la fecha
-
-                // Crear el nuevo evento
-                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, nombreCliente, telefonoCliente, direccionEvento);
-
-                // Añadir el evento al mapa y actualizar el calendario
-                addEvent(fechaEvento, nuevoEvento);
+    private void clearEvents() {
+        for (Node node : calendarGrid.getChildren()) {
+            if (node instanceof Pane) {
+                ((Pane) node).getChildren().clear();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        events.clear();
+    }
+
+    private void actualizarPaneDetalleEvento(Evento evento) {
+        if (PaneDetalleEvento.isVisible()) {
+            lblNEvento.setText(evento.getNombre_evento());
+            lblDetalleEvento.setText(evento.getDescripcion_evento());
+            lblNomCliente.setText(evento.getNombre_cliente());
+            lblTelefono.setText(evento.getTelefono_cliente());
+            lblDirecEvento.setText(evento.getDireccion_evento());
+            lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
+            lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
         }
     }
 
-    @FXML
-    void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+    private Evento obtenerEventoSeleccionado() {
+        if (fechaSeleccionada != null) {
+            return events.get(fechaSeleccionada);
+        }
+        return null;
+    }
+
+    private void mostrarAlerta(String titulo, String contenido) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
 }

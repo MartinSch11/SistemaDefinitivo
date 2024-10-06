@@ -17,7 +17,7 @@
    <children>
       <Pane prefHeight="567.0" prefWidth="762.0" styleClass="pane-principal" stylesheets="@../../../css/components.css">
          <children>
-            <Pane layoutX="32.0" layoutY="123.0" prefHeight="413.0" prefWidth="698.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1); -fx-background-color: f7ede3;">
+            <Pane layoutX="331.0" layoutY="154.0" prefHeight="413.0" prefWidth="698.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1); -fx-background-color: f7ede3;">
                <children>
                   <ImageView fitHeight="27.0" fitWidth="30.0" layoutX="147.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,16 +46,16 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutY="25.0" prefHeight="47.0" prefWidth="762.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
+            <Pane prefHeight="47.0" prefWidth="762.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
                <children>
-                  <Text fill="WHITE" layoutX="285.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ayuda al usuario">
+                  <Text fill="WHITE" layoutX="586.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ayuda al usuario">
                      <font>
-                        <Font size="28.0" />
+                        <Font name="Inter Regular" size="24.0" />
                      </font>
                   </Text>
                </children>
             </Pane>
-            <Button fx:id="btnVolver" layoutX="7.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+            <Button fx:id="btnVolver" layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>

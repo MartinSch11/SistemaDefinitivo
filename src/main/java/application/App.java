@@ -10,6 +10,8 @@ import jakarta.persistence.Persistence;
 import lombok.Getter;
 import utilities.Paths;
 
+import java.util.Objects;
+
 public class App extends Application {
 
     @Getter
@@ -22,9 +24,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        AnchorPane load = FXMLLoader.load(getClass().getResource(Paths.LOGIN));
+        AnchorPane load = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(Paths.LOGIN)));
         Scene scene = new Scene(load);
-        scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm());
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();

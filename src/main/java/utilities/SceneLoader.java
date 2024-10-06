@@ -1,13 +1,10 @@
 package utilities;
 
-import controller.modalProductosController;
-import controller.CrudProductosController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -37,31 +34,4 @@ public class SceneLoader {
         loadScene(strategy, fxmlPath, stylesheetPath, maximized);
     }
 
-    // Método actualizado para retornar el controlador del modal
-    public static modalProductosController handleModalWithController(NodeSceneStrategy event, String fxmlPath, String stylesheetPath, CrudProductosController crudController) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(SceneLoader.class.getResource(fxmlPath));
-            AnchorPane root = fxmlLoader.load();
-
-            // Obtener el controlador del modal
-            modalProductosController modalProductosController = fxmlLoader.getController();
-            modalProductosController.setCrudController(crudController);  // Seta crudController si es necesario
-
-            Scene scene = new Scene(root);
-            if (stylesheetPath != null && !stylesheetPath.isEmpty()) {
-                scene.getStylesheets().add(Objects.requireNonNull(SceneLoader.class.getResource(stylesheetPath)).toExternalForm());
-            }
-
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-
-            // Retornar el controlador del modal
-            return modalProductosController;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
