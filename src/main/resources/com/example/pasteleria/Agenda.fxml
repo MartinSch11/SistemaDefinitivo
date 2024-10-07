@@ -11,12 +11,15 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgendaController">
@@ -31,7 +34,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnSiguiente" layoutX="390.0" layoutY="94.0" minHeight="1.0" minWidth="41.0" mnemonicParsing="false" onAction="#siguienteSemana" prefHeight="27.0" prefWidth="53.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="&gt;">
+            <Button fx:id="btnSiguiente" layoutX="385.0" layoutY="95.0" minHeight="1.0" minWidth="41.0" mnemonicParsing="false" onAction="#siguienteSemana" prefHeight="27.0" prefWidth="53.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="&gt;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -40,13 +43,13 @@
             <Label fx:id="txtFechaSemanal" layoutX="24.0" layoutY="99.0" />
             <Pane fx:id="paneAgregarTareaPendiente" layoutX="978.0" layoutY="129.0" prefHeight="381.0" prefWidth="368.0" style="-fx-background-color: f8f9fa;">
                <children>
-                  <TextArea layoutX="9.0" layoutY="48.0" prefHeight="96.0" prefWidth="350.0" style="-fx-border-color: transparent;" />
+                  <TextArea fx:id="tareaPendiente" layoutX="9.0" layoutY="48.0" prefHeight="96.0" prefWidth="350.0" style="-fx-border-color: transparent;" />
                   <Text layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tarea pendiente:" />
                   <Text layoutX="181.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar hora:" />
                   <RadioButton fx:id="radioSi" layoutX="184.0" layoutY="177.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="53.0" text="Si" />
                   <RadioButton fx:id="radioNo" layoutX="184.0" layoutY="215.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="53.0" text="No" />
                   <Text layoutX="17.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccionar día:" />
-                  <DatePicker fx:id="dateDiaTarea" layoutX="17.0" layoutY="186.0" prefHeight="26.0" prefWidth="150.0" />
+                  <DatePicker fx:id="dateDiaTarea" editable="false" layoutX="17.0" layoutY="186.0" prefHeight="26.0" prefWidth="150.0" />
                   <Spinner fx:id="Hora" disable="true" layoutX="179.0" layoutY="256.0" prefHeight="26.0" prefWidth="63.0" />
                   <Spinner fx:id="Minutos" disable="true" layoutX="250.0" layoutY="256.0" prefHeight="26.0" prefWidth="63.0" />
                   <Text layoutX="14.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quien realizará la tarea:" />
@@ -91,6 +94,21 @@
                   <Label contentDisplay="CENTER" layoutX="628.0" layoutY="14.0" styleClass="title" stylesheets="@../../../css/components.css" text="Agenda" textAlignment="CENTER" />
                </children>
             </Pane>
+            <Button fx:id="btnVolver" layoutY="55.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/arrow_left.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children></Pane>
     </children>
 </AnchorPane>

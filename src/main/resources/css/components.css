@@ -44,6 +44,7 @@
 .button-Volver:hover {
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
+    -fx-background-color: transparent;
 }
 
 
