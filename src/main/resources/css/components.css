@@ -15,6 +15,32 @@
 
 }
 
+/*---------Opciones en Settings-----------*/
+/*.buttons-Settings{
+    -fx-background-color: transparent;
+    -fx-border-radius: 2px;
+    -fx-border-color: none;
+    -fx-text-fill: black;
+}
+
+.buttons-Settings:hover{
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}*/
+
+.buttons-Settings{
+    -fx-background-color: #B70505;
+    -fx-border-radius: 2px;
+    -fx-border-color: none;
+    -fx-text-fill: white;
+    -fx-pref-height: 45px;
+}
+
+.buttons-Settings:hover{
+    -fx-background-color: #E02020;
+    -fx-text-fill: white;
+}
+
 /*---pane header-----*/
 .pane-Header{
     -fx-background-color: #B70505;

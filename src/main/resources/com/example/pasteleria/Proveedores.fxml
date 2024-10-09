@@ -20,12 +20,12 @@
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane-principal" stylesheets="@../../../css/components.css">
          <children>
-            <Pane layoutX="-1.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
+            <Pane layoutX="-2.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
                <children>
-                  <Label contentDisplay="CENTER" layoutX="646.0" layoutY="15.0" styleClass="title" stylesheets="@../../../css/components.css" text="Proveedores" textAlignment="CENTER" />
+                  <Label contentDisplay="CENTER" layoutX="630.0" layoutY="11.0" styleClass="title" stylesheets="@../../../css/components.css" text="Proveedores" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Button fx:id="btnVolver" layoutX="34.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+            <Button fx:id="btnVolver" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,13 +40,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button id="btnNuevoProveedor" fx:id="btnNuevoProveedor" layoutX="211.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleNuevoProveedor" prefHeight="31.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nuevo proveedor">
+            <Button id="btnNuevoProveedor" fx:id="btnNuevoProveedor" layoutX="164.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleNuevoProveedor" prefHeight="31.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nuevo proveedor">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField layoutX="475.0" layoutY="136.0" prefHeight="30.0" prefWidth="699.0" promptText="Buscar por nombre o producto..." />
-            <Button fx:id="btnBuscar" layoutX="1189.0" layoutY="136.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <TextField layoutX="304.0" layoutY="72.0" prefHeight="30.0" prefWidth="699.0" promptText="Buscar por nombre o producto..." />
+            <Button fx:id="btnBuscar" layoutX="1012.0" layoutY="70.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView layoutX="95.0" layoutY="227.0" prefHeight="200.0" prefWidth="1186.0" styleClass="tablaProveedores" stylesheets="@../../../css/components.css">
+            <TableView layoutX="31.0" layoutY="139.0" prefHeight="200.0" prefWidth="1186.0" styleClass="tablaProveedores" stylesheets="@../../../css/components.css">
               <columns>
                  <TableColumn fx:id="colProveedor" prefWidth="300.0" text="Proveedor" />
                  <TableColumn fx:id="colInsumo" prefWidth="300.0" text="Insumo" />

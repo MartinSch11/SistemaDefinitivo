@@ -20,9 +20,6 @@ import java.time.LocalDate;
 public class PedidosController {
 
     @FXML
-    private Button btnVolver;
-
-    @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
     }
@@ -103,10 +100,4 @@ public class PedidosController {
     }
 
 
-    /*@FXML
-    private Pane sectionPorHacer;
-
-    public Pane sectionPorHacer() {
-        return sectionPorHacer;
-    }*/
 }

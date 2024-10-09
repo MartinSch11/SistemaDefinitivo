@@ -16,6 +16,9 @@ public class MainMenuCajeraController {
     private Button adminLogin;
 
     @FXML
+    private Button btnSettings;
+
+    @FXML
     void handleAyuda(ActionEvent event) {
         SceneLoader.loadScene(new NodeSceneStrategy(btnAyuda), Paths.AYUDA, "/css/components.css", false);
     }
@@ -28,5 +31,10 @@ public class MainMenuCajeraController {
     @FXML
     void viewAgenda(ActionEvent event) {
         SceneLoader.loadScene(new NodeSceneStrategy(btnAgenda), Paths.AGENDA, "/css/components.css", false);
+    }
+
+    @FXML
+    void handleSettings(ActionEvent event){
+        SceneLoader.loadScene(new NodeSceneStrategy(btnSettings), Paths.SETTINGS, "/css/components.css", false);
     }
 }

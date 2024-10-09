@@ -162,7 +162,9 @@ public class AgendaController {
         if (cmbEmpleadoTarea.getValue() == null || cmbEmpleadoTarea.getValue().toString().trim().isEmpty()) {
             valid = false;
         }
-
+        if (radioNo.isSelected()){
+            valid = true;
+        }
         return valid;
     }
 
@@ -185,17 +187,6 @@ public class AgendaController {
     void NuevaTarea(ActionEvent event) {
         paneAgregarTareaPendiente.setVisible(true);
         btnNuevaTarea.setDisable(true);
-
-        //guardar los datos de la Nueva Tarea
-
-        //el radiobuttonNO  NO funciona en el caso de seleccionar y guardar la tareaPendiente
-
-        //eliminar tareas hechas mediante una opción de "Marcar como hecho"
-
-        //guardar LocalDate, guardar la fecha
-
-        //añadir a la base de datos las tareas pendientes para que se guarden al salir de Agenda
-
     }
 
     @FXML
@@ -213,6 +204,7 @@ public class AgendaController {
         }
     }
 
+    private String duranteElDia;
     @FXML
     void guardarTarea(ActionEvent event) {
         if (validarCamposObligatorios()) {
@@ -224,14 +216,16 @@ public class AgendaController {
             if (radioSi.isSelected()) {
                 horaPendiente = Hora.getValue();
                 minutoPendiente = Minutos.getValue();
+            }else if(radioNo.isSelected()){
+                horaPendiente = 0;
+                minutoPendiente = 0;
+                duranteElDia = "Durante el dia";
             }
-
             vaciarCamposNuevaTarea();
 
             paneAgregarTareaPendiente.setVisible(false);
 
-            insertarNuevaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente);
-
+            insertarNuevaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente, duranteElDia);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
@@ -283,21 +277,13 @@ public class AgendaController {
         }
     }
 
-    private StackPane getStackPaneForDay(int dayOfWeek) {
-        switch (dayOfWeek) {
-            case 1: return paneLunes;
-            case 2: return paneMartes;
-            case 3: return paneMiercoles;
-            case 4: return paneJueves;
-            case 5: return paneViernes;
-            case 6: return paneSabado;
-            case 7: return paneDomingo;
-            default: throw new IllegalArgumentException("Día de la semana inválido: " + dayOfWeek);
+    private void insertarNuevaTarea(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente, int minutoPendiente, String pendiente, String duranteElDia) {
+        Label tareaLabel = new Label();
+        if ("Durante el dia".equals(duranteElDia)) {
+            tareaLabel.setText(pendiente + "\n" + empleadoTarea + "\n" + duranteElDia);
+        } else if (duranteElDia == null) {
+            tareaLabel.setText(pendiente + "\n" + empleadoTarea + "\n" + String.format("%02d:%02d hs", horaPendiente, minutoPendiente));
         }
-    }
-
-    private void insertarNuevaTarea(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente, int minutoPendiente, String pendiente) {
-        Label tareaLabel = new Label(pendiente + "\n" + empleadoTarea + "\n" + String.format("%02d:%02d hs", horaPendiente, minutoPendiente));
         tareaLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-fill: black; -fx-text-alignment: left; -fx-padding-top: 5px");
         tareaLabel.setWrapText(true); // No permitir que el texto se ajuste al ancho del TextArea
 
@@ -321,5 +307,8 @@ public class AgendaController {
         rowConstraints.setMinHeight(150);
         gridPlanillaSemanal.getRowConstraints().add(rowConstraints);
     }
-
+    //eliminar tareas hechas mediante una opción de "Marcar como hecho"
+    //añadir a la base de datos las tareas pendientes para que se guarden al salir de Agenda
+    //NO se añaden los pane en otra semana que no sea la vista actualmente
+    //no se añaden correctamente los pane según la fila
 }

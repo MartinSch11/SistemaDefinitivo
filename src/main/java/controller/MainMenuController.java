@@ -12,6 +12,8 @@ public class MainMenuController {
     @FXML
     private Button adminLogin;
     @FXML
+    private Button btnSettings;
+    @FXML
     private Button btnProductos;
     @FXML
     private Button btnEventos;
@@ -64,5 +66,10 @@ public class MainMenuController {
     @FXML
     void handleEstadistica(ActionEvent event) {
         SceneLoader.loadScene(new NodeSceneStrategy(btnEstadistica), Paths.ESTADISTICA, "/css/components.css", false);
+    }
+
+    @FXML
+    void handleSettings(ActionEvent event){
+        SceneLoader.loadScene(new NodeSceneStrategy(btnSettings), Paths.SETTINGS, "/css/components.css", false);
     }
 }

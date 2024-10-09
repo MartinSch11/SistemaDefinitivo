@@ -11,6 +11,7 @@ public class Paths {
     public static final String EVENTOS = "/com/example/pasteleria/Eventos.fxml";
     public static final String CAJERA_MAINMENU = "/com/example/pasteleria/MainMenuCajera.fxml";
     public static final String AGENDA = "/com/example/pasteleria/Agenda.fxml";
+    public static final String SETTINGS = "/com/example/pasteleria/Settings.fxml";
     public static final String AYUDA = "/com/example/pasteleria/Ayuda.fxml";
     public static final String PRODUCTOS = "/com/example/pasteleria/CrudProductos.fxml";
     public static final String APRODUCTOS = "/com/example/pasteleria/modalProductos.fxml";
