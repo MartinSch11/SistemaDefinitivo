@@ -43,6 +43,11 @@ public class DialogNuevoProveedorController {
                 "Manteca"
         ));
 
+        proveedorField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]*")) {
+                proveedorField.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+            }
+        });
         telefonoField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 telefonoField.setText(newValue.replaceAll("[^\\d]", ""));

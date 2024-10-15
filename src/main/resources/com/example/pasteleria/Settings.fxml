@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +15,10 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SettingsController">
-    <children>
+   <stylesheets>
+      <URL value="@../../../css/components.css" />
+   </stylesheets>
+   <children>
         <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
@@ -36,7 +41,7 @@
                   <Label layoutX="659.0" layoutY="12.0" styleClass="title" stylesheets="@../../../css/components.css" text="Ajustes" />
                </children>
             </Pane>
-            <GridPane layoutX="-7.0" layoutY="115.0" prefHeight="584.0" prefWidth="180.0">
+            <GridPane layoutX="-7.0" layoutY="114.0" prefHeight="585.0" prefWidth="203.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="7.0" prefWidth="80.0" />
               </columnConstraints>
@@ -55,7 +60,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button id="btnNuevoPedido" fx:id="btnModifEmpleado" mnemonicParsing="false" onAction="#CRUDEmpleado" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Modificar Empleados">
+                  <Button fx:id="btnConfiguracionEmpleados" mnemonicParsing="false" onAction="#CRUDEmpleado" prefHeight="43.0" prefWidth="203.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Configuración Empleados">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -63,7 +68,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="2">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="2">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -71,7 +76,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="3">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="3">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -79,7 +84,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="1">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -87,7 +92,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="5">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="5">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -95,7 +100,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="4">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -103,7 +108,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="6">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="6">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -111,7 +116,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="7">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="7">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -119,7 +124,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="8">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="8">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -127,7 +132,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="9">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="9">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -135,7 +140,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="10">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="10">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -143,7 +148,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="btnNuevoPedido" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="11">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="11">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -153,7 +158,32 @@
                   </Button>
                </children>
             </GridPane>
-            <Pane fx:id="contenedorDinamico" layoutX="190.0" layoutY="68.0" prefHeight="649.0" prefWidth="1165.0" />
+            <Pane fx:id="contenedorDinamico" layoutX="219.0" layoutY="194.0" prefHeight="523.0" prefWidth="1136.0" />
+            <Button fx:id="btnModificarEmpleado" layoutX="1033.0" layoutY="132.0" mnemonicParsing="false" onAction="#modificarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" visible="false" />
+            <Label fx:id="title" layoutX="582.0" layoutY="100.0" text="Configuración de empleados" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="gridEmpleadosActuales" alignment="CENTER" layoutX="228.0" layoutY="137.0" prefHeight="38.0" prefWidth="622.0" visible="false">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="187.9999755859375" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.20001220703125" minWidth="10.0" prefWidth="434.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Empleados actuales:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbEmpleadosActuales" prefHeight="26.0" prefWidth="435.0" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <Button fx:id="btnAnadirEmpleado" layoutX="907.0" layoutY="132.0" mnemonicParsing="false" onAction="#anadirEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" visible="false" />
+            <Button fx:id="btnEliminarEmpleado" layoutX="1168.0" layoutY="132.0" mnemonicParsing="false" onAction="#eliminarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar empleado" visible="false" />
          </children></Pane>
     </children>
 </AnchorPane>

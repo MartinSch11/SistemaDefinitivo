@@ -33,7 +33,7 @@ public class StockController {
 
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                cargarInsumos(); // Actualiza la tabla de insumos si se agrega uno nuevo
+                //cargarInsumos(); // Actualiza la tabla de insumos si se agrega uno nuevo
             }
         } catch (IOException e) {
             e.printStackTrace();
