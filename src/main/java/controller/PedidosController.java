@@ -9,31 +9,42 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Insumo;
+import model.Pedido;
+import model.Producto;
+import model.Receta;
+import persistence.dao.InsumoDAO;
+import persistence.dao.PedidoDAO;
+import persistence.dao.RecetaDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class PedidosController {
 
+    private PedidoDAO pedidoDAO;
+    private RecetaDAO recetaDAO;
+    private InsumoDAO insumoDAO;
 
-    /*--------------------------------crear nuevo pedido------------------------------------------------*/
     @FXML
     private VBox pedidosVBox; // Donde se mostrarán los pedidos
 
-    @FXML
-    private GridPane gridPedidos;
+    public PedidosController() {
+        pedidoDAO = new PedidoDAO();
+        recetaDAO = new RecetaDAO();
+        insumoDAO = new InsumoDAO();
+    }
 
-    @FXML
-    private Pane sectionEnProceso;
+    /*--------------------------------crear nuevo pedido------------------------------------------------*/
 
-    @FXML
-    private Pane sectionHecho;
-
-    @FXML
-    private Pane sectionPorHacer;
-
+    @FXML private GridPane gridPedidos;
+    @FXML private Pane sectionEnProceso;
+    @FXML private Pane sectionHecho;
+    @FXML private Pane sectionPorHacer;
 
     public void agregarNuevoPedido(String nombre, String contacto, String detalle, String empleado, String formaEntrega, LocalDate fechaEntrega) {
         // Crear etiquetas para mostrar la información del pedido
@@ -88,5 +99,75 @@ public class PedidosController {
             e.printStackTrace();
         }
     }
+
+    /*--------------------------------crear nuevo pedido------------------------------------------------*/
+
+    public void agregarNuevoPedido(String nombreCliente, String contactoCliente, String detallePedido, String empleadoAsignado, LocalDate fechaEntrega, List<Producto> productos) {
+        // Crear un nuevo Pane para el pedido
+        Pane nuevoPedidoPane = new Pane();
+        nuevoPedidoPane.setStyle("-fx-padding: 10; -fx-border-color: black; -fx-background-color: #f2f2f2;");
+
+        // Crear etiquetas para mostrar la información del pedido
+        Label nombreClienteLabel = new Label("Cliente: " + nombreCliente);
+        Label contactoClienteLabel = new Label("Contacto: " + contactoCliente);
+        Label detallePedidoLabel = new Label("Detalle del Pedido: " + detallePedido);
+        Label empleadoAsignadoLabel = new Label("Empleado Asignado: " + empleadoAsignado);
+        Label fechaEntregaLabel = new Label("Fecha de Entrega: " + fechaEntrega.toString());
+
+        // Añadir las etiquetas a un VBox para que estén organizadas
+        VBox pedidoInfo = new VBox(5);
+        pedidoInfo.getChildren().addAll(nombreClienteLabel, contactoClienteLabel, detallePedidoLabel, empleadoAsignadoLabel, fechaEntregaLabel);
+
+        // Añadir el VBox al nuevo Pane
+        nuevoPedidoPane.getChildren().add(pedidoInfo);
+
+        // Añadir el nuevo Pane al VBox que contiene todos los pedidos
+        pedidosVBox.getChildren().add(nuevoPedidoPane);
+
+        // Guardar el pedido en la base de datos
+        Pedido nuevoPedido = new Pedido(nombreCliente, contactoCliente, detallePedido, empleadoAsignado, fechaEntrega, productos);
+        pedidoDAO.save(nuevoPedido);
+
+        // Procesar la reducción de insumos en base a las recetas de los productos
+        procesarReduccionInsumos(productos);
+    }
+
+    private void procesarReduccionInsumos(List<Producto> productos) {
+        for (Producto producto : productos) {
+            // Obtener la receta asociada al producto
+            Receta receta = recetaDAO.findByProducto(producto);
+
+            // Obtener los insumos de la receta y reducir sus cantidades
+            if (receta != null) {
+                List<Insumo> insumosDeLaReceta = receta.getInsumos();
+                for (Insumo insumo : insumosDeLaReceta) {
+                    // Restar la cantidad utilizada del insumo
+                    double cantidadUtilizada = receta.getCantidadInsumo(insumo);
+                    insumo.reducirCantidad(cantidadUtilizada);
+                    insumoDAO.update(insumo); // Actualizar el insumo en la base de datos
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void abrirDialogoNuevoPedido() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogNuevoPedido.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador del cuadro de diálogo
+            DialogNuevoPedidoController dialogController = loader.getController();
+            dialogController.setPedidosController(this); // Pasar la referencia del controlador actual
+
+            // Mostrar el cuadro de diálogo
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
     //campos obligatorios

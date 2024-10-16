@@ -89,13 +89,13 @@
                     </font>
                 </Label>
             </Pane>
-            <DatePicker layoutX="47.0" layoutY="230.0" />
+            <DatePicker fx:id="fechaCaducidadData" layoutX="47.0" layoutY="230.0" />
             <Label layoutX="247.0" layoutY="136.0" prefHeight="25.0" prefWidth="60.0" styleClass="texto" text="Medida">
                 <font>
                     <Font name="Inter Regular" size="13.0" />
                 </font>
             </Label>
-            <ChoiceBox fx:id="medidaChoiceBox" layoutX="247.0" layoutY="167.0" prefHeight="25.0" prefWidth="70.0">
+            <ChoiceBox fx:id="medidaChoiceBox" layoutX="247.0" layoutY="167.0" prefHeight="25.0" prefWidth="175.0">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Litros" />
@@ -105,6 +105,21 @@
                     </FXCollections>
                 </items>
             </ChoiceBox>
+         <Label layoutX="247.0" layoutY="200.0" prefHeight="25.0" prefWidth="77.0" styleClass="texto" text="Proveedor">
+            <font>
+               <Font name="Inter Regular" size="13.0" />
+            </font>
+         </Label>
+         <ChoiceBox fx:id="proveedorChoiceBox" layoutX="247.0" layoutY="230.0" prefHeight="25.0" prefWidth="175.0">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Litros" />
+                  <String fx:value="Kilos" />
+                  <String fx:value="Gramos" />
+                  <String fx:value="Unidades" />
+               </FXCollections>
+            </items>
+         </ChoiceBox>
         </Pane>
     </graphic>
 </DialogPane>

@@ -44,13 +44,11 @@
 /*---pane header-----*/
 .pane-Header{
     -fx-background-color: #B70505;
-    /*-fx-text-fill: ;*/
     -fx-alignment: center;
-    -fx-pref-width: 1380px;
+    -fx-pref-width: 1360px;
     -fx-pref-height: 55px;
     -fx-padding: 15px 0 0 0;
 }
-
 
 /*----------*/
 
@@ -92,7 +90,8 @@
 /*-----títulos--------*/
 .title{
     -fx-text-fill: white;
-    -fx-font-size: 22px;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 24px;
     -fx-alignment: center;
 
 }

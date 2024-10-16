@@ -45,7 +45,7 @@
             </Button>
             <ScrollPane layoutX="23.0" layoutY="132.0" prefHeight="470.0" prefWidth="1315.0">
                <content>
-                  <TableView fx:id="tableProductos" prefHeight="470.0" prefWidth="1300.0">
+                  <TableView fx:id="tableInsumos" prefHeight="470.0" prefWidth="1300.0">
                      <columns>
                         <TableColumn fx:id="colNombre" prefWidth="271.0" text="Nombre" />
                         <TableColumn fx:id="colCaducidad" prefWidth="200.0" text="Fecha de Caducidad" />

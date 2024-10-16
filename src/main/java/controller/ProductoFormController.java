@@ -27,7 +27,7 @@ import java.util.List;
 public class ProductoFormController{
 
     @FXML private TextField nombreProductoField;
-        @FXML private TextArea descripcionProductoField;
+    @FXML private TextArea descripcionProductoField;
     @FXML private ChoiceBox<Categoria> categoriaChoiceBox;
     @FXML private TextField precioField;
     @FXML private ListView<String> saboresListView;

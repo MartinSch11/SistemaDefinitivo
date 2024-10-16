@@ -9,24 +9,16 @@ import utilities.NodeSceneStrategy;
 
 public class MainMenuController {
 
-    @FXML
-    private Button adminLogin;
-    @FXML
-    private Button btnSettings;
-    @FXML
-    private Button btnProductos;
-    @FXML
-    private Button btnEventos;
-    @FXML
-    private Button btnAyuda;
-    @FXML
-    private Button btnPedidos;
-    @FXML
-    private Button btnCaducidadInsumos;
-    @FXML
-    private Button btnProveedores;
-    @FXML
-    private Button btnEstadistica;
+    @FXML private Button adminLogin;
+    @FXML private Button btnSettings;
+    @FXML private Button btnProductos;
+    @FXML private Button btnEventos;
+    @FXML private Button btnAyuda;
+    @FXML private Button btnPedidos;
+    @FXML private Button btnCaducidadInsumos;
+    @FXML private Button btnProveedores;
+    @FXML private Button btnEstadistica;
+    @FXML private Button btnStock;
 
     @FXML
     void handleAyuda(ActionEvent event) {
@@ -66,6 +58,11 @@ public class MainMenuController {
     @FXML
     void handleEstadistica(ActionEvent event) {
         SceneLoader.loadScene(new NodeSceneStrategy(btnEstadistica), Paths.ESTADISTICA, "/css/components.css", false);
+    }
+
+    @FXML
+    void handleStock(ActionEvent event) {
+        SceneLoader.loadScene(new NodeSceneStrategy(btnStock), Paths.STOCK, "/css/components.css", false);
     }
 
     @FXML

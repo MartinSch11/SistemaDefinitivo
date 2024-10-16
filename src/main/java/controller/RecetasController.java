@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import utilities.Paths;
 import utilities.SceneLoader;
 
-public class CaducidadInsumosController {
+public class RecetasController {
 
     @FXML
     void handleVolver(ActionEvent event) {

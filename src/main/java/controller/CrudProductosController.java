@@ -113,7 +113,7 @@ public class CrudProductosController {
                 e.printStackTrace();
             }
         } else {
-           mostrarAlerta("No se ha seleccionado ningún producto", "Por favor, selecciona un producto para modificar.");
+            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto", "Por favor, selecciona un producto para modificar.");
         }
     }
 
@@ -135,7 +135,6 @@ public class CrudProductosController {
         productoDAO.close();
     }
 
-
     public void actualizarProducto(Producto producto) {
         int index = listaProductos.indexOf(producto);  // Reemplaza 'productos' por 'listaProductos'
         if (index >= 0) {
@@ -143,11 +142,10 @@ public class CrudProductosController {
         }
     }
 
-    private void mostrarAlerta(String titulo, String contenido) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(contenido);
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 }

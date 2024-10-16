@@ -1,8 +1,6 @@
 package model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -10,8 +8,11 @@ import lombok.Data;
 @Table(name = "sabores")
 public class Sabor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sabor ")
     private int id_sabor;
+
+    @Column(name = "sabor")
     private String sabor;
 
-    // Getters y Setters generados por Lombok
 }

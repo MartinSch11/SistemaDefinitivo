@@ -127,17 +127,19 @@
          </Text>
 
          <!-- Caducidad Insumos Button -->
-         <Button id="btnCaducidadInsumos" fx:id="btnCaducidadInsumos" mnemonicParsing="false" onAction="#handleCaducidadInsumos" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <Button id="btnCaducidadInsumos" fx:id="btnRecetas" mnemonicParsing="false" onAction="#handleRecetas" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
             <graphic>
                <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
-                  <Image url="@../../../com.example.image/iconCadInsumo.png" />
+                  <image>
+                     <Image url="@../../../com.example.image/iconRecetas.png" />
+                  </image>
                </ImageView>
             </graphic>
          </Button>
-         <Text styleClass="txtButtonsMainMenu" text="Caducidad Insumos" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <Text styleClass="txtButtonsMainMenu" text="Recetas" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
             <font>
                <Font name="Inter 18pt Regular" size="14.0" />
             </font>
@@ -178,7 +180,7 @@
          </Text>
 
          <!-- Stock Button -->
-         <Button id="btnStock" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <Button id="btnStock" fx:id="btnStock" mnemonicParsing="false" onAction="#handleStock" prefHeight="125.0" prefWidth="125.0" styleClass="buttonsMainMenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <graphic>
                <ImageView fitHeight="115.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonsMainMenuImage">
                   <Image url="@../../../com.example.image/iconStock.png" />

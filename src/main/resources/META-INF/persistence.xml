@@ -14,6 +14,9 @@
         <class>model.Producto</class>
         <class>model.Sabor</class>
         <class>model.Trabajador</class>
+        <class>model.Proveedor</class>
+        <class>model.Insumo</class>
+        <class>model.Medida</class>
 
         <!-- Configuración de la conexión a la base de datos -->
         <properties>
