@@ -19,7 +19,6 @@ import persistence.dao.RecetaDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
 
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -71,7 +70,6 @@ public class PedidosController {
         rowConstraints.setMinHeight(260);
         gridPedidos.getRowConstraints().add(rowConstraints);
     }
-
 
     @FXML
     void handleVolver(ActionEvent event) {

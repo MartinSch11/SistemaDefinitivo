@@ -17,17 +17,37 @@ public class SaborDAO {
     }
 
     public Sabor findByName(String nombre) {
-        EntityManager em = entityManagerFactory.createEntityManager(); // Crear entityManager
-        Sabor sabor = null;
+        EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            sabor = em.createQuery("SELECT s FROM Sabor s WHERE s.sabor = :nombre", Sabor.class)
+            return em.createQuery("SELECT s FROM Sabor s WHERE s.nombre = :nombre", Sabor.class)
                     .setParameter("nombre", nombre)
                     .getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace(); // Manejo básico de excepciones
         } finally {
-            em.close(); // Asegurarse de cerrar el entityManager
+            em.close();
         }
-        return sabor;
+    }
+
+    // Método para guardar un nuevo sabor en la base de datos
+    public void guardarSabor(Sabor sabor) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(sabor);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    // Método para actualizar un sabor existente en la base de datos
+    public void actualizarSabor(Sabor sabor) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(sabor);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 }

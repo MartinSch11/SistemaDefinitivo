@@ -4,9 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class SceneLoader {
@@ -25,6 +27,20 @@ public class SceneLoader {
             strategy.loadScene(stage, scene, maximized);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static FXMLLoader loadDialogPane(String fxmlPath, String cssPath) {
+        FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(fxmlPath));
+        try {
+            DialogPane dialogPane = loader.load();
+            if (cssPath != null) {
+                dialogPane.getStylesheets().add(SceneLoader.class.getResource(cssPath).toExternalForm());
+            }
+            return loader;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

@@ -18,10 +18,13 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_producto")
     private int id;
 
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "descripcion")
     private String descripcion;
 
     @ManyToOne
@@ -53,5 +56,9 @@ public class Producto {
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public List<Sabor> getSabores() {
+        return sabores;
     }
 }

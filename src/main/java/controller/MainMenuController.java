@@ -15,10 +15,10 @@ public class MainMenuController {
     @FXML private Button btnEventos;
     @FXML private Button btnAyuda;
     @FXML private Button btnPedidos;
-    @FXML private Button btnCaducidadInsumos;
     @FXML private Button btnProveedores;
     @FXML private Button btnEstadistica;
     @FXML private Button btnStock;
+    @FXML private Button btnRecetas;
 
     @FXML
     void handleAyuda(ActionEvent event) {
@@ -46,11 +46,6 @@ public class MainMenuController {
     }
 
     @FXML
-    void handleCaducidadInsumos(ActionEvent event)  {
-        SceneLoader.loadScene(new NodeSceneStrategy(btnCaducidadInsumos), Paths.CADUCIDADINSUMOS, "/css/components.css", false);
-    }
-
-    @FXML
     void handleProveedores(ActionEvent event)  {
         SceneLoader.loadScene(new NodeSceneStrategy(btnProveedores), Paths.PROVEEDORES, "/css/components.css", false);
     }
@@ -68,5 +63,10 @@ public class MainMenuController {
     @FXML
     void handleSettings(ActionEvent event){
         SceneLoader.loadScene(new NodeSceneStrategy(btnSettings), Paths.SETTINGS, "/css/components.css", false);
+    }
+
+    @FXML
+    void handleRecetas(ActionEvent event){
+        SceneLoader.loadScene(new NodeSceneStrategy(btnRecetas), Paths.RECETAS, "/css/components.css", false);
     }
 }

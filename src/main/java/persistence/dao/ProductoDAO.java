@@ -30,7 +30,9 @@ public class ProductoDAO {
     }
 
     public Producto findById(int id) {
-        return em.find(Producto.class, id);
+        return em.createQuery("SELECT p FROM Producto p LEFT JOIN FETCH p.sabores WHERE p.id = :id", Producto.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     public List<Producto> findAll() {

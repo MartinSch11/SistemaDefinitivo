@@ -15,4 +15,9 @@ public class Sabor {
     @Column(name = "sabor")
     private String sabor;
 
+    @Override
+    public String toString() {
+        return this.sabor;  // Asumiendo que 'sabor' es el nombre del sabor
+    }
+
 }

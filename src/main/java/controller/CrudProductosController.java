@@ -40,7 +40,7 @@ public class CrudProductosController {
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));
+        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));  // Mostrar sabores como String
 
         cargarProductos();
 
@@ -58,11 +58,6 @@ public class CrudProductosController {
         tableProductos.setItems(listaProductos);
     }
 
-    public void agregarProducto(Producto producto) {
-        productoDAO.save(producto);
-        listaProductos.add(producto);
-    }
-
     @FXML
     public void handleAgregar(ActionEvent event) {
         try {
@@ -74,7 +69,7 @@ public class CrudProductosController {
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Agregar Producto");
 
-            ProductoFormController controller = loader.getController();  // Cambia EventoFormController a ProductosFormController
+            ProductoFormController controller = loader.getController();
 
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -90,8 +85,7 @@ public class CrudProductosController {
         Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
             try {
-                // Cargar el FXML del formulario para modificar
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/producto_form.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
                 DialogPane dialogPane = loader.load();
 
                 // Crear un diálogo
@@ -99,15 +93,13 @@ public class CrudProductosController {
                 dialog.setDialogPane(dialogPane);
                 dialog.setTitle("Modificar Producto");
 
-                // Obtener el controlador y pasar el producto seleccionado
+                // Pasar el producto seleccionado al formulario
                 ProductoFormController controller = loader.getController();
-                controller.setProductoParaEditar(productoSeleccionado);
+                controller.setProductoParaEditar(productoSeleccionado);  // Aquí pasamos el producto seleccionado
 
-                // Mostrar el diálogo y esperar la respuesta
                 Optional<ButtonType> result = dialog.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // Recargar la lista de productos o realizar otras acciones necesarias
-                    cargarProductos();
+                    cargarProductos();  // Recargar lista de productos después de modificar
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -121,25 +113,28 @@ public class CrudProductosController {
     void handleEliminar(ActionEvent event) {
         Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
-            productoDAO.delete(productoSeleccionado);
-            listaProductos.remove(productoSeleccionado);
+            // Crear un cuadro de diálogo de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Eliminación");
+            alert.setHeaderText("Eliminar Producto");
+            alert.setContentText("¿Estás seguro de que deseas eliminar el producto: " + productoSeleccionado.getNombre() + "?");
+
+            // Mostrar el cuadro de diálogo y esperar la respuesta
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                productoDAO.delete(productoSeleccionado);
+                listaProductos.remove(productoSeleccionado);  // Eliminar el producto de la lista observable
+                tableProductos.setItems(listaProductos); // Asegurarse de que la tabla se actualice
+            }
+        } else {
+            // Usar showAlert para mostrar un mensaje de error si no hay selección
+            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto", "Por favor, selecciona un producto para eliminar.");
         }
     }
 
     @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
-    }
-
-    public void close() {
-        productoDAO.close();
-    }
-
-    public void actualizarProducto(Producto producto) {
-        int index = listaProductos.indexOf(producto);  // Reemplaza 'productos' por 'listaProductos'
-        if (index >= 0) {
-            listaProductos.set(index, producto); // Actualiza el producto en la lista observable
-        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
