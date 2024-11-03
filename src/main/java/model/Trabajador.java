@@ -21,7 +21,7 @@ public class Trabajador {
     private int idRol;
 
     // Constructor por defecto
-    public Trabajador() {}
+    public Trabajador(String nombreEmpleado, String dniEmpleado, String direccionEmpleado, String telefonoEmpleado, String sueldoEmpleado, LocalDate fechaContratoEmpleado) {}
 
     // Constructor con todos los campos
     public Trabajador(String dni, int edad, String direccion, String telefono, LocalDate fechaContratacion, Timestamp ultimaActividad, int idRol) {

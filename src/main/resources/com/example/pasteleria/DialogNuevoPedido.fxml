@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="440.0" prefWidth="600.0" style="-fx-background-color: #f7ede3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DialogNuevoPedidoController">
+<AnchorPane prefHeight="440.0" prefWidth="600.0" style="-fx-background-color: #f7ede3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DialogNuevoPedidoController">
    <stylesheets>
       <URL value="@../../../css/components.css" />
    </stylesheets>
@@ -97,5 +97,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Button fx:id="btnCatalogo" layoutX="405.0" layoutY="39.0" mnemonicParsing="false" onAction="#catalogoPedido" text="Button" />
    </children>
 </AnchorPane>

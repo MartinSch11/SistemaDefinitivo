@@ -1,12 +1,19 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Evento;
+import persistence.dao.TrabajadorDAO;
+import model.Trabajador;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class CrudModificarEmpleadoController {
@@ -15,9 +22,10 @@ public class CrudModificarEmpleadoController {
 
     @FXML
     private Button btnGuardar;
-
     @FXML
-    private ComboBox<String> cmbModifEmpExistente; @FXML private TextField DNIEmpExistente; @FXML private TextField NombreEmpExistente; @FXML private TextField SueldoEmpExistente; @FXML private TextField TelEmpExistente; @FXML private Pane paneModificarEmpleado;
+    private TextField direccionEmpExistente;
+    @FXML
+    private ComboBox<String> cmbModifEmpExistente; @FXML private TextField DNIEmpExistente; @FXML private TextField NombreEmpExistente; @FXML private TextField direccionEmpExistente; @FXML private TextField SueldoEmpExistente; @FXML private TextField TelEmpExistente; @FXML private DatePicker FechaContratoExistente; @FXML private Pane paneModificarEmpleado;
 
     @FXML
     public void initialize() {
@@ -42,7 +50,10 @@ public class CrudModificarEmpleadoController {
             }
         });
 
+        cargarNombresEnComboBox();
+        cmbModifEmpExistente.setOnAction(e -> cargarDatosTrabajador());
 
+        
     }
 
 
@@ -74,8 +85,12 @@ public class CrudModificarEmpleadoController {
         if (TelEmpExistente.getText().isEmpty()) {
             return false;
         }
+        if (FechaContratoExistente.getValue() == null){
+            return false;
+        }
         return true;
 
+        //
     }
 
     void vaciarCampos(){
@@ -91,21 +106,79 @@ public class CrudModificarEmpleadoController {
         alert.showAndWait();
     }
 
-    private void obtenerDatosBD(){
-        //funcion para obtener e insertar los datos guardados en la BD a los textField.
-
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
-    private void modificarDatosBD(){
-        //funcion para modificar los datos del empleado viejo por los datos nuevos
+    private void cargarNombresEnComboBox() {
+        try {
+            List<String> nombres = trabajadorDAO.findAllNombres();
+            cmbModifEmpExistente.setItems(FXCollections.observableArrayList(nombres));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+        } finally {
+            trabajadorDAO.close();
+        }
     }
+
+    private void obtenerDatosDB(Trabajador trabajador){
+        DNIEmpExistente.setText(trabajador.getDni());
+        NombreEmpExistente.setText(trabajador.getNombre());
+        direccionEmpExistente.setText(trabajador.getDireccion());
+        TelEmpExistente.setText(trabajador.getTelefono());
+        SueldoEmpExistente.setText(trabajador.getSueldo());
+        FechaContratoExistente.setValue(trabajador.getFechaContratacion());
+        //
+    }
+
+    private void cargarDatosTrabajador() {
+        try {
+            String nombreSeleccionado = cmbModifEmpExistente.getValue();
+            if (nombreSeleccionado != null) {
+                Trabajador trabajador = trabajadorDAO.findAllNombres(nombreSeleccionado);
+                if (trabajador != null) {
+                    obtenerDatosDB(trabajador);
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un trabajador con ese nombre.");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos del empleado: " + e.getMessage());
+        }
+    }
+
+    private Trabajador trabajador;
+
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
 
     private void guardarDatos(){
-        String modificarEmpleadoExistente = cmbModifEmpExistente.getValue();
-        String nuevoNombre = NombreEmpExistente.getText();
-        String nuevoTelefono = TelEmpExistente.getText();
-        Integer nuevoDNI = Integer.parseInt(DNIEmpExistente.getText());
-        Integer nuevoSueldo = Integer.parseInt(SueldoEmpExistente.getText());
+        try {
+            obtenerDatosDB(trabajador);
+            // Verificar si el empleado existe para actualizar
+            Trabajador empleadoExistente = trabajadorDAO.findByDNI(???);
+            if (empleadoExistente != null) {
+                empleadoExistente.setDNI(DNIEmpExistente);
+                empleadoExistente.setNombre(NombreEmpExistente);
+                empleadoExistente.setDireccion(direccionEmpExistente);
+                empleadoExistente.setTelefono(TelEmpExistente);
+                empleadoExistente.setSueldo(SueldoEmpExistente);
+                empleadoExistente.setFechaContratacion(FechaContratoExistente);
+                //
+
+                trabajadorDAO.update(empleadoExistente);
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado actualizado exitosamente.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un empleado con ese DNI.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al actualizar al empleado: " + e.getMessage());
+        }
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -156,6 +229,5 @@ public class CrudModificarEmpleadoController {
         }
 
     }
-
 
 }

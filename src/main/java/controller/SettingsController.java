@@ -97,6 +97,7 @@ public class SettingsController {
     public void cerrarCrudAnadirEmpleado() {
         // Eliminar el contenido del Pane
         contenedorDinamico.getChildren().clear();
+        btnAnadirEmpleado.setDisable(false);
     }
 
     @FXML
@@ -122,6 +123,7 @@ public class SettingsController {
     public void cerrarCrudEliminarEmpleado() {
         // Eliminar el contenido del Pane que contiene CrudEliminarEmpleado.fxml
         contenedorDinamico.getChildren().clear();
+        btnEliminarEmpleado.setDisable(false);
     }
 
     @FXML
@@ -145,6 +147,7 @@ public class SettingsController {
     public void cerrarCrudModificarEmpleado() {
         // Eliminar el contenido del Pane
         contenedorDinamico.getChildren().clear();
+        btnModificarEmpleado.setDisable(false);
     }
 
 

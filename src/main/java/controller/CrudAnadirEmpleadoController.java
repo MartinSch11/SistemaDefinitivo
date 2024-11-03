@@ -1,19 +1,24 @@
 package controller;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.w3c.dom.Text;
-
+import persistence.dao.TrabajadorDAO;
+import model.Trabajador;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import javafx.scene.control.Alert;
 
 public class CrudAnadirEmpleadoController {
     @FXML private Pane paneAnadirEmpleado;
@@ -22,17 +27,18 @@ public class CrudAnadirEmpleadoController {
 
     @FXML
     private TextField DNITxtField;
-
     @FXML
     private TextField nombreTxtField;
-
+    @FXML
+    private DatePicker dateFechaContratacion;
+    @FXML
+    private TextField direccionTxtField;
     @FXML
     private TextField sueldoTxtField; @FXML  private TextField telTxtField;
 
 
     @FXML
     public void initialize() {
-
         nombreTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-Z]*")) {
                 nombreTxtField.setText(newValue.replaceAll("[^a-zA-Z]", ""));
@@ -51,6 +57,18 @@ public class CrudAnadirEmpleadoController {
         sueldoTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 sueldoTxtField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        //permite seleccionar una fecha de contratacion solo hasta el dia actual
+        dateFechaContratacion.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isAfter(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #EEEEEE;");
+                }
             }
         });
     }
@@ -73,7 +91,8 @@ public class CrudAnadirEmpleadoController {
         telTxtField.clear();
         DNITxtField.clear();
         sueldoTxtField.clear();
-
+        direccionTxtField.clear();
+        dateFechaContratacion.setValue(null);
     }
 
     private void mensajeConfirmacion() {
@@ -97,27 +116,61 @@ public class CrudAnadirEmpleadoController {
         if (telTxtField == null || telTxtField.getText().isEmpty()) {
             return false;
         }
+        if (direccionTxtField == null || direccionTxtField.getText().isEmpty()) {
+            return false;
+        }
+        if (dateFechaContratacion.getValue() == null) {
+            return false;
+        }
         return true;
     }
 
-
-    private void guardarDatos(){
-        String nombreEmpleado = nombreTxtField.getText();
-        String telefonoEmpleado = telTxtField.getText();
-        String dniEmpleado = DNITxtField.getText();
-        String sueldoEmpleado = sueldoTxtField.getText();
+    private void showAlert(AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
-    void anadirEmpleadoBD(){
-        //funcion para añadir a la BD al nuevo empleado
+    private Trabajador empleadoActual;
+    private LocalDateTime ultActividadEmpleado;
 
+    private void guardarDatos(){
+        String dniEmpleado = DNITxtField.getText();
+        String nombreEmpleado = nombreTxtField.getText();
+        String direccionEmpleado = direccionTxtField.getText();
+        String telefonoEmpleado = telTxtField.getText();
+        String sueldoEmpleado = sueldoTxtField.getText();
+        LocalDate fechaContratoEmpleado = dateFechaContratacion.getValue();
+        //falta guardar en variable ultimaAct del empleado para que no se
+        //falta tambien idRol ????
+
+        TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+        try {
+            // Verificar si ya existe un empleado con el mismo DNI
+            Trabajador empleadoExistente = trabajadorDAO.findByDNI(dniEmpleado);
+            if (empleadoExistente != null) {
+                showAlert(Alert.AlertType.ERROR, "Error de Validación", "Ya existe un empleado con ese DNI.");
+                return;
+            }
+
+            // Crear nuevo empleado y guardar
+            Trabajador nuevoEmpleado = new Trabajador(dniEmpleado, nombreEmpleado, direccionEmpleado, telefonoEmpleado, sueldoEmpleado, fechaContratoEmpleado);
+            trabajadorDAO.save(nuevoEmpleado);
+
+            //showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado guardado exitosamente."); creo q esto ya hice
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al guardar al empleado: " + e.getMessage());
+        }finally{
+            trabajadorDAO.close();
+        }
     }
 
     /*---------------------------------------------------------------------------------------*/
 
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
-
         if(camposObligatorios()){
 
             guardarDatos();
@@ -139,7 +192,6 @@ public class CrudAnadirEmpleadoController {
 
             alert.showAndWait();
         }
-
     }
 
     @FXML
@@ -165,12 +217,4 @@ public class CrudAnadirEmpleadoController {
             alert.close();
         }
     }
-
-
-
-
-    //guardar modificaciones: eliminar, añadir, modificar
-    //mejorar el diseño
-    //eliminar de pedidoController
-
 }
