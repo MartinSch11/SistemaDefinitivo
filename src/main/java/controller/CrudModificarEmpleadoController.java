@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import model.Evento;
 import persistence.dao.TrabajadorDAO;
 import model.Trabajador;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,15 +22,13 @@ public class CrudModificarEmpleadoController {
     @FXML
     private Button btnGuardar;
     @FXML
-    private TextField direccionEmpExistente;
-    @FXML
     private ComboBox<String> cmbModifEmpExistente; @FXML private TextField DNIEmpExistente; @FXML private TextField NombreEmpExistente; @FXML private TextField direccionEmpExistente; @FXML private TextField SueldoEmpExistente; @FXML private TextField TelEmpExistente; @FXML private DatePicker FechaContratoExistente; @FXML private Pane paneModificarEmpleado;
 
     @FXML
     public void initialize() {
         NombreEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z]*")) {
-                NombreEmpExistente.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+            if (!newValue.matches("[a-zA-Z ]*")) { // Se añadió el espacio
+                NombreEmpExistente.setText(newValue.replaceAll("[^a-zA-Z ]", "")); // Se añadió el espacio a la expresión regular
             }
         });
         TelEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -45,8 +42,8 @@ public class CrudModificarEmpleadoController {
             }
         });
         SueldoEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                SueldoEmpExistente.setText(newValue.replaceAll("[^\\d]", ""));
+            if (!newValue.matches("[\\d,.]*")) {
+                SueldoEmpExistente.setText(newValue.replaceAll("[^\\d,.]", ""));
             }
         });
 
@@ -130,7 +127,7 @@ public class CrudModificarEmpleadoController {
         NombreEmpExistente.setText(trabajador.getNombre());
         direccionEmpExistente.setText(trabajador.getDireccion());
         TelEmpExistente.setText(trabajador.getTelefono());
-        SueldoEmpExistente.setText(trabajador.getSueldo());
+        SueldoEmpExistente.setText(trabajador.getSueldo().toPlainString());
         FechaContratoExistente.setValue(trabajador.getFechaContratacion());
         //
     }
@@ -139,7 +136,7 @@ public class CrudModificarEmpleadoController {
         try {
             String nombreSeleccionado = cmbModifEmpExistente.getValue();
             if (nombreSeleccionado != null) {
-                Trabajador trabajador = trabajadorDAO.findAllNombres(nombreSeleccionado);
+                Trabajador trabajador = trabajadorDAO.findByNombre(nombreSeleccionado);
                 if (trabajador != null) {
                     obtenerDatosDB(trabajador);
                 } else {
@@ -158,16 +155,24 @@ public class CrudModificarEmpleadoController {
 
     private void guardarDatos(){
         try {
+            String nuevoDNI = DNIEmpExistente.getText();
+            String nuevoNombre = NombreEmpExistente.getText();
+            String nuevaDireccion = direccionEmpExistente.getText();
+            String nuevoTelefono = TelEmpExistente.getText();
+            BigDecimal nuevoSueldo = new BigDecimal(SueldoEmpExistente.getText());
+            LocalDate nuevaFechaContratacion = FechaContratoExistente.getValue();
+
+
             obtenerDatosDB(trabajador);
             // Verificar si el empleado existe para actualizar
-            Trabajador empleadoExistente = trabajadorDAO.findByDNI(???);
+            Trabajador empleadoExistente = trabajadorDAO.findByDNI(nuevoDNI);
             if (empleadoExistente != null) {
-                empleadoExistente.setDNI(DNIEmpExistente);
-                empleadoExistente.setNombre(NombreEmpExistente);
-                empleadoExistente.setDireccion(direccionEmpExistente);
-                empleadoExistente.setTelefono(TelEmpExistente);
-                empleadoExistente.setSueldo(SueldoEmpExistente);
-                empleadoExistente.setFechaContratacion(FechaContratoExistente);
+                empleadoExistente.setDni(nuevoDNI);
+                empleadoExistente.setNombre(nuevoNombre);
+                empleadoExistente.setDireccion(nuevaDireccion);
+                empleadoExistente.setTelefono(nuevoTelefono);
+                empleadoExistente.setSueldo(nuevoSueldo);
+                empleadoExistente.setFechaContratacion(nuevaFechaContratacion);
                 //
 
                 trabajadorDAO.update(empleadoExistente);
@@ -211,7 +216,6 @@ public class CrudModificarEmpleadoController {
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
         if (camposObligatorios()){
-
 
             guardarDatos();
             mensajeConfirmacion();

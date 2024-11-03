@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import java.math.BigDecimal;
+import java.security.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +22,7 @@ import model.Trabajador;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import javafx.scene.control.Alert;
+
 
 public class CrudAnadirEmpleadoController {
     @FXML private Pane paneAnadirEmpleado;
@@ -40,8 +44,8 @@ public class CrudAnadirEmpleadoController {
     @FXML
     public void initialize() {
         nombreTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z]*")) {
-                nombreTxtField.setText(newValue.replaceAll("[^a-zA-Z]", ""));
+            if (!newValue.matches("[a-zA-Z ]*")) { // Se añadió el espacio
+                nombreTxtField.setText(newValue.replaceAll("[^a-zA-Z ]", "")); // Se añadió el espacio a la expresión regular
             }
         });
         telTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -55,8 +59,8 @@ public class CrudAnadirEmpleadoController {
             }
         });
         sueldoTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                sueldoTxtField.setText(newValue.replaceAll("[^\\d]", ""));
+            if (!newValue.matches("[\\d,.]*")) {
+                sueldoTxtField.setText(newValue.replaceAll("[^\\d,.]", ""));
             }
         });
 
@@ -132,18 +136,13 @@ public class CrudAnadirEmpleadoController {
         alert.showAndWait();
     }
 
-    private Trabajador empleadoActual;
-    private LocalDateTime ultActividadEmpleado;
-
     private void guardarDatos(){
         String dniEmpleado = DNITxtField.getText();
         String nombreEmpleado = nombreTxtField.getText();
         String direccionEmpleado = direccionTxtField.getText();
         String telefonoEmpleado = telTxtField.getText();
-        String sueldoEmpleado = sueldoTxtField.getText();
+        BigDecimal sueldoEmpleado = new BigDecimal(sueldoTxtField.getText());
         LocalDate fechaContratoEmpleado = dateFechaContratacion.getValue();
-        //falta guardar en variable ultimaAct del empleado para que no se
-        //falta tambien idRol ????
 
         TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
         try {
@@ -155,15 +154,16 @@ public class CrudAnadirEmpleadoController {
             }
 
             // Crear nuevo empleado y guardar
-            Trabajador nuevoEmpleado = new Trabajador(dniEmpleado, nombreEmpleado, direccionEmpleado, telefonoEmpleado, sueldoEmpleado, fechaContratoEmpleado);
+            Trabajador nuevoEmpleado = new Trabajador(dniEmpleado, nombreEmpleado, direccionEmpleado, telefonoEmpleado, sueldoEmpleado, fechaContratoEmpleado, null);
             trabajadorDAO.save(nuevoEmpleado);
 
-            //showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado guardado exitosamente."); creo q esto ya hice
+            // Actualizar ComboBox en SettingsController
+            SettingsController.getInstance().cargarNombresEnComboBox();
+
+            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado guardado exitosamente.");
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Error al guardar al empleado: " + e.getMessage());
-        }finally{
-            trabajadorDAO.close();
         }
     }
 
@@ -174,7 +174,7 @@ public class CrudAnadirEmpleadoController {
         if(camposObligatorios()){
 
             guardarDatos();
-            mensajeConfirmacion();
+            //mensajeConfirmacion();
             vaciarTodosCampos();
             visibilidadButtons();
             if (settingsController != null) {

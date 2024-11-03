@@ -67,10 +67,21 @@ public class TrabajadorDAO {
         }
     }
 
-    //añadir columna nombre a la base de datos
+    //lista nombres
     public List<String> findAllNombres() {
         return em.createQuery("SELECT t.nombre FROM Trabajador t", String.class).getResultList();
     }
+    //busca nombres
+    public Trabajador findByNombre(String nombre) {
+        try {
+            return em.createQuery("SELECT t FROM Trabajador t WHERE t.nombre = :nombre", Trabajador.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 
     public List<Trabajador> findAll() {
         return em.createQuery("SELECT t FROM Trabajador t", Trabajador.class).getResultList();

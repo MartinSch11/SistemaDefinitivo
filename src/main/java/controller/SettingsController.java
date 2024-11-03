@@ -1,20 +1,26 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import utilities.Paths;
 import utilities.SceneLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import persistence.dao.TrabajadorDAO;
+import model.Trabajador;
 
+import java.util.List;
 
 public class SettingsController {
     @FXML private Button btnModificarEmpleado; @FXML private Button btnEliminarEmpleado; @FXML private Button btnAnadirEmpleado;
-    @FXML private GridPane gridEmpleadosActuales; @FXML private Label title;
+    @FXML private GridPane gridEmpleadosActuales; @FXML private Label title; @FXML private ComboBox<String> cmbEmpleadosActuales;
     @FXML
     private Button btnConfiguracionEmpleado;
     @FXML
@@ -22,9 +28,18 @@ public class SettingsController {
 
     public static int verificarVentanasAbiertas = 0;
 
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+    private static SettingsController instance;
+    public SettingsController() {
+        instance = this;
+    }
+    public static SettingsController getInstance() {
+        return instance;
+    }
+
     @FXML
     private void initialize() {
-
+        cargarNombresEnComboBox();
     }
 
     public Button getBtnModificarEmpleado() {
@@ -151,4 +166,20 @@ public class SettingsController {
     }
 
 
+    public void cargarNombresEnComboBox() {
+        try {
+            List<String> nombres = trabajadorDAO.findAllNombres();
+            cmbEmpleadosActuales.setItems(FXCollections.observableArrayList(nombres));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
