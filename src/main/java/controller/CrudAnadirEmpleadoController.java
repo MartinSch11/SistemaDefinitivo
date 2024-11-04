@@ -136,6 +136,7 @@ public class CrudAnadirEmpleadoController {
         alert.showAndWait();
     }
 
+    @FXML
     private void guardarDatos(){
         String dniEmpleado = DNITxtField.getText();
         String nombreEmpleado = nombreTxtField.getText();
@@ -145,6 +146,7 @@ public class CrudAnadirEmpleadoController {
         LocalDate fechaContratoEmpleado = dateFechaContratacion.getValue();
 
         TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+
         try {
             // Verificar si ya existe un empleado con el mismo DNI
             Trabajador empleadoExistente = trabajadorDAO.findByDNI(dniEmpleado);
@@ -152,20 +154,18 @@ public class CrudAnadirEmpleadoController {
                 showAlert(Alert.AlertType.ERROR, "Error de Validación", "Ya existe un empleado con ese DNI.");
                 return;
             }
-
             // Crear nuevo empleado y guardar
             Trabajador nuevoEmpleado = new Trabajador(dniEmpleado, nombreEmpleado, direccionEmpleado, telefonoEmpleado, sueldoEmpleado, fechaContratoEmpleado, null);
             trabajadorDAO.save(nuevoEmpleado);
-
             // Actualizar ComboBox en SettingsController
             SettingsController.getInstance().cargarNombresEnComboBox();
-
             showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado guardado exitosamente.");
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Error al guardar al empleado: " + e.getMessage());
         }
     }
+
 
     /*---------------------------------------------------------------------------------------*/
 

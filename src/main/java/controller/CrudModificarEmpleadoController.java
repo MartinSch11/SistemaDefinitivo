@@ -11,6 +11,7 @@ import model.Evento;
 import persistence.dao.TrabajadorDAO;
 import model.Trabajador;
 import java.math.BigDecimal;
+import java.security.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -92,7 +93,6 @@ public class CrudModificarEmpleadoController {
 
     void vaciarCampos(){
         cmbModifEmpExistente.setValue(null);
-
     }
 
     private void mensajeConfirmacion() {
@@ -117,10 +117,10 @@ public class CrudModificarEmpleadoController {
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
-        } finally {
-            trabajadorDAO.close();
         }
     }
+
+
 
     private void obtenerDatosDB(Trabajador trabajador){
         DNIEmpExistente.setText(trabajador.getDni());
@@ -129,7 +129,7 @@ public class CrudModificarEmpleadoController {
         TelEmpExistente.setText(trabajador.getTelefono());
         SueldoEmpExistente.setText(trabajador.getSueldo().toPlainString());
         FechaContratoExistente.setValue(trabajador.getFechaContratacion());
-        //
+
     }
 
     private void cargarDatosTrabajador() {
@@ -139,6 +139,7 @@ public class CrudModificarEmpleadoController {
                 Trabajador trabajador = trabajadorDAO.findByNombre(nombreSeleccionado);
                 if (trabajador != null) {
                     obtenerDatosDB(trabajador);
+                    this.trabajador = trabajador; // Almacena el trabajador seleccionado en una variable de instancia
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un trabajador con ese nombre.");
                 }
@@ -153,29 +154,23 @@ public class CrudModificarEmpleadoController {
 
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
 
-    private void guardarDatos(){
+    @FXML
+    private void guardarDatos() {
         try {
-            String nuevoDNI = DNIEmpExistente.getText();
-            String nuevoNombre = NombreEmpExistente.getText();
-            String nuevaDireccion = direccionEmpExistente.getText();
-            String nuevoTelefono = TelEmpExistente.getText();
-            BigDecimal nuevoSueldo = new BigDecimal(SueldoEmpExistente.getText());
-            LocalDate nuevaFechaContratacion = FechaContratoExistente.getValue();
+            if (trabajador != null) {
+                // Actualizar los datos del trabajador seleccionado con los nuevos datos del formulario
+                trabajador.setDni(DNIEmpExistente.getText());
+                trabajador.setNombre(NombreEmpExistente.getText());
+                trabajador.setDireccion(direccionEmpExistente.getText());
+                trabajador.setTelefono(TelEmpExistente.getText());
+                trabajador.setSueldo(new BigDecimal(SueldoEmpExistente.getText()));
+                trabajador.setFechaContratacion(FechaContratoExistente.getValue());
 
+                // Guardar los cambios en la base de datos
+                trabajadorDAO.update(trabajador);
+                // Actualizar ComboBox en SettingsController
+                SettingsController.getInstance().cargarNombresEnComboBox();
 
-            obtenerDatosDB(trabajador);
-            // Verificar si el empleado existe para actualizar
-            Trabajador empleadoExistente = trabajadorDAO.findByDNI(nuevoDNI);
-            if (empleadoExistente != null) {
-                empleadoExistente.setDni(nuevoDNI);
-                empleadoExistente.setNombre(nuevoNombre);
-                empleadoExistente.setDireccion(nuevaDireccion);
-                empleadoExistente.setTelefono(nuevoTelefono);
-                empleadoExistente.setSueldo(nuevoSueldo);
-                empleadoExistente.setFechaContratacion(nuevaFechaContratacion);
-                //
-
-                trabajadorDAO.update(empleadoExistente);
                 showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado actualizado exitosamente.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un empleado con ese DNI.");
@@ -218,7 +213,7 @@ public class CrudModificarEmpleadoController {
         if (camposObligatorios()){
 
             guardarDatos();
-            mensajeConfirmacion();
+            //mensajeConfirmacion();
             vaciarCampos();
             visibilidadButtons();
             // Llamar al metodo de SettingsController para limpiar el contenedor
@@ -227,9 +222,7 @@ public class CrudModificarEmpleadoController {
             }
 
         }else{
-
-
-
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pueden guardar los cambios debido a campos vacíos.");
         }
 
     }
