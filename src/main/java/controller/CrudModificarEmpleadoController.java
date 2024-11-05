@@ -87,8 +87,6 @@ public class CrudModificarEmpleadoController {
             return false;
         }
         return true;
-
-        //
     }
 
     void vaciarCampos(){
@@ -201,8 +199,6 @@ public class CrudModificarEmpleadoController {
             if (settingsController != null) {
                 settingsController.cerrarCrudModificarEmpleado();
             }
-
-
         } else {
             alert.close();
         }

@@ -28,7 +28,9 @@ public class SettingsController {
 
     public static int verificarVentanasAbiertas = 0;
 
+
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+
     private static SettingsController instance;
     public SettingsController() {
         instance = this;

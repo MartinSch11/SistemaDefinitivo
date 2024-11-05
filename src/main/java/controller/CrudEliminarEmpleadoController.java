@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -11,6 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import model.Trabajador;
+import persistence.dao.TrabajadorDAO;
+import javafx.scene.control.*;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,6 +35,12 @@ public class CrudEliminarEmpleadoController {
     private Pane paneEliminarEmpleado;
 
     private SettingsController settingsController;
+
+    @FXML
+    public void initialize() {
+        cargarNombresEnComboBox();
+    }
+
 
     public void setSettingsController(SettingsController settingsController) {
         this.settingsController = settingsController;
@@ -49,7 +61,7 @@ public class CrudEliminarEmpleadoController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Confirmación");
         alert.setHeaderText(null);
-        alert.setContentText("¡Los cambios se han realizado con éxito!");
+        alert.setContentText("¡El empleado ha sido eliminado con éxito!");
         alert.showAndWait();
     }
     public void mensajeAdvertenciaCamposVacios() {
@@ -64,9 +76,11 @@ public class CrudEliminarEmpleadoController {
         alert.showAndWait();
     }
 
-    void eliminarEmpleadoBD(){
-        //funcion para eliminar de la BD al empleado seleccionado
-
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     /*-----------------------------------------------------------------------------------------------*/
@@ -101,48 +115,71 @@ public class CrudEliminarEmpleadoController {
         }
     }
 
+    private void cargarNombresEnComboBox() {
+        try {
+            List<String> nombres = trabajadorDAO.findAllNombres();
+            cmbEliminarEmpExistente.setItems(FXCollections.observableArrayList(nombres));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+        }
+    }
+
+
+    private Trabajador trabajador;
+
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
 
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
-        String eliminarEmpleado = cmbEliminarEmpExistente.getValue();
+        try {
+            String eliminarEmpleadoSeleccionado = cmbEliminarEmpExistente.getValue();
 
-        if (cmbEliminarEmpExistente.getValue() != null) {
+            if (eliminarEmpleadoSeleccionado != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmación de eliminación");
+                alert.setHeaderText(null);
+                alert.setContentText("¿Desea eliminar el empleado seleccionado? Esta acción no se puede revertir.");
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmación de eliminación");
-            alert.setHeaderText(null);
-            alert.setContentText("¿Desea eliminar el empleado seleccionado? Esta acción no se puede revertir.");
+                ButtonType buttonSi = new ButtonType("Sí");
+                ButtonType buttonCancelar = new ButtonType("Cancelar");
 
-            ButtonType buttonSi = new ButtonType("Sí");
-            ButtonType buttonCancelar = new ButtonType("Cancelar");
+                alert.getButtonTypes().setAll(buttonSi, buttonCancelar);
 
-            alert.getButtonTypes().setAll(buttonSi, buttonCancelar);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == buttonSi) {
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == buttonSi) {
+                    // Acción a realizar si el usuario selecciona "Sí"
+                    Trabajador trabajador = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
+                    if (trabajador != null) {
+                        trabajadorDAO.delete(trabajador);
 
-// Acción a realizar si el usuario selecciona "Sí"
+                        // Actualizar ComboBox después de eliminación
+                        SettingsController.getInstance().cargarNombresEnComboBox();
+                        cargarNombresEnComboBox();
+                        showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un trabajador con ese nombre.");
+                    }
 
-                mensajeConfirmacion();
-                visibilidadButtons();
+                    visibilidadButtons();
 
-                // Llamar al metodo de SettingsController para limpiar el contenedor
-                if (settingsController != null) {
-                    settingsController.cerrarCrudEliminarEmpleado();
+                    // Llamar al metodo de SettingsController para limpiar el contenedor
+                    if (settingsController != null) {
+                        settingsController.cerrarCrudEliminarEmpleado();
+                    }
+                }else{
+                    alert.close();
                 }
 
             } else {
-
-
-
-                // Acción a realizar si el usuario selecciona "Cancelar" o cierra el diálogo
-
+                mensajeAdvertenciaCamposVacios();
             }
 
-        } else {
-            mensajeAdvertenciaCamposVacios();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos del empleado: " + e.getMessage());
         }
-
     }
 
 
