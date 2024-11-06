@@ -5,8 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import lombok.Getter;
 import model.Producto;
 import persistence.dao.ProductoDAO;
 import utilities.SceneLoader;
@@ -28,7 +32,8 @@ public class CrudProductosController {
     @FXML private TableColumn<Producto, Float> colPrecio;
     @FXML private TableColumn<Producto, String> colSabor;
 
-    private ObservableList<Producto> listaProductos;
+    @Getter
+    private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
     private ProductoDAO productoDAO;
 
     @FXML
@@ -53,28 +58,35 @@ public class CrudProductosController {
     }
 
     private void cargarProductos() {
-        List<Producto> productos = productoDAO.findAll();
-        listaProductos.setAll(productos);
-        tableProductos.setItems(listaProductos);
+        listaProductos.clear(); // Limpiar la lista antes de cargar los nuevos productos
+        List<Producto> productos = productoDAO.findAll(); // Obtener productos de la base de datos
+        listaProductos.addAll(productos); // Agregar los productos a la lista observable
+        tableProductos.setItems(listaProductos); // Establecer la lista en la TableView
     }
 
     @FXML
     public void handleAgregar(ActionEvent event) {
         try {
+            // Cargar el FXML del formulario
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
-            DialogPane dialogPane = loader.load();
+            Parent root = loader.load();
 
-            // Crear un diálogo
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Agregar Producto");
-
+            // Obtener el controlador del formulario
             ProductoFormController controller = loader.getController();
+            controller.setParentController(this); // Establecer el controlador padre
+            controller.setListaProductos(listaProductos); // Pasar la lista observable
 
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                cargarProductos(); // Actualiza la tabla de productos si se agrega uno nuevo
-            }
+            // Crear una nueva ventana para el formulario
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Agregar Producto");
+            stage.show();
+
+            // Opción de esperar hasta que la ventana se cierre
+            stage.setOnHiding(e -> {
+                cargarProductos(); // Recargar la tabla de productos después de cerrar el formulario
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,18 +100,17 @@ public class CrudProductosController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
                 DialogPane dialogPane = loader.load();
 
-                // Crear un diálogo
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(dialogPane);
                 dialog.setTitle("Modificar Producto");
 
-                // Pasar el producto seleccionado al formulario
                 ProductoFormController controller = loader.getController();
-                controller.setProductoParaEditar(productoSeleccionado);  // Aquí pasamos el producto seleccionado
+                controller.setProducto(productoSeleccionado);
+                controller.setListaProductos(listaProductos); // Pasar la lista observable
 
                 Optional<ButtonType> result = dialog.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    cargarProductos();  // Recargar lista de productos después de modificar
+                    cargarProductos(); // Recargar la lista tras modificar
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -108,6 +119,7 @@ public class CrudProductosController {
             showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto", "Por favor, selecciona un producto para modificar.");
         }
     }
+
 
     @FXML
     void handleEliminar(ActionEvent event) {
@@ -143,4 +155,5 @@ public class CrudProductosController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
 }

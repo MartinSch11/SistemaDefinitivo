@@ -11,6 +11,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Sabor;
 import persistence.dao.SaborDAO;
+import utilities.NodeSceneStrategy;
+import utilities.Paths;
+import utilities.SceneLoader;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class SaboresController {
     @FXML private GridPane gridSabores;
     @FXML private Button btnCancelar;
     @FXML private Button btnGuardar;
+    @FXML private Button btnAgregarSabor;
 
     private SaborDAO saborDAO = new SaborDAO();
 
@@ -97,6 +101,11 @@ public class SaboresController {
             parentController.setSaboresSeleccionados(saboresSeleccionados);
             ((Stage) btnGuardar.getScene().getWindow()).close();
         }
+    }
+
+    @FXML
+    void handleNuevoSabor(ActionEvent event) {
+        SceneLoader.loadScene(new NodeSceneStrategy(btnAgregarSabor), Paths.NUEVOSABOR, "/css/components.css", false);
     }
 
     @FXML
