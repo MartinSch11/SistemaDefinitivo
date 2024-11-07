@@ -19,7 +19,7 @@
          <content>
             <Pane prefHeight="595.0" prefWidth="799.0" style="-fx-background-color: #f7ede3;">
                <children>
-                  <Pane layoutX="505.0" layoutY="393.0" prefHeight="208.0" prefWidth="312.0" styleClass="catalogo-productos" stylesheets="@../../../css/pedidos.css">
+                  <Pane layoutX="455.0" layoutY="364.0" prefHeight="164.0" prefWidth="260.0" styleClass="catalogo-productos" stylesheets="@../../../css/pedidos.css">
                      <children>
                         <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" styleClass="catalogo-img">
                            <image>

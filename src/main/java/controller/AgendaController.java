@@ -1,24 +1,31 @@
 package controller;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-
+import javafx.util.Callback;
+import model.Agenda;
+import model.Trabajador;
+import persistence.dao.TrabajadorDAO;
+import persistence.dao.AgendaDAO;
 import java.awt.ScrollPane;
 import javafx.scene.control.TextArea;
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import javafx.scene.text.Text;
@@ -27,6 +34,7 @@ import utilities.SceneLoader;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+
 
 public class AgendaController {
     @FXML
@@ -87,13 +95,21 @@ public class AgendaController {
         Minutos.setValueFactory(valueFactoryMinutos);
         valueFactoryMinutos.setValue(0);
 
-
-        /*---------momentaneo------------*/
-        cmbEmpleadoTarea.setItems(FXCollections.observableArrayList(
-                "Jose",
-                "Juan",
-                "Antonio"
-        ));
+        dateDiaTarea.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty); // Deshabilitar todas las fechas anteriores a hoy
+                        if (item.isBefore(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                };
+            }
+        });
 
         /*--------controla las fechas de la semana----------*/
         // Obtener la fecha de hoy
@@ -111,6 +127,8 @@ public class AgendaController {
         row0.setMinHeight(120);
         row0.setMaxHeight(120);
         gridPlanillaSemanal.getRowConstraints().add(0, row0);
+
+        cargarNombresEnComboBox();
 
     }
 
@@ -204,28 +222,41 @@ public class AgendaController {
         }
     }
 
-    private String duranteElDia;
+    //private String duranteElDia;
     @FXML
     void guardarTarea(ActionEvent event) {
         if (validarCamposObligatorios()) {
             btnNuevaTarea.setDisable(false);
-            //tarea pendiente
-            pendiente = tareaPendiente.getText();
-            empleadoTarea = cmbEmpleadoTarea.getValue();
-            fechaPendiente = dateDiaTarea.getValue();
+
+            // Tarea pendiente
+            String pendiente = tareaPendiente.getText();
+            String empleadoTarea = cmbEmpleadoTarea.getValue();
+            LocalDate fechaPendiente = dateDiaTarea.getValue();
+            int horaPendiente = 0;
+            int minutoPendiente = 0;
+            String duranteElDia = null;
+
             if (radioSi.isSelected()) {
                 horaPendiente = Hora.getValue();
                 minutoPendiente = Minutos.getValue();
-            }else if(radioNo.isSelected()){
-                horaPendiente = 0;
-                minutoPendiente = 0;
+            } else if (radioNo.isSelected()) {
                 duranteElDia = "Durante el dia";
             }
-            vaciarCamposNuevaTarea();
 
+            // Crear una nueva tarea
+            Time hora = (duranteElDia == null) ? Time.valueOf(String.format("%02d:%02d:00", horaPendiente, minutoPendiente)) : Time.valueOf("23:59:59");
+            Agenda nuevaTarea = new Agenda(pendiente, fechaPendiente, hora, "Pendiente", obtenerIdEmpleadoPorNombre(empleadoTarea));
+
+            // Guardar la tarea en la base de datos
+            agendaDAO.save(nuevaTarea);
+
+            // Actualizar la vista del calendario semanal
+            insertarNuevaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente, duranteElDia);
+
+            // Limpiar campos y ocultar panel de nueva tarea
+            vaciarCamposNuevaTarea();
             paneAgregarTareaPendiente.setVisible(false);
 
-            insertarNuevaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente, duranteElDia);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
@@ -234,6 +265,24 @@ public class AgendaController {
             alert.showAndWait();
         }
     }
+
+    private Integer obtenerIdEmpleadoPorNombre(String nombreEmpleado) {
+        // Implementa la lógica para obtener el ID del empleado a partir de su nombre
+        // Esto puede involucrar consultar la base de datos
+        // Ejemplo de consulta a la base de datos
+        EntityManager em = agendaDAO.getEntityManager();
+        try {
+            return em.createQuery("SELECT e.id FROM Trabajador e WHERE e.nombre = :nombre", Integer.class)
+                    .setParameter("nombre", nombreEmpleado)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+
+    AgendaDAO agendaDAO = new AgendaDAO();
+
 
     public void FechaSemanal(LocalDate selectedDate) {
         // Calcular el primer y último día de la semana basada en la fecha seleccionada
@@ -252,23 +301,29 @@ public class AgendaController {
         setDaysInWeek(startOfWeek);
     }
 
+
     public void setDaysInWeek(LocalDate startOfWeek) {
         DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEEE"); // Día de la semana
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM"); // Día y mes, ej. "30 Septiembre"
 
+
         StackPane[] panes = {paneLunes, paneMartes, paneMiercoles, paneJueves, paneViernes, paneSabado, paneDomingo};
+
 
         // Iterar sobre los días de la semana
         for (int i = 0; i < 7; i++) {
             // Calcular la fecha de cada día (lunes + i días)
             LocalDate currentDay = startOfWeek.plusDays(i);
 
+
             // Crear el texto con formato
             String dayOfWeek = currentDay.format(dayFormatter).toUpperCase();
             String fullDate = currentDay.format(dateFormatter).toUpperCase();
 
+
             Text text = new Text(dayOfWeek + "\n" + fullDate);
             text.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-fill: white; -fx-text-alignment: center;");
+
 
             // Limpia el StackPane y añade el texto
             panes[i].getChildren().clear();
@@ -276,6 +331,7 @@ public class AgendaController {
             panes[i].setAlignment(text, Pos.CENTER);
         }
     }
+
 
     private void insertarNuevaTarea(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente, int minutoPendiente, String pendiente, String duranteElDia) {
         Label tareaLabel = new Label();
@@ -293,6 +349,15 @@ public class AgendaController {
         tareaPane.setMinHeight(150);
         tareaPane.setStyle("-fx-background-color: #FFF4F4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
 
+        // Añadir un EventHandler para cambiar el color al hacer clic
+        tareaPane.setOnMouseClicked(event -> {
+            if (tareaPane.getStyle().contains("#FFF4F4")) {
+                tareaPane.setStyle("-fx-background-color: #71CA73; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
+            } else {
+                tareaPane.setStyle("-fx-background-color: #FFF4F4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
+            }
+        });
+
         // Obtener la columna correspondiente al día de la semana de fechaPendiente
         int columnIndex = fechaPendiente.getDayOfWeek().getValue() - 1;
 
@@ -307,7 +372,32 @@ public class AgendaController {
         rowConstraints.setMinHeight(150);
         gridPlanillaSemanal.getRowConstraints().add(rowConstraints);
     }
-    //eliminar tareas hechas mediante una opción de "Marcar como hecho"
+
+    /*----------------------------------------------------------------------------------------------------------------------------*/
+
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+    private void cargarNombresEnComboBox() {
+        try {
+            List<String> nombres = trabajadorDAO.findAllNombres();
+            cmbEmpleadoTarea.setItems(FXCollections.observableArrayList(nombres));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+
+
+
+
+    //
     //añadir a la base de datos las tareas pendientes para que se guarden al salir de Agenda
     //NO se añaden los pane en otra semana que no sea la vista actualmente
     //no se añaden correctamente los pane según la fila

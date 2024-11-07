@@ -17,6 +17,7 @@
         <class>model.Proveedor</class>
         <class>model.Insumo</class>
         <class>model.Medida</class>
+        <class>model.Agenda</class>
 
         <!-- Configuración de la conexión a la base de datos -->
         <properties>

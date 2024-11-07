@@ -10,6 +10,7 @@ import jakarta.persistence.Persistence;
 import lombok.Getter;
 import utilities.Paths;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class App extends Application {

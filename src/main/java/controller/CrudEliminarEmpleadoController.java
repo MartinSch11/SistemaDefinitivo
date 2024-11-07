@@ -2,20 +2,14 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import model.Trabajador;
 import persistence.dao.TrabajadorDAO;
-import javafx.scene.control.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -83,8 +77,6 @@ public class CrudEliminarEmpleadoController {
         alert.showAndWait();
     }
 
-    /*-----------------------------------------------------------------------------------------------*/
-
     @FXML
     void handleCancelarEmpleados(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -95,8 +87,6 @@ public class CrudEliminarEmpleadoController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // El usuario confirmó que desea salir
-            //Stage stage = (Stage) btnCancelar.getScene().getWindow();
-
             SettingsController.verificarVentanasAbiertas = 0;
             vaciarCampos();
             visibilidadButtons();
@@ -104,11 +94,7 @@ public class CrudEliminarEmpleadoController {
             // Llamar al metodo de SettingsController para limpiar el contenedor
             if (settingsController != null) {
                 settingsController.cerrarCrudEliminarEmpleado();
-
-
             }
-
-
         } else {
             // El usuario canceló la acción, no se hace nada
             alert.close();

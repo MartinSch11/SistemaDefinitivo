@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,24 +12,42 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Setter;
+import persistence.dao.TrabajadorDAO;
 import utilities.Paths;
-
+import model.Trabajador;
+import persistence.dao.TrabajadorDAO;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class DialogNuevoPedidoController {
 
-    @FXML private Button btnCancelar;
-    @FXML private Button btnGuardar;
-    @FXML private TextField contactoCliente;
-    @FXML private TextArea detallePedido;
-    @FXML private ComboBox<String> empleadoAsignado;
-    @FXML private DatePicker fechaEntregaPedido;
-    @FXML private TextField nombreCliente;
-    @FXML private ComboBox cmbFormaEntrega;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private TextField contactoCliente;
+    @FXML
+    private TextArea detallePedido;
+    @FXML
+    private ComboBox<String> empleadoAsignado;
+    @FXML
+    private DatePicker fechaEntregaPedido;
+    @FXML
+    private TextField nombreCliente;
+    @FXML
+    private ComboBox cmbFormaEntrega;
 
     @Setter
     private PedidosController pedidosController;
+
+    //private TrabajadorDAO trabajadorDAO;
+
+    @FXML
+    public void initialize() {
+        cargarNombresEmpleadosEnComboBox();
+    }
 
     @FXML
     private void GuardarInfoPedido(ActionEvent event) {
@@ -81,6 +100,7 @@ public class DialogNuevoPedidoController {
 
     @FXML
     private Button btnCatalogo;
+
     @FXML
     void catalogoPedido(ActionEvent event) {
         try {
@@ -93,5 +113,23 @@ public class DialogNuevoPedidoController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+    private void cargarNombresEmpleadosEnComboBox() {
+        try {
+            List<String> nombres = trabajadorDAO.findAllNombres();
+            empleadoAsignado.setItems(FXCollections.observableArrayList(nombres));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+        }
+    }
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

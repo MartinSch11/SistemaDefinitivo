@@ -75,6 +75,13 @@ public class ProductoFormController {
         }
     }
 
+    private CatalogoPedidosController catalogoController;
+    // Referencia al controlador del catálogo
+    public void setCatalogoController(CatalogoPedidosController catalogoController) {
+     this.catalogoController = catalogoController;
+    }
+
+
     @FXML
     private void handleGuardar(ActionEvent event) {
         String nombreProducto = nombreProductoField.getText();

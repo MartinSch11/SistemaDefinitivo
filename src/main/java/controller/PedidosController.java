@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import model.Receta;
 import persistence.dao.InsumoDAO;
 import persistence.dao.PedidoDAO;
 import persistence.dao.RecetaDAO;
+import persistence.dao.TrabajadorDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
 
@@ -36,7 +38,9 @@ public class PedidosController {
         pedidoDAO = new PedidoDAO();
         recetaDAO = new RecetaDAO();
         insumoDAO = new InsumoDAO();
+
     }
+
 
     /*--------------------------------crear nuevo pedido------------------------------------------------*/
 
@@ -167,5 +171,6 @@ public class PedidosController {
         }
     }
 
+
 }
-    //campos obligatorios
+

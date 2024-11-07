@@ -60,8 +60,6 @@ public class SettingsController {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
     }
 
-
-
     @FXML
     void CRUDEmpleado(ActionEvent event) {
         btnModificarEmpleado.setVisible(true);
