@@ -49,9 +49,17 @@
     -fx-pref-height: 55px;
     -fx-padding: 15px 0 0 0;
 }
-
+.pane-Header2{
+    -fx-background-color: #B70505;
+    -fx-alignment: center;
+    -fx-pref-height: 55px;
+    -fx-padding: 15px 0 0 0;
+}
 /*----------*/
-
+.texto{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 16px;
+}
 
 .button-Volver{
     -fx-background-color: transparent;

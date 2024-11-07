@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SettingsController">
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SettingsController">
    <stylesheets>
       <URL value="@../../../css/components.css" />
    </stylesheets>
@@ -68,7 +68,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="2">
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Sabores" GridPane.rowIndex="2">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

@@ -19,6 +19,6 @@ public class Paths {
     public static final String PROVEEDORES = "/com/example/pasteleria/Proveedores.fxml";
     public static final String ESTADISTICA = "/com/example/pasteleria/estadisticas.fxml";
     public static final String STOCK = "/com/example/pasteleria/Stock.fxml";
-    public static final String RECETAS = "/com/example/pasteleria/Recetas.fxml.fxml";
-
+    public static final String RECETAS = "/com/example/pasteleria/Recetas.fxml";
+    public static final String NUEVOSABOR = "/com/example/pasteleria/DialogNuevoSabor.fxml";
 }
