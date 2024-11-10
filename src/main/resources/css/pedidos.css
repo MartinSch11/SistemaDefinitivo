@@ -27,3 +27,27 @@
     -fx-background-color: white;
     -fx-background-radius: 10px;
 }
+
+.stack-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-padding: 10; /* Asegurarse de tener algo de padding interno */
+}
+
+.hbox-buttons {
+    -fx-margin-bottom: 3px; /* Añadir margen inferior de 3 píxeles */
+}
+
+
+.pane-detalle-pedidos {
+    -fx-background-color: #FFF4F4; /* Color de fondo */
+    -fx-background-radius: 5px; /* Radio del borde del fondo */
+    -fx-border-radius: 5px; /* Radio del borde */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); /* Sombra */
+}
+
+
