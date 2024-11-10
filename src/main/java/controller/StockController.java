@@ -68,7 +68,7 @@ public class StockController {
             // Crear diálogo
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Agregar Insumo");
+            dialog.setTitle("Completar información");
 
             StockFormController controller = loader.getController();
 
@@ -80,6 +80,7 @@ public class StockController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -137,5 +138,15 @@ public class StockController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
+
+
+    // metodo para obtener la referencia de la TableView
+    public TableView<Insumo> getTableInsumos() {
+        return tableInsumos;
+    }
+
+
 
 }

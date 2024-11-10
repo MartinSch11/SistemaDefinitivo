@@ -10,10 +10,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProveedoresController">
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProveedoresController">
     <stylesheets>
         <URL value="@../../../css/components.css" />
     </stylesheets>
@@ -58,14 +61,68 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView layoutX="31.0" layoutY="139.0" prefHeight="200.0" prefWidth="1186.0" styleClass="tablaProveedores" stylesheets="@../../../css/components.css">
+            <TableView fx:id="tableViewProveedores" layoutX="31.0" layoutY="139.0" prefHeight="430.0" prefWidth="1186.0" styleClass="tablaProveedores" stylesheets="@../../../css/components.css">
               <columns>
-                 <TableColumn fx:id="colProveedor" prefWidth="300.0" text="Proveedor" />
-                 <TableColumn fx:id="colInsumo" prefWidth="300.0" text="Insumo" />
-                 <TableColumn fx:id="colTelefono" prefWidth="300.0" text="Teléfono" />
-                 <TableColumn fx:id="colUbicacion" prefWidth="300.0" text="Ubicación" />
+                 <TableColumn fx:id="colNombreProveedor" prefWidth="300.0" text="Proveedor" />
+                 <TableColumn fx:id="colInsumoProveedor" prefWidth="300.0" text="Insumo" />
+                 <TableColumn fx:id="colContactoProveedor" prefWidth="300.0" text="Teléfono" />
+                 <TableColumn fx:id="colUbicacionProveedor" prefWidth="300.0" text="Ubicación" />
               </columns>
             </TableView>
+            <GridPane alignment="CENTER" layoutX="224.0" layoutY="643.0" prefHeight="30.0" prefWidth="800.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="btnAgregar" alignment="CENTER" mnemonicParsing="false" onAction="#handleAgregar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="27.0" prefWidth="108.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnEliminar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleEliminar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar" GridPane.columnIndex="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/delete.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </GridPane>
          </children>
       </Pane>
    </children>

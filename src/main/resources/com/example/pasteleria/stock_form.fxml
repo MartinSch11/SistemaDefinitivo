@@ -11,6 +11,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,50 +21,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockFormController">
+<DialogPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockFormController">
     <stylesheets>
         <URL value="@../../../css/event_form.css" />
     </stylesheets>
     <graphic>
-        <Pane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: f7ede3;">
-            <GridPane layoutX="253.0" layoutY="436.0" prefHeight="30.0" prefWidth="294.0">
-                <columnConstraints>
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-                <Button fx:id="btnAceptar" alignment="CENTER" mnemonicParsing="false" onAction="#handleAceptar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Aceptar">
-                    <font>
-                        <Font name="Inter Regular" size="13.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleCancelar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" GridPane.columnIndex="1">
-                    <font>
-                        <Font name="Inter Regular" size="13.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-            </GridPane>
-            <Pane prefHeight="55.0" prefWidth="800.0" style="-fx-background-color: B70505;">
-                <Label layoutX="336.0" layoutY="13.0" text="Añadir Insumo" textFill="WHITE">
-                    <font>
-                        <Font name="Inter Regular" size="20.0" />
-                    </font>
-                </Label>
-            </Pane>
-         <GridPane alignment="CENTER_RIGHT" layoutX="32.0" layoutY="89.0" prefHeight="229.0" prefWidth="736.0">
+        <Pane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: f7ede3;">
+         <GridPane alignment="CENTER_RIGHT" layoutX="11.0" layoutY="77.0" prefHeight="223.0" prefWidth="877.0">
             <columnConstraints>
                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="221.60001220703126" minWidth="10.0" prefWidth="150.79998779296875" />
                <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="249.4000244140625" minWidth="10.0" prefWidth="210.20001220703125" />
-               <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="221.60001220703126" minWidth="10.0" prefWidth="111.79998779296875" />
-               <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="457.40001220703124" minWidth="10.0" prefWidth="248.39999999999998" />
+               <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="221.60001220703126" minWidth="10.0" prefWidth="169.4000244140625" />
+               <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="457.40001220703124" minWidth="10.0" prefWidth="269.39997558593745" />
             </columnConstraints>
             <rowConstraints>
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -76,31 +45,30 @@
             <children>
                <Label text="Proveedor" GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <font>
-                     <Font size="18.0" />
+                     <Font size="17.0" />
                   </font>
                </Label>
                <Label text="Teléfono" GridPane.columnIndex="2" GridPane.rowIndex="3">
                   <font>
-                     <Font size="18.0" />
+                     <Font size="17.0" />
                   </font>
                </Label>
                <Label text="Ubicación" GridPane.columnIndex="2" GridPane.rowIndex="4">
                   <font>
-                     <Font size="18.0" />
+                     <Font size="17.0" />
                   </font>
                </Label>
-               <TextField fx:id="proveedorField1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-               <TextField fx:id="telefonoField1" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-               <TextField fx:id="ubicacionField1" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+               <TextField fx:id="telefonoProveedorField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+               <TextField fx:id="ubicacionProveedorField" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                   <children>
-                     <ComboBox fx:id="insumo" prefHeight="26.0" prefWidth="128.0" />
-                     <ComboBox fx:id="cmbTipoDeInsumo" prefHeight="26.0" prefWidth="110.0">
+                     <RadioButton fx:id="radioSi" mnemonicParsing="false" text="Si" />
+                     <RadioButton fx:id="radioNo" mnemonicParsing="false" text="No" />
+                     <ComboBox fx:id="cmbBuscarProveedor" disable="true" prefHeight="26.0" prefWidth="175.0">
                         <opaqueInsets>
                            <Insets left="10.0" />
                         </opaqueInsets>
                      </ComboBox>
-                     <TextField fx:id="fieldCantidadInsumo" prefHeight="26.0" prefWidth="136.0" />
                   </children>
                </HBox>
                   <Label prefHeight="26.0" prefWidth="155.0" styleClass="texto" text="Nombre del Insumo" GridPane.rowIndex="1">
@@ -154,11 +122,6 @@
                           <Font name="Inter Regular" size="13.0" />
                       </font>
                   </TextField>
-               <Label prefHeight="25.0" prefWidth="77.0" styleClass="texto" text="Proveedor" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                  <font>
-                     <Font name="Inter Regular" size="13.0" />
-                  </font>
-               </Label>
                <ChoiceBox fx:id="proveedorChoiceBox" prefHeight="25.0" prefWidth="175.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                   <items>
                      <FXCollections fx:factory="observableArrayList">
@@ -179,6 +142,43 @@
                      <Font name="System Bold" size="19.0" />
                   </font>
                </Text>
+               <Label GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+               <Label text="¿Ya existe el proveedor?" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <font>
+                     <Font size="17.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="NombreProveedorField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            </children>
+         </GridPane>
+         <Label layoutX="11.0" layoutY="40.0" text="Completar la información:">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+         <GridPane alignment="CENTER" layoutX="313.0" layoutY="408.0" prefHeight="86.0" prefWidth="274.0">
+            <columnConstraints>
+               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+               <Button fx:id="btnGuardar" alignment="CENTER" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="26.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Guardar">
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+               <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleCancelar" prefHeight="26.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" GridPane.columnIndex="1">
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
             </children>
          </GridPane>
         </Pane>
