@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Insumo;
+import model.Proveedor;
 import persistence.dao.InsumoDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
@@ -40,16 +41,20 @@ public class StockController {
 
         // Cambiar el PropertyValueFactory para que obtenga la cantidad concatenada con la medida
         colCantidad.setCellValueFactory(cellData -> {
-            // Concatenar la cantidad con la medida usando SimpleStringProperty
             String cantidadConMedida = cellData.getValue().getCantidad() + " " + cellData.getValue().getMedida();
             return new SimpleStringProperty(cantidadConMedida);
         });
 
-        colProveedor.setCellValueFactory(new PropertyValueFactory<>("proveedor"));
+        // Configurar el PropertyValueFactory de colProveedor para mostrar el nombre del proveedor
+        colProveedor.setCellValueFactory(cellData -> {
+            Proveedor proveedor = cellData.getValue().getProveedor();
+            return new SimpleStringProperty(proveedor != null ? proveedor.getNombre() : ""); // Si el proveedor es null, muestra una cadena vacía
+        });
 
         // Cargar los insumos de la base de datos
         cargarInsumos();
     }
+
 
     // Método para cargar los insumos desde la base de datos y mostrarlos en la tabla
     private void cargarInsumos() {
