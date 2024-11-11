@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -42,7 +43,7 @@ public class Proveedor {
     private String postfijo;
 
     // Relación con Insumos
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Insumo> insumos;
 
     // Constructor con parámetros
@@ -64,5 +65,15 @@ public class Proveedor {
     @Override
     public String toString() {
         return nombre;
+    }
+
+
+    public String getInsumosString() {
+        if (insumos == null || insumos.isEmpty()) {
+            return "No tiene insumos";
+        }
+        return insumos.stream()
+                .map(Insumo::getNombre) // Suponiendo que Insumo tiene un método getNombre()
+                .collect(Collectors.joining(", ")); // Unir los nombres de los insumos con una coma
     }
 }

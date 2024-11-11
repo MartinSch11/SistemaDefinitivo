@@ -28,6 +28,7 @@ public class SettingsController {
     @FXML private Button btnConfiguracionEmpleados;
     @FXML public StackPane contenedorDinamico;
     @FXML private Button btnSabores;
+    @FXML private Button btnInsumos;
     @FXML public Pane paneConfigEmpleados;
 
     public static int verificarVentanasAbiertas = 0;
@@ -89,6 +90,7 @@ public class SettingsController {
         btnEliminarEmpleado.setDisable(false);
         btnAnadirEmpleado.setDisable(false);
         btnSabores.setDisable(false);
+        btnInsumos.setDisable(false);
 
         // Desactiva solo el botón correspondiente a la ventana abierta
         switch (verificarVentanasAbiertas) {
@@ -103,6 +105,9 @@ public class SettingsController {
                 break;
             case 4:
                 btnSabores.setDisable(true);
+                break;
+            case 5:
+                btnInsumos.setDisable(true);
                 break;
             default:
                 break;
@@ -228,7 +233,21 @@ public class SettingsController {
     /*INSUMOS*/
     @FXML
     void mostrarVentanaInsumos(ActionEvent event) {
-    }
+        paneConfigEmpleados.setVisible(false);
+        btnConfiguracionEmpleados.setDisable(false);
 
+        verificarVentanasAbiertas = 5;
+        verificarVentanas();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/TableInsumos.fxml"));
+            Parent visualizarView = loader.load();
+            contenedorDinamico.getChildren().setAll(visualizarView);
+
+            // Obtén el controlador de TableInsumosController sin necesidad de pasar SettingsController
+            TableInsumosController controller = loader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     }

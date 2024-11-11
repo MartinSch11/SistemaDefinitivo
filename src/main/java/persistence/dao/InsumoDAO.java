@@ -35,16 +35,24 @@ public class InsumoDAO {
     }
 
     public void update(Insumo insumo) {
+        if (insumo.getId() == null) {
+            System.out.println("El insumo no tiene ID, no se puede actualizar.");
+        } else {
+            System.out.println("Actualizando insumo con ID: " + insumo.getId());
+        }
+
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            em.merge(insumo);
+            em.merge(insumo); // Actualiza el insumo si tiene ID o lo inserta si es nuevo
             transaction.commit();
+            System.out.println("Insumo actualizado exitosamente.");
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         }
     }
+
 
     public void delete(Insumo insumo) {
         EntityTransaction transaction = em.getTransaction();

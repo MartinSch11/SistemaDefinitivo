@@ -42,13 +42,19 @@ public class ProveedoresController {
         // Configuración de las columnas
         colCuit.setCellValueFactory(new PropertyValueFactory<>("cuit"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colInsumo.setCellValueFactory(new PropertyValueFactory<>("insumo"));
+        colInsumo.setCellValueFactory(new PropertyValueFactory<>("insumosString"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
         colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
 
         // Cargar los datos en la tabla
         cargarDatos();
+
+        tableViewProveedores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean productoSeleccionado = newSelection != null;
+            btnModificar.setDisable(!productoSeleccionado);
+            btnEliminar.setDisable(!productoSeleccionado);
+        });
     }
 
     private void cargarDatos() {

@@ -29,7 +29,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="-1.0" layoutY="121.0" prefHeight="55.0" prefWidth="1360.0">
+            <Pane layoutY="102.0" prefHeight="55.0" prefWidth="1360.0">
                <children>
                   <TextField layoutX="559.0" layoutY="10.0" prefHeight="35.0" prefWidth="300.0" promptText="Producto" styleClass="texto">
                      <font>
@@ -44,9 +44,9 @@
                   <Button fx:id="btnBuscar" layoutX="882.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleBuscar" styleClass="buttons" text="Buscar" />
                </children>
             </Pane>
-            <ScrollPane layoutX="14.0" layoutY="176.0" prefHeight="470.0" prefWidth="1315.0">
+            <ScrollPane layoutX="14.0" layoutY="157.0" prefHeight="470.0" prefWidth="1315.0">
                <content>
-                  <TableView fx:id="tableProductos" prefHeight="470.0" prefWidth="1300.0" styleClass="table">
+                  <TableView fx:id="tableProductos" prefHeight="468.0" prefWidth="1313.0" styleClass="table">
                     <columns>
                       <TableColumn fx:id="colNombre" editable="false" prefWidth="152.0" sortable="false" text="Producto" />
                         <TableColumn fx:id="colDescripcion" editable="false" prefWidth="265.0" sortable="false" text="Descripción" />
@@ -63,7 +63,7 @@
             </ScrollPane>
             <Pane layoutY="646.0" prefHeight="55.0" prefWidth="1360.0">
                <children>
-                  <GridPane alignment="CENTER" layoutX="280.0" layoutY="13.0" prefHeight="30.0" prefWidth="800.0">
+                  <GridPane alignment="CENTER" layoutX="280.0" layoutY="-1.0" prefHeight="30.0" prefWidth="800.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

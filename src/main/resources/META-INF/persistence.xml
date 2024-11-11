@@ -35,7 +35,7 @@
 
             <!-- Otras configuraciones opcionales -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
 
             <property name="hibernate.connection.autocommit" value="true"/>

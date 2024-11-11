@@ -43,6 +43,7 @@ public class LoginCajeraController {
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) btnAceptar.getScene().getWindow();
                 stage.setScene(scene);
+                stage.setTitle("Menú Principal"); // Puedes poner el título que desees aquí
                 stage.show();
             } catch (Exception e) {
                 e.printStackTrace();

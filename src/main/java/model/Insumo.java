@@ -19,7 +19,7 @@ public class Insumo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_insumo")
-    private int id;
+    private Integer id;
 
     @Column(name = "nombre")
     private String nombre;
@@ -96,6 +96,14 @@ public class Insumo {
     @Override
     public String toString() {
         return nombre;  // Devolver solo el nombre como texto en el ComboBox y en otros lugares
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public String getNombreProveedor() {
+        return proveedor != null ? proveedor.getNombre() : "Sin proveedor";
     }
 
     public String getNombre() {

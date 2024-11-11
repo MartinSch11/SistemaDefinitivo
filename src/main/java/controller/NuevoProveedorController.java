@@ -82,6 +82,17 @@ public class NuevoProveedorController {
         }
     }
 
+    @FXML
+    public void handleCancelar(ActionEvent event) {
+        cerrarFormulario();
+    }
+
+    private void cerrarFormulario() {
+        // Cerrar la ventana
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
+    }
+
     // Método para verificar que los campos no estén vacíos
     private boolean camposValidos() {
         return !txtNombre.getText().isEmpty() && !txtTelefono.getText().isEmpty() &&
