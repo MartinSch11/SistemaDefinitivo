@@ -57,9 +57,14 @@ public class NuevoProveedorController {
 
     @FXML
     public void handleGuardar(ActionEvent event) {
+        // Inicializar proveedorActual si es null (nuevo proveedor)
+        if (proveedorActual == null) {
+            proveedorActual = new Proveedor();
+        }
+
         // Validar los campos
         if (camposValidos()) {
-            // Actualizar el proveedor con los nuevos datos
+            // Asignar los valores de los campos al objeto proveedorActual
             proveedorActual.setNombre(txtNombre.getText());
             proveedorActual.setTelefono(txtTelefono.getText());
             proveedorActual.setUbicacion(txtUbicacion.getText());
@@ -68,11 +73,11 @@ public class NuevoProveedorController {
             proveedorActual.setDni(txtDNI.getText());
             proveedorActual.setPostfijo(txtPosfijo.getText());
 
-            // Guardar los cambios en la base de datos
-            proveedorDAO.update(proveedorActual);
+            // Guardar el proveedor en la base de datos
+            proveedorDAO.save(proveedorActual);
 
             // Mostrar un mensaje de éxito
-            mostrarAlerta("Proveedor modificado", "Los datos del proveedor han sido modificados exitosamente.", Alert.AlertType.INFORMATION);
+            mostrarAlerta("Proveedor guardado", "El nuevo proveedor ha sido guardado exitosamente.", Alert.AlertType.INFORMATION);
 
             // Cerrar la ventana
             cerrarVentana();
@@ -81,6 +86,7 @@ public class NuevoProveedorController {
             mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
         }
     }
+
 
     @FXML
     public void handleCancelar(ActionEvent event) {
