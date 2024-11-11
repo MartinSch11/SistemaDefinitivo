@@ -27,11 +27,17 @@ public class Insumo {
     @Column(name = "cantidad")
     private int cantidad;
 
-    @Column(name = "lote")
-    private String lote;
-
     @Column(name = "fecha_caducidad")
     private LocalDate fechaCaducidad;
+
+    @Column(name = "fecha_compra")
+    private LocalDate fechaCompra;
+
+    @Column(name = "medida")
+    private String medida;
+
+    @Column(name = "precio")
+    private double precio;
 
     @ManyToOne
     @JoinColumn(name = "id_proveedor")
@@ -42,15 +48,26 @@ public class Insumo {
     private SimpleStringProperty nombreProperty;
 
     // Constructor adicional con los parámetros utilizados en el controlador
-    public Insumo(String nombre, int cantidad, String lote, LocalDate fechaCaducidad, Proveedor proveedor) {
+    public Insumo(String nombre, int cantidad, double precio, String medida, LocalDate fechaCompra, LocalDate fechaCaducidad, Proveedor proveedor) {
         this.nombre = nombre;
         this.cantidad = cantidad;
-        this.lote = lote;
+        this.precio = precio;  // Agregado el precio
+        this.medida = medida;
+        this.fechaCompra = fechaCompra;
         this.fechaCaducidad = fechaCaducidad;
         this.proveedor = proveedor;
-        this.nombreProperty = new SimpleStringProperty(nombre);  // Inicializamos la propiedad SimpleStringProperty
+        this.nombreProperty = new SimpleStringProperty(nombre);
     }
 
+    public Insumo(String nombre, int cantidad, double precio, String medida, LocalDate fechaCompra, LocalDate fechaCaducidad) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.medida = medida;
+        this.fechaCompra = fechaCompra;
+        this.fechaCaducidad = fechaCaducidad;
+        this.nombreProperty = new SimpleStringProperty(nombre);
+    }
     // Método para reducir la cantidad disponible
     public void reducirCantidad(double cantidadUtilizada) {
         if (this.cantidad >= cantidadUtilizada) {
@@ -84,6 +101,5 @@ public class Insumo {
     public String getNombre() {
         return nombre;  // Asumiendo que tienes un campo 'nombre' en la clase Insumo
     }
-
 
 }

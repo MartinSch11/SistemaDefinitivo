@@ -34,13 +34,11 @@ public class RecetasController {
     @FXML private VBox vboxIngredientes;
     private ObservableList<Receta> listaRecetas = FXCollections.observableArrayList();
 
-
     public void initialize() {
         cargarRecetas();
         configurarColumnas();
         tableRecetas.setItems(listaRecetas);
 
-        // Escuchar cambios de selección en la tabla
         tableRecetas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 mostrarDetallesReceta(newSelection);
@@ -57,11 +55,9 @@ public class RecetasController {
     private void cargarRecetas() {
         RecetaDAO recetaDAO = new RecetaDAO();
 
-        // Limpiar y recargar la lista de recetas
         listaRecetas.clear();
         listaRecetas.setAll(recetaDAO.findAll()); // Recarga las recetas desde la base de datos
 
-        // Asegurarse de que la TableView use la lista actualizada
         tableRecetas.setItems(listaRecetas);
 
         recetaDAO.close();

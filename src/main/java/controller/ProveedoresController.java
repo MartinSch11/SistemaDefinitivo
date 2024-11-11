@@ -8,123 +8,132 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Insumo;
-import model.Medida;
-import model.Producto;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Proveedor;
-import persistence.dao.InsumoDAO;
-import persistence.dao.MedidaDAO;
 import persistence.dao.ProveedorDAO;
-import persistence.dao.ProductoDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
-import javafx.scene.Parent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-
-//pasar datos guardados a stock
 public class ProveedoresController {
-    @FXML private Button btnBuscar;@FXML private Button btnEliminar;@FXML private Button btnModificar;
-
+    @FXML private Button btnBuscar;
+    @FXML private Button btnEliminar;
+    @FXML private Button btnModificar;
     @FXML private TableView<Proveedor> tableViewProveedores;
-    @FXML private TableColumn<Producto, String> colNombreProveedor;
-    @FXML private TableColumn<Producto, String> colInsumoProveedor;
-    @FXML private TableColumn<Producto, String> colContactoProveedor;
-    @FXML private TableColumn<Producto, String> colUbicacionProveedor;
-
-
-    @FXML private StockController stockController;
-
-    public void setStockController(StockController stockController) {
-        this.stockController = stockController;
-    }
-
-    private ObservableList<Insumo> listaInsumos;
+    @FXML private TableColumn<Proveedor, String> colCuit;
+    @FXML private TableColumn<Proveedor, String> colNombre;
+    @FXML private TableColumn<Proveedor, String> colInsumo;
+    @FXML private TableColumn<Proveedor, String> colTelefono;
+    @FXML private TableColumn<Proveedor, String> colUbicacion;
+    @FXML private TableColumn<Proveedor, String> colCorreo;
 
     private ObservableList<Proveedor> proveedoresList = FXCollections.observableArrayList();
-
-    private InsumoDAO insumoDAO;
-    private MedidaDAO medidaDAO;
     private ProveedorDAO proveedorDAO;
-    private Insumo insumo;
 
     public ProveedoresController() {
-        insumoDAO = new InsumoDAO();
-        medidaDAO = new MedidaDAO();
         proveedorDAO = new ProveedorDAO();
     }
 
     @FXML
     public void initialize() {
-        colNombreProveedor.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colInsumoProveedor.setCellValueFactory(new PropertyValueFactory<>("insumo"));
-        colContactoProveedor.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        colUbicacionProveedor.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
-        // Setear los datos iniciales (si tienes)
+        // Configuración de las columnas
+        colCuit.setCellValueFactory(new PropertyValueFactory<>("cuit"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colInsumo.setCellValueFactory(new PropertyValueFactory<>("insumo"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
+        colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+
+        // Cargar los datos en la tabla
+        cargarDatos();
+    }
+
+    private void cargarDatos() {
+        List<Proveedor> proveedores = proveedorDAO.findAll();
+        proveedoresList.setAll(proveedores);
         tableViewProveedores.setItems(proveedoresList);
-
-
     }
 
-    private void cargarInsumos() {
-        List<Insumo> insumos = insumoDAO.findAll();
-        listaInsumos.setAll(insumos);
-        if (stockController != null) {
-            TableView<Insumo> tableInsumos = stockController.getTableInsumos();
-            tableInsumos.setItems(listaInsumos);
-        }
-    }
     @FXML
     void handleEliminar(ActionEvent event) {
+        // Obtener el proveedor seleccionado en la tabla
+        Proveedor proveedorSeleccionado = tableViewProveedores.getSelectionModel().getSelectedItem();
 
+        // Verificar si un proveedor fue seleccionado
+        if (proveedorSeleccionado != null) {
+            // Crear un cuadro de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Eliminación");
+            alert.setHeaderText("Estás a punto de eliminar a " + proveedorSeleccionado.getNombre());
+            alert.setContentText("¿Estás seguro de que deseas eliminar a este proveedor?");
+
+            // Mostrar la alerta y esperar la respuesta
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // Eliminar el proveedor de la base de datos
+                    proveedorDAO.delete(proveedorSeleccionado);
+
+                    // Recargar los datos en la tabla
+                    cargarDatos();
+
+                    // Mostrar un mensaje de éxito
+                    mostrarAlerta("Proveedor eliminado", "El proveedor ha sido eliminado exitosamente.", Alert.AlertType.INFORMATION);
+                }
+            });
+        } else {
+            // Mostrar un mensaje de advertencia si no se ha seleccionado ningún proveedor
+            mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para eliminar.", Alert.AlertType.WARNING);
+        }
     }
 
     @FXML
     void handleModificar(ActionEvent event) {
+        // Obtener el proveedor seleccionado en la tabla
+        Proveedor proveedorSeleccionado = tableViewProveedores.getSelectionModel().getSelectedItem();
 
+        // Verificar si un proveedor fue seleccionado
+        if (proveedorSeleccionado != null) {
+            try {
+                // Cargar el archivo FXML del formulario de edición
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoProveedor.fxml"));
+                AnchorPane root = loader.load();
+
+                // Obtener el controlador del formulario de edición
+                NuevoProveedorController nuevoProveedorController = loader.getController();
+
+                // Inicializar el formulario con los datos del proveedor seleccionado
+                nuevoProveedorController.cargarProveedor(proveedorSeleccionado);
+
+                // Mostrar el formulario en una nueva ventana
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Modificar Proveedor");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Mostrar un mensaje de advertencia si no se ha seleccionado ningún proveedor
+            mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para modificar.", Alert.AlertType.WARNING);
+        }
     }
+
     @FXML
     void handleAgregar(ActionEvent event) {
-    }
-
-    @FXML
-    void handleNuevoProveedor(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/stock_form.fxml"));
-            DialogPane dialogPane = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoProveedor.fxml"));
+            AnchorPane root = loader.load();
 
-            // Crear diálogo
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Completar información");
-
-            StockFormController controller = loader.getController();
-
-            // Mostrar el diálogo y esperar respuesta
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                cargarInsumos(); // Actualiza la tabla si se agrega un nuevo insumo
-            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Agregar Proveedor");
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/stock_form.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Completar información");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
     }
 
     @FXML
@@ -132,9 +141,10 @@ public class ProveedoresController {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
     }
 
-    private void InsertarDatosTabla(){
-
+    private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setContentText(contenido);
+        alerta.showAndWait();
     }
-
-
 }

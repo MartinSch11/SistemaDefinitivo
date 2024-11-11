@@ -2,132 +2,115 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import model.Insumo;
-import model.Proveedor;
 import persistence.dao.InsumoDAO;
-import persistence.dao.ProveedorDAO;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
+public class StockFormController{
 
-public class StockFormController {
-
-    @FXML private TextField nombreInsumoField;
+    @FXML private ComboBox<Insumo> cmbInsumos; // Cambiado a ComboBox de Insumo
     @FXML private TextField cantidadField;
-    @FXML private TextField loteField;
     @FXML private DatePicker fechaCaducidadData;
-    @FXML private ChoiceBox<Proveedor> proveedorChoiceBox;
+    @FXML private DatePicker fechaCompraData;
+    @FXML private ChoiceBox<String> medidaChoiceBox;
     @FXML private Button btnGuardar;
     @FXML private Button btnCancelar;
-    @FXML private TextField telefonoProveedorField;
-    @FXML private TextField ubicacionProveedorField;
-    @FXML private TextField NombreProveedorField;
-    @FXML private RadioButton radioNo;
-    @FXML private RadioButton radioSi;
-    @FXML private ComboBox<String> cmbBuscarProveedor;
-
-    private ProveedoresController proveedoresController;
-    private StockController stockController;
+    @FXML private TextField precioTextField;
 
     private InsumoDAO insumoDAO;
-    private ProveedorDAO proveedorDAO;
-    private Insumo insumo;
 
     public StockFormController() {
         insumoDAO = new InsumoDAO();
-        proveedorDAO = new ProveedorDAO();
     }
 
     @FXML
     private void initialize() {
-        cargarMedidas();
-        cargarProveedores();
+        // Llenar el ChoiceBox con las unidades de medida
+        medidaChoiceBox.getItems().addAll("Litros", "Militros", "Kilos", "Gramos", "Unidades", "Unidad");
 
-        radioNo.setSelected(true);
+        // Llenar el ComboBox con los insumos
+        cargarInsumos();
 
-        try {
-            FXMLLoader proveedoresLoader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/Proveedores.fxml"));
-            proveedoresLoader.load();
-            proveedoresController = proveedoresLoader.getController();
-
-            FXMLLoader stockLoader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/Stock.fxml"));
-            stockLoader.load();
-            stockController = stockLoader.getController();
-
-            //Pasar la referencia de StockController a ProveedoresController
-            if (proveedoresController != null && stockController != null) {
-                proveedoresController.setStockController(stockController);
-            } else {
-                System.out.println("Error: No se pudo inicializar los controladores.");
+        // Configurar validadores para cantidadField y precioTextField
+        cantidadField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0, change -> {
+            if (change.getControlNewText().matches("^[0-9]*$")) {
+                return change;
             }
+            return null;
+        }));
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-
+        precioTextField.setTextFormatter(new TextFormatter<>(new DoubleStringConverter(), 0.0, change -> {
+            if (change.getControlNewText().matches("^[0-9]*\\.?[0-9]*$")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
-    private void controlRadiosButtons(){
-        if (radioSi.isSelected()){
-            cmbBuscarProveedor.setDisable(false);
-            radioNo.setSelected(false);
-            NombreProveedorField.clear();
-            NombreProveedorField.setDisable(true);
-        } else if (radioNo.isSelected()) {
-            radioSi.setSelected(false);
-        }
-    }
+    private void cargarInsumos() {
+        // Recuperar la lista de insumos desde la base de datos
+        List<Insumo> insumos = insumoDAO.findAll(); // Supón que este método devuelve todos los insumos
+        cmbInsumos.getItems().clear();  // Limpiar cualquier dato anterior
+        cmbInsumos.getItems().addAll(insumos); // Agregar todos los insumos al ComboBox
 
-    private void cargarMedidas() {
-//
-    }
+        // Configurar el texto que se mostrará en el ComboBox
+        cmbInsumos.setCellFactory(param -> new ListCell<Insumo>() {
+            @Override
+            protected void updateItem(Insumo item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getNombre());  // Mostrar solo el nombre del insumo
+                }
+            }
+        });
 
-    private void cargarProveedores() {
-        List<Proveedor> proveedores = proveedorDAO.findAll();
-        proveedorChoiceBox.getItems().addAll(proveedores);
+        cmbInsumos.setButtonCell(new ListCell<Insumo>() {
+            @Override
+            protected void updateItem(Insumo item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getNombre());  // Mostrar solo el nombre en el botón del ComboBox
+                }
+            }
+        });
     }
 
     @FXML
     private void handleGuardar(ActionEvent event) {
-        String nombreInsumo = nombreInsumoField.getText();
-        String cantidad = cantidadField.getText();  // Cantidad como String
-        String lote = loteField.getText();
+        Insumo insumoSeleccionado = cmbInsumos.getValue();  // Obtener el insumo seleccionado
+        String cantidad = cantidadField.getText();
+        String precio = precioTextField.getText();
         LocalDate fechaCaducidad = fechaCaducidadData.getValue();
-        //Medida medidaSeleccionada = medidaChoiceBox.getValue();
-        Proveedor proveedorSeleccionado = proveedorChoiceBox.getValue();
+        LocalDate fechaCompra = fechaCompraData.getValue();
+        String medida = medidaChoiceBox.getValue();
 
-        if (nombreInsumo.isEmpty() || cantidad.isEmpty() || lote.isEmpty() || fechaCaducidad == null || /*medidaSeleccionada == null ||*/ proveedorSeleccionado == null) {
-        if (radioSi.isSelected()){
-            controlRadiosButtons();
-            String nombreProveedor = cmbBuscarProveedor.getValue();
-        }else if (radioNo.isSelected()){
-            String nombreProveedor = NombreProveedorField.getText();
-        }
-        String telefonoProveedor = telefonoProveedorField.getText();
-        String ubicacionProveedor = ubicacionProveedorField.getText();
-
-
-        if (nombreInsumo.isEmpty() || cantidad.isEmpty() || lote.isEmpty() || fechaCaducidad == null || medidaSeleccionada == null || proveedorSeleccionado == null) {
-            // Mostrar mensaje de error
+        if (insumoSeleccionado == null || cantidad.isEmpty() || precio.isEmpty() || fechaCaducidad == null || fechaCompra == null || medida == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Por favor, complete todos los campos.");
             return;
         }
 
         try {
-            // Convertir la cantidad a entero
-            int cantidadNumerica = Integer.parseInt(cantidad);  // Cambiado a int
-            Insumo insumo = new Insumo(nombreInsumo, cantidadNumerica, lote, fechaCaducidad, /*medidaSeleccionada,*/ proveedorSeleccionado);
-            insumoDAO.save(insumo);
+            // Convertir la cantidad a un número
+            int cantidadNumerica = Integer.parseInt(cantidad);
+            double precioDouble = Double.parseDouble(precio);
+
+            // Crear un objeto de Insumo
+            Insumo insumo = new Insumo(insumoSeleccionado.getNombre(), cantidadNumerica, precioDouble, medida, fechaCompra, fechaCaducidad);
+            insumoDAO.save(insumo); // Guardar en la base de datos
+
+            // Cerrar el formulario
             cerrarFormulario();
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número entero válido. " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad o el precio no son válidos.");
         }
     }
 
@@ -136,36 +119,10 @@ public class StockFormController {
         cerrarFormulario();
     }
 
-
-
     private void cerrarFormulario() {
-        // Crear un mensaje de alerta de confirmación
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText("Se perderán los cambios no guardados. ¿Desea salir?");
-        alert.setContentText("Seleccione su opción.");
-
-        // Mostrar y esperar la respuesta del usuario
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Cerrar la ventana si el usuario confirma
-            Stage stage = (Stage) btnCancelar.getScene().getWindow();
-            stage.close();
-        } else {
-            // Cerrar la alerta si el usuario cancela
-            alert.close();
-        }
-    }
-
-    public void setInsumoParaEditar(Insumo insumo) {
-        this.insumo = insumo; // Guarda el insumo a editar
-        // Rellenar los campos del formulario con los datos del insumo
-        nombreInsumoField.setText(insumo.getNombre());
-        cantidadField.setText(String.valueOf(insumo.getCantidad()));
-        loteField.setText(insumo.getLote());
-        fechaCaducidadData.setValue(insumo.getFechaCaducidad());
-        //medidaChoiceBox.setValue(insumo.getMedida());
-        proveedorChoiceBox.setValue(insumo.getProveedor());
+        // Cerrar la ventana
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -175,4 +132,3 @@ public class StockFormController {
         alert.showAndWait();
     }
 }
-

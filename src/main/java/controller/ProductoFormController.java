@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import lombok.Setter;
 import model.Categoria;
 import model.Producto;
@@ -19,17 +17,14 @@ import model.Receta;
 import model.Sabor;
 import persistence.dao.CategoriaDAO;
 import persistence.dao.ProductoDAO;
-import persistence.dao.RecetaDAO;  // Asegúrate de tener este DAO para Recetas
+import persistence.dao.RecetaDAO;
 import utilities.SceneLoader;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class ProductoFormController {
 
@@ -54,7 +49,6 @@ public class ProductoFormController {
     private byte[] imagen; //variable para almacenar la imagen por el usuario
     private boolean imagenCargada = false; // Variable de control para verificar si la imagen es cargada por el usuario
 
-
     @FXML
     public void initialize() {
         cargarCategorias();
@@ -62,7 +56,6 @@ public class ProductoFormController {
         if (productoActual != null) {
             cargarDatosProducto(productoActual);
         }
-
     }
 
     private void cargarCategorias() {
@@ -104,8 +97,6 @@ public class ProductoFormController {
         this.catalogoController = catalogoController;
     }
 
-
-
     @FXML
     private void handleGuardar(ActionEvent event) {
         try {
@@ -120,38 +111,14 @@ public class ProductoFormController {
 
             if (productoActual != null) {
                 // Modificar producto existente
-                productoDAO.update(productoActual);
-                modificarProducto(productoActual);
+                actualizarProductoExistente(productoActual);
             } else {
                 // Agregar nuevo producto
-                productoDAO.save(producto);
-                agregarProducto(producto);
+                agregarNuevoProducto(producto);
             }
-            if (producto != null) {
-                if (productoActual != null) {
-                    // Modificar producto existente
-                    productoDAO.update(productoActual);
 
-                    if (catalogoController != null) {
-                        catalogoController.modificarProducto(productoActual);
-                    } else {
-                        mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
-                    }
-                } else {
-                    // Solo guardar la imagen del usuario si no es la imagen por defecto
-                    //if (imagenCargada) {
-                    producto.setImagen(imagen);
-                    /*} else {
-                        producto.setImagen(null);
-                    }*/
-                    // Agregar nuevo producto
-                    productoDAO.save(producto);
-                    catalogoController.agregarProducto(producto); // Llama a agregarProducto
-                }
-
-                mostrarMensaje(Alert.AlertType.INFORMATION, "Éxito", "Producto guardado exitosamente.");
-                cerrarVentana(event);
-            }
+            mostrarMensaje(Alert.AlertType.INFORMATION, "Éxito", "Producto guardado exitosamente.");
+            cerrarVentana(event);
 
         } catch (NumberFormatException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error de Validación", "El precio debe ser un valor numérico válido.");
@@ -160,6 +127,26 @@ public class ProductoFormController {
         }
     }
 
+    private void actualizarProductoExistente(Producto producto) {
+        productoDAO.update(producto);
+        if (catalogoController != null) {
+            catalogoController.modificarProducto(producto);
+        } else {
+            mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
+        }
+    }
+
+    private void agregarNuevoProducto(Producto producto) {
+        producto.setImagen(imagen);
+        productoDAO.save(producto);
+        if (catalogoController != null) {
+            catalogoController.agregarProducto(producto);
+        } else {
+            mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
+        }
+    }
+
+
     private Producto crearOActualizarProducto() {
         String nombre = nombreProductoField.getText();
         String descripcion = descripcionProductoField.getText();
@@ -167,11 +154,6 @@ public class ProductoFormController {
         BigDecimal precio = new BigDecimal(precioField.getText());
         Receta receta = cmbReceta.getValue();  // Obtener la receta seleccionada
         try{
-            String nombre = nombreProductoField.getText();
-            String descripcion = descripcionProductoField.getText();
-            Categoria categoria = categoriaChoiceBox.getValue();
-            BigDecimal precio = new BigDecimal(precioField.getText());
-
             if (!validarCampos(nombre, descripcion, categoria, precio)) {
                 throw new IllegalArgumentException("Todos los campos deben estar completos y ser válidos.");
             }
@@ -189,20 +171,14 @@ public class ProductoFormController {
                 productoActual.setCategoria(categoria);
                 productoActual.setPrecio(precio);
                 productoActual.setImagen(imagen);
-                /*if (imagenCargada) {
-                    productoActual.setImagen(imagen);
-                } else {
-                    productoActual.setImagen(null);
-                }*/
             }
 
         productoActual.setSabores(saboresSeleccionados);
         // Asignar la receta seleccionada al producto
         productoActual.setReceta(receta);
 
+
         return productoActual;
-            productoActual.setSabores(saboresSeleccionados);
-            return productoActual;
         } catch (Exception e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error", "Error al crear/actualizar el producto: " + e.getMessage());
             return null;
@@ -300,25 +276,4 @@ public class ProductoFormController {
             }
         }
     }
-
-    // Supongamos que este es tu metodo para cargar el FXML
-    /*@FXML
-    private void cargarProductoForm() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductoFormController.fxml"));
-            Parent root = loader.load();
-
-            ProductoFormController controller = loader.getController();
-            // Asignar el catalogoController aquí
-            controller.setCatalogoController(catalogoController);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-
 }

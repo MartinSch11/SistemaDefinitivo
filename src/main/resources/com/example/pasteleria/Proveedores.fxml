@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProveedoresController">
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProveedoresController">
     <stylesheets>
         <URL value="@../../../css/components.css" />
     </stylesheets>
@@ -25,7 +26,7 @@
          <children>
             <Pane layoutX="-2.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
                <children>
-                  <Label contentDisplay="CENTER" layoutX="630.0" layoutY="11.0" styleClass="title" stylesheets="@../../../css/components.css" text="Proveedores" textAlignment="CENTER" />
+                  <Label contentDisplay="CENTER" layoutX="607.0" layoutY="13.0" styleClass="title" stylesheets="@../../../css/components.css" text="Proveedores" textAlignment="CENTER" />
                </children>
             </Pane>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
@@ -43,13 +44,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button id="btnNuevoProveedor" fx:id="btnNuevoProveedor" layoutX="164.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleNuevoProveedor" prefHeight="31.0" prefWidth="129.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nuevo proveedor">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             <TextField layoutX="304.0" layoutY="72.0" prefHeight="30.0" prefWidth="699.0" promptText="Buscar por nombre o producto..." />
-            <Button fx:id="btnBuscar" layoutX="1012.0" layoutY="70.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <Button fx:id="btnBuscar" layoutX="1020.0" layoutY="71.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,15 +57,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView fx:id="tableViewProveedores" layoutX="31.0" layoutY="139.0" prefHeight="430.0" prefWidth="1186.0" styleClass="tablaProveedores" stylesheets="@../../../css/components.css">
-              <columns>
-                 <TableColumn fx:id="colNombreProveedor" prefWidth="300.0" text="Proveedor" />
-                 <TableColumn fx:id="colInsumoProveedor" prefWidth="300.0" text="Insumo" />
-                 <TableColumn fx:id="colContactoProveedor" prefWidth="300.0" text="Teléfono" />
-                 <TableColumn fx:id="colUbicacionProveedor" prefWidth="300.0" text="Ubicación" />
-              </columns>
-            </TableView>
-            <GridPane alignment="CENTER" layoutX="224.0" layoutY="643.0" prefHeight="30.0" prefWidth="800.0">
+            <GridPane alignment="CENTER" layoutX="254.0" layoutY="640.0" prefHeight="30.0" prefWidth="800.0">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -91,7 +79,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="27.0" prefWidth="108.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
+                  <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="36.0" prefWidth="119.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -123,6 +111,36 @@
                   </Button>
                </children>
             </GridPane>
+            <TableView fx:id="tableViewProveedores" layoutX="30.0" layoutY="126.0" prefHeight="497.0" prefWidth="1300.0" styleClass="table">
+               <columns>
+                  <TableColumn fx:id="colCuit" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="CUIT">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="cuit" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="colNombre" editable="false" prefWidth="193.0" resizable="false" sortable="false" text="Nombre">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="nombre" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="colInsumo" editable="false" prefWidth="241.0" resizable="false" sortable="false" text="Insumo" />
+                  <TableColumn fx:id="colTelefono" editable="false" prefWidth="216.0" resizable="false" sortable="false" text="Teléfono">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="telefono" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="colUbicacion" editable="false" prefWidth="259.0" resizable="false" sortable="false" text="Ubicación">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="ubicacion" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="colCorreo" editable="false" minWidth="0.0" prefWidth="240.0" resizable="false" sortable="false" text="Correo">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="correo" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+            </TableView>
          </children>
       </Pane>
    </children>

@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SettingsController">
@@ -19,7 +20,7 @@
       <URL value="@../../../css/components.css" />
    </stylesheets>
    <children>
-        <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
+        <Pane layoutY="14.0" prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
@@ -76,7 +77,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="3">
+                  <Button fx:id="btnInsumos" mnemonicParsing="false" onAction="#mostrarVentanaInsumos" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Insumos" GridPane.rowIndex="3">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -158,7 +159,6 @@
                   </Button>
                </children>
             </GridPane>
-            <Pane fx:id="contenedorDinamico" layoutX="219.0" layoutY="194.0" prefHeight="523.0" prefWidth="1136.0" />
             <Pane fx:id="paneConfigEmpleados" layoutX="256.0" layoutY="88.0" prefHeight="94.0" prefWidth="1062.0" visible="false">
                <children>
                   <Label fx:id="title" layoutX="410.0" layoutY="1.0" text="Configuración de empleados">
@@ -200,6 +200,7 @@
                   </GridPane>
                </children>
             </Pane>
+            <StackPane fx:id="contenedorDinamico" layoutX="210.0" layoutY="190.0" prefHeight="523.0" prefWidth="1136.0" />
          </children></Pane>
     </children>
 </AnchorPane>

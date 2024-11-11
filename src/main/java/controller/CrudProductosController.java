@@ -76,8 +76,6 @@ public class CrudProductosController {
         cargarProductos();
     }
 
-
-
     private void cargarProductos() {
         listaProductos.clear(); // Limpiar la lista antes de cargar los nuevos productos
         List<Producto> productos = productoDAO.findAll(); // Obtener productos de la base de datos

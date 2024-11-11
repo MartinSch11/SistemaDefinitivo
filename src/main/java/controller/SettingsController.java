@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import utilities.Paths;
 import utilities.SceneLoader;
 import javafx.scene.control.Button;
@@ -25,7 +26,7 @@ public class SettingsController {
     @FXML private Label title;
     @FXML private ComboBox<String> cmbEmpleadosActuales;
     @FXML private Button btnConfiguracionEmpleados;
-    @FXML public Pane contenedorDinamico;
+    @FXML public StackPane contenedorDinamico;
     @FXML private Button btnSabores;
     @FXML public Pane paneConfigEmpleados;
 
@@ -223,4 +224,11 @@ public class SettingsController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-}
+
+    /*INSUMOS*/
+    @FXML
+    void mostrarVentanaInsumos(ActionEvent event) {
+    }
+
+
+    }
