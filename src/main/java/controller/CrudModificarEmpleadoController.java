@@ -1,18 +1,13 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import model.Evento;
 import persistence.dao.TrabajadorDAO;
 import model.Trabajador;
 import java.math.BigDecimal;
-import java.security.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +45,7 @@ public class CrudModificarEmpleadoController {
 
         cargarNombresEnComboBox();
         cmbModifEmpExistente.setOnAction(e -> cargarDatosTrabajador());
-
-        
     }
-
 
     private SettingsController settingsController;
 
@@ -117,8 +109,6 @@ public class CrudModificarEmpleadoController {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
         }
     }
-
-
 
     private void obtenerDatosDB(Trabajador trabajador){
         DNIEmpExistente.setText(trabajador.getDni());
@@ -209,7 +199,6 @@ public class CrudModificarEmpleadoController {
         if (camposObligatorios()){
 
             guardarDatos();
-            //mensajeConfirmacion();
             vaciarCampos();
             visibilidadButtons();
             // Llamar al metodo de SettingsController para limpiar el contenedor
@@ -220,7 +209,6 @@ public class CrudModificarEmpleadoController {
         }else{
             showAlert(Alert.AlertType.ERROR, "Error", "No se pueden guardar los cambios debido a campos vacíos.");
         }
-
     }
 
 }

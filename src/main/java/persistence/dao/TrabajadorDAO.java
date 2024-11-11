@@ -1,9 +1,7 @@
 package persistence.dao;
 
 import jakarta.persistence.*;
-import model.Evento;
 import model.Trabajador;
-
 import java.time.LocalDate;
 import java.util.List;
 

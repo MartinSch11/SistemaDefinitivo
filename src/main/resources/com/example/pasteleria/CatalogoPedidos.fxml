@@ -1,41 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="596.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogoPedidosController">
    <stylesheets>
       <URL value="@../../../css/pedidos.css" />
    </stylesheets>
+   <stylesheets>
+      <URL value="@../../../css/components.css" />
+   </stylesheets>
    <children>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="596.0" prefWidth="797.0" style="-fx-background-color: #f7ede3;">
-         <content>
-            <Pane prefHeight="595.0" prefWidth="799.0" style="-fx-background-color: #f7ede3;">
-               <children>
-                  <Pane layoutX="505.0" layoutY="393.0" prefHeight="208.0" prefWidth="312.0" styleClass="catalogo-productos" stylesheets="@../../../css/pedidos.css">
-                     <children>
-                        <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" styleClass="catalogo-img">
-                           <image>
-                              <Image url="@../../../productosImag/DSC_0027.JPG" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="161.0" layoutY="14.0" text="BROWNIE" />
-                        <Label layoutX="184.0" layoutY="109.0" text="0" />
-                        <Button layoutX="151.0" layoutY="105.0" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="-" />
-                        <Button layoutX="201.0" layoutY="105.0" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="+" />
-                        <ComboBox fx:id="tamanoProducto" layoutX="138.0" layoutY="39.0" prefHeight="25.0" prefWidth="105.0" />
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
-         </content>
-      </ScrollPane>
+      <ScrollPane fx:id="scrollPaneCatalogo" hbarPolicy="NEVER" prefHeight="596.0" prefWidth="797.0" style="-fx-background-color: #f7ede3;" />
    </children>
 </AnchorPane>

@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,6 +29,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class ProductoFormController {
 
     @FXML private TextField nombreProductoField;
@@ -46,6 +50,11 @@ public class ProductoFormController {
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
     private final RecetaDAO recetaDAO = new RecetaDAO();  // DAO para Recetas
 
+
+    private byte[] imagen; //variable para almacenar la imagen por el usuario
+    private boolean imagenCargada = false; // Variable de control para verificar si la imagen es cargada por el usuario
+
+
     @FXML
     public void initialize() {
         cargarCategorias();
@@ -53,6 +62,7 @@ public class ProductoFormController {
         if (productoActual != null) {
             cargarDatosProducto(productoActual);
         }
+
     }
 
     private void cargarCategorias() {
@@ -89,9 +99,23 @@ public class ProductoFormController {
         cmbReceta.setValue(producto.getReceta());  // Esto seleccionará la receta asociada al producto
     }
 
+    private CatalogoPedidosController catalogoController;
+    public void setCatalogoController(CatalogoPedidosController catalogoController) {
+        this.catalogoController = catalogoController;
+    }
+
+
+
     @FXML
     private void handleGuardar(ActionEvent event) {
         try {
+            // Inicializar el CatalogoPedidosController si es nulo
+            if (catalogoController == null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/CatalogoPedidos.fxml"));
+                Parent root = loader.load();
+                catalogoController = loader.getController();
+            }
+
             Producto producto = crearOActualizarProducto();
 
             if (productoActual != null) {
@@ -103,9 +127,32 @@ public class ProductoFormController {
                 productoDAO.save(producto);
                 agregarProducto(producto);
             }
+            if (producto != null) {
+                if (productoActual != null) {
+                    // Modificar producto existente
+                    productoDAO.update(productoActual);
 
-            mostrarMensaje(Alert.AlertType.INFORMATION, "Éxito", "Producto guardado exitosamente.");
-            cerrarVentana(event);
+                    if (catalogoController != null) {
+                        catalogoController.modificarProducto(productoActual);
+                    } else {
+                        mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
+                    }
+                } else {
+                    // Solo guardar la imagen del usuario si no es la imagen por defecto
+                    //if (imagenCargada) {
+                    producto.setImagen(imagen);
+                    /*} else {
+                        producto.setImagen(null);
+                    }*/
+                    // Agregar nuevo producto
+                    productoDAO.save(producto);
+                    catalogoController.agregarProducto(producto); // Llama a agregarProducto
+                }
+
+                mostrarMensaje(Alert.AlertType.INFORMATION, "Éxito", "Producto guardado exitosamente.");
+                cerrarVentana(event);
+            }
+
         } catch (NumberFormatException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error de Validación", "El precio debe ser un valor numérico válido.");
         } catch (Exception e) {
@@ -119,29 +166,47 @@ public class ProductoFormController {
         Categoria categoria = categoriaChoiceBox.getValue();
         BigDecimal precio = new BigDecimal(precioField.getText());
         Receta receta = cmbReceta.getValue();  // Obtener la receta seleccionada
+        try{
+            String nombre = nombreProductoField.getText();
+            String descripcion = descripcionProductoField.getText();
+            Categoria categoria = categoriaChoiceBox.getValue();
+            BigDecimal precio = new BigDecimal(precioField.getText());
 
-        if (!validarCampos(nombre, descripcion, categoria, precio)) {
-            throw new IllegalArgumentException("Todos los campos deben estar completos y ser válidos.");
-        }
+            if (!validarCampos(nombre, descripcion, categoria, precio)) {
+                throw new IllegalArgumentException("Todos los campos deben estar completos y ser válidos.");
+            }
 
-        if (saboresSeleccionados.isEmpty()) {
-            throw new IllegalArgumentException("Debe seleccionar al menos un sabor.");
-        }
+            if (saboresSeleccionados == null || saboresSeleccionados.isEmpty()) {
+                mostrarMensaje(Alert.AlertType.ERROR, "Error de Validación", "Debe seleccionar al menos un sabor.");
+                return null;
+            }
 
-        if (productoActual == null) {
-            productoActual = new Producto(nombre, descripcion, categoria, precio, null);
-        } else {
-            productoActual.setNombre(nombre);
-            productoActual.setDescripcion(descripcion);
-            productoActual.setCategoria(categoria);
-            productoActual.setPrecio(precio);
-        }
+            if (productoActual == null) {
+                productoActual = new Producto(nombre, descripcion, categoria, precio, imagen);
+            } else {
+                productoActual.setNombre(nombre);
+                productoActual.setDescripcion(descripcion);
+                productoActual.setCategoria(categoria);
+                productoActual.setPrecio(precio);
+                productoActual.setImagen(imagen);
+                /*if (imagenCargada) {
+                    productoActual.setImagen(imagen);
+                } else {
+                    productoActual.setImagen(null);
+                }*/
+            }
 
         productoActual.setSabores(saboresSeleccionados);
         // Asignar la receta seleccionada al producto
         productoActual.setReceta(receta);
 
         return productoActual;
+            productoActual.setSabores(saboresSeleccionados);
+            return productoActual;
+        } catch (Exception e) {
+            mostrarMensaje(Alert.AlertType.ERROR, "Error", "Error al crear/actualizar el producto: " + e.getMessage());
+            return null;
+        }
     }
 
     private boolean validarCampos(String nombre, String descripcion, Categoria categoria, BigDecimal precio) {
@@ -156,6 +221,7 @@ public class ProductoFormController {
         File archivo = seleccionarArchivo();
         if (archivo != null) {
             cargarImagen(archivo);
+            imagenCargada = true; // Marcar que la imagen ha sido cargada por el usuario
         }
     }
 
@@ -168,10 +234,9 @@ public class ProductoFormController {
 
     private void cargarImagen(File archivo) {
         try (FileInputStream fis = new FileInputStream(archivo)) {
-            byte[] imageBytes = fis.readAllBytes();
-            if (productoActual != null) {
-                productoActual.setImagen(imageBytes);
-            }
+            imagen = fis.readAllBytes();
+            // Guardar los bytes de la imagen en la nueva variable imagenUsuario
+            mostrarMensaje(Alert.AlertType.INFORMATION, "Imagen Cargada", "La imagen ha sido cargada exitosamente.");
         } catch (IOException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error al cargar la imagen", e.getMessage());
         }
@@ -235,5 +300,25 @@ public class ProductoFormController {
             }
         }
     }
+
+    // Supongamos que este es tu metodo para cargar el FXML
+    /*@FXML
+    private void cargarProductoForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductoFormController.fxml"));
+            Parent root = loader.load();
+
+            ProductoFormController controller = loader.getController();
+            // Asignar el catalogoController aquí
+            controller.setCatalogoController(catalogoController);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
 
 }

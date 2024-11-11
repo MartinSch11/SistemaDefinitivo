@@ -3,6 +3,8 @@ package model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +17,8 @@ import lombok.NoArgsConstructor;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "dni_cliente")
+    private String dniCliente;
 
     @Column(name = "nombre_cliente", nullable = false)
     private String nombreCliente;
@@ -30,8 +32,14 @@ public class Pedido {
     @Column(name = "empleado_asignado", nullable = false)
     private String empleadoAsignado;
 
+    @Column(name = "formaEntrega", nullable = false)
+    private String formaEntrega;
+
     @Column(name = "fecha_entrega", nullable = false)
     private LocalDate fechaEntrega;
+
+    @Column(name = "estado_pedido", nullable = false)
+    private String estadoPedido;
 
     @ManyToMany
     @JoinTable(
@@ -41,12 +49,15 @@ public class Pedido {
     )
     private List<Producto> productos;
 
-    public Pedido(String nombreCliente, String contactoCliente, String detallePedido, String empleadoAsignado, LocalDate fechaEntrega, List<Producto> productos) {
+    public Pedido(String nombreCliente, String contactoCliente, String dniCliente, String detallePedido, String empleadoAsignado, String formaEntrega, LocalDate fechaEntrega, String estadoPedido) {
         this.nombreCliente = nombreCliente;
         this.contactoCliente = contactoCliente;
+        this.dniCliente = dniCliente;
         this.detallePedido = detallePedido;
         this.empleadoAsignado = empleadoAsignado;
+        this.formaEntrega = formaEntrega;
         this.fechaEntrega = fechaEntrega;
+        this.estadoPedido = estadoPedido;
         this.productos = productos;
     }
 

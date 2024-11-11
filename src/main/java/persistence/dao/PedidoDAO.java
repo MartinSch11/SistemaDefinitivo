@@ -33,10 +33,10 @@ public class PedidoDAO {
         }
     }
 
-    public Pedido findById(Long id) {
+    public Pedido findByDni(String dni) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Pedido.class, id);
+            return em.find(Pedido.class, dni);
         } finally {
             em.close();
         }

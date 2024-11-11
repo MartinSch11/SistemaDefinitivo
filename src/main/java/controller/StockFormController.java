@@ -2,15 +2,19 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Insumo;
 import model.Proveedor;
 import persistence.dao.InsumoDAO;
 import persistence.dao.ProveedorDAO;
-
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 
 public class StockFormController {
 
@@ -19,8 +23,17 @@ public class StockFormController {
     @FXML private TextField loteField;
     @FXML private DatePicker fechaCaducidadData;
     @FXML private ChoiceBox<Proveedor> proveedorChoiceBox;
-    @FXML private Button btnAceptar;
+    @FXML private Button btnGuardar;
     @FXML private Button btnCancelar;
+    @FXML private TextField telefonoProveedorField;
+    @FXML private TextField ubicacionProveedorField;
+    @FXML private TextField NombreProveedorField;
+    @FXML private RadioButton radioNo;
+    @FXML private RadioButton radioSi;
+    @FXML private ComboBox<String> cmbBuscarProveedor;
+
+    private ProveedoresController proveedoresController;
+    private StockController stockController;
 
     private InsumoDAO insumoDAO;
     private ProveedorDAO proveedorDAO;
@@ -35,6 +48,41 @@ public class StockFormController {
     private void initialize() {
         cargarMedidas();
         cargarProveedores();
+
+        radioNo.setSelected(true);
+
+        try {
+            FXMLLoader proveedoresLoader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/Proveedores.fxml"));
+            proveedoresLoader.load();
+            proveedoresController = proveedoresLoader.getController();
+
+            FXMLLoader stockLoader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/Stock.fxml"));
+            stockLoader.load();
+            stockController = stockLoader.getController();
+
+            //Pasar la referencia de StockController a ProveedoresController
+            if (proveedoresController != null && stockController != null) {
+                proveedoresController.setStockController(stockController);
+            } else {
+                System.out.println("Error: No se pudo inicializar los controladores.");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    private void controlRadiosButtons(){
+        if (radioSi.isSelected()){
+            cmbBuscarProveedor.setDisable(false);
+            radioNo.setSelected(false);
+            NombreProveedorField.clear();
+            NombreProveedorField.setDisable(true);
+        } else if (radioNo.isSelected()) {
+            radioSi.setSelected(false);
+        }
     }
 
     private void cargarMedidas() {
@@ -47,7 +95,7 @@ public class StockFormController {
     }
 
     @FXML
-    private void handleAceptar(ActionEvent event) {
+    private void handleGuardar(ActionEvent event) {
         String nombreInsumo = nombreInsumoField.getText();
         String cantidad = cantidadField.getText();  // Cantidad como String
         String lote = loteField.getText();
@@ -56,6 +104,17 @@ public class StockFormController {
         Proveedor proveedorSeleccionado = proveedorChoiceBox.getValue();
 
         if (nombreInsumo.isEmpty() || cantidad.isEmpty() || lote.isEmpty() || fechaCaducidad == null || /*medidaSeleccionada == null ||*/ proveedorSeleccionado == null) {
+        if (radioSi.isSelected()){
+            controlRadiosButtons();
+            String nombreProveedor = cmbBuscarProveedor.getValue();
+        }else if (radioNo.isSelected()){
+            String nombreProveedor = NombreProveedorField.getText();
+        }
+        String telefonoProveedor = telefonoProveedorField.getText();
+        String ubicacionProveedor = ubicacionProveedorField.getText();
+
+
+        if (nombreInsumo.isEmpty() || cantidad.isEmpty() || lote.isEmpty() || fechaCaducidad == null || medidaSeleccionada == null || proveedorSeleccionado == null) {
             // Mostrar mensaje de error
             showAlert(Alert.AlertType.ERROR, "Error", "Por favor, complete todos los campos.");
             return;
@@ -77,9 +136,25 @@ public class StockFormController {
         cerrarFormulario();
     }
 
+
+
     private void cerrarFormulario() {
-        Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        // Crear un mensaje de alerta de confirmación
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("Se perderán los cambios no guardados. ¿Desea salir?");
+        alert.setContentText("Seleccione su opción.");
+
+        // Mostrar y esperar la respuesta del usuario
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Cerrar la ventana si el usuario confirma
+            Stage stage = (Stage) btnCancelar.getScene().getWindow();
+            stage.close();
+        } else {
+            // Cerrar la alerta si el usuario cancela
+            alert.close();
+        }
     }
 
     public void setInsumoParaEditar(Insumo insumo) {
