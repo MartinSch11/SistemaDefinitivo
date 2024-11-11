@@ -11,21 +11,56 @@ import persistence.dao.SaborDAO;
 public class NuevoSaborController {
 
     @FXML private TextField txtNuevoSabor;
+    private Sabor saborParaModificar;
 
-    @FXML private void handleGuardar(ActionEvent event) {
+    @FXML
+    private void initialize() {
+        // Establecer el foco en txtNuevoSabor al cargar la ventana
+        txtNuevoSabor.requestFocus();
+    }
+
+    // Método para cargar los datos de un sabor ya existente
+    public void cargarSaborParaModificar(Sabor sabor) {
+        this.saborParaModificar = sabor;
+        // Cargar el sabor en el campo de texto
+        txtNuevoSabor.setText(sabor.getSabor());
+    }
+
+    @FXML
+    private void handleGuardar(ActionEvent event) {
         String nuevoSabor = txtNuevoSabor.getText();
+
+        // Validación de que el campo no esté vacío
         if (nuevoSabor != null && !nuevoSabor.trim().isEmpty()) {
-            Sabor sabor = new Sabor(); sabor.setSabor(nuevoSabor);
-            SaborDAO saborDAO = new SaborDAO();
-            saborDAO.guardarSabor(sabor); // Limpia el campo de texto después de guardar
-            txtNuevoSabor.clear();
+            if (saborParaModificar != null) {
+                // Si es un sabor para modificar
+                saborParaModificar.setSabor(nuevoSabor);
+                // Actualizar el sabor en la base de datos
+                SaborDAO saborDAO = new SaborDAO();
+                saborDAO.actualizarSabor(saborParaModificar);
+            } else {
+                // Si es un nuevo sabor
+                Sabor sabor = new Sabor();
+                sabor.setSabor(nuevoSabor);
+                // Guardar el nuevo sabor en la base de datos
+                SaborDAO saborDAO = new SaborDAO();
+                saborDAO.guardarSabor(sabor);
+            }
+
+            txtNuevoSabor.clear(); // Limpiar el campo de texto después de guardar
+            // Cerrar la ventana
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        } else {
+            // Agregar aquí un mensaje para indicar que el sabor no puede estar vacío
+            System.out.println("Por favor, ingrese un sabor válido.");
         }
     }
 
     @FXML
     private void handleCancelar(ActionEvent event) {
+        // Cerrar la ventana sin guardar cambios
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
-
 }

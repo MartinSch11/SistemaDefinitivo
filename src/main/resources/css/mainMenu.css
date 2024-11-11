@@ -1,15 +1,46 @@
-.login{
+/* Estilos para el MenuButton de inicio de sesión */
+.login {
     -fx-background-color: transparent;
+    -fx-font-family: "Inter";
     -fx-pref-width: 160px;
     -fx-pref-height: 50px;
+    -fx-font-size: 18px;
+
     -fx-transition: transform 0.2s ease-in-out;
-    -fx-text-fill: white;
-    -fx-font-size: 20px;
+}
+
+/* Efecto hover para el MenuButton */
+.login:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Estilos para el MenuItem dentro del MenuButton */
+.login .menu-item {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+}
+
+/* Estilos específicos para las imágenes dentro de los MenuItem */
+.login .menu-item .image-view {
+    -fx-fit-width: 20px;  /* Ajusta el ancho */
+    -fx-fit-height: 20px; /* Ajusta la altura */
+}
+
+/* Efecto hover para cada MenuItem */
+.login .menu-item:hover {
+    -fx-background-color: #E0E0E0; /* Cambia el color de fondo en hover */
+}
+
+/* Estilo adicional para imagen principal dentro del MenuButton */
+.login .image-view-main {
+    -fx-fit-width: 30px;
+    -fx-fit-height: 30px;
 }
 
 .login .image-view {
-    -fx-fit-width: 40px;
-    -fx-fit-height: 40px;
+    -fx-fit-width: 35px;
+    -fx-fit-height: 35px;
  }
 
  .login:hover{
@@ -43,7 +74,8 @@
 }
 
 .txtButtonsMainMenu{
-    -fx-font-size: 16px;
+    -fx-font-family: "Inter";
+    -fx-font-size: 18px;
     -fx-text-fill: black;
 }
 

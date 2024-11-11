@@ -2,18 +2,23 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import utilities.MenuItemSceneStrategy;
 import utilities.Paths;
 import utilities.SceneLoader;
 import utilities.NodeSceneStrategy;
 
 public class MainMenuController {
 
-    @FXML private Button adminLogin;
-    @FXML private Button btnSettings;
+    @FXML private MenuButton adminLogin;
+    @FXML private MenuItem btnCambiarUsuario;
+    @FXML private MenuItem btnSettings;
+    @FXML private MenuItem btnAyuda;
     @FXML private Button btnProductos;
     @FXML private Button btnEventos;
-    @FXML private Button btnAyuda;
     @FXML private Button btnPedidos;
     @FXML private Button btnProveedores;
     @FXML private Button btnEstadistica;
@@ -22,12 +27,17 @@ public class MainMenuController {
 
     @FXML
     void handleAyuda(ActionEvent event) {
-        SceneLoader.loadScene(new NodeSceneStrategy(btnAyuda), Paths.AYUDA, "/css/components.css", false);
+        SceneLoader.loadScene(new MenuItemSceneStrategy(adminLogin), Paths.AYUDA, "/css/components.css", true);
     }
 
     @FXML
     void changeUser(ActionEvent event) {
-         SceneLoader.loadScene(new NodeSceneStrategy(adminLogin), Paths.LOGIN, "/css/login.css", true);
+        SceneLoader.loadScene(new MenuItemSceneStrategy(adminLogin), Paths.LOGIN, "/css/login.css", true);
+    }
+
+    @FXML
+    void handleSettings(ActionEvent event) {
+        SceneLoader.loadScene(new MenuItemSceneStrategy(adminLogin), Paths.SETTINGS, "/css/components.css", true);
     }
 
     @FXML
@@ -42,31 +52,26 @@ public class MainMenuController {
 
     @FXML
     void handlePedidos(ActionEvent event) {
-        SceneLoader.loadScene(new NodeSceneStrategy(btnPedidos), Paths.PEDIDOS, "/css/components.css", false);
+        SceneLoader.loadScene(new NodeSceneStrategy(btnPedidos), Paths.PEDIDOS, "/css/components.css", true);
     }
 
     @FXML
     void handleProveedores(ActionEvent event)  {
-        SceneLoader.loadScene(new NodeSceneStrategy(btnProveedores), Paths.PROVEEDORES, "/css/components.css", false);
+        SceneLoader.loadScene(new NodeSceneStrategy(btnProveedores), Paths.PROVEEDORES, "/css/components.css", true);
     }
 
     @FXML
     void handleEstadistica(ActionEvent event) {
-        SceneLoader.loadScene(new NodeSceneStrategy(btnEstadistica), Paths.ESTADISTICA, "/css/components.css", false);
+        SceneLoader.loadScene(new NodeSceneStrategy(btnEstadistica), Paths.ESTADISTICA, "/css/components.css", true);
     }
 
     @FXML
     void handleStock(ActionEvent event) {
-        SceneLoader.loadScene(new NodeSceneStrategy(btnStock), Paths.STOCK, "/css/components.css", false);
-    }
-
-    @FXML
-    void handleSettings(ActionEvent event){
-        SceneLoader.loadScene(new NodeSceneStrategy(btnSettings), Paths.SETTINGS, "/css/components.css", false);
+        SceneLoader.loadScene(new NodeSceneStrategy(btnStock), Paths.STOCK, "/css/components.css", true);
     }
 
     @FXML
     void handleRecetas(ActionEvent event){
-        SceneLoader.loadScene(new NodeSceneStrategy(btnRecetas), Paths.RECETAS, "/css/components.css", false);
+        SceneLoader.loadScene(new NodeSceneStrategy(btnRecetas), Paths.RECETAS, "/css/components.css", true);
     }
 }

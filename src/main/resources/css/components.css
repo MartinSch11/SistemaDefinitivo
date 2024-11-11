@@ -79,7 +79,6 @@
     -fx-background-color: transparent;
 }
 
-
 /*-----buttons en general--------*/
 .buttons{
     -fx-background-color: transparent;
@@ -87,6 +86,8 @@
     -fx-alignment: center;
     -fx-border-radius: 4px;
     -fx-border-color: #B70505;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 14px;
 }
 
 .buttons:hover{
@@ -101,7 +102,13 @@
     -fx-font-family: 'Inter';
     -fx-font-size: 24px;
     -fx-alignment: center;
+}
 
+.title-red{
+    -fx-text-fill: #B70505;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 20px;
+    -fx-alignment: center;
 }
 
 /*--------tabla proveedores---------------------------------------------------*/
@@ -115,8 +122,66 @@
 .tablaProveedores .column-header{
     -fx-background-color: #F6BBBB;
     -fx-text-fill: #FFF;
+    -fx-font-family: 'Inter';
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-alignment: center;
 }
+
+.table{
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+}
+
+/* Estilo para el ScrollPane */
+.scroll-pane {
+    -fx-background: #f7ede3; /* Fondo del ScrollPane */
+    -fx-background-color: #f7ede3; /* Fondo interno del ScrollPane */
+}
+
+/* Fondo del área de contenido dentro del ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: #f7ede3;
+}
+
+#paneDetallesReceta{
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
+}
+
+/* Aplica la fuente Inter a todo el VBox */
+#vboxIngredientes {
+    -fx-font-family: 'Inter';
+    -fx-spacing: 10px; /* Espaciado entre los elementos */
+    -fx-padding: 10px; /* Espaciado interno en el VBox */
+    -fx-background-color: #f7ede3; /* Fondo claro */
+}
+
+/* Estilo para cada Label dentro del VBox */
+#vboxIngredientes Label {
+    -fx-font-size: 14px; /* Tamaño de letra */
+    -fx-text-fill: #333333; /* Color del texto */
+    -fx-padding: 8px 12px; /* Espaciado interno */
+    -fx-background-color: #f7ede3; /* Fondo del Label */
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
+}
+
+.texto-login{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 20px;
+}
+
+.paneLogin{
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+
 

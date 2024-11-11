@@ -8,7 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginAdminController">
@@ -21,7 +24,7 @@
    <children>
       <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
-            <Pane id="paneLoginAdmin" fx:id="semibg" layoutX="380.0" layoutY="160.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3; -fx-border-radius: 6px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);" styleClass="paneLoginAdmin" stylesheets="@../../../css/loginAdmin.css">
+            <Pane id="paneLoginAdmin" fx:id="semibg" layoutX="380.0" layoutY="160.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f7ede3; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);" styleClass="paneLoginAdmin" stylesheets="@../../../css/loginAdmin.css">
                            <children>
                   <ImageView fitHeight="198.0" fitWidth="195.0" layoutX="38.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -33,15 +36,22 @@
                         <Font name="Inter Regular" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="300.0" layoutY="147.0" text="Contraseña">
-                     <font>
-                        <Font name="Inter Regular" size="18.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="300.0" layoutY="155.0" styleClass="texto-login" stylesheets="@../../../css/loginAdmin.css" text="Contraseña" />
                   <PasswordField fx:id="passwordField" layoutX="300.0" layoutY="181.0" prefHeight="38.0" prefWidth="219.0" />
-                  <Button fx:id="btnCancelar" layoutX="336.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleVolver" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" />
-                  <Button fx:id="btnAceptar" layoutX="431.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleAceptar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Aceptar" />
                   <Label fx:id="errorLabel" layoutX="300.0" layoutY="290.0" textFill="red" />
+                  <GridPane layoutX="310.0" layoutY="230.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleVolver" styleClass="buttons" stylesheets="@../../../css/components.css" text="Cancelar" />
+                        <Button fx:id="btnAceptar" mnemonicParsing="false" onAction="#handleAceptar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Aceptar" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
             </Pane>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">

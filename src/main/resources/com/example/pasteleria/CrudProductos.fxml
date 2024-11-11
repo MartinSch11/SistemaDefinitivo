@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrudProductosController">
+<AnchorPane prefHeight="720" prefWidth="1360" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrudProductosController">
    <children>
       <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
@@ -31,28 +31,29 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="121.0" prefHeight="55.0" prefWidth="1360.0">
                <children>
-                  <TextField layoutX="559.0" layoutY="10.0" prefHeight="35.0" prefWidth="300.0" promptText="Producto">
+                  <TextField layoutX="559.0" layoutY="10.0" prefHeight="35.0" prefWidth="300.0" promptText="Producto" styleClass="texto">
                      <font>
                         <Font name="Inter Regular" size="13.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="439.0" layoutY="19.0" text="Buscar producto:">
+                  <Label layoutX="428.0" layoutY="18.0" styleClass="texto" text="Buscar producto:">
                      <font>
                         <Font name="Inter Regular" size="14.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btnBuscar" layoutX="882.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleBuscar" styleClass="buttons" text="Buscar" />
                </children>
             </Pane>
             <ScrollPane layoutX="14.0" layoutY="176.0" prefHeight="470.0" prefWidth="1315.0">
                <content>
-                  <TableView fx:id="tableProductos" prefHeight="470.0" prefWidth="1300.0">
+                  <TableView fx:id="tableProductos" prefHeight="470.0" prefWidth="1300.0" styleClass="table">
                     <columns>
-                      <TableColumn fx:id="colNombre" editable="false" prefWidth="271.0" text="Producto" />
-                        <TableColumn fx:id="colDescripcion" editable="false" prefWidth="394.0" text="Descripción" />
-                        <TableColumn fx:id="colCategoria" editable="false" prefWidth="200.0" text="Categoría" />
-                        <TableColumn fx:id="colPrecio" editable="false" prefWidth="194.0" text="Precio" />
-                        <TableColumn fx:id="colSabor" editable="false" prefWidth="200.0" text="Sabor" />
-                        <TableColumn fx:id="colSabor1" editable="false" prefWidth="124.0" text="Visibilidad" />
+                      <TableColumn fx:id="colNombre" editable="false" prefWidth="152.0" sortable="false" text="Producto" />
+                        <TableColumn fx:id="colDescripcion" editable="false" prefWidth="265.0" sortable="false" text="Descripción" />
+                        <TableColumn fx:id="colReceta" editable="false" prefWidth="236.0" sortable="false" text="Receta" />
+                        <TableColumn fx:id="colCategoria" editable="false" prefWidth="261.0" sortable="false" text="Categoría" />
+                        <TableColumn fx:id="colPrecio" editable="false" prefWidth="124.0" sortable="false" text="Precio" />
+                        <TableColumn fx:id="colSabor" editable="false" prefWidth="266.0" sortable="false" text="Sabor" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -83,7 +84,7 @@
                                  </image>
                               </ImageView>
                            </graphic></Button>
-                        <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="27.0" prefWidth="108.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
+                        <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="36.0" prefWidth="122.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

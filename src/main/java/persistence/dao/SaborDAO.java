@@ -4,6 +4,7 @@ import model.Sabor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
 import java.util.List;
 
 public class SaborDAO {
@@ -46,6 +47,24 @@ public class SaborDAO {
             em.getTransaction().begin();
             em.merge(sabor);
             em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    // Método para eliminar un sabor de la base de datos
+    public void eliminarSabor(Sabor sabor) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Sabor saborAEliminar = em.find(Sabor.class, sabor.getId_sabor());
+            if (saborAEliminar != null) {
+                em.remove(saborAEliminar); // Eliminar el sabor
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback(); // Hacer rollback si algo sale mal
+            throw e; // Rethrow la excepción
         } finally {
             em.close();
         }

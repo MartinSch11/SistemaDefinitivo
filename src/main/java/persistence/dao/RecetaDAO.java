@@ -8,7 +8,6 @@ import java.util.List;
 
 public class RecetaDAO {
     private EntityManagerFactory emf;
-    private EntityManager em;
 
     public RecetaDAO() {
         emf = Persistence.createEntityManagerFactory("pasteleriaPU");
@@ -36,13 +35,18 @@ public class RecetaDAO {
     }
 
     public Receta findByProducto(Producto producto) {
+        EntityManager em = getEntityManager();
         try {
             return em.createQuery("SELECT r FROM Receta r WHERE r.producto = :producto", Receta.class)
                     .setParameter("producto", producto)
                     .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // No hay receta asociada al producto
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        } finally {
+            em.close();
         }
     }
 
@@ -58,7 +62,7 @@ public class RecetaDAO {
     public List<Receta> findAll() {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT r FROM Receta r", Receta.class).getResultList();
+            return em.createQuery("FROM Receta", Receta.class).getResultList();
         } finally {
             em.close();
         }
@@ -98,8 +102,24 @@ public class RecetaDAO {
         }
     }
 
+    public Receta findRecetaWithInsumos(int recetaId) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT r FROM Receta r LEFT JOIN FETCH r.insumosReceta WHERE r.id = :id", Receta.class)
+                    .setParameter("id", recetaId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
     public void close() {
-        emf.close();
-        em.close();
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+        }
     }
 }

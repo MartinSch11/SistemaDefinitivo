@@ -14,20 +14,22 @@ import utilities.SceneLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import persistence.dao.TrabajadorDAO;
-import model.Trabajador;
 
 import java.util.List;
 
 public class SettingsController {
-    @FXML private Button btnModificarEmpleado; @FXML private Button btnEliminarEmpleado; @FXML private Button btnAnadirEmpleado;
-    @FXML private GridPane gridEmpleadosActuales; @FXML private Label title; @FXML private ComboBox<String> cmbEmpleadosActuales;
-    @FXML
-    private Button btnConfiguracionEmpleado;
-    @FXML
-    public Pane contenedorDinamico;
+    @FXML private Button btnModificarEmpleado;
+    @FXML private Button btnEliminarEmpleado;
+    @FXML private Button btnAnadirEmpleado;
+    @FXML private GridPane gridEmpleadosActuales;
+    @FXML private Label title;
+    @FXML private ComboBox<String> cmbEmpleadosActuales;
+    @FXML private Button btnConfiguracionEmpleados;
+    @FXML public Pane contenedorDinamico;
+    @FXML private Button btnSabores;
+    @FXML public Pane paneConfigEmpleados;
 
     public static int verificarVentanasAbiertas = 0;
-
 
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
 
@@ -54,40 +56,54 @@ public class SettingsController {
         return btnEliminarEmpleado;
     }
 
+    private void togglePaneConfigEmpleados() {
+        // Cambiar visibilidad del Pane
+        boolean isVisible = paneConfigEmpleados.isVisible();
+        paneConfigEmpleados.setVisible(!isVisible);
+        btnConfiguracionEmpleados.setDisable(true);
+
+        // Limpiar contenedor dinámico si se muestra paneConfigEmpleados
+        if (!isVisible) {
+            contenedorDinamico.getChildren().clear();
+        }
+    }
 
     @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
     }
 
-
-
     @FXML
     void CRUDEmpleado(ActionEvent event) {
-        btnModificarEmpleado.setVisible(true);
-        btnEliminarEmpleado.setVisible(true);
-        btnAnadirEmpleado.setVisible(true);
-        gridEmpleadosActuales.setVisible(true);
-        title.setVisible(true);
-
+        btnSabores.setDisable(false);
+        togglePaneConfigEmpleados();
     }
 
     void verificarVentanas() {
+        // Limpia el contenido del contenedor dinámico para ocultar cualquier vista previa
+        contenedorDinamico.getChildren().clear();
+
+        // Activa todos los botones antes de desactivar el botón de la ventana activa
+        btnModificarEmpleado.setDisable(false);
+        btnEliminarEmpleado.setDisable(false);
+        btnAnadirEmpleado.setDisable(false);
+        btnSabores.setDisable(false);
+
+        // Desactiva solo el botón correspondiente a la ventana abierta
         switch (verificarVentanasAbiertas) {
             case 1:
-                btnEliminarEmpleado.setVisible(false);
-                btnModificarEmpleado.setVisible(false);
+                btnAnadirEmpleado.setDisable(true);
                 break;
             case 2:
-                btnAnadirEmpleado.setVisible(false);
-                btnEliminarEmpleado.setVisible(false);
+                btnModificarEmpleado.setDisable(true);
                 break;
             case 3:
-                btnModificarEmpleado.setVisible(false);
-                btnAnadirEmpleado.setVisible(false);
+                btnEliminarEmpleado.setDisable(true);
+                break;
+            case 4:
+                btnSabores.setDisable(true);
                 break;
             default:
-                // Opcional: manejar otros casos o valores no esperados
                 break;
         }
     }
@@ -167,7 +183,6 @@ public class SettingsController {
         btnModificarEmpleado.setDisable(false);
     }
 
-
     public void cargarNombresEnComboBox() {
         try {
             List<String> nombres = trabajadorDAO.findAllNombres();
@@ -176,6 +191,30 @@ public class SettingsController {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
         }
+    }
+
+    @FXML
+    void mostrarVentanaSabores(ActionEvent event) {
+        paneConfigEmpleados.setVisible(false);
+        btnConfiguracionEmpleados.setDisable(false);
+        verificarVentanasAbiertas = 4;
+        verificarVentanas();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/TablaSabores.fxml"));
+            Parent visualizarView = loader.load();
+            contenedorDinamico.getChildren().setAll(visualizarView);
+
+            TablaSaboresController controller = loader.getController();
+            controller.setSettingsController(this);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cerrarTablaSabores() {
+        contenedorDinamico.getChildren().clear();
+        btnSabores.setDisable(false);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

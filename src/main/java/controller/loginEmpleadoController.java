@@ -14,21 +14,20 @@ import utilities.SceneLoader;
 
 public class loginEmpleadoController {
 
-    @FXML
-    private Button btnAceptarEmpleado;
-
-    @FXML
-    private Button btnCancelarEmpleado;
-
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    private PasswordField passwordFieldEmpleado;
+    @FXML private Button btnAceptarEmpleado;
+    @FXML private Button btnCancelarEmpleado;
+    @FXML private Label errorLabel;
+    @FXML private PasswordField passwordFieldEmpleado;
 
     @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.LOGIN, "/css/login.css", true);
+    }
+
+    @FXML
+    private void initialize() {
+        // Establecer el foco en el passwordField al cargar la ventana
+        passwordFieldEmpleado.requestFocus();
     }
 
     @FXML

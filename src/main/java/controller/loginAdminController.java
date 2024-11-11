@@ -29,6 +29,12 @@ public class loginAdminController {
     }
 
     @FXML
+    private void initialize() {
+        // Establecer el foco en el passwordField al cargar la ventana
+        passwordField.requestFocus();
+    }
+
+    @FXML
     void handleAceptar(ActionEvent event) {
         String password = passwordField.getText();
         if (validatePassword(password)) {

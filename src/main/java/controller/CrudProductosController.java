@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lombok.Getter;
 import model.Producto;
+import model.Receta;
 import persistence.dao.ProductoDAO;
 import utilities.SceneLoader;
 import utilities.Paths;
@@ -28,6 +30,7 @@ public class CrudProductosController {
     @FXML private TableView<Producto> tableProductos;
     @FXML private TableColumn<Producto, String> colNombre;
     @FXML private TableColumn<Producto, String> colDescripcion;
+    @FXML private TableColumn<Producto, String> colReceta;
     @FXML private TableColumn<Producto, String> colCategoria;
     @FXML private TableColumn<Producto, Float> colPrecio;
     @FXML private TableColumn<Producto, String> colSabor;
@@ -39,15 +42,12 @@ public class CrudProductosController {
     @FXML
     public void initialize() {
         productoDAO = new ProductoDAO();
+
+        // Inicializar listaProductos directamente en la declaración
         listaProductos = FXCollections.observableArrayList();
 
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));  // Mostrar sabores como String
-
-        cargarProductos();
+        // Llamar primero a rellenarColumnas para asegurar que las columnas se configuren
+        rellenarColumnas();
 
         // Agregar Listener para habilitar los botones cuando se seleccione un producto
         tableProductos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -56,6 +56,27 @@ public class CrudProductosController {
             btnEliminar.setDisable(!productoSeleccionado);
         });
     }
+
+    private void rellenarColumnas() {
+        // Configuración de las otras columnas
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));
+
+        // Para la columna colReceta, usamos un CellFactory para obtener el nombre de la receta
+        colReceta.setCellValueFactory(cellData -> {
+            // Obtener la receta del producto y, si existe, su nombre
+            Receta receta = cellData.getValue().getReceta();
+            return receta != null ? new SimpleStringProperty(receta.getNombreReceta()) : new SimpleStringProperty("");  // Devuelve el nombre de la receta o vacío
+        });
+
+        // Rellenamos la tabla con los productos
+        cargarProductos();
+    }
+
+
 
     private void cargarProductos() {
         listaProductos.clear(); // Limpiar la lista antes de cargar los nuevos productos
@@ -82,10 +103,7 @@ public class CrudProductosController {
             stage.setTitle("Agregar Producto");
             stage.show();
 
-            // Opción de esperar hasta que la ventana se cierre
-            stage.setOnHiding(e -> {
-                cargarProductos(); // Recargar la tabla de productos después de cerrar el formulario
-            });
+            cargarProductos();// Recargar la tabla de productos después de cerrar el formulario
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,20 +116,21 @@ public class CrudProductosController {
         if (productoSeleccionado != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
-                DialogPane dialogPane = loader.load();
+                Parent root = loader.load(); // Cargar el FXML como un contenedor normal
 
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Modificar Producto");
+                // Crear un nuevo Stage (ventana)
+                Stage stage = new Stage();
+                stage.setTitle("Modificar Producto");
+                stage.setScene(new Scene(root));
 
                 ProductoFormController controller = loader.getController();
                 controller.setProducto(productoSeleccionado);
-                controller.setListaProductos(listaProductos); // Pasar la lista observable
+                controller.setListaProductos(listaProductos);
 
-                Optional<ButtonType> result = dialog.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    cargarProductos(); // Recargar la lista tras modificar
-                }
+                // Mostrar la ventana
+                stage.showAndWait();
+
+                cargarProductos(); // Recargar la lista tras modificar
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -119,7 +138,6 @@ public class CrudProductosController {
             showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto", "Por favor, selecciona un producto para modificar.");
         }
     }
-
 
     @FXML
     void handleEliminar(ActionEvent event) {
@@ -145,6 +163,10 @@ public class CrudProductosController {
     }
 
     @FXML
+    void handleBuscar(ActionEvent event) {
+    }
+
+    @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
     }
@@ -155,5 +177,4 @@ public class CrudProductosController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
 }

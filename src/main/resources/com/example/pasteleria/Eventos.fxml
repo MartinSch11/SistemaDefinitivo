@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EventosController">
@@ -24,10 +25,6 @@
                     <children>
                         <Pane fx:id="monthPane" layoutY="-10.0" prefHeight="55.0" prefWidth="700.0" style="-fx-background-color: #B70505;" styleClass="monthPane">
                             <children>
-                                <Label fx:id="monthLabel" layoutX="257.0" layoutY="13.0" prefHeight="30.0" prefWidth="187.0" style="-fx-text-fill: white;" text="MES">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font></Label>
                                 <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#handlePrevMonth" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 2px;">
                                     <graphic>
                                         <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -44,6 +41,11 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
+                        <StackPane layoutX="50.0" layoutY="11.0" prefHeight="36.0" prefWidth="600.0" styleClass="monthLabel">
+                           <children>
+                              <Label fx:id="monthLabel" styleClass="monthLabel" text="Nombre de la Receta" textFill="WHITE" />
+                           </children>
+                        </StackPane>
                             </children>
                         </Pane>
                   <GridPane fx:id="daysGrid" layoutY="45.0" prefHeight="30.0" prefWidth="700.0" style="-fx-background-color: white;" styleClass="daysGrid">
@@ -132,15 +134,14 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Pane fx:id="PaneDetalleEvento" layoutX="938.0" layoutY="101.0" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: ffffff;">
+            <Pane fx:id="PaneDetalleEvento" layoutX="938.0" layoutY="101.0" prefHeight="500.0" prefWidth="400.0" styleClass="detalleEventos">
                <children>
-                  <Label fx:id="lblNEvento" layoutX="143.0" layoutY="22.0" styleClass="eventDayTitle" text="NombreEvento" />
                   <Label layoutX="48.0" layoutY="62.0" styleClass="eventDayTitle" text="Detalle del evento" />
                   <Label fx:id="lblDetalleEvento" layoutX="48.0" layoutY="97.0" styleClass="eventDayText" text="Label" />
                   <GridPane layoutX="30.0" layoutY="305.0" prefHeight="130.0" prefWidth="341.0">
                     <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -175,7 +176,12 @@
                         <Button mnemonicParsing="false" onAction="#handleBorrar" prefHeight="30.0" prefWidth="95.0" styleClass="eventoButton" text="Borrar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
-                  <Button fx:id="btnClose" alignment="CENTER" layoutX="368.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleClose">
+                  <StackPane layoutY="14.0" prefHeight="40.0" prefWidth="400.0">
+                     <children>
+                        <Label fx:id="lblNEvento" styleClass="eventDayTitle" text="NombreEvento" />
+                     </children>
+                  </StackPane>
+                  <Button fx:id="btnClose" alignment="CENTER" layoutX="370.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleClose">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                            <image>

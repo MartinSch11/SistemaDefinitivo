@@ -5,10 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Insumo;
-import model.Medida;
 import model.Proveedor;
 import persistence.dao.InsumoDAO;
-import persistence.dao.MedidaDAO;
 import persistence.dao.ProveedorDAO;
 
 import java.time.LocalDate;
@@ -20,19 +18,16 @@ public class StockFormController {
     @FXML private TextField cantidadField;
     @FXML private TextField loteField;
     @FXML private DatePicker fechaCaducidadData;
-    @FXML private ChoiceBox<Medida> medidaChoiceBox;
     @FXML private ChoiceBox<Proveedor> proveedorChoiceBox;
     @FXML private Button btnAceptar;
     @FXML private Button btnCancelar;
 
     private InsumoDAO insumoDAO;
-    private MedidaDAO medidaDAO;
     private ProveedorDAO proveedorDAO;
     private Insumo insumo;
 
     public StockFormController() {
         insumoDAO = new InsumoDAO();
-        medidaDAO = new MedidaDAO();
         proveedorDAO = new ProveedorDAO();
     }
 
@@ -43,8 +38,7 @@ public class StockFormController {
     }
 
     private void cargarMedidas() {
-        List<Medida> medidas = medidaDAO.findAll();
-        medidaChoiceBox.getItems().addAll(medidas);
+//
     }
 
     private void cargarProveedores() {
@@ -55,25 +49,26 @@ public class StockFormController {
     @FXML
     private void handleAceptar(ActionEvent event) {
         String nombreInsumo = nombreInsumoField.getText();
-        String cantidad = cantidadField.getText();
+        String cantidad = cantidadField.getText();  // Cantidad como String
         String lote = loteField.getText();
         LocalDate fechaCaducidad = fechaCaducidadData.getValue();
-        Medida medidaSeleccionada = medidaChoiceBox.getValue();
+        //Medida medidaSeleccionada = medidaChoiceBox.getValue();
         Proveedor proveedorSeleccionado = proveedorChoiceBox.getValue();
 
-        if (nombreInsumo.isEmpty() || cantidad.isEmpty() || lote.isEmpty() || fechaCaducidad == null || medidaSeleccionada == null || proveedorSeleccionado == null) {
+        if (nombreInsumo.isEmpty() || cantidad.isEmpty() || lote.isEmpty() || fechaCaducidad == null || /*medidaSeleccionada == null ||*/ proveedorSeleccionado == null) {
             // Mostrar mensaje de error
             showAlert(Alert.AlertType.ERROR, "Error", "Por favor, complete todos los campos.");
             return;
         }
 
         try {
-            double cantidadNumerica = Double.parseDouble(cantidad); // Cambiado a double
-            Insumo insumo = new Insumo(nombreInsumo, cantidadNumerica, lote, fechaCaducidad, medidaSeleccionada, proveedorSeleccionado);
+            // Convertir la cantidad a entero
+            int cantidadNumerica = Integer.parseInt(cantidad);  // Cambiado a int
+            Insumo insumo = new Insumo(nombreInsumo, cantidadNumerica, lote, fechaCaducidad, /*medidaSeleccionada,*/ proveedorSeleccionado);
             insumoDAO.save(insumo);
             cerrarFormulario();
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido. " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número entero válido. " + e.getMessage());
         }
     }
 
@@ -94,7 +89,7 @@ public class StockFormController {
         cantidadField.setText(String.valueOf(insumo.getCantidad()));
         loteField.setText(insumo.getLote());
         fechaCaducidadData.setValue(insumo.getFechaCaducidad());
-        medidaChoiceBox.setValue(insumo.getMedida());
+        //medidaChoiceBox.setValue(insumo.getMedida());
         proveedorChoiceBox.setValue(insumo.getProveedor());
     }
 

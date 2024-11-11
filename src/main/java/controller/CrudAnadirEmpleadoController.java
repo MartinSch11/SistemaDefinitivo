@@ -1,6 +1,4 @@
 package controller;
-
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DateCell;
@@ -23,22 +21,16 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 
-
 public class CrudAnadirEmpleadoController {
     @FXML private Pane paneAnadirEmpleado;
-
-    @FXML private Button btnCancelar; @FXML private Button btnGuardar;
-
-    @FXML
-    private TextField DNITxtField;
-    @FXML
-    private TextField nombreTxtField;
-    @FXML
-    private DatePicker dateFechaContratacion;
-    @FXML
-    private TextField direccionTxtField;
-    @FXML
-    private TextField sueldoTxtField; @FXML  private TextField telTxtField;
+    @FXML private Button btnCancelar;
+    @FXML private Button btnGuardar;
+    @FXML private TextField DNITxtField;
+    @FXML private TextField nombreTxtField;
+    @FXML private DatePicker dateFechaContratacion;
+    @FXML private TextField direccionTxtField;
+    @FXML private TextField sueldoTxtField;
+    @FXML  private TextField telTxtField;
 
 
     @FXML
@@ -166,7 +158,6 @@ public class CrudAnadirEmpleadoController {
         }
     }
 
-
     /*---------------------------------------------------------------------------------------*/
 
     @FXML
@@ -209,7 +200,7 @@ public class CrudAnadirEmpleadoController {
             vaciarTodosCampos();
             visibilidadButtons();
 
-// Llamar al metodo de SettingsController para limpiar el contenedor
+            // Llamar al metodo de SettingsController para limpiar el contenedor
             if (settingsController != null) {
                 settingsController.cerrarCrudAnadirEmpleado();
             }

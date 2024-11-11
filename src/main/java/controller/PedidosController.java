@@ -139,14 +139,15 @@ public class PedidosController {
             if (receta != null) {
                 List<Insumo> insumosDeLaReceta = receta.getInsumos();
                 for (Insumo insumo : insumosDeLaReceta) {
-                    // Restar la cantidad utilizada del insumo
-                    double cantidadUtilizada = receta.getCantidadInsumo(insumo);
+                    // Obtener la cantidad utilizada del insumo en la receta
+                    int cantidadUtilizada = receta.getCantidadInsumo(insumo);
                     insumo.reducirCantidad(cantidadUtilizada);
                     insumoDAO.update(insumo); // Actualizar el insumo en la base de datos
                 }
             }
         }
     }
+
 
     @FXML
     private void abrirDialogoNuevoPedido() {

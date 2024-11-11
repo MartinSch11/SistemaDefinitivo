@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;  // Cambiado a BigDecimal
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +31,7 @@ public class Producto {
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
+    @Column(name = "precio")
     private BigDecimal precio;
 
     @ManyToMany
@@ -44,6 +45,10 @@ public class Producto {
     @Lob
     @Column(name = "imagen")
     private byte[] imagen;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_receta") // Relación con la tabla recetas
+    private Receta receta;
 
     public Producto(String nombre, String descripcion, Categoria categoria, BigDecimal precio, byte[] imagen) {
         this.nombre = nombre;

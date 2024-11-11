@@ -9,3 +9,13 @@
     -fx-background-color: #B70505;
     -fx-text-fill: white;
 }
+
+.paneLogin{
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.texto{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 20px;
+}

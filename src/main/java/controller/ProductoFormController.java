@@ -9,12 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import lombok.Setter;
 import model.Categoria;
 import model.Producto;
+import model.Receta;
 import model.Sabor;
 import persistence.dao.CategoriaDAO;
 import persistence.dao.ProductoDAO;
+import persistence.dao.RecetaDAO;  // Asegúrate de tener este DAO para Recetas
 import utilities.SceneLoader;
 
 import java.io.File;
@@ -29,6 +32,7 @@ public class ProductoFormController {
     @FXML private TextField nombreProductoField;
     @FXML private TextArea descripcionProductoField;
     @FXML private ChoiceBox<Categoria> categoriaChoiceBox;
+    @FXML private ComboBox<Receta> cmbReceta;  // El ComboBox de Recetas
     @FXML private TextField precioField;
 
     @Setter
@@ -36,14 +40,16 @@ public class ProductoFormController {
     private ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
     private Producto productoActual;
     @Setter
-    private CrudProductosController parentController; // Declarar la variable
+    private CrudProductosController parentController;
 
     private final ProductoDAO productoDAO = new ProductoDAO();
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private final RecetaDAO recetaDAO = new RecetaDAO();  // DAO para Recetas
 
     @FXML
     public void initialize() {
         cargarCategorias();
+        cargarRecetas();  // Cargar las recetas en el ComboBox
         if (productoActual != null) {
             cargarDatosProducto(productoActual);
         }
@@ -53,6 +59,14 @@ public class ProductoFormController {
         List<Categoria> categorias = categoriaDAO.findAll();
         categoriaChoiceBox.setItems(FXCollections.observableArrayList(categorias));
         categoriaChoiceBox.getSelectionModel().selectFirst();
+    }
+
+    private void cargarRecetas() {
+        List<Receta> recetas = recetaDAO.findAll();
+        ObservableList<Receta> recetasList = FXCollections.observableArrayList(recetas);
+
+        // Establecer las recetas en el ComboBox
+        cmbReceta.setItems(recetasList);
     }
 
     public void setSaboresSeleccionados(ObservableList<Sabor> saboresSeleccionados) {
@@ -72,6 +86,7 @@ public class ProductoFormController {
         categoriaChoiceBox.setValue(producto.getCategoria());
         precioField.setText(producto.getPrecio().toString());
         saboresSeleccionados.setAll(producto.getSabores());
+        cmbReceta.setValue(producto.getReceta());  // Esto seleccionará la receta asociada al producto
     }
 
     @FXML
@@ -82,11 +97,11 @@ public class ProductoFormController {
             if (productoActual != null) {
                 // Modificar producto existente
                 productoDAO.update(productoActual);
-                modificarProducto(productoActual); // Llama a modificarProducto
+                modificarProducto(productoActual);
             } else {
                 // Agregar nuevo producto
                 productoDAO.save(producto);
-                agregarProducto(producto); // Llama a agregarProducto
+                agregarProducto(producto);
             }
 
             mostrarMensaje(Alert.AlertType.INFORMATION, "Éxito", "Producto guardado exitosamente.");
@@ -103,6 +118,7 @@ public class ProductoFormController {
         String descripcion = descripcionProductoField.getText();
         Categoria categoria = categoriaChoiceBox.getValue();
         BigDecimal precio = new BigDecimal(precioField.getText());
+        Receta receta = cmbReceta.getValue();  // Obtener la receta seleccionada
 
         if (!validarCampos(nombre, descripcion, categoria, precio)) {
             throw new IllegalArgumentException("Todos los campos deben estar completos y ser válidos.");
@@ -122,6 +138,9 @@ public class ProductoFormController {
         }
 
         productoActual.setSabores(saboresSeleccionados);
+        // Asignar la receta seleccionada al producto
+        productoActual.setReceta(receta);
+
         return productoActual;
     }
 
@@ -209,7 +228,7 @@ public class ProductoFormController {
     }
 
     public void modificarProducto(Producto productoModificado) {
-        if (parentController != null) {
+        if (parentController != null && !parentController.getListaProductos().contains(productoModificado)) {
             int index = parentController.getListaProductos().indexOf(productoModificado);
             if (index >= 0) {
                 parentController.getListaProductos().set(index, productoModificado);

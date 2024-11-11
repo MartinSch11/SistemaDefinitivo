@@ -1,14 +1,194 @@
 package controller;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import model.InsumoReceta;
+import model.Receta;
+import model.Insumo;
+import persistence.dao.RecetaDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
+import java.io.IOException;
+import java.util.List;
 
 public class RecetasController {
+
+    @FXML private TableView<Receta> tableRecetas;
+    @FXML private TableColumn<Receta, String> colNomReceta;
+    @FXML private TableColumn<Receta, String> colIngReceta;
+    @FXML private Button btnModificar;
+    @FXML private Button btnEliminar;
+    @FXML private Pane paneDetallesReceta;
+    @FXML private Label labelNombreReceta;
+    @FXML private VBox vboxIngredientes;
+    private ObservableList<Receta> listaRecetas = FXCollections.observableArrayList();
+
+
+    public void initialize() {
+        cargarRecetas();
+        configurarColumnas();
+        tableRecetas.setItems(listaRecetas);
+
+        // Escuchar cambios de selección en la tabla
+        tableRecetas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                mostrarDetallesReceta(newSelection);
+                btnModificar.setDisable(false);
+                btnEliminar.setDisable(false);
+            } else {
+                paneDetallesReceta.setVisible(false);
+                btnModificar.setDisable(true);
+                btnEliminar.setDisable(true);
+            }
+        });
+    }
+
+    private void cargarRecetas() {
+        RecetaDAO recetaDAO = new RecetaDAO();
+
+        // Limpiar y recargar la lista de recetas
+        listaRecetas.clear();
+        listaRecetas.setAll(recetaDAO.findAll()); // Recarga las recetas desde la base de datos
+
+        // Asegurarse de que la TableView use la lista actualizada
+        tableRecetas.setItems(listaRecetas);
+
+        recetaDAO.close();
+    }
+
+    private void configurarColumnas() {
+        colNomReceta.setCellValueFactory(cellData -> cellData.getValue().nombreRecetaProperty());
+        colIngReceta.setCellValueFactory(cellData -> {
+            Receta receta = cellData.getValue();
+            List<String> nombresInsumos = receta.getInsumos().stream()
+                    .map(Insumo::getNombre)
+                    .toList();
+            String ingredientesConcatenados = String.join(", ", nombresInsumos);
+            return new SimpleStringProperty(ingredientesConcatenados);
+        });
+    }
+
+    private void mostrarDetallesReceta(Receta receta) {
+        paneDetallesReceta.setVisible(true);
+        labelNombreReceta.setText(receta.getNombreReceta());
+        vboxIngredientes.getChildren().clear();
+
+        for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
+            Insumo insumo = insumoReceta.getInsumo();
+            String textoIngrediente = String.format("%s %d %s",
+                    insumo.getNombre(),
+                    insumoReceta.getCantidadUtilizada(),
+                    insumoReceta.getUnidad());
+            Label labelIngrediente = new Label(textoIngrediente);
+            labelIngrediente.setStyle("-fx-font-size: 14; -fx-text-fill: #333;");
+            vboxIngredientes.getChildren().add(labelIngrediente);
+        }
+    }
+
+    private void abrirDialogoReceta(Receta receta) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevaReceta.fxml"));
+            Parent root = loader.load();
+
+            NuevaRecetaController dialogController = loader.getController();
+            if (receta != null) {
+                dialogController.cargarRecetaParaModificar(receta);
+            }
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(receta == null ? "Agregar Receta" : "Modificar Receta");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            Receta recetaModificada = dialogController.getRecetaModificada();
+            if (recetaModificada != null) {
+                RecetaDAO recetaDAO = new RecetaDAO();
+                try {
+                    if (receta == null) { // Agregar nueva receta
+                        recetaDAO.save(recetaModificada);
+                        listaRecetas.add(recetaModificada);  // Agregar la receta a la lista observable
+                    } else { // Modificar receta existente
+                        recetaDAO.update(recetaModificada);
+
+                        // Actualiza la receta en la lista observable
+                        int index = listaRecetas.indexOf(receta);
+                        if (index != -1) {
+                            listaRecetas.set(index, recetaModificada);
+                        }
+                    }
+
+                    // No es necesario volver a cargar todas las recetas
+                    // tableRecetas.refresh(); // Refrescar la vista de la tabla si es necesario
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mostrarError("Error al guardar o modificar la receta. Intenta nuevamente.");
+                } finally {
+                    recetaDAO.close();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarError("No se pudo cargar el diálogo de la receta. Intenta nuevamente.");
+        }
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 
     @FXML
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+    }
+
+    @FXML
+    void handleAgregar(ActionEvent event) {
+        abrirDialogoReceta(null);
+    }
+
+    @FXML
+    void handleModificar(ActionEvent event) {
+        Receta recetaSeleccionada = tableRecetas.getSelectionModel().getSelectedItem();
+        if (recetaSeleccionada != null) {
+            abrirDialogoReceta(recetaSeleccionada);
+        } else {
+            mostrarError("Por favor, selecciona una receta para modificar.");
+        }
+    }
+
+    @FXML
+    void handleEliminar(ActionEvent event) {
+        Receta recetaSeleccionada = tableRecetas.getSelectionModel().getSelectedItem();
+        if (recetaSeleccionada != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmación de Eliminación");
+            alert.setHeaderText("¿Estás seguro de que deseas eliminar esta receta?");
+            alert.setContentText("Esta acción no se puede deshacer.");
+
+            if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+                RecetaDAO recetaDAO = new RecetaDAO();
+                recetaDAO.delete(recetaSeleccionada);
+                recetaDAO.close();
+
+                // Refrescar la lista completa desde la base de datos para recargar la TableView
+                cargarRecetas();
+            }
+        }
     }
 }

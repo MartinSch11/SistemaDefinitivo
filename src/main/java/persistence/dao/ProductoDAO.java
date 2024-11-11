@@ -1,19 +1,21 @@
 package persistence.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import model.Producto;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProductoDAO {
-    private EntityManagerFactory emf;
+    private static final Logger LOGGER = Logger.getLogger(ProductoDAO.class.getName());
+    private static EntityManagerFactory emf;
     private EntityManager em;
 
-    public ProductoDAO() {
+    static {
         emf = Persistence.createEntityManagerFactory("pasteleriaPU"); // Asegúrate de que el nombre coincida con el de tu persistence.xml
+    }
+
+    public ProductoDAO() {
         em = emf.createEntityManager();
     }
 
@@ -21,7 +23,10 @@ public class ProductoDAO {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
+
+            // Si el producto tiene una receta, persiste la receta también (esto sucede gracias a CascadeType.PERSIST)
             em.persist(producto);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -30,20 +35,31 @@ public class ProductoDAO {
     }
 
     public Producto findById(int id) {
-        return em.createQuery("SELECT p FROM Producto p LEFT JOIN FETCH p.sabores WHERE p.id = :id", Producto.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+            return em.createQuery("SELECT p FROM Producto p WHERE p.id = :id", Producto.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Devuelve null si no se encuentra el producto
+        } catch (Exception e) {
+            LOGGER.severe("Error al buscar producto por ID: " + e.getMessage());
+            return null;
+        }
     }
 
     public List<Producto> findAll() {
-        return em.createQuery("SELECT p FROM Producto p", Producto.class).getResultList();
+        String hql = "SELECT p FROM Producto p LEFT JOIN FETCH p.receta";
+        return em.createQuery(hql, Producto.class).getResultList(); // Cambié 'entityManager' por 'em'
     }
 
     public void update(Producto producto) {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
+
+            // Si el producto tiene una receta, se actualizará automáticamente (gracias a CascadeType.MERGE)
             em.merge(producto);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -55,7 +71,9 @@ public class ProductoDAO {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
+
             em.remove(em.contains(producto) ? producto : em.merge(producto));
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -65,6 +83,5 @@ public class ProductoDAO {
 
     public void close() {
         em.close();
-        emf.close();
     }
 }
