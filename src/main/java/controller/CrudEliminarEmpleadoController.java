@@ -16,25 +16,16 @@ import java.util.Optional;
 
 public class CrudEliminarEmpleadoController {
 
-    @FXML
-    private Button btnCancelar;
-
-    @FXML
-    private Button btnGuardar;
-
-    @FXML
-    private ComboBox<String> cmbEliminarEmpExistente;
-
-    @FXML
-    private Pane paneEliminarEmpleado;
-
+    @FXML private Button btnCancelar;
+    @FXML private Button btnGuardar;
+    @FXML private ComboBox<String> cmbEliminarEmpExistente;
+    @FXML private Pane paneEliminarEmpleado;
     private SettingsController settingsController;
 
     @FXML
     public void initialize() {
         cargarNombresEnComboBox();
     }
-
 
     public void setSettingsController(SettingsController settingsController) {
         this.settingsController = settingsController;
@@ -45,7 +36,6 @@ public class CrudEliminarEmpleadoController {
         settingsController.getBtnModificarEmpleado().setVisible(true);
         settingsController.getBtnAnadirEmpleado().setVisible(true);
     }
-
 
     void vaciarCampos(){
         cmbEliminarEmpExistente.setValue(null);

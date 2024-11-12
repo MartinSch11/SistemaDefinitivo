@@ -175,12 +175,17 @@
 
 .texto-login{
     -fx-font-family: 'Inter';
-    -fx-font-size: 20px;
+    font-weight: bold;
+    -fx-font-size: 50px;
 }
 
 .paneLogin{
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
+}
+
+.TextField{
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
 }
 
 

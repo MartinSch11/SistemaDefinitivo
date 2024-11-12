@@ -5,6 +5,9 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import model.Rol;
+import persistence.dao.CredencialesDAO;
+import persistence.dao.RolesDAO;
 import persistence.dao.TrabajadorDAO;
 import model.Trabajador;
 import java.math.BigDecimal;
@@ -12,13 +15,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class CrudModificarEmpleadoController {
-    @FXML
-    private Button btnCancelar;
-
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private ComboBox<String> cmbModifEmpExistente; @FXML private TextField DNIEmpExistente; @FXML private TextField NombreEmpExistente; @FXML private TextField direccionEmpExistente; @FXML private TextField SueldoEmpExistente; @FXML private TextField TelEmpExistente; @FXML private DatePicker FechaContratoExistente; @FXML private Pane paneModificarEmpleado;
+    @FXML private Button btnCancelar;
+    @FXML private Button btnGuardar;
+    @FXML private ComboBox<String> cmbModifEmpExistente;
+    @FXML private TextField DNIEmpExistente;
+    @FXML private TextField NombreEmpExistente;
+    @FXML private TextField direccionEmpExistente;
+    @FXML private TextField SueldoEmpExistente;
+    @FXML private TextField TelEmpExistente;
+    @FXML private DatePicker FechaContratoExistente;
+    @FXML private Pane paneModificarEmpleado;
+    @FXML private ComboBox<Rol> cmbRolExistente;
+    @FXML private TextField txtContraseñaExistente;
 
     @FXML
     public void initialize() {
@@ -45,6 +53,7 @@ public class CrudModificarEmpleadoController {
 
         cargarNombresEnComboBox();
         cmbModifEmpExistente.setOnAction(e -> cargarDatosTrabajador());
+        cargarRoles();
     }
 
     private SettingsController settingsController;
@@ -57,6 +66,13 @@ public class CrudModificarEmpleadoController {
     private void visibilidadButtons() {
         settingsController.getBtnEliminarEmpleado().setVisible(true);
         settingsController.getBtnAnadirEmpleado().setVisible(true);
+    }
+
+    private void cargarRoles() {
+        RolesDAO rolesDAO = new RolesDAO();
+        List<Rol> listaRoles = rolesDAO.findAll();
+        cmbRolExistente.getItems().clear();
+        cmbRolExistente.getItems().addAll(listaRoles);
     }
 
     private boolean camposObligatorios(){
@@ -110,14 +126,15 @@ public class CrudModificarEmpleadoController {
         }
     }
 
-    private void obtenerDatosDB(Trabajador trabajador){
+    private void obtenerDatosDB(Trabajador trabajador) {
         DNIEmpExistente.setText(trabajador.getDni());
         NombreEmpExistente.setText(trabajador.getNombre());
         direccionEmpExistente.setText(trabajador.getDireccion());
         TelEmpExistente.setText(trabajador.getTelefono());
         SueldoEmpExistente.setText(trabajador.getSueldo().toPlainString());
         FechaContratoExistente.setValue(trabajador.getFechaContratacion());
-
+        cmbRolExistente.setValue(trabajador.getRol());
+        txtContraseñaExistente.setText(trabajador.getCredencial().getContraseña());
     }
 
     private void cargarDatosTrabajador() {
@@ -141,6 +158,7 @@ public class CrudModificarEmpleadoController {
     private Trabajador trabajador;
 
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+    CredencialesDAO credencialesDAO = new CredencialesDAO(); // DAO para la tabla de credenciales
 
     @FXML
     private void guardarDatos() {
@@ -153,19 +171,28 @@ public class CrudModificarEmpleadoController {
                 trabajador.setTelefono(TelEmpExistente.getText());
                 trabajador.setSueldo(new BigDecimal(SueldoEmpExistente.getText()));
                 trabajador.setFechaContratacion(FechaContratoExistente.getValue());
+                Rol rolSeleccionado = cmbRolExistente.getValue(); // Rol seleccionado en el ComboBox
+                String contraseña = txtContraseñaExistente.getText();
 
-                // Guardar los cambios en la base de datos
+                // Guardar los cambios en la base de datos del trabajador
                 trabajadorDAO.update(trabajador);
+
+                // Si la contraseña no está vacía, actualizar las credenciales
+                if (contraseña != null && !contraseña.trim().isEmpty()) {
+                    // Actualizar las credenciales usando el DNI y la nueva contraseña
+                    credencialesDAO.update(trabajador.getDni(), contraseña);
+                }
+
                 // Actualizar ComboBox en SettingsController
                 SettingsController.getInstance().cargarNombresEnComboBox();
 
-                showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado actualizado exitosamente.");
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado y credenciales actualizados exitosamente.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un empleado con ese DNI.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Error al actualizar al empleado: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al actualizar al empleado o las credenciales: " + e.getMessage());
         }
     }
 

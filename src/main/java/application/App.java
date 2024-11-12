@@ -28,7 +28,7 @@ public class App extends Application {
         AnchorPane load = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(Paths.LOGIN)));
         Scene scene = new Scene(load);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm());
-        stage.setMaximized(true);
+        stage.setMaximized(false);
         stage.setScene(scene);
         stage.show();
     }
