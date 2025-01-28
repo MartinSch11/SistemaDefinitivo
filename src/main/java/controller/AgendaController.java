@@ -37,35 +37,30 @@ import javafx.scene.layout.RowConstraints;
 
 
 public class AgendaController {
-    @FXML
-    private Pane paneAgregarTareaPendiente;
-    @FXML
-    private Spinner<Integer> Hora; @FXML private Spinner<Integer> Minutos;
-    @FXML private RadioButton radioNo; @FXML private RadioButton radioSi;
-
-    @FXML
-    private ComboBox<String> cmbEmpleadoTarea;
-    @FXML
-    private DatePicker dateDiaTarea;
-    @FXML
-    private TextArea tareaPendiente;
-    @FXML
-    private GridPane daysGrid;
-    @FXML
-    private Label txtFechaSemanal;
-    @FXML
-    private LocalDate today = LocalDate.now();
-
-    @FXML
-    private String pendiente; @FXML private String empleadoTarea; @FXML private Integer horaPendiente; @FXML private Integer minutoPendiente;
-
-    @FXML
-    private LocalDate fechaPendiente;
-    @FXML
-    private GridPane gridPlanillaSemanal;
-
-    @FXML private StackPane paneDomingo; @FXML private StackPane paneJueves; @FXML private StackPane paneLunes; @FXML private StackPane paneMartes; @FXML private StackPane paneMiercoles; @FXML private StackPane paneSabado; @FXML private StackPane paneViernes;
-
+    @FXML private Pane paneAgregarTareaPendiente;
+    @FXML private Spinner<Integer> Hora;
+    @FXML private Spinner<Integer> Minutos;
+    @FXML private RadioButton radioNo;
+    @FXML private RadioButton radioSi;
+    @FXML private ComboBox<String> cmbEmpleadoTarea;
+    @FXML private DatePicker dateDiaTarea;
+    @FXML private TextArea tareaPendiente;
+    @FXML private GridPane daysGrid;
+    @FXML private Label txtFechaSemanal;
+    @FXML private LocalDate today = LocalDate.now();
+    @FXML private String pendiente;
+    @FXML private String empleadoTarea;
+    @FXML private Integer horaPendiente;
+    @FXML private Integer minutoPendiente;
+    @FXML private LocalDate fechaPendiente;
+    @FXML private GridPane gridPlanillaSemanal;
+    @FXML private StackPane paneDomingo;
+    @FXML private StackPane paneJueves;
+    @FXML private StackPane paneLunes;
+    @FXML private StackPane paneMartes;
+    @FXML private StackPane paneMiercoles;
+    @FXML private StackPane paneSabado;
+    @FXML private StackPane paneViernes;
 
     @FXML
     private void initialize() {
@@ -134,7 +129,7 @@ public class AgendaController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.CAJERA_MAINMENU, "/com/example/pasteleria/MainMenuCajera.fxml", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/components.css", true);
     }
 
     @FXML
@@ -304,7 +299,7 @@ public class AgendaController {
 
     public void setDaysInWeek(LocalDate startOfWeek) {
         DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEEE"); // Día de la semana
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM"); // Día y mes, ej. "30 Septiembre"
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM"); // Día y mes, ej. "30 septiembre"
 
 
         StackPane[] panes = {paneLunes, paneMartes, paneMiercoles, paneJueves, paneViernes, paneSabado, paneDomingo};

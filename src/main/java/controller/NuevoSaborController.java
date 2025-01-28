@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Sabor;
 import persistence.dao.SaborDAO;
+import utilities.ActionLogger;
 
 public class NuevoSaborController {
 
@@ -38,6 +39,9 @@ public class NuevoSaborController {
                 // Actualizar el sabor en la base de datos
                 SaborDAO saborDAO = new SaborDAO();
                 saborDAO.actualizarSabor(saborParaModificar);
+
+                // Loguear la acción de modificar sabor
+                ActionLogger.log("Sabor modificado: " + saborParaModificar.getSabor());
             } else {
                 // Si es un nuevo sabor
                 Sabor sabor = new Sabor();
@@ -45,9 +49,12 @@ public class NuevoSaborController {
                 // Guardar el nuevo sabor en la base de datos
                 SaborDAO saborDAO = new SaborDAO();
                 saborDAO.guardarSabor(sabor);
+
+                // Loguear la acción de guardar nuevo sabor
+                ActionLogger.log("Nuevo sabor guardado: " + sabor.getSabor());
             }
 
-            txtNuevoSabor.clear(); // Limpiar el campo de texto después de guardar
+            txtNuevoSabor.clear(); // Limpiar el campo de texto después de save
             // Cerrar la ventana
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
@@ -59,6 +66,9 @@ public class NuevoSaborController {
 
     @FXML
     private void handleCancelar(ActionEvent event) {
+        // Loguear la acción de cancelar
+        ActionLogger.log("El usuario ha cancelado la acción de agregar o modificar sabor.");
+
         // Cerrar la ventana sin guardar cambios
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

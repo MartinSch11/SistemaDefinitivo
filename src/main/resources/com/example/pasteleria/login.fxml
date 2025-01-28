@@ -22,33 +22,35 @@
                         <String fx:value="texto-login" />
                         <String fx:value="TextField" />
                      </styleClass>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
                   </Label>
    
                   <!-- Campo DNI -->
-                  <TextField fx:id="dniField" layoutX="99.0" layoutY="165.0" prefHeight="25.0" prefWidth="190.0" promptText="DNI" style="-fx-background-color: white;">
+                  <TextField fx:id="dniField" layoutX="105.0" layoutY="152.0" prefHeight="25.0" prefWidth="190.0" promptText="DNI" style="-fx-background-color: white;">
                      <styleClass>
-                        <String fx:value="texto" />
+                        <String fx:value="texto-textfield" />
                         <String fx:value="TextField" />
                      </styleClass>
                   </TextField>
    
                   <!-- Campo Contraseña -->
-                  <PasswordField fx:id="passwordField" layoutX="99.0" layoutY="212.0" prefHeight="25.0" prefWidth="190.0" promptText="Contraseña" style="-fx-background-color: white;">
+                  <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="198.0" prefHeight="25.0" prefWidth="190.0" promptText="Contraseña" style="-fx-background-color: white;">
                      <styleClass>
-                        <String fx:value="texto" />
+                        <String fx:value="texto-textfield" />
                         <String fx:value="TextField" />
                      </styleClass>
                   </PasswordField>
    
                   <!-- Botón de login -->
-                  <Button fx:id="btnLogin" layoutX="141.0" layoutY="298.0" onAction="#handleLogin" prefHeight="30.0" prefWidth="117.0" styleClass="buttons" text="Iniciar sesión">
+                  <Button fx:id="btnLogin" layoutX="142.0" layoutY="295.0" onAction="#handleLogin" prefHeight="30.0" prefWidth="117.0" styleClass="buttons" text="Iniciar sesión">
                      <font>
                         <Font name="Inter Regular" size="16.0" />
                      </font>
                   </Button>
                   <StackPane layoutY="237.0" prefHeight="50.0" prefWidth="400.0">
                      <children>
-         
                            <!-- Etiqueta de error -->
                         <Label fx:id="errorLabel" style="-fx-text-fill: red;" styleClass="texto" />
                      </children>

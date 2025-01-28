@@ -15,6 +15,7 @@ import model.Proveedor;
 import persistence.dao.InsumoDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
+import utilities.ActionLogger;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,12 +56,10 @@ public class StockController {
         cargarInsumos();
     }
 
-
     // Método para cargar los insumos desde la base de datos y mostrarlos en la tabla
     private void cargarInsumos() {
         // Obtener los insumos desde la base de datos
         List<Insumo> insumos = insumoDAO.findAll();
-
         // Agregar los insumos a la tabla
         tableInsumos.getItems().addAll(insumos);
     }
@@ -68,20 +67,16 @@ public class StockController {
     @FXML
     void handleAgregar(ActionEvent event) {
         try {
-            // Cargar el archivo FXML de la ventana del formulario de insumos
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/StockForm.fxml"));
-
-            // Crear una nueva escena con el FXML cargado
             AnchorPane root = loader.load();
-
             // Obtener el controlador del formulario
             StockFormController formController = loader.getController();
 
-            // Mostrar la nueva ventana
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Agregar Insumo");
             stage.show();
+            ActionLogger.log("El usuario abrió el formulario para agregar un nuevo insumo.");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,6 +85,7 @@ public class StockController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de insumos.");
     }
 }

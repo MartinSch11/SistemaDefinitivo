@@ -72,7 +72,7 @@
                   <DatePicker fx:id="dateFechaContratacion" editable="false" prefHeight="26.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Rol" GridPane.rowIndex="6" />
                   <ComboBox fx:id="cmbRol" prefHeight="25.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="txtContraseña" promptText="Contraseña del usuario" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtContraseña" prefHeight="30.0" promptText="Contraseña del usuario" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label text="Contraseña" GridPane.rowIndex="7" />
                </children>
             </GridPane>

@@ -26,8 +26,6 @@ public class AgendaDAO {
         }
     }
 
-
-
     public void update(Agenda agenda) {
         EntityTransaction transaction = em.getTransaction();
         try {

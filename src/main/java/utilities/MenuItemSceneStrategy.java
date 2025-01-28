@@ -18,6 +18,10 @@ public class MenuItemSceneStrategy implements SceneStrategy {
         Stage currentStage = (Stage) sourceMenuButton.getScene().getWindow();
         currentStage.setMaximized(maximized);
         currentStage.setScene(scene);
+
+        // Centrar la ventana en la pantalla
+        currentStage.centerOnScreen();
+
         currentStage.show();
     }
 }

@@ -1,27 +1,24 @@
 package controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import model.Credencial;
-import model.Receta;
+import model.Trabajador;
 import model.Rol;
 import persistence.dao.CredencialesDAO;
-import persistence.dao.RecetaDAO;
-import persistence.dao.RolesDAO;
 import persistence.dao.TrabajadorDAO;
-import model.Trabajador;
+import persistence.dao.RolesDAO;
+import utilities.ActionLogger;
 
 import java.util.List;
 import java.util.Optional;
-import javafx.scene.control.Alert;
 
 public class CrudAnadirEmpleadoController {
     @FXML private Pane paneAnadirEmpleado;
@@ -36,11 +33,17 @@ public class CrudAnadirEmpleadoController {
     @FXML private ComboBox<Rol> cmbRol;
     @FXML private TextField txtContraseña;
 
+    private SettingsController settingsController;
+
+    public void setSettingsController(SettingsController settingsController) {
+        this.settingsController = settingsController;
+    }
+
     @FXML
     public void initialize() {
         nombreTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z ]*")) { // Se añadió el espacio
-                nombreTxtField.setText(newValue.replaceAll("[^a-zA-Z ]", "")); // Se añadió el espacio a la expresión regular
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                nombreTxtField.setText(newValue.replaceAll("[^a-zA-Z ]", ""));
             }
         });
         telTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -71,19 +74,13 @@ public class CrudAnadirEmpleadoController {
         cargarRoles();
     }
 
-    private SettingsController settingsController;
-
-    public void setSettingsController(SettingsController settingsController) {
-        this.settingsController = settingsController;
-    }
-
     @FXML
     private void visibilidadButtons() {
         settingsController.getBtnModificarEmpleado().setVisible(true);
         settingsController.getBtnEliminarEmpleado().setVisible(true);
     }
 
-    void vaciarTodosCampos(){
+    private void vaciarTodosCampos() {
         nombreTxtField.clear();
         telTxtField.clear();
         DNITxtField.clear();
@@ -94,37 +91,14 @@ public class CrudAnadirEmpleadoController {
         txtContraseña.clear();
     }
 
-    private void mensajeConfirmacion() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText(null);
-        alert.setContentText("¡Se ha añadido un nuevo empleado con éxito!");
-        alert.showAndWait();
-    }
-
     private boolean camposObligatorios() {
-        if (DNITxtField == null || DNITxtField.getText().isEmpty()) {
-            return false;
-        }
-        if (nombreTxtField == null || nombreTxtField.getText().isEmpty()) {
-            return false;
-        }
-        if (sueldoTxtField == null || sueldoTxtField.getText().isEmpty()) {
-            return false;
-        }
-        if (telTxtField == null || telTxtField.getText().isEmpty()) {
-            return false;
-        }
-        if (direccionTxtField == null || direccionTxtField.getText().isEmpty()) {
-            return false;
-        }
-        if (dateFechaContratacion.getValue() == null) {
-            return false;
-        }
-        if (txtContraseña == null || txtContraseña.getText().isEmpty()) {
-            return false;
-        }
-        return true;
+        return DNITxtField != null && !DNITxtField.getText().isEmpty()
+                && nombreTxtField != null && !nombreTxtField.getText().isEmpty()
+                && sueldoTxtField != null && !sueldoTxtField.getText().isEmpty()
+                && telTxtField != null && !telTxtField.getText().isEmpty()
+                && direccionTxtField != null && !direccionTxtField.getText().isEmpty()
+                && dateFechaContratacion.getValue() != null
+                && txtContraseña != null && !txtContraseña.getText().isEmpty();
     }
 
     private void showAlert(AlertType type, String title, String content) {
@@ -149,21 +123,19 @@ public class CrudAnadirEmpleadoController {
         String telefonoEmpleado = telTxtField.getText();
         BigDecimal sueldoEmpleado = new BigDecimal(sueldoTxtField.getText());
         LocalDate fechaContratoEmpleado = dateFechaContratacion.getValue();
-        Rol rolSeleccionado = cmbRol.getValue(); // Rol seleccionado en el ComboBox
+        Rol rolSeleccionado = cmbRol.getValue();
         String contraseña = txtContraseña.getText();
 
         TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
-        CredencialesDAO credencialesDAO = new CredencialesDAO(); // DAO para la tabla de credenciales
+        CredencialesDAO credencialesDAO = new CredencialesDAO();
 
         try {
-            // Verificar si ya existe un empleado con el mismo DNI
             Trabajador empleadoExistente = trabajadorDAO.findByDNI(dniEmpleado);
             if (empleadoExistente != null) {
                 showAlert(Alert.AlertType.ERROR, "Error de Validación", "Ya existe un empleado con ese DNI.");
                 return;
             }
 
-            // Crear nuevo trabajador y asociar el rol
             Trabajador nuevoEmpleado = new Trabajador();
             nuevoEmpleado.setDni(dniEmpleado);
             nuevoEmpleado.setNombre(nombreEmpleado);
@@ -171,54 +143,37 @@ public class CrudAnadirEmpleadoController {
             nuevoEmpleado.setTelefono(telefonoEmpleado);
             nuevoEmpleado.setSueldo(sueldoEmpleado);
             nuevoEmpleado.setFechaContratacion(fechaContratoEmpleado);
-            nuevoEmpleado.setRol(rolSeleccionado);  // Asociar el rol seleccionado
+            nuevoEmpleado.setRol(rolSeleccionado);
 
-            // Guardar el trabajador
             trabajadorDAO.save(nuevoEmpleado);
 
-            // Guardar la contraseña en la tabla 'credenciales' asociada al DNI del trabajador
             Credencial credenciales = new Credencial();
             credenciales.setDni(dniEmpleado);
             credenciales.setContraseña(contraseña);
-
-            // Guardar las credenciales
             credencialesDAO.save(credenciales);
 
-            // Actualizar ComboBox en SettingsController
+            ActionLogger.log("Empleado guardado: " + nuevoEmpleado);
+
             SettingsController.getInstance().cargarNombresEnComboBox();
             showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado guardado exitosamente.");
-
         } catch (Exception e) {
-            e.printStackTrace();
+            ActionLogger.log("Error al guardar empleado: " + e.getMessage());
             showAlert(Alert.AlertType.ERROR, "Error", "Error al guardar al empleado: " + e.getMessage());
         }
     }
 
-
-    /*---------------------------------------------------------------------------------------*/
-
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
-        if(camposObligatorios()){
-
+        if (camposObligatorios()) {
             guardarDatos();
-            //mensajeConfirmacion();
             vaciarTodosCampos();
             visibilidadButtons();
             if (settingsController != null) {
                 settingsController.cerrarCrudAnadirEmpleado();
             }
-
-        }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Advertencia");
-            alert.setHeaderText("Advertencia: campos sin completar.");
-            alert.setContentText("Solución: completar campos vacíos.");
-
-            ButtonType buttonOK = new ButtonType("OK");
-            alert.getButtonTypes().setAll(buttonOK);
-
-            alert.showAndWait();
+        } else {
+            showAlert(AlertType.WARNING, "Advertencia", "Completar campos vacíos.");
+            ActionLogger.log("Advertencia: intento de guardar con campos incompletos.");
         }
     }
 
@@ -228,21 +183,18 @@ public class CrudAnadirEmpleadoController {
         alert.setTitle("Confirmación");
         alert.setHeaderText("Se perderán los cambios no guardados. ¿Desea salir?");
 
-        // Mostrar y esperar la respuesta del usuario
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-
             SettingsController.verificarVentanasAbiertas = 0;
-
             vaciarTodosCampos();
             visibilidadButtons();
-
-            // Llamar al metodo de SettingsController para limpiar el contenedor
             if (settingsController != null) {
                 settingsController.cerrarCrudAnadirEmpleado();
             }
+            ActionLogger.log("Empleado cancelado y formulario cerrado.");
         } else {
             alert.close();
+            ActionLogger.log("Cancelación de cierre del formulario anulada.");
         }
     }
 }

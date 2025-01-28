@@ -1,13 +1,14 @@
 package model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
-
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,10 @@ import lombok.NoArgsConstructor;
 public class Pedido {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pedido")
+    private Long numeroPedido;
+
     @Column(name = "dni_cliente")
     private String dniCliente;
 
@@ -26,13 +31,10 @@ public class Pedido {
     @Column(name = "contacto_cliente", nullable = false)
     private String contactoCliente;
 
-    @Column(name = "detalle_pedido", nullable = false)
-    private String detallePedido;
-
     @Column(name = "empleado_asignado", nullable = false)
     private String empleadoAsignado;
 
-    @Column(name = "formaEntrega", nullable = false)
+    @Column(name = "forma_entrega", nullable = false)
     private String formaEntrega;
 
     @Column(name = "fecha_entrega", nullable = false)
@@ -41,24 +43,54 @@ public class Pedido {
     @Column(name = "estado_pedido", nullable = false)
     private String estadoPedido;
 
-    @ManyToMany
-    @JoinTable(
-            name = "pedido_producto",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id")
-    )
-    private List<Producto> productos;
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PedidoProducto> pedidoProductos = new ArrayList<>();
 
-    public Pedido(String nombreCliente, String contactoCliente, String dniCliente, String detallePedido, String empleadoAsignado, String formaEntrega, LocalDate fechaEntrega, String estadoPedido) {
+    public Pedido(Long numeroPedido, String nombreCliente, String contactoCliente, String dniCliente,
+                  String empleadoAsignado, String formaEntrega, LocalDate fechaEntrega, String estadoPedido) {
+        this.numeroPedido = numeroPedido;
         this.nombreCliente = nombreCliente;
         this.contactoCliente = contactoCliente;
         this.dniCliente = dniCliente;
-        this.detallePedido = detallePedido;
         this.empleadoAsignado = empleadoAsignado;
         this.formaEntrega = formaEntrega;
         this.fechaEntrega = fechaEntrega;
         this.estadoPedido = estadoPedido;
-        this.productos = productos;
     }
 
+    public String generarDetalle() {
+        if (pedidoProductos == null || pedidoProductos.isEmpty()) {
+            return "No hay productos en este pedido.";
+        }
+
+        StringBuilder detalle = new StringBuilder("Detalle del Pedido:\n");
+
+        // Agrupar productos por objeto Producto y contar sus ocurrencias
+        Map<Producto, Long> contadorProductos = pedidoProductos.stream()
+                .collect(Collectors.groupingBy(
+                        PedidoProducto::getProducto,
+                        Collectors.counting()
+                ));
+
+        // Construir el detalle con manejo seguro de la receta
+        contadorProductos.forEach((producto, cantidad) -> {
+            String recetaNombre = (producto.getReceta() != null) ? producto.getReceta().getNombreReceta() : "Sin receta";
+            detalle.append("Producto: ").append(producto.getNombre())
+                    .append(", Cantidad: ").append(cantidad)
+                    .append(", Receta: ").append(recetaNombre)
+                    .append("\n");
+        });
+
+        return detalle.toString();
+    }
+
+
+    // Método para obtener los productos del pedido
+    public List<Producto> getProductos() {
+        List<Producto> productos = new ArrayList<>();
+        for (PedidoProducto pedidoProducto : pedidoProductos) {
+            productos.add(pedidoProducto.getProducto());
+        }
+        return productos;
+    }
 }

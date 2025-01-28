@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PedidosController">
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PedidosController">
     <stylesheets>
         <URL value="@../../../css/components.css" />
     </stylesheets>
@@ -58,7 +58,7 @@
                   </GridPane>
                </content>
             </ScrollPane>
-            <Button id="btnNuevoPedido" fx:id="btnNuevoPedido" layoutX="308.0" layoutY="66.0" mnemonicParsing="false" onAction="#btnCrearNuevoPedido" prefHeight="30.0" prefWidth="111.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nuevo pedido">
+            <Button id="btnNuevoPedido" fx:id="btnNuevoPedido" layoutX="296.0" layoutY="66.0" mnemonicParsing="false" onAction="#btnCrearNuevoPedido" prefHeight="30.0" prefWidth="123.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nuevo pedido">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -66,13 +66,13 @@
             <Pane fx:id="paneVisualizarPedido" layoutX="604.0" layoutY="110.0" prefHeight="599.0" prefWidth="546.0" style="-fx-background-color: ffffff;" styleClass="pane-detalle-pedidos" stylesheets="@../../../css/pedidos.css">
                <children>
                   <Label layoutX="249.0" layoutY="23.0" styleClass="eventDayTitle" />
-                  <Label layoutX="211.0" layoutY="18.0" text="Detalle del pedido" textFill="#bf1010">
+                  <Label layoutX="188.0" layoutY="19.0" styleClass="title-red" text="Detalle del pedido" textFill="#bf1010">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblDetallePedidoCliente" layoutX="49.0" layoutY="71.0" stylesheets="@../../../css/pedidos.css" text="Label" />
-                  <GridPane layoutX="62.0" layoutY="347.0" prefHeight="172.0" prefWidth="452.0">
+                  <Label fx:id="lblDetallePedidoCliente" layoutX="49.0" layoutY="71.0" styleClass="texto-textfield" stylesheets="@../../../css/pedidos.css" text="Label" />
+                  <GridPane layoutX="62.0" layoutY="324.0" prefHeight="195.0" prefWidth="452.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -85,23 +85,26 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label styleClass="eventDayTitle" text="Nombre del cliente:" GridPane.rowIndex="1" />
-                        <Label styleClass="eventDayTitle" GridPane.rowIndex="2" />
-                        <Label styleClass="eventDayTitle" text="Teléfono:" GridPane.rowIndex="2" />
-                        <Label fx:id="lblNomCliente" styleClass="eventDayText" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="lblTelefonoCliente" styleClass="eventDayText" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label styleClass="eventDayTitle" text="Fecha de entrega:" GridPane.rowIndex="4" />
-                        <Label fx:id="lblFechaEntrega" styleClass="eventDayText" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label styleClass="eventDayTitle" text="Forma de entrega:" GridPane.rowIndex="5" />
-                        <Label fx:id="lblFormaEntrega" styleClass="eventDayText" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <ComboBox fx:id="cmbEstadoDelPedido" prefWidth="150.0" GridPane.columnIndex="1" />
-                        <Label styleClass="eventDayTitle" text="Estado del pedido:" />
-                        <Label styleClass="eventDayTitle" text="Empleado asignado al pedido:" GridPane.rowIndex="6" />
-                        <Label fx:id="lblEmpleadoAsignadoAlPedido" styleClass="eventDayText" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label styleClass="eventDayTitle" text="DNI:" GridPane.rowIndex="3" />
-                        <Label fx:id="lblDNICliente" styleClass="eventDayText" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label styleClass="texto-textfield" text="Cliente:" GridPane.rowIndex="2" />
+                        <Label styleClass="eventDayTitle" GridPane.rowIndex="3" />
+                        <Label styleClass="texto-textfield" text="Teléfono:" GridPane.rowIndex="3" />
+                        <Label fx:id="lblNomCliente" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblTelefonoCliente" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label styleClass="texto-textfield" text="Fecha de entrega:" GridPane.rowIndex="5" />
+                        <Label fx:id="lblFechaEntrega" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label styleClass="texto-textfield" text="Forma de entrega:" GridPane.rowIndex="6" />
+                        <Label fx:id="lblFormaEntrega" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="cmbEstadoDelPedido" prefWidth="150.0" styleClass="texto-textfield" GridPane.columnIndex="1" />
+                        <Label styleClass="texto-textfield" text="Estado del pedido:" />
+                        <Label styleClass="texto-textfield" text="Empleado asignado:" GridPane.rowIndex="7" />
+                        <Label fx:id="lblEmpleadoAsignadoAlPedido" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label styleClass="texto-textfield" text="DNI:" GridPane.rowIndex="4" />
+                        <Label fx:id="lblDNICliente" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label styleClass="texto-textfield" text="N° de orden:" GridPane.rowIndex="1" />
+                        <Label fx:id="lblNOrden" styleClass="texto-textfield" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane layoutX="179.0" layoutY="544.0" prefHeight="30.0" prefWidth="220.0">

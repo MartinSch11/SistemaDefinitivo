@@ -33,15 +33,16 @@ public class Receta {
         }
     }
 
+    // Constructor vacío
     public Receta() {
-        // Constructor vacío necesario para JPA
+        this.nombreReceta = new SimpleStringProperty();
+        this.insumosReceta = new ArrayList<>();
     }
 
-    // Constructor que acepta el nombre
+    // Constructor con nombre
     public Receta(String nombreRecetaTexto) {
-        this.nombreRecetaTexto = nombreRecetaTexto;
-        this.nombreReceta.set(nombreRecetaTexto);
-        this.insumosReceta = new ArrayList<>();  // Asegurar que la lista no sea nula
+        this();
+        setNombreReceta(nombreRecetaTexto);
     }
 
     public String getNombreReceta() {
@@ -57,40 +58,42 @@ public class Receta {
         return nombreReceta;
     }
 
-    // Método agregado para id como StringProperty
     public StringProperty idProperty() {
-        return new SimpleStringProperty(String.valueOf(id));
+        return new SimpleStringProperty(id != null ? String.valueOf(id) : "");
     }
 
     public void addInsumo(InsumoReceta insumoReceta) {
+        if (insumoReceta == null || insumosReceta.contains(insumoReceta)) {
+            return; // Evita agregar nulos o duplicados
+        }
         insumosReceta.add(insumoReceta);
-        insumoReceta.setReceta(this); // Asignación en ambos sentidos
+        insumoReceta.setReceta(this);
     }
 
     public void removeInsumo(InsumoReceta insumoReceta) {
+        if (insumoReceta == null || !insumosReceta.contains(insumoReceta)) {
+            return; // Evita eliminar nulos o elementos inexistentes
+        }
         insumosReceta.remove(insumoReceta);
-        insumoReceta.setReceta(null); // Eliminar la referencia a la receta
+        insumoReceta.setReceta(null); // Rompe la asociación bidireccional
     }
 
     public List<Insumo> getInsumos() {
-        List<Insumo> insumos = new ArrayList<>();
-        for (InsumoReceta insumoReceta : insumosReceta) {
-            insumos.add(insumoReceta.getInsumo());
-        }
-        return insumos;
+        return insumosReceta.stream()
+                .map(InsumoReceta::getInsumo)
+                .toList(); // Devuelve una lista de insumos asociados a la receta
     }
 
-    public int getCantidadInsumo(Insumo insumo) {
-        for (InsumoReceta insumoReceta : insumosReceta) {
-            if (insumoReceta.getInsumo().equals(insumo)) {
-                return insumoReceta.getCantidadUtilizada();
-            }
-        }
-        return 0;
+    public double getCantidadInsumo(Insumo insumo) {
+        return insumosReceta.stream()
+                .filter(insumoReceta -> insumoReceta.getInsumo().equals(insumo))
+                .findFirst()
+                .map(InsumoReceta::getCantidadUtilizada) // Already returns double
+                .orElse(0.0); // Default to 0.0
     }
 
     @Override
     public String toString() {
-        return nombreReceta.get();  // Acceder al valor de la propiedad StringProperty
+        return nombreReceta.get(); // Retorna el valor de la propiedad
     }
 }

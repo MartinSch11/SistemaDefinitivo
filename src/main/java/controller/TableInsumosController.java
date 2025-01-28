@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import model.Insumo;
 import persistence.dao.InsumoDAO;
 import persistence.dao.ProveedorDAO;
+import utilities.ActionLogger;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -59,6 +61,8 @@ public class TableInsumosController {
 
     @FXML
     private void handleAgregar() {
+        // Registro de la acción del usuario
+        ActionLogger.log("El usuario agregó un nuevo insumo.");
         abrirFormularioInsumo(null);
     }
 
@@ -66,6 +70,8 @@ public class TableInsumosController {
     private void handleModificar() {
         Insumo insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
         if (insumoSeleccionado != null) {
+            // Registro de la acción del usuario
+            ActionLogger.log("El usuario modificó el insumo: " + insumoSeleccionado.getNombre());
             abrirFormularioInsumo(insumoSeleccionado);
         }
     }
@@ -74,6 +80,8 @@ public class TableInsumosController {
     private void handleEliminar() {
         Insumo insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
         if (insumoSeleccionado != null) {
+            // Registro de la acción del usuario
+            ActionLogger.log("El usuario eliminó el insumo: " + insumoSeleccionado.getNombre());
             insumoDAO.delete(insumoSeleccionado);
             insumosList.remove(insumoSeleccionado);
         }

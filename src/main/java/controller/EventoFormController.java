@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Evento;
 import persistence.dao.EventoDAO;
+import utilities.ActionLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -108,10 +109,12 @@ public class EventoFormController {
                 eventoActual.setPresupuesto(presupuesto);
 
                 eventoDAO.update(eventoActual);  // Método update para actualizar el evento
+                ActionLogger.log("Evento actualizado: " + nombreEvento + " para la fecha " + fechaEvento);
             } else {
                 // Crear un nuevo evento
                 Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, nombreCliente, telefonoCliente, direccionEvento, fechaEvento, cantPersonas, presupuesto);
                 eventoDAO.save(nuevoEvento);
+                ActionLogger.log("Nuevo evento guardado: " + nombreEvento + " para la fecha " + fechaEvento);
             }
 
             eventoDAO.close();
@@ -126,6 +129,7 @@ public class EventoFormController {
             showAlert(Alert.AlertType.ERROR, "Error", "Error al guardar el evento: " + e.getMessage());
         }
     }
+
 
     private boolean validateFields(String nombreEvento, String descripcionEvento, String nombreCliente, String telefonoCliente, String direccionEvento, LocalDate fechaEvento, int cantPersonas, BigDecimal presupuesto) {
         return nombreEvento != null && !nombreEvento.isEmpty() &&
@@ -151,8 +155,12 @@ public class EventoFormController {
 
     @FXML
     private void handleCancelar(ActionEvent event) {
+        // Registrar la acción
+        ActionLogger.log("Formulario de evento cerrado sin guardar.");
+
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
+
 
     private void showAlert(AlertType type, String title, String content) {
         Alert alert = new Alert(type);

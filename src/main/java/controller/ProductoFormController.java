@@ -18,6 +18,7 @@ import model.Sabor;
 import persistence.dao.CategoriaDAO;
 import persistence.dao.ProductoDAO;
 import persistence.dao.RecetaDAO;
+import utilities.ActionLogger;
 import utilities.SceneLoader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +45,6 @@ public class ProductoFormController {
     private final ProductoDAO productoDAO = new ProductoDAO();
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
     private final RecetaDAO recetaDAO = new RecetaDAO();  // DAO para Recetas
-
 
     private byte[] imagen; //variable para almacenar la imagen por el usuario
     private boolean imagenCargada = false; // Variable de control para verificar si la imagen es cargada por el usuario
@@ -112,18 +112,24 @@ public class ProductoFormController {
             if (productoActual != null) {
                 // Modificar producto existente
                 actualizarProductoExistente(productoActual);
+                // Registro de la acción
+                ActionLogger.log("Producto modificado: " + producto.getNombre() + " (ID: " + producto.getId() + ")");
             } else {
                 // Agregar nuevo producto
                 agregarNuevoProducto(producto);
+                // Registro de la acción
+                ActionLogger.log("Nuevo producto creado: " + producto.getNombre());
             }
 
-            mostrarMensaje(Alert.AlertType.INFORMATION, "Éxito", "Producto guardado exitosamente.");
             cerrarVentana(event);
 
         } catch (NumberFormatException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error de Validación", "El precio debe ser un valor numérico válido.");
+            // Registro de la acción
+            ActionLogger.log("Error al guardar producto: El precio no es válido.");
         } catch (Exception e) {
-            mostrarMensaje(Alert.AlertType.ERROR, "Error", "No se pudo guardar el producto: " + e.getMessage());
+            // Registro de la acción
+            ActionLogger.log("Error al guardar producto: " + e.getMessage());
         }
     }
 
@@ -145,7 +151,6 @@ public class ProductoFormController {
             mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
         }
     }
-
 
     private Producto crearOActualizarProducto() {
         String nombre = nombreProductoField.getText();
@@ -198,6 +203,11 @@ public class ProductoFormController {
         if (archivo != null) {
             cargarImagen(archivo);
             imagenCargada = true; // Marcar que la imagen ha sido cargada por el usuario
+            // Registro de la acción
+            ActionLogger.log("Imagen cargada para el producto: " + nombreProductoField.getText());
+        } else {
+            // Registro de la acción en caso de que no se seleccione ninguna imagen
+            ActionLogger.log("Intento fallido de cargar imagen para el producto: " + nombreProductoField.getText());
         }
     }
 
@@ -222,6 +232,8 @@ public class ProductoFormController {
     private void handleSeleccionarSabores(ActionEvent event) {
         Dialog<List<Sabor>> dialog = crearDialogoSabores();
         dialog.showAndWait().ifPresent(this::actualizarSaboresSeleccionados);
+        // Registro de la acción
+        ActionLogger.log("Sabores seleccionados para el producto: " + nombreProductoField.getText());
     }
 
     private Dialog<List<Sabor>> crearDialogoSabores() {
@@ -240,8 +252,12 @@ public class ProductoFormController {
     private void actualizarSaboresSeleccionados(List<Sabor> nuevosSabores) {
         if (nuevosSabores != null && !nuevosSabores.isEmpty()) {
             saboresSeleccionados.setAll(nuevosSabores);
+            // Registro de la acción
+            ActionLogger.log("Sabores actualizados para el producto: " + nombreProductoField.getText());
         } else {
             mostrarMensaje(Alert.AlertType.ERROR, "Error de selección", "Debe seleccionar al menos un sabor.");
+            // Registro de la acción
+            ActionLogger.log("Intento fallido de actualizar sabores para el producto: " + nombreProductoField.getText());
         }
     }
 

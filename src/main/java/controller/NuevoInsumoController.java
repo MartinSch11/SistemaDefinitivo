@@ -9,6 +9,8 @@ import model.Insumo;
 import model.Proveedor;
 import persistence.dao.InsumoDAO;
 import persistence.dao.ProveedorDAO;
+import utilities.ActionLogger;
+
 import java.util.List;
 
 public class NuevoInsumoController {
@@ -20,7 +22,6 @@ public class NuevoInsumoController {
 
     private ProveedorDAO proveedorDAO;
     private InsumoDAO insumoDAO;
-
     private Insumo insumo; // Variable de instancia para el insumo a modificar
     private TableInsumosController tableInsumosController; // Referencia al controlador de la tabla
 
@@ -70,8 +71,12 @@ public class NuevoInsumoController {
 
             if (insumo.getId() == null) {
                 insumoDAO.save(insumo);
+                // Log de acción: creación de insumo
+                ActionLogger.log( "Insumo " + insumo.getNombre() + " creado con éxito.");
             } else {
                 insumoDAO.update(insumo);
+                // Log de acción: edición de insumo
+                ActionLogger.log( "Insumo " + insumo.getNombre() + " editado con éxito.");
             }
 
             mostrarAlerta("Éxito", "Insumo guardado exitosamente.", Alert.AlertType.INFORMATION);
@@ -84,6 +89,8 @@ public class NuevoInsumoController {
 
     @FXML
     private void handleCancelar() {
+        // Log de acción: cancelación
+        ActionLogger.log("Operación de insumo cancelada.");
         cerrarVentana();
     }
 

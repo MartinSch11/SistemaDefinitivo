@@ -11,22 +11,14 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.Optional;
 
 public class DialogNuevoProveedorController {
-    @FXML
-    private ComboBox<String> cmbTipoDeInsumo;
-    @FXML
-    private TextField fieldCantidadInsumo;
-    @FXML
-    private TextField proveedorField;
-    @FXML
-    private ComboBox<String> insumo;
-    @FXML
-    private TextField telefonoField;
-    @FXML
-    private TextField ubicacionField;
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnCancelar;
+    @FXML private ComboBox<String> cmbTipoDeInsumo;
+    @FXML private TextField fieldCantidadInsumo;
+    @FXML private TextField proveedorField;
+    @FXML private ComboBox<String> insumo;
+    @FXML private TextField telefonoField;
+    @FXML private TextField ubicacionField;
+    @FXML private Button btnGuardar;
+    @FXML private Button btnCancelar;
 
     boolean camposCompletos = false;
 

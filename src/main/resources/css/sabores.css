@@ -8,4 +8,5 @@
 .btnAgregarSabores{
     -fx-background-color: transparent;
     -fx-font-family: "Inter"; /* Cambiar la fuente */
+    -fx-font-fill: #757ccd;
 }

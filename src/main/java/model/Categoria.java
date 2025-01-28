@@ -11,6 +11,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_categoria;
 
+    @Column(name = "nombre_categoria")
     private String nombre;
 
     // Constructor por defecto

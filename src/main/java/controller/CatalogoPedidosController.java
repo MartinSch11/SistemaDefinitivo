@@ -3,10 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -16,10 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import model.Producto;
-import model.Categoria;
-import model.Producto;
-import model.Sabor;
-import persistence.dao.CategoriaDAO;
 import persistence.dao.ProductoDAO;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
@@ -27,27 +20,28 @@ import java.util.*;
 
 public class CatalogoPedidosController {
     @FXML private Button guardarPedidoButton;
-    @FXML
-    private ScrollPane scrollPaneCatalogo;
-
-    @FXML
-    private GridPane gridPane;
+    @FXML private ScrollPane scrollPaneCatalogo;
+    @FXML private GridPane gridPane;
     private final String imagenProductoPorDefecto = "/productosImag/imagenProductoPorDefecto.png";
     private Map<Producto, Integer> contadoresProductos = new HashMap<>();
-
     private List<Producto> productos = new ArrayList<>(); // Lista de productos a mostrar
     private ProductoDAO ProductoDAO = new ProductoDAO();
-    private EventObject event;
 
-    private DialogNuevoPedidoController dialogNuevoPedidoController;
-    public void setDialogNuevoPedidoController(DialogNuevoPedidoController controller) {
-        this.dialogNuevoPedidoController = controller;
+    private Map<Producto, Integer> productosGuardados = new HashMap<>(); // Mapa para productos guardados
+
+    private NuevoPedidoController nuevoPedidoController;
+
+    public void setDialogNuevoPedidoController(NuevoPedidoController controller) {
+        if (controller != null) {
+            this.nuevoPedidoController = controller;
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error", "El controlador NuevoPedidoController no está disponible.");
+        }
     }
 
     public void initialize() {
         // Inicialmente cargar los productos de la base de datos
         productos = ProductoDAO.findAll();
-
         agregarProductosAlGrid();
 
         Button guardarPedidoButton = new Button("Guardar Pedido");
@@ -152,48 +146,51 @@ public class CatalogoPedidosController {
         stackPane.getChildren().add(vbox);
 
         // Lógica de los botones
+        menosButton.setDisable(true); // Inicialmente deshabilitado
+
         menosButton.setOnAction(event -> {
             int count = Integer.parseInt(contadorLabel.getText());
-            if (count > 0) contadorLabel.setText(String.valueOf(--count));
-            contadoresProductos.put(producto, Integer.parseInt(contadorLabel.getText()));
+            if (count > 0) {
+                contadorLabel.setText(String.valueOf(--count));
+                menosButton.setDisable(count - 1 <= 0); // Deshabilita si llega a 0
+                contadoresProductos.put(producto, count);
+            }
         });
-        masButton.setOnAction(event -> { int count = Integer.parseInt(contadorLabel.getText());
+
+        masButton.setOnAction(event -> {
+            int count = Integer.parseInt(contadorLabel.getText());
             contadorLabel.setText(String.valueOf(++count));
-            contadoresProductos.put(producto, Integer.parseInt(contadorLabel.getText()));
+            menosButton.setDisable(false); // Habilita el botón "-"
+            contadoresProductos.put(producto, count);
         });
-
-
         return stackPane;
     }
 
     private void guardarPedido(ActionEvent actionEvent) {
         for (Map.Entry<Producto, Integer> entry : contadoresProductos.entrySet()) {
             if (entry.getValue() > 0) {
-                System.out.println("Producto: " + entry.getKey().getNombre() + ", Cantidad: " + entry.getValue());
-                productosGuardadados.agregarProducto(entry.getKey(), entry.getValue());
+                productosGuardados.put(entry.getKey(), entry.getValue());
             }
+        }
+
+        if (!productosGuardados.isEmpty()) {
+            showAlert(Alert.AlertType.INFORMATION, "Pedido guardado", "El pedido ha sido guardado exitosamente.");
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Sin selección", "No se seleccionó ningún producto para el pedido.");
         }
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
+    public Map<Producto, Integer> getProductosGuardados() {
+        return productosGuardados;
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
-
-
-
-
-/*// Inicialmente cargar los productos de la base de datos
-        productos = ProductoDAO.findAll();
-
-        agregarProductosAlGrid();
-
-        Button guardarPedidoButton = new Button("Guardar Pedido");
-        guardarPedidoButton.getStyleClass().add("buttons");
-        guardarPedidoButton.setOnAction(event -> guardarPedido());
-        gridPane.add(guardarPedidoButton, 0, productos.size() + 1, 3, 1);
-
-        VBox vbox = new VBox();
-        vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().add(guardarPedidoButton);
-        gridPane.add(vbox, 0, productos.size() + 1, 3, 1);*/

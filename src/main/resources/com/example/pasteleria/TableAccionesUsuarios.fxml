@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1120.0" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccionesUsuariosController">
+    <children>
+        <Pane prefHeight="640.0" prefWidth="1120.0" style="-fx-background-color: f7ede3;">
+            <children>
+                <Label layoutX="490.0" layoutY="14.0" styleClass="title-red" text="Acciones de Usuario">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <!-- Agregar el DatePicker aquí -->
+                <DatePicker fx:id="datePicker" layoutX="488.0" layoutY="56.0" prefWidth="200.0" />
+
+                <ScrollPane layoutX="20.0" layoutY="101.0" prefHeight="500.0" prefWidth="1080.0">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="1078.0">
+                            <children>
+                                <TableView fx:id="tableAcciones" prefHeight="498.0" prefWidth="1078.0" styleClass="table">
+                                    <columns>
+                                        <TableColumn fx:id="colFecha" editable="false" prefWidth="220.0" resizable="false" sortable="false" text="Fecha" />
+                                        <TableColumn fx:id="colUsuario" editable="false" prefWidth="167.0" resizable="false" sortable="false" text="Usuario" />
+                                        <TableColumn fx:id="colRol" editable="false" prefWidth="163.0" resizable="false" sortable="false" text="Rol" />
+                                        <TableColumn fx:id="colAccion" editable="false" prefWidth="527.0" resizable="false" sortable="false" text="Acción" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+            <Label layoutX="429.0" layoutY="59.0" styleClass="texto" text="Fecha:" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

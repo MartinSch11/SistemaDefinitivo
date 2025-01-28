@@ -17,6 +17,7 @@ import model.InsumoReceta;
 import model.Receta;
 import model.Insumo;
 import persistence.dao.RecetaDAO;
+import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.SceneLoader;
 import java.io.IOException;
@@ -84,7 +85,7 @@ public class RecetasController {
             Insumo insumo = insumoReceta.getInsumo();
             String textoIngrediente = String.format("%s %d %s",
                     insumo.getNombre(),
-                    insumoReceta.getCantidadUtilizada(),
+                    (int) insumoReceta.getCantidadUtilizada(), // Casteo a int
                     insumoReceta.getUnidad());
             Label labelIngrediente = new Label(textoIngrediente);
             labelIngrediente.setStyle("-fx-font-size: 14; -fx-text-fill: #333;");
@@ -92,13 +93,15 @@ public class RecetasController {
         }
     }
 
-    private void abrirDialogoReceta(Receta receta) {
+    private void abrirPanelReceta(Receta receta) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevaReceta.fxml"));
             Parent root = loader.load();
 
             NuevaRecetaController dialogController = loader.getController();
+
             if (receta != null) {
+                // Carga los datos de la receta en el controlador de diálogo
                 dialogController.cargarRecetaParaModificar(receta);
             }
 
@@ -109,36 +112,53 @@ public class RecetasController {
             stage.showAndWait();
 
             Receta recetaModificada = dialogController.getRecetaModificada();
+
             if (recetaModificada != null) {
-                RecetaDAO recetaDAO = new RecetaDAO();
-                try {
-                    if (receta == null) { // Agregar nueva receta
-                        recetaDAO.save(recetaModificada);
-                        listaRecetas.add(recetaModificada);  // Agregar la receta a la lista observable
-                    } else { // Modificar receta existente
-                        recetaDAO.update(recetaModificada);
-
-                        // Actualiza la receta en la lista observable
-                        int index = listaRecetas.indexOf(receta);
-                        if (index != -1) {
-                            listaRecetas.set(index, recetaModificada);
-                        }
-                    }
-
-                    // No es necesario volver a cargar todas las recetas
-                    // tableRecetas.refresh(); // Refrescar la vista de la tabla si es necesario
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    mostrarError("Error al guardar o modificar la receta. Intenta nuevamente.");
-                } finally {
-                    recetaDAO.close();
-                }
+                guardarRecetaModificada(receta, recetaModificada);
             }
         } catch (IOException e) {
             e.printStackTrace();
             mostrarError("No se pudo cargar el diálogo de la receta. Intenta nuevamente.");
         }
     }
+
+    private void guardarRecetaModificada(Receta recetaOriginal, Receta recetaModificada) {
+        RecetaDAO recetaDAO = new RecetaDAO();
+
+        try {
+            if (recetaOriginal == null) {
+                // Caso de nueva receta
+                recetaDAO.save(recetaModificada);
+                listaRecetas.add(recetaModificada);
+            } else {
+                // Caso de receta existente: evitar duplicados
+                List<InsumoReceta> insumosOriginales = recetaOriginal.getInsumosReceta();
+
+                // Eliminar insumos eliminados
+                for (InsumoReceta insumoOriginal : insumosOriginales) {
+                    if (!recetaModificada.getInsumosReceta().contains(insumoOriginal)) {
+                        recetaDAO.eliminarInsumoDeReceta(insumoOriginal.getId());
+                    }
+                }
+
+                // Actualizar receta y sus insumos
+                recetaDAO.update(recetaModificada);
+
+                // Refrescar la lista observable
+                int index = listaRecetas.indexOf(recetaOriginal);
+                if (index != -1) {
+                    listaRecetas.set(index, recetaModificada);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarError("Error al guardar o modificar la receta. Intenta nuevamente.");
+        } finally {
+            recetaDAO.close();
+        }
+    }
+
 
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -150,19 +170,22 @@ public class RecetasController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+        ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de recetas.");
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
     }
 
     @FXML
     void handleAgregar(ActionEvent event) {
-        abrirDialogoReceta(null);
+        ActionLogger.log("El usuario quiere agregar una nueva receta.");
+        abrirPanelReceta(null);
     }
 
     @FXML
     void handleModificar(ActionEvent event) {
         Receta recetaSeleccionada = tableRecetas.getSelectionModel().getSelectedItem();
         if (recetaSeleccionada != null) {
-            abrirDialogoReceta(recetaSeleccionada);
+            ActionLogger.log("El usuario quiere modificar la receta: " + recetaSeleccionada.getNombreReceta());
+            abrirPanelReceta(recetaSeleccionada);
         } else {
             mostrarError("Por favor, selecciona una receta para modificar.");
         }
@@ -178,11 +201,11 @@ public class RecetasController {
             alert.setContentText("Esta acción no se puede deshacer.");
 
             if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+                ActionLogger.log("El usuario quiere eliminar la receta: " + recetaSeleccionada.getNombreReceta());
                 RecetaDAO recetaDAO = new RecetaDAO();
                 recetaDAO.delete(recetaSeleccionada);
                 recetaDAO.close();
 
-                // Refrescar la lista completa desde la base de datos para recargar la TableView
                 cargarRecetas();
             }
         }

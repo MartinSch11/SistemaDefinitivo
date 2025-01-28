@@ -10,9 +10,9 @@ import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import model.Trabajador;
 import persistence.dao.TrabajadorDAO;
+import utilities.ActionLogger;
 import java.util.List;
 import java.util.Optional;
-
 
 public class CrudEliminarEmpleadoController {
 
@@ -37,7 +37,7 @@ public class CrudEliminarEmpleadoController {
         settingsController.getBtnAnadirEmpleado().setVisible(true);
     }
 
-    void vaciarCampos(){
+    void vaciarCampos() {
         cmbEliminarEmpExistente.setValue(null);
     }
 
@@ -48,6 +48,7 @@ public class CrudEliminarEmpleadoController {
         alert.setContentText("¡El empleado ha sido eliminado con éxito!");
         alert.showAndWait();
     }
+
     public void mensajeAdvertenciaCamposVacios() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -73,20 +74,18 @@ public class CrudEliminarEmpleadoController {
         alert.setTitle("Confirmación");
         alert.setHeaderText("Se perderán los cambios no guardados. ¿Desea salir?");
 
-        // Mostrar y esperar la respuesta del usuario
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // El usuario confirmó que desea salir
             SettingsController.verificarVentanasAbiertas = 0;
             vaciarCampos();
             visibilidadButtons();
 
-            // Llamar al metodo de SettingsController para limpiar el contenedor
             if (settingsController != null) {
                 settingsController.cerrarCrudEliminarEmpleado();
             }
+
+            ActionLogger.log("Cancelación de la eliminación de empleado");
         } else {
-            // El usuario canceló la acción, no se hace nada
             alert.close();
         }
     }
@@ -98,9 +97,9 @@ public class CrudEliminarEmpleadoController {
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+            ActionLogger.log("Error al cargar los nombres de empleados: " + e.getMessage());
         }
     }
-
 
     private Trabajador trabajador;
 
@@ -124,39 +123,37 @@ public class CrudEliminarEmpleadoController {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get() == buttonSi) {
-
-                    // Acción a realizar si el usuario selecciona "Sí"
                     Trabajador trabajador = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
                     if (trabajador != null) {
                         trabajadorDAO.delete(trabajador);
-
-                        // Actualizar ComboBox después de eliminación
                         SettingsController.getInstance().cargarNombresEnComboBox();
                         cargarNombresEnComboBox();
                         showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
+
+                        ActionLogger.log("Empleado eliminado: " + eliminarEmpleadoSeleccionado);
                     } else {
                         showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un trabajador con ese nombre.");
+                        ActionLogger.log("Error: No se encontró el empleado: " + eliminarEmpleadoSeleccionado);
                     }
 
                     visibilidadButtons();
 
-                    // Llamar al metodo de SettingsController para limpiar el contenedor
                     if (settingsController != null) {
                         settingsController.cerrarCrudEliminarEmpleado();
                     }
-                }else{
+                } else {
                     alert.close();
                 }
 
             } else {
                 mensajeAdvertenciaCamposVacios();
+                ActionLogger.log("Advertencia: intento de eliminar empleado sin selección en el ComboBox");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos del empleado: " + e.getMessage());
+            ActionLogger.log("Error al guardar los cambios del empleado: " + e.getMessage());
         }
     }
-
-
 }

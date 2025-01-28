@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Proveedor;
 import persistence.dao.ProveedorDAO;
+import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.SceneLoader;
 
@@ -65,64 +66,48 @@ public class ProveedoresController {
 
     @FXML
     void handleEliminar(ActionEvent event) {
-        // Obtener el proveedor seleccionado en la tabla
         Proveedor proveedorSeleccionado = tableViewProveedores.getSelectionModel().getSelectedItem();
 
-        // Verificar si un proveedor fue seleccionado
         if (proveedorSeleccionado != null) {
-            // Crear un cuadro de confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");
             alert.setHeaderText("Estás a punto de eliminar a " + proveedorSeleccionado.getNombre());
             alert.setContentText("¿Estás seguro de que deseas eliminar a este proveedor?");
-
-            // Mostrar la alerta y esperar la respuesta
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    // Eliminar el proveedor de la base de datos
                     proveedorDAO.delete(proveedorSeleccionado);
-
-                    // Recargar los datos en la tabla
                     cargarDatos();
-
-                    // Mostrar un mensaje de éxito
                     mostrarAlerta("Proveedor eliminado", "El proveedor ha sido eliminado exitosamente.", Alert.AlertType.INFORMATION);
+                    ActionLogger.log("Proveedor eliminado: " + proveedorSeleccionado.getNombre());
                 }
             });
         } else {
-            // Mostrar un mensaje de advertencia si no se ha seleccionado ningún proveedor
             mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para eliminar.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
     void handleModificar(ActionEvent event) {
-        // Obtener el proveedor seleccionado en la tabla
         Proveedor proveedorSeleccionado = tableViewProveedores.getSelectionModel().getSelectedItem();
 
-        // Verificar si un proveedor fue seleccionado
         if (proveedorSeleccionado != null) {
             try {
-                // Cargar el archivo FXML del formulario de edición
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoProveedor.fxml"));
                 AnchorPane root = loader.load();
 
-                // Obtener el controlador del formulario de edición
                 NuevoProveedorController nuevoProveedorController = loader.getController();
-
-                // Inicializar el formulario con los datos del proveedor seleccionado
                 nuevoProveedorController.cargarProveedor(proveedorSeleccionado);
 
-                // Mostrar el formulario en una nueva ventana
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Modificar Proveedor");
                 stage.show();
+
+                ActionLogger.log("Formulario de modificación abierto para el proveedor: " + proveedorSeleccionado.getNombre());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            // Mostrar un mensaje de advertencia si no se ha seleccionado ningún proveedor
             mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para modificar.", Alert.AlertType.WARNING);
         }
     }
@@ -137,14 +122,18 @@ public class ProveedoresController {
             stage.setScene(new Scene(root));
             stage.setTitle("Agregar Proveedor");
             stage.show();
+
+            ActionLogger.log("Formulario de agregado de proveedor abierto.");
         } catch (IOException e) {
             e.printStackTrace();
+            ActionLogger.log("Error al intentar abrir el formulario de agregado.");
         }
     }
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        ActionLogger.log("Volviendo al menú principal.");
     }
 
     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {

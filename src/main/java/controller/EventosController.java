@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import model.Evento;
 import persistence.dao.EventoDAO;
+import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.SceneLoader;
 import java.io.IOException;
@@ -42,13 +43,13 @@ public class EventosController {
         PaneDetalleEvento.setVisible(false);
         reloadEvents();
         llenarCalendario(currentYearMonth);
+        ActionLogger.log("Calendario inicializado para el mes: " + currentYearMonth); // Log de acción
     }
 
     private void llenarCalendario(YearMonth mesAño) {
         calendarGrid.getChildren().clear();
-
         LocalDate primerDiaDelMes = mesAño.atDay(1);
-        int diaDeLaSemana = primerDiaDelMes.getDayOfWeek().getValue(); // 1 = Lunes, 7 = Domingo
+        int diaDeLaSemana = primerDiaDelMes.getDayOfWeek().getValue();
         int diasEnElMes = mesAño.lengthOfMonth();
 
         actualizarEtiquetaMes(mesAño);
@@ -61,6 +62,8 @@ public class EventosController {
         rellenarDiasMesActual(mesAño, diaDeLaSemana, diasEnElMes);
 
         rellenarDiasMesSiguiente(diaDeLaSemana, diasEnElMes, filasNecesarias);
+
+        ActionLogger.log("Calendario para el mes: " + mesAño + " generado correctamente."); // Log de acción
     }
 
     private void handleDayClick(LocalDate date) {
@@ -76,6 +79,7 @@ public class EventosController {
             lblDirecEvento.setText(evento.getDireccion_evento());
             lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
             lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
+            ActionLogger.log("Detalles del evento cargados para la fecha: " + date); // Log de acción
         } else {
             PaneDetalleEvento.setVisible(false);
         }
@@ -88,6 +92,7 @@ public class EventosController {
             alert.setHeaderText("Ya existe un evento en esta fecha");
             alert.setContentText("Por favor, elige otra fecha o modifica el evento existente.");
             alert.showAndWait();
+            ActionLogger.log("Intento de agregar un evento duplicado en la fecha: " + date); // Log de acción
             return;
         }
 
@@ -95,18 +100,21 @@ public class EventosController {
         if (currentYearMonth.equals(YearMonth.from(date))) {
             llenarCalendario(currentYearMonth);
         }
+        ActionLogger.log("Evento agregado para la fecha: " + date); // Log de acción
     }
 
     @FXML
     private void handlePrevMonth() {
         currentYearMonth = currentYearMonth.minusMonths(1);
         llenarCalendario(currentYearMonth);
+        ActionLogger.log("Cambiado al mes anterior: " + currentYearMonth); // Log de acción
     }
 
     @FXML
     private void handleNextMonth() {
         currentYearMonth = currentYearMonth.plusMonths(1);
         llenarCalendario(currentYearMonth);
+        ActionLogger.log("Cambiado al siguiente mes: " + currentYearMonth); // Log de acción
     }
 
     @FXML
@@ -115,7 +123,6 @@ public class EventosController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
             DialogPane dialogPane = loader.load();
 
-            // Crear un diálogo
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Agregar Evento");
@@ -125,9 +132,10 @@ public class EventosController {
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 reloadEvents();
+                ActionLogger.log("Evento agregado o modificado correctamente."); // Log de acción
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            ActionLogger.log("Error al intentar cargar el formulario de evento: " + e.getMessage()); // Log de acción
         }
     }
 
@@ -151,12 +159,14 @@ public class EventosController {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     reloadEvents();
                     actualizarPaneDetalleEvento(eventoSeleccionado);
+                    ActionLogger.log("Evento editado correctamente para la fecha: " + eventoSeleccionado.getFecha_evento()); // Log de acción
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                ActionLogger.log("Error al intentar editar el evento: " + e.getMessage()); // Log de acción
             }
         } else {
             mostrarAlerta("No se ha seleccionado ningún evento", "Por favor, selecciona un evento para editar.");
+            ActionLogger.log("Intento de editar sin seleccionar un evento."); // Log de acción
         }
     }
 
@@ -178,11 +188,7 @@ public class EventosController {
 
                 mostrarAlerta("Éxito", "Evento borrado exitosamente.");
                 reloadEvents();
-
-                // Cerrar el PaneDetalleEvento si está visible
-                if (PaneDetalleEvento.isVisible()) {
-                    PaneDetalleEvento.setVisible(false);
-                }
+                ActionLogger.log("Evento borrado para la fecha: " + eventoSeleccionado.getFecha_evento()); // Log de acción
             }
         } else {
             mostrarAlerta("Sin selección", "No se ha seleccionado ningún evento para borrar.");
@@ -190,13 +196,15 @@ public class EventosController {
     }
 
     @FXML
-    private void handleClose(ActionEvent event){
+    private void handleClose(ActionEvent event) {
         PaneDetalleEvento.setVisible(false);
+        ActionLogger.log("Panel de detalles cerrado."); // Log de acción
     }
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        ActionLogger.log("Volviendo al menú principal."); // Log de acción
     }
 
     private void actualizarEtiquetaMes(YearMonth mesAño) {

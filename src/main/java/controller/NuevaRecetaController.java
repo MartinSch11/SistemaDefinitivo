@@ -12,7 +12,9 @@ import model.InsumoReceta;
 import model.Receta;
 import persistence.dao.InsumoDAO;
 import persistence.dao.RecetaDAO;
+import utilities.ActionLogger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NuevaRecetaController {
@@ -36,60 +38,81 @@ public class NuevaRecetaController {
 
     @FXML
     public void initialize() {
-        // Configurar columnas de la tabla
-        colIngrediente.setCellValueFactory(cellData -> cellData.getValue().getInsumo().nombreProperty());
-
-        // Mostramos la cantidad seguida de la unidad
+        colIngrediente.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getInsumo().getNombre()));
         colCantidad.setCellValueFactory(cellData -> {
             InsumoReceta insumoReceta = cellData.getValue();
-            return new SimpleStringProperty(insumoReceta.getCantidadUtilizada() + " " + insumoReceta.getUnidad());
+            return new SimpleStringProperty(
+                    insumoReceta.getCantidadUtilizada() + " " + insumoReceta.getUnidad()
+            );
         });
 
-        // Cargar insumos disponibles y unidades en los ComboBox
         cmbIngredientes.setItems(FXCollections.observableArrayList(new InsumoDAO().findAll()));
-        cmbUnidad.setItems(FXCollections.observableArrayList("GR", "KG", "ML", "L", "CUCHARADITA", "CUCHARADA", "UNIDAD", "UNIDADES"));
+        cmbUnidad.setItems(FXCollections.observableArrayList("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES"));
 
-        // Configurar la tabla
         tableIngredientes.setItems(listaInsumosReceta);
-
-        // Deshabilitar el botón de eliminar al inicio
         btnEliminar.setDisable(true);
 
-        // Configurar selección en la tabla
         tableIngredientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             btnEliminar.setDisable(newSelection == null);
             btnEditar.setDisable(newSelection == null);
         });
-        aplicarFiltroNumeros(txtCantIngrediente);
     }
+
 
     @FXML
     private void handleAgregar(ActionEvent event) {
+        // Validación de campos obligatorios
         if (cmbIngredientes.getValue() == null || txtCantIngrediente.getText().isEmpty() || cmbUnidad.getValue() == null) {
-            mostrarAlerta("Error", "Debe completar todos los campos para agregar un ingrediente.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos para agregar un ingrediente.");
             return;
         }
 
         try {
+            // Parsear la cantidad ingresada
             int cantidad = Integer.parseInt(txtCantIngrediente.getText());
             Insumo insumoSeleccionado = cmbIngredientes.getValue();
             String unidadSeleccionada = cmbUnidad.getValue();
-            InsumoReceta insumoReceta = new InsumoReceta(null, insumoSeleccionado, cantidad, unidadSeleccionada);
 
-            listaInsumosReceta.add(insumoReceta);
-            // Limpiar campos
+            // Verificar duplicados
+            boolean ingredienteYaExiste = listaInsumosReceta.stream()
+                    .anyMatch(insumoReceta -> insumoReceta.getInsumo().equals(insumoSeleccionado));
+
+            if (ingredienteYaExiste) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Este ingrediente ya está en la receta.");
+                return; // No agregar duplicados
+            }
+
+            // Crear nuevo objeto InsumoReceta y agregar a la lista
+            InsumoReceta nuevoInsumoReceta = new InsumoReceta(null, insumoSeleccionado, cantidad, unidadSeleccionada);
+            listaInsumosReceta.add(nuevoInsumoReceta);
+
+            // Log de la acción
+            ActionLogger.log("Ingrediente agregado: " + insumoSeleccionado.getNombre() + ", Cantidad: " + cantidad + " " + unidadSeleccionada);
+
+            // Limpiar campos después de agregar
             cmbIngredientes.setValue(null);
             txtCantIngrediente.clear();
             cmbUnidad.setValue(null);
+
+            // Refrescar la tabla
+            tableIngredientes.refresh();
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "La cantidad debe ser un número entero válido.");
+            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número entero válido.");
         }
     }
+
 
     @FXML
     private void handleEliminar(ActionEvent event) {
         InsumoReceta selectedInsumoReceta = tableIngredientes.getSelectionModel().getSelectedItem();
         if (selectedInsumoReceta != null) {
+            if (recetaModificada != null && selectedInsumoReceta.getId() != null) {
+                // Eliminar de la base de datos si el insumo ya estaba almacenado
+                recetaDAO.eliminarInsumoDeReceta(selectedInsumoReceta.getId());
+                ActionLogger.log("Ingrediente eliminado de la receta: " + selectedInsumoReceta.getInsumo().getNombre());
+            }
+            // Eliminar de la lista en memoria
             listaInsumosReceta.remove(selectedInsumoReceta);
             tableIngredientes.getSelectionModel().clearSelection();
         }
@@ -98,61 +121,27 @@ public class NuevaRecetaController {
     @FXML
     private void handleGuardar(ActionEvent event) {
         if (txtNomReceta.getText().isEmpty() || tableIngredientes.getItems().isEmpty()) {
-            mostrarAlerta("Error", "Debe completar todos los campos.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos.");
             return;
         }
 
-        Receta receta;
-
-        // Verificar si estamos editando una receta existente
-        if (recetaModificada != null && recetaModificada.getId() != -1) {
-            receta = recetaModificada;
-            receta.setNombreReceta(txtNomReceta.getText());
-
-            // Limpiar ingredientes previos
-            receta.getInsumosReceta().clear();
-            recetaDAO.update(receta);  // Guardar cambios previos antes de actualizar los ingredientes
-
-            // Agregar ingredientes actuales
-            for (InsumoReceta insumoReceta : tableIngredientes.getItems()) {
-                receta.addInsumo(insumoReceta);  // Usar addInsumo() para asegurar la relación bidireccional
-            }
-
-            // Guardar cambios finales
-            recetaDAO.update(receta);
-
+        if (recetaModificada == null) {
+            recetaModificada = new Receta(txtNomReceta.getText());
         } else {
-            // Guardar una nueva receta
-            receta = new Receta(txtNomReceta.getText());
-
-            // Agregar los ingredientes de la tabla a la nueva receta
-            for (InsumoReceta insumoReceta : tableIngredientes.getItems()) {
-                receta.addInsumo(insumoReceta);
-            }
-
-            // Guardar la nueva receta en la base de datos
-            recetaDAO.save(receta);
+            recetaModificada.setNombreReceta(txtNomReceta.getText());
+            recetaModificada.getInsumosReceta().clear();
         }
 
-        // Cerrar la ventana de edición
+        for (InsumoReceta insumoReceta : listaInsumosReceta) {
+            insumoReceta.setReceta(recetaModificada);
+            recetaModificada.addInsumo(insumoReceta);
+        }
+
+        // Log de la acción de guardar receta
+        ActionLogger.log("Receta guardada: " + recetaModificada.getNombreReceta());
+
+        // Cerrar ventana
         ((Stage) btnGuardar.getScene().getWindow()).close();
-    }
-
-    public void cargarRecetaParaModificar(Receta receta) {
-        this.recetaModificada = receta;
-        // Establecer el nombre de la receta
-        txtNomReceta.setText(receta.getNombreReceta());
-
-        // Limpiar la tabla de ingredientes
-        listaInsumosReceta.clear();
-
-        // Cargar los ingredientes y cantidades de la receta
-        for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
-            listaInsumosReceta.add(insumoReceta);
-        }
-
-        // Actualizar la tabla de ingredientes
-        tableIngredientes.setItems(listaInsumosReceta);
     }
 
     @FXML
@@ -164,6 +153,9 @@ public class NuevaRecetaController {
         btnAgregar.setDisable(false);
         btnEliminar.setDisable(false);
         btnEditar.setText("Editar");
+
+        // Log de la acción de cancelar
+        ActionLogger.log("Operación cancelada en la pantalla de nueva receta.");
     }
 
     @FXML
@@ -173,8 +165,10 @@ public class NuevaRecetaController {
         if (insumoRecetaSeleccionado != null) {
             if (btnEditar.getText().equals("Editar")) {
                 cargarDatosParaEdicion(insumoRecetaSeleccionado);
+                ActionLogger.log("Insumo de receta seleccionado para editar: " + insumoRecetaSeleccionado.getInsumo().getNombre());
             } else {
                 actualizarIngrediente(insumoRecetaSeleccionado);
+                ActionLogger.log("Cambios guardados para ingrediente: " + insumoRecetaSeleccionado.getInsumo().getNombre());
             }
         }
     }
@@ -206,14 +200,14 @@ public class NuevaRecetaController {
 
     private boolean validarCamposIngrediente() {
         if (cmbIngredientes.getValue() == null || txtCantIngrediente.getText().isEmpty() || cmbUnidad.getValue() == null) {
-            mostrarAlerta("Error", "Debe completar todos los campos.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos.");
             return false;
         }
         try {
             Integer.parseInt(txtCantIngrediente.getText());
             return true;
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "La cantidad debe ser un número válido.");
+            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido.");
             return false;
         }
     }
@@ -224,24 +218,26 @@ public class NuevaRecetaController {
         cmbUnidad.setValue(null);
     }
 
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
     public Receta getRecetaModificada() {
         return recetaModificada;
     }
 
     private void aplicarFiltroNumeros(TextField textField) {
-        textField.setTextFormatter(new TextFormatter<String>(change -> {
-            // Permitir solo caracteres numéricos (0-9)
-            if (change.getControlNewText().matches("[0-9]*")) {
-                return change; // Permite el cambio si es un número
-            }
-            return null; // Rechaza el cambio si no es un número
-        }));
+
+    }
+
+    public void cargarRecetaParaModificar(Receta receta) {
+        this.recetaModificada = receta;
+        if (receta != null) {
+            txtNomReceta.setText(receta.getNombreReceta());
+            listaInsumosReceta.setAll(receta.getInsumosReceta());
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

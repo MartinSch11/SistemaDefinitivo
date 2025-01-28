@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Sabor;
 import persistence.dao.SaborDAO;
+import utilities.ActionLogger;
 import utilities.NodeSceneStrategy;
 import utilities.Paths;
 import utilities.SceneLoader;
@@ -25,7 +26,6 @@ public class SaboresController {
     @FXML private Button btnAgregarSabor;
 
     private SaborDAO saborDAO = new SaborDAO();
-
     private ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
     private ProductoFormController parentController;
 
@@ -40,6 +40,7 @@ public class SaboresController {
 
     @FXML
     public void initialize() {
+        ActionLogger.log("El usuario abrió la ventana de gestión de sabores.");
         cargarSabores();
         cargarSaboresSeleccionados(); // Asegúrate de que esto se llama después de cargar los sabores
     }
@@ -64,8 +65,10 @@ public class SaboresController {
             // Agregar acción al checkbox
             checkBox.setOnAction(e -> {
                 if (checkBox.isSelected()) {
+                    ActionLogger.log("El usuario seleccionó el sabor: " + sabor.getSabor());
                     saboresSeleccionados.add(sabor);
                 } else {
+                    ActionLogger.log("El usuario deseleccionó el sabor: " + sabor.getSabor());
                     saboresSeleccionados.remove(sabor);
                 }
             });
@@ -98,6 +101,7 @@ public class SaboresController {
     @FXML
     private void handleGuardar(ActionEvent event) {
         if (parentController != null) {
+            ActionLogger.log("El usuario guardó los sabores seleccionados.");
             parentController.setSaboresSeleccionados(saboresSeleccionados);
             ((Stage) btnGuardar.getScene().getWindow()).close();
         }
@@ -105,11 +109,13 @@ public class SaboresController {
 
     @FXML
     void handleNuevoSabor(ActionEvent event) {
+        ActionLogger.log("El usuario quiere agregar un nuevo sabor.");
         SceneLoader.loadScene(new NodeSceneStrategy(btnAgregarSabor), Paths.NUEVOSABOR, "/css/components.css", false);
     }
 
     @FXML
     private void handleCancelar(ActionEvent event) {
+        ActionLogger.log("El usuario canceló la selección de sabores.");
         ((Stage) btnCancelar.getScene().getWindow()).close();
     }
 }

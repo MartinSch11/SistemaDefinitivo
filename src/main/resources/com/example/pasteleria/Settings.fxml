@@ -20,7 +20,7 @@
       <URL value="@../../../css/components.css" />
    </stylesheets>
    <children>
-        <Pane layoutY="14.0" prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
+        <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
          <children>
             <Button fx:id="btnVolver" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
                <graphic>
@@ -39,10 +39,10 @@
             </Button>
             <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
                <children>
-                  <Label layoutX="659.0" layoutY="12.0" styleClass="title" stylesheets="@../../../css/components.css" text="Ajustes" />
+                  <Label layoutX="638.0" layoutY="13.0" styleClass="title" stylesheets="@../../../css/components.css" text="Ajustes" />
                </children>
             </Pane>
-            <GridPane layoutX="-7.0" layoutY="114.0" prefHeight="585.0" prefWidth="203.0">
+            <GridPane fx:id="gridAjustes" layoutX="-7.0" layoutY="114.0" prefHeight="585.0" prefWidth="203.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="7.0" prefWidth="80.0" />
               </columnConstraints>
@@ -61,7 +61,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnConfiguracionEmpleados" mnemonicParsing="false" onAction="#CRUDEmpleado" prefHeight="43.0" prefWidth="203.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Configuración Empleados">
+                  <Button fx:id="btnConfiguracionEmpleados" mnemonicParsing="false" onAction="#mostrarConfigEmpleados" prefHeight="43.0" prefWidth="203.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Configuración Empleados">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -85,7 +85,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFuncionesUsuarios" mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Funciones usuarios" GridPane.rowIndex="1">
+                  <Button fx:id="btnFuncionesUsuarios" mnemonicParsing="false" onAction="#mostrarVentanaPermisos" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Funciones usuarios" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -93,7 +93,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="5">
+                  <Button fx:id="btnClientes" mnemonicParsing="false" onAction="#mostrarVentanaClientes" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Clientes" GridPane.rowIndex="4">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -101,55 +101,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="4">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="6">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="7">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="8">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="9">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="10">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Ejemplo" GridPane.rowIndex="11">
+                  <Button fx:id="btnAcciones" mnemonicParsing="false" onAction="#mostrarVentanaAcciones" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Acciones de usuarios" GridPane.rowIndex="5">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -159,7 +111,7 @@
                   </Button>
                </children>
             </GridPane>
-            <Pane fx:id="paneConfigEmpleados" layoutX="256.0" layoutY="88.0" prefHeight="94.0" prefWidth="1062.0" visible="false">
+            <Pane fx:id="paneConfigEmpleados" layoutX="256.0" layoutY="88.0" prefHeight="94.0" prefWidth="1090.0" visible="false">
                <children>
                   <Label fx:id="title" layoutX="410.0" layoutY="1.0" text="Configuración de empleados">
                      <font>
@@ -183,7 +135,7 @@
                         <ComboBox fx:id="cmbEmpleadosActuales" prefHeight="26.0" prefWidth="435.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <GridPane layoutX="639.0" layoutY="34.0" prefHeight="30.0" prefWidth="410.0">
+                  <GridPane layoutX="622.0" layoutY="29.0" prefHeight="40.0" prefWidth="475.0">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -193,14 +145,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="btnAnadirEmpleado" mnemonicParsing="false" onAction="#anadirEmpleado" prefWidth="128.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" />
-                        <Button fx:id="btnModificarEmpleado" mnemonicParsing="false" onAction="#modificarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" GridPane.columnIndex="1" />
+                        <Button fx:id="btnAnadirEmpleado" mnemonicParsing="false" onAction="#anadirEmpleado" prefWidth="135.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" />
+                        <Button fx:id="btnModificarEmpleado" mnemonicParsing="false" onAction="#modificarEmpleado" prefWidth="160.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" GridPane.columnIndex="1" />
                         <Button fx:id="btnEliminarEmpleado" mnemonicParsing="false" onAction="#eliminarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar empleado" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                </children>
             </Pane>
-            <StackPane fx:id="contenedorDinamico" layoutX="210.0" layoutY="190.0" prefHeight="523.0" prefWidth="1136.0" />
+            <StackPane fx:id="contenedorDinamico" layoutX="210.0" layoutY="176.0" prefHeight="523.0" prefWidth="1136.0" visible="false" />
+            <StackPane fx:id="contenedorDinamico2" layoutX="210.0" layoutY="68.0" prefHeight="640.0" prefWidth="1120.0" visible="false" />
          </children></Pane>
     </children>
 </AnchorPane>

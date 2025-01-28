@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<AnchorPane prefHeight="360.0" prefWidth="600.0" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NuevoClienteController">
+   <children>
+      <Pane prefHeight="360.0" prefWidth="600.0" style="-fx-background-color: f7ede3;">
+         <children>
+            <Pane prefHeight="55.0" prefWidth="600.0" style="-fx-background-color: B70505;">
+               <children>
+                  <Label layoutX="254.0" layoutY="13.0" styleClass="title" text="Clientes" />
+               </children>
+            </Pane>
+            <Pane layoutX="30.0" layoutY="61.0" prefHeight="250.0" prefWidth="540.0">
+               <children>
+                  <Label layoutX="256.0" layoutY="4.0" styleClass="texto" text="DNI" />
+                  <TextField fx:id="txtDNI" layoutX="176.0" layoutY="24.0" prefWidth="200.0" styleClass="texto-textfield" />
+                  <Label layoutX="109.0" layoutY="60.0" styleClass="texto" text="Nombre" />
+                  <TextField fx:id="txtNombre" layoutX="14.0" layoutY="86.0" prefWidth="250.0" styleClass="texto-textfield" />
+                  <Label layoutX="364.0" layoutY="60.0" styleClass="texto" text="Apellido" />
+                  <TextField fx:id="txtApellido" layoutX="276.0" layoutY="86.0" prefWidth="250.0" styleClass="texto-textfield" />
+                  <TextField fx:id="txtTelefono" layoutX="14.0" layoutY="150.0" prefWidth="250.0" styleClass="texto-textfield" />
+                  <TextField fx:id="txtDireccion" layoutX="276.0" layoutY="150.0" prefWidth="250.0" styleClass="texto-textfield" />
+                  <Label layoutX="105.0" layoutY="125.0" styleClass="texto" text="Teléfono" />
+                  <Label layoutX="359.0" layoutY="125.0" styleClass="texto" text="Dirección" />
+                  <TextField fx:id="txtCorreo" layoutX="145.0" layoutY="206.0" prefWidth="250.0" styleClass="texto-textfield" />
+                  <Label layoutX="244.0" layoutY="186.0" styleClass="texto" text="Correo" />
+               </children>
+            </Pane>
+            <GridPane layoutX="200.0" layoutY="304.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleCancelar" styleClass="buttons" text="Cancelar" />
+                  <Button fx:id="btnAceptar" mnemonicParsing="false" onAction="#handleAceptar" styleClass="buttons" text="Aceptar" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

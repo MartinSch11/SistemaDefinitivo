@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Proveedor;
 import persistence.dao.ProveedorDAO;
+import utilities.ActionLogger;
 
 public class NuevoProveedorController {
     @FXML private TextField txtNombre;
@@ -75,22 +76,22 @@ public class NuevoProveedorController {
 
             // Guardar el proveedor en la base de datos
             proveedorDAO.save(proveedorActual);
-
-            // Mostrar un mensaje de éxito
             mostrarAlerta("Proveedor guardado", "El nuevo proveedor ha sido guardado exitosamente.", Alert.AlertType.INFORMATION);
 
-            // Cerrar la ventana
+            // Loguear la acción de guardar proveedor
+            ActionLogger.log("Proveedor guardado: " + proveedorActual.getNombre());
+
             cerrarVentana();
         } else {
-            // Mostrar un mensaje de advertencia si los campos no son válidos
             mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
         }
     }
 
-
     @FXML
     public void handleCancelar(ActionEvent event) {
         cerrarFormulario();
+        // Loguear la acción de cancelar
+        ActionLogger.log( "El usuario ha cancelado la acción.");
     }
 
     private void cerrarFormulario() {

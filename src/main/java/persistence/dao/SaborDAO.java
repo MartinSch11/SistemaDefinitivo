@@ -28,7 +28,7 @@ public class SaborDAO {
         }
     }
 
-    // Método para guardar un nuevo sabor en la base de datos
+    // Método para save un nuevo sabor en la base de datos
     public void guardarSabor(Sabor sabor) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {

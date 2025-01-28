@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,13 +11,14 @@ import model.Insumo;
 import model.Proveedor;
 import persistence.dao.InsumoDAO;
 import persistence.dao.ProveedorDAO;
+import utilities.ActionLogger;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class StockFormController{
+public class StockFormController {
 
-    @FXML private ComboBox<Insumo> cmbInsumos; // Cambiado a ComboBox de Insumo
+    @FXML private ComboBox<Insumo> cmbInsumos;
     @FXML private TextField cantidadField;
     @FXML private DatePicker fechaCaducidadData;
     @FXML private DatePicker fechaCompraData;
@@ -27,23 +29,21 @@ public class StockFormController{
     @FXML private ComboBox cmbProveedor;
 
     private InsumoDAO insumoDAO;
-    private ProveedorDAO proveedorDAO; // Agregar ProveedorDAO
-
+    private ProveedorDAO proveedorDAO;
 
     public StockFormController() {
         insumoDAO = new InsumoDAO();
-        proveedorDAO = new ProveedorDAO(); // Inicializar ProveedorDAO
-
+        proveedorDAO = new ProveedorDAO();
     }
 
     @FXML
     private void initialize() {
         // Llenar el ChoiceBox con las unidades de medida
-        medidaChoiceBox.getItems().addAll("Litros", "Militros", "Kilos", "Gramos", "Unidades", "Unidad");
+        medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
 
         // Llenar el ComboBox con los insumos
         cargarInsumos();
-        cargarProveedores(); // Llenar el ComboBox de proveedores
+        cargarProveedores();
 
         // Configurar validadores para cantidadField y precioTextField
         cantidadField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0, change -> {
@@ -66,7 +66,7 @@ public class StockFormController{
         cmbProveedor.getItems().clear();
         cmbProveedor.getItems().addAll(proveedores);
 
-        cmbProveedor.setCellFactory(param -> new ListCell<Proveedor>() { // Especificar el tipo completo
+        cmbProveedor.setCellFactory(param -> new ListCell<Proveedor>() {
             @Override
             protected void updateItem(Proveedor item, boolean empty) {
                 super.updateItem(item, empty);
@@ -74,7 +74,7 @@ public class StockFormController{
             }
         });
 
-        cmbProveedor.setButtonCell(new ListCell<Proveedor>() { // Especificar el tipo completo
+        cmbProveedor.setButtonCell(new ListCell<Proveedor>() {
             @Override
             protected void updateItem(Proveedor item, boolean empty) {
                 super.updateItem(item, empty);
@@ -83,14 +83,11 @@ public class StockFormController{
         });
     }
 
-
     private void cargarInsumos() {
-        // Recuperar la lista de insumos desde la base de datos
-        List<Insumo> insumos = insumoDAO.findAll(); // Supón que este método devuelve todos los insumos
-        cmbInsumos.getItems().clear();  // Limpiar cualquier dato anterior
-        cmbInsumos.getItems().addAll(insumos); // Agregar todos los insumos al ComboBox
+        List<Insumo> insumos = insumoDAO.findAll();
+        cmbInsumos.getItems().clear();
+        cmbInsumos.getItems().addAll(insumos);
 
-        // Configurar el texto que se mostrará en el ComboBox
         cmbInsumos.setCellFactory(param -> new ListCell<Insumo>() {
             @Override
             protected void updateItem(Insumo item, boolean empty) {
@@ -98,7 +95,7 @@ public class StockFormController{
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getNombre());  // Mostrar solo el nombre del insumo
+                    setText(item.getNombre());
                 }
             }
         });
@@ -110,7 +107,7 @@ public class StockFormController{
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getNombre());  // Mostrar solo el nombre en el botón del ComboBox
+                    setText(item.getNombre());
                 }
             }
         });
@@ -119,7 +116,7 @@ public class StockFormController{
     @FXML
     private void handleGuardar(ActionEvent event) {
         Insumo insumoSeleccionado = cmbInsumos.getValue();
-        Proveedor proveedorSeleccionado = (Proveedor) cmbProveedor.getValue(); // Obtener el proveedor seleccionado
+        Proveedor proveedorSeleccionado = (Proveedor) cmbProveedor.getValue();
         String cantidad = cantidadField.getText();
         String precio = precioTextField.getText();
         LocalDate fechaCaducidad = fechaCaducidadData.getValue();
@@ -129,6 +126,7 @@ public class StockFormController{
         if (insumoSeleccionado == null || proveedorSeleccionado == null || cantidad.isEmpty() || precio.isEmpty() ||
                 fechaCaducidad == null || fechaCompra == null || medida == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Por favor, complete todos los campos.");
+            ActionLogger.log("El usuario intentó guardar un insumo sin completar todos los campos.");
             return;
         }
 
@@ -136,26 +134,26 @@ public class StockFormController{
             int cantidadNumerica = Integer.parseInt(cantidad);
             double precioDouble = Double.parseDouble(precio);
 
-            // Crear un objeto de Insumo con el proveedor seleccionado
             Insumo insumo = new Insumo(insumoSeleccionado.getNombre(), cantidadNumerica, precioDouble, medida, fechaCompra, fechaCaducidad);
-            insumo.setProveedor(proveedorSeleccionado); // Asignar el proveedor al insumo
+            insumo.setProveedor(proveedorSeleccionado);
 
-            // Guardar el insumo con el proveedor en la base de datos
             insumoDAO.save(insumo);
+            ActionLogger.log("El usuario guardó correctamente un insumo: " + insumo.getNombre());
 
-            cerrarFormulario(); // Cerrar el formulario
+            cerrarFormulario();
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "La cantidad o el precio no son válidos.");
+            ActionLogger.log("El usuario intentó guardar un insumo con datos inválidos.");
         }
     }
 
     @FXML
     private void handleCancelar(ActionEvent event) {
         cerrarFormulario();
+        ActionLogger.log("El usuario canceló la operación y cerró el formulario de insumo.");
     }
 
     private void cerrarFormulario() {
-        // Cerrar la ventana
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
         stage.close();
     }

@@ -3,14 +3,13 @@ package application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jakarta.persistence .EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.Getter;
 import utilities.Paths;
-
-import java.awt.*;
 import java.util.Objects;
 
 public class App extends Application {
@@ -28,10 +27,13 @@ public class App extends Application {
         AnchorPane load = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(Paths.LOGIN)));
         Scene scene = new Scene(load);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm());
+        stage.setTitle("Diseño de Sabores");
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com.example.image/iconoPasteleria.png"))));
         stage.setMaximized(false);
         stage.setScene(scene);
         stage.show();
     }
+
 
     @Override
     public void stop() throws Exception {
@@ -41,5 +43,4 @@ public class App extends Application {
         }
         super.stop();
     }
-
 }

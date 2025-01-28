@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="440.0" prefWidth="300.0" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControlRoleController">
+    <children>
+        <Pane prefHeight="440.0" prefWidth="300.0" style="-fx-background-color: #f7ede3;">
+            <children>
+                <StackPane prefHeight="55.0" prefWidth="300.0">
+                    <children>
+                        <Label styleClass="title-red" text="Control de permisos" />
+                    </children>
+                </StackPane>
+                <Pane layoutX="14.0" layoutY="70.0" prefHeight="340.0" prefWidth="273.0">
+                    <children>
+                  <GridPane layoutX="12.0" layoutY="15.0" prefHeight="310.0" prefWidth="250.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="125.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="321.0" minWidth="10.0" prefWidth="145.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                              <!-- Toggle button para permiso 1 -->
+                              <Label styleClass="texto" text="Estadística" />
+                              <ToggleButton fx:id="permisoEstadistica" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" />
+      
+                              <!-- Toggle button para permiso 2 -->
+                              <Label styleClass="texto" text="Eventos" GridPane.rowIndex="1" />
+                              <ToggleButton fx:id="permisoEventos" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      
+                              <!-- Toggle button para permiso 3 -->
+                              <Label styleClass="texto" text="Pedidos" GridPane.rowIndex="2" />
+                              <ToggleButton fx:id="permisoPedidos" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      
+                              <Label styleClass="texto" text="Recetas" GridPane.rowIndex="3" />
+                              <ToggleButton fx:id="permisoRecetas" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ToggleButton fx:id="permisoProductos"  styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      
+                              <Label styleClass="texto" text="Productos" GridPane.rowIndex="4" />
+                              <ToggleButton fx:id="permisoProveedores" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      
+                              <Label styleClass="texto" text="Proveedores" GridPane.rowIndex="5" />
+      
+                              <Label styleClass="texto" text="Stock" GridPane.rowIndex="6" />
+                              <ToggleButton fx:id="permisoStock" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                                <Label styleClass="texto" text="Agenda" GridPane.rowIndex="7" />
+                            <ToggleButton fx:id="permisoAgenda" styleClass="toggle-button" text="Sin permiso" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                     </children>
+                  </GridPane>
+                    </children>
+                </Pane>
+            <ComboBox fx:id="cmbRoles" layoutX="75.0" layoutY="58.0" prefWidth="150.0" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

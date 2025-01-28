@@ -33,6 +33,23 @@ public class CredencialesDAO {
         em.getTransaction().commit();
     }
 
+    public String obtenerNombrePorDNI(String dni) {
+        try {
+            String query = "SELECT t.nombre FROM Credencial c " +
+                    "JOIN c.trabajador t " +
+                    "WHERE c.dni = :dni";
+            return em.createQuery(query, String.class)
+                    .setParameter("dni", dni)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return "Usuario"; // Valor por defecto en caso de no encontrar el nombre
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error"; // Manejo de excepciones generales
+        }
+    }
+
+
     public Credencial findById(String dni) {
         return em.find(Credencial.class, dni);
     }

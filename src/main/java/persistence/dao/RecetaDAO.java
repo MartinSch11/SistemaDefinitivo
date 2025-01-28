@@ -102,6 +102,24 @@ public class RecetaDAO {
         }
     }
 
+    public void eliminarInsumoDeReceta(int insumoRecetaId) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("DELETE FROM InsumoReceta ir WHERE ir.id = :id");
+            query.setParameter("id", insumoRecetaId);
+            query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
     public Receta findRecetaWithInsumos(int recetaId) {
         EntityManager em = getEntityManager();
         try {

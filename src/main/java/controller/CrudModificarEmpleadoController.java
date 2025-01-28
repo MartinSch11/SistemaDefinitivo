@@ -10,6 +10,7 @@ import persistence.dao.CredencialesDAO;
 import persistence.dao.RolesDAO;
 import persistence.dao.TrabajadorDAO;
 import model.Trabajador;
+import utilities.ActionLogger;  // Importar ActionLogger
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +62,6 @@ public class CrudModificarEmpleadoController {
     public void setSettingsController(SettingsController settingsController) {
         this.settingsController = settingsController;
     }
-
 
     private void visibilidadButtons() {
         settingsController.getBtnEliminarEmpleado().setVisible(true);
@@ -187,6 +187,9 @@ public class CrudModificarEmpleadoController {
                 SettingsController.getInstance().cargarNombresEnComboBox();
 
                 showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado y credenciales actualizados exitosamente.");
+
+                // Registrar la acción de guardar en el log
+                ActionLogger.log("Empleado con DNI " + trabajador.getDni() + " actualizado exitosamente.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un empleado con ese DNI.");
             }
@@ -216,6 +219,9 @@ public class CrudModificarEmpleadoController {
             if (settingsController != null) {
                 settingsController.cerrarCrudModificarEmpleado();
             }
+
+            // Registrar la acción de cancelar en el log
+            ActionLogger.log("El usuario canceló la modificación del empleado.");
         } else {
             alert.close();
         }
@@ -224,7 +230,6 @@ public class CrudModificarEmpleadoController {
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
         if (camposObligatorios()){
-
             guardarDatos();
             vaciarCampos();
             visibilidadButtons();
@@ -234,8 +239,7 @@ public class CrudModificarEmpleadoController {
             }
 
         }else{
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pueden guardar los cambios debido a campos vacíos.");
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pueden save los cambios debido a campos vacíos.");
         }
     }
-
 }

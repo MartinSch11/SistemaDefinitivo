@@ -17,6 +17,7 @@ import model.Receta;
 import persistence.dao.ProductoDAO;
 import utilities.SceneLoader;
 import utilities.Paths;
+import utilities.ActionLogger;  // Importar ActionLogger
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -101,7 +102,10 @@ public class CrudProductosController {
             stage.setTitle("Agregar Producto");
             stage.show();
 
-            cargarProductos();// Recargar la tabla de productos después de cerrar el formulario
+            cargarProductos(); // Recargar la tabla de productos después de cerrar el formulario
+
+            // Log de la acción
+            ActionLogger.log("Agregar producto: Producto agregado.");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,6 +133,10 @@ public class CrudProductosController {
                 stage.showAndWait();
 
                 cargarProductos(); // Recargar la lista tras modificar
+
+                // Log de la acción
+                ActionLogger.log("Modificar producto: Producto modificado: " + productoSeleccionado.getNombre());
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -153,6 +161,9 @@ public class CrudProductosController {
                 productoDAO.delete(productoSeleccionado);
                 listaProductos.remove(productoSeleccionado);  // Eliminar el producto de la lista observable
                 tableProductos.setItems(listaProductos); // Asegurarse de que la tabla se actualice
+
+                // Log de la acción
+                ActionLogger.log("Eliminar producto: Producto eliminado: " + productoSeleccionado.getNombre());
             }
         } else {
             // Usar showAlert para mostrar un mensaje de error si no hay selección
@@ -162,11 +173,15 @@ public class CrudProductosController {
 
     @FXML
     void handleBuscar(ActionEvent event) {
+        // Lógica para buscar productos (no implementada aquí)
     }
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.ADMIN_MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+
+        // Log de la acción
+        ActionLogger.log("El usuario regresó al menú principal desde la pantalla de Productos.");
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {

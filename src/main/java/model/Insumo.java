@@ -25,7 +25,7 @@ public class Insumo {
     private String nombre;
 
     @Column(name = "cantidad")
-    private int cantidad;
+    private double cantidad;
 
     @Column(name = "fecha_caducidad")
     private LocalDate fechaCaducidad;
@@ -43,15 +43,13 @@ public class Insumo {
     @JoinColumn(name = "id_proveedor")
     private Proveedor proveedor;
 
-    // Propiedad SimpleStringProperty para la propiedad 'nombre' en JavaFX
     @Transient
     private SimpleStringProperty nombreProperty;
 
-    // Constructor adicional con los parámetros utilizados en el controlador
     public Insumo(String nombre, int cantidad, double precio, String medida, LocalDate fechaCompra, LocalDate fechaCaducidad, Proveedor proveedor) {
         this.nombre = nombre;
         this.cantidad = cantidad;
-        this.precio = precio;  // Agregado el precio
+        this.precio = precio;
         this.medida = medida;
         this.fechaCompra = fechaCompra;
         this.fechaCaducidad = fechaCaducidad;
@@ -68,19 +66,11 @@ public class Insumo {
         this.fechaCaducidad = fechaCaducidad;
         this.nombreProperty = new SimpleStringProperty(nombre);
     }
-    // Método para reducir la cantidad disponible
-    public void reducirCantidad(double cantidadUtilizada) {
-        if (this.cantidad >= cantidadUtilizada) {
-            this.cantidad -= cantidadUtilizada;
-        } else {
-            throw new IllegalArgumentException("No hay suficiente cantidad disponible para el insumo: " + nombre);
-        }
-    }
 
     // Getter para nombreProperty
     public StringProperty nombreProperty() {
         if (nombreProperty == null) {
-            nombreProperty = new SimpleStringProperty(nombre);  // Si no está inicializada, la inicializamos
+            nombreProperty = new SimpleStringProperty(nombre);
         }
         return nombreProperty;
     }
@@ -89,13 +79,13 @@ public class Insumo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
         if (nombreProperty != null) {
-            this.nombreProperty.set(nombre);  // Actualizar el valor de nombreProperty
+            this.nombreProperty.set(nombre);
         }
     }
 
     @Override
     public String toString() {
-        return nombre;  // Devolver solo el nombre como texto en el ComboBox y en otros lugares
+        return nombre;
     }
 
     public Proveedor getProveedor() {
@@ -107,7 +97,56 @@ public class Insumo {
     }
 
     public String getNombre() {
-        return nombre;  // Asumiendo que tienes un campo 'nombre' en la clase Insumo
+        return nombre;
+    }
+
+    public void reducirCantidad(double cantidadUtilizada, String unidadUtilizada) {
+        // Convert the used amount to the insumo's unit
+        double cantidadConvertida = convertirUnidad(cantidadUtilizada, unidadUtilizada, this.medida);
+
+        if (this.cantidad >= cantidadConvertida) {
+            this.cantidad -= cantidadConvertida;
+        } else {
+            throw new IllegalArgumentException("No hay suficiente cantidad disponible para el insumo: " + nombre);
+        }
+    }
+
+
+    public double getCantidadDisponible() {
+        return this.cantidad; // Devuelve la cantidad actual como double
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Insumo insumo = (Insumo) o;
+        return nombre != null && nombre.equals(insumo.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre != null ? nombre.hashCode() : 0;
+    }
+
+    public double convertirUnidad(double cantidad, String unidadActual, String unidadDeseada) {
+        // Reglas de conversión
+        switch (unidadActual) {
+            case "KG":
+                if (unidadDeseada.equals("GR")) return cantidad * 1000; // Kilos a Gramos
+                break;
+            case "GR":
+                if (unidadDeseada.equals("KG")) return cantidad / 1000; // Gramos a Kilos
+                break;
+            case "L":
+                if (unidadDeseada.equals("ML")) return cantidad * 1000; // Litros a Mililitros
+                break;
+            case "ML":
+                if (unidadDeseada.equals("L")) return cantidad / 1000; // Mililitros a Litros
+                break;
+        }
+        // Si no se requiere conversión
+        return cantidad;
     }
 
 }

@@ -12,10 +12,10 @@ public class InsumoReceta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_receta_insumo")
-    private int id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_receta")
+    @JoinColumn(name = "id_receta", nullable = false)
     private Receta receta;
 
     @ManyToOne
@@ -26,7 +26,7 @@ public class InsumoReceta {
     private int cantidadUtilizada;
 
     @Column(name = "unidad")
-    private String unidad; // Atributo para la unidad
+    private String unidad;
 
     public InsumoReceta() {}
 
@@ -44,5 +44,9 @@ public class InsumoReceta {
     @Override
     public String toString() {
         return "InsumoReceta{id=" + id + ", insumo=" + insumo.getNombre() + ", cantidadUtilizada=" + cantidadUtilizada + ", unidad=" + unidad + "}";
+    }
+
+    public double getCantidadUtilizada() {
+        return this.cantidadUtilizada;
     }
 }
