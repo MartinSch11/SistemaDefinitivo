@@ -1,0 +1,3 @@
+[2025-02-07 03:01:05] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 12345678
+[2025-02-07 03:01:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-07 03:01:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +24,15 @@ public class Pedido {
     @Column(name = "id_pedido")
     private Long numeroPedido;
 
-    @Column(name = "dni_cliente")
-    private String dniCliente;
+    // Relación con Cliente (FK por DNI)
+    @ManyToOne
+    @JoinColumn(name = "dni_cliente", referencedColumnName = "dni")
+    private Cliente cliente;
 
-    @Column(name = "nombre_cliente", nullable = false)
-    private String nombreCliente;
-
-    @Column(name = "contacto_cliente", nullable = false)
-    private String contactoCliente;
-
-    @Column(name = "empleado_asignado", nullable = false)
-    private String empleadoAsignado;
+    // Relación con Trabajador (FK por DNI)
+    @ManyToOne
+    @JoinColumn(name = "dni_empleado", referencedColumnName = "dni")
+    private Trabajador empleadoAsignado;
 
     @Column(name = "forma_entrega", nullable = false)
     private String formaEntrega;
@@ -43,20 +43,29 @@ public class Pedido {
     @Column(name = "estado_pedido", nullable = false)
     private String estadoPedido;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "descripcion")  // Nueva columna para observaciones
+    private String descripcion;
+
+    @Column(name = "total_pedido", nullable = false)
+    private BigDecimal totalPedido;
+
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PedidoProducto> pedidoProductos = new ArrayList<>();
 
-    public Pedido(Long numeroPedido, String nombreCliente, String contactoCliente, String dniCliente,
-                  String empleadoAsignado, String formaEntrega, LocalDate fechaEntrega, String estadoPedido) {
+    // Constructor sin cliente ni empleado para mayor flexibilidad
+    public Pedido(Long numeroPedido, Cliente cliente, Trabajador empleadoAsignado,
+                  String formaEntrega, LocalDate fechaEntrega, String estadoPedido,
+                  String descripcion, BigDecimal totalPedido) {  // ✅ Ahora usa BigDecimal
         this.numeroPedido = numeroPedido;
-        this.nombreCliente = nombreCliente;
-        this.contactoCliente = contactoCliente;
-        this.dniCliente = dniCliente;
+        this.cliente = cliente;
         this.empleadoAsignado = empleadoAsignado;
         this.formaEntrega = formaEntrega;
         this.fechaEntrega = fechaEntrega;
         this.estadoPedido = estadoPedido;
+        this.descripcion = descripcion;
+        this.totalPedido = totalPedido;
     }
+
 
     public String generarDetalle() {
         if (pedidoProductos == null || pedidoProductos.isEmpty()) {
@@ -84,7 +93,6 @@ public class Pedido {
         return detalle.toString();
     }
 
-
     // Método para obtener los productos del pedido
     public List<Producto> getProductos() {
         List<Producto> productos = new ArrayList<>();
@@ -92,5 +100,12 @@ public class Pedido {
             productos.add(pedidoProducto.getProducto());
         }
         return productos;
+    }
+
+    // Método para calcular el total del pedido si es necesario
+    public BigDecimal calcularTotalPedido() {
+        return pedidoProductos.stream()
+                .map(p -> BigDecimal.valueOf(p.getCantidad()).multiply(p.getProducto().getPrecio())) // Convertimos int a BigDecimal
+                .reduce(BigDecimal.ZERO, BigDecimal::add); // Sumar todos los valores
     }
 }

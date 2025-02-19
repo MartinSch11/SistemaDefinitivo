@@ -7,12 +7,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Setter;
+import model.Cliente;
 import model.Pedido;
 import model.Trabajador;
+import persistence.dao.ClienteDAO;
 import persistence.dao.PedidoDAO;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import persistence.dao.TrabajadorDAO;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -28,6 +32,8 @@ public class ModificarPedidosController {
     @FXML private DatePicker fechaEntregaPedido;
     @FXML private TextField nombreCliente;
 
+    private ClienteDAO clienteDAO = new ClienteDAO();
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
     private PedidoDAO pedidoDAO = new PedidoDAO();
     private Pedido pedido;
 
@@ -61,13 +67,13 @@ public class ModificarPedidosController {
 
     @FXML
     void obtenerDatos(Pedido pedidos){
-        nombreCliente.setText(pedidos.getNombreCliente());
-        contactoCliente.setText(pedidos.getContactoCliente());
-        dniClientePedido.setText(pedidos.getDniCliente());
+        nombreCliente.setText(pedidos.getCliente().getNombre());
+        contactoCliente.setText(pedidos.getCliente().getTelefono());
+        dniClientePedido.setText(pedidos.getCliente().getDni());
         //detalle.setText(pedidos.getDetallePedido()); no se como hacer para modificar el detalle del pedido
         fechaEntregaPedido.setValue(pedidos.getFechaEntrega());
         cmbFormaEntrega.setValue(pedidos.getFormaEntrega());
-        empleadoAsignado.setValue(pedidos.getEmpleadoAsignado());
+        empleadoAsignado.setValue(pedidos.getEmpleadoAsignado().getNombre());
     }
 
     @FXML
@@ -79,15 +85,28 @@ public class ModificarPedidosController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (pedidoSeleccionado != null) {
-                // Actualiza los datos del pedidoSeleccionado
-                pedidoSeleccionado.setNombreCliente(nombreCliente.getText());
-                pedidoSeleccionado.setContactoCliente(contactoCliente.getText());
-                pedidoSeleccionado.setDniCliente(dniClientePedido.getText());
-               // pedidoSeleccionado.setDetallePedido(detallePedido.getText()); // Asumiendo que ahora tienes este campo
-                pedidoSeleccionado.setEmpleadoAsignado(empleadoAsignado.getValue());
+                // Obtener el Cliente actual del Pedido
+                Cliente cliente = pedidoSeleccionado.getCliente();
+                if (cliente != null) {
+                    cliente.setNombre(nombreCliente.getText());
+                    cliente.setTelefono(contactoCliente.getText());
+                    cliente.setDni(dniClientePedido.getText());
+                    clienteDAO.update(cliente); // Guardar cambios en la base de datos
+                }
+
+                // Obtener el Trabajador actual del Pedido
+                Trabajador trabajador = trabajadorDAO.findByNombre(empleadoAsignado.getValue());
+                if (trabajador == null) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "El trabajador seleccionado no existe.");
+                    return;
+                }
+
+                // Actualizar datos del Pedido
+                pedidoSeleccionado.setEmpleadoAsignado(trabajador);
                 pedidoSeleccionado.setFormaEntrega(cmbFormaEntrega.getValue());
                 pedidoSeleccionado.setFechaEntrega(fechaEntregaPedido.getValue());
 
+                // Guardar cambios en la base de datos
                 modificarPedido(pedidoSeleccionado); // Actualiza en la base de datos y la lista Observable
 
                 showAlert(Alert.AlertType.INFORMATION, "Éxito", "El pedido fue actualizado correctamente.");
@@ -100,7 +119,6 @@ public class ModificarPedidosController {
             alert.close();
         }
     }
-
 
     public void modificarPedido(Pedido pedido) {
         pedidoDAO.update(pedido);
@@ -118,7 +136,6 @@ public class ModificarPedidosController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
 
     @FXML
     void abrirCatalogoPedidos(ActionEvent event) {

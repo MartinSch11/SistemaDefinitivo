@@ -36,10 +36,21 @@ public class ClienteDAO {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Cliente cliente = em.find(Cliente.class, dni); // Buscar por el dni
+
+            // Verificar si el cliente tiene pedidos asociados
+            Long count = em.createQuery("SELECT COUNT(p) FROM Pedido p WHERE p.cliente.dni = :dni", Long.class)
+                    .setParameter("dni", dni)
+                    .getSingleResult();
+
+            if (count > 0) {
+                throw new RuntimeException("No se puede eliminar el cliente porque tiene pedidos asignados.");
+            }
+
+            Cliente cliente = em.find(Cliente.class, dni);
             if (cliente != null) {
                 em.remove(cliente);
             }
+
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -49,24 +60,13 @@ public class ClienteDAO {
     public Cliente findByDni(String dni) {
         EntityManager em = emf.createEntityManager();
         try {
-            List<Cliente> resultados = em.createQuery("SELECT c FROM Cliente c WHERE c.dni = :dni", Cliente.class)
+            return em.createQuery("SELECT c FROM Cliente c WHERE c.dni = :dni", Cliente.class)
                     .setParameter("dni", dni)
-                    .getResultList(); // Devuelve una lista en lugar de un único resultado
-
-            return resultados.isEmpty() ? null : resultados.get(0); // Retorna null si no hay resultados
-        } catch (Exception e) {
-            System.err.println("Error al buscar el cliente con DNI " + dni + ": " + e.getMessage());
-            return null;
-        } finally {
-            em.close();
-        }
-    }
-
-
-    public Cliente findById(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Cliente.class, id);
+                    .setMaxResults(1)  // Limitamos a 1 resultado
+                    .getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);  // Si no hay resultados, devuelve null
         } finally {
             em.close();
         }

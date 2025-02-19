@@ -16,15 +16,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Setter;
 import model.*;
-import persistence.dao.InsumoDAO;
-import persistence.dao.PedidoDAO;
-import persistence.dao.RecetaDAO;
+import persistence.dao.*;
 import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.SceneLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +37,7 @@ public class PedidosController {
     @FXML private Label lblFechaEntrega;
     @FXML  private Label lblFormaEntrega;
     @FXML private Label lblNomCliente;
+    @FXML private Label lblTotalPedido;
     @FXML private Label lblTelefonoCliente;
     @FXML private ComboBox<String> cmbEstadoDelPedido;
     @FXML private GridPane gridContenedorPedidos;
@@ -48,6 +48,8 @@ public class PedidosController {
 
     //private PedidoDAO pedidoDAO;
     private RecetaDAO recetaDAO;
+    private ClienteDAO clienteDAO;
+    private TrabajadorDAO trabajadorDAO;
     private InsumoDAO insumoDAO;
     private List<Producto> productos;
     private ObservableList<Pedido> pedidos = FXCollections.observableArrayList();
@@ -70,6 +72,8 @@ public class PedidosController {
         pedidoDAO = new PedidoDAO();
         recetaDAO = new RecetaDAO();
         insumoDAO = new InsumoDAO();
+        clienteDAO = new ClienteDAO();
+        trabajadorDAO = new TrabajadorDAO();
     }
 
     @FXML
@@ -92,14 +96,15 @@ public class PedidosController {
         for (Pedido pedido : pedidos) {
             agregarNuevoPedido(
                     pedido.getNumeroPedido(),
-                    pedido.getNombreCliente(),
-                    pedido.getContactoCliente(),
-                    pedido.getDniCliente(),
-                    pedido.generarDetalle(), // Aquí usamos generarDetalle() en lugar de getDetallePedido()
-                    pedido.getEmpleadoAsignado(),
+                    pedido.getCliente().getNombre(),
+                    pedido.getCliente().getTelefono(),
+                    pedido.getCliente().getDni(),
+                    pedido.generarDetalle(),
+                    pedido.getEmpleadoAsignado().getNombre(),
                     pedido.getFormaEntrega(),
                     pedido.getFechaEntrega(),
-                    pedido.getEstadoPedido()
+                    pedido.getEstadoPedido(),
+                    pedido.getTotalPedido().toString()
             );
         }
     }
@@ -137,29 +142,63 @@ public class PedidosController {
         DNIpedidoActual = lblDNICliente.getText();
     }
 
-    public void agregarNuevoPedido(Long numeroPedido, String nombre, String contacto, String dniCliente, String detalle, String empleado, String formaEntrega, LocalDate fechaEntrega, String estadoPedido) {
+    public void agregarNuevoPedido(Long numeroPedido, String nombre, String contacto, String dniCliente,
+                                   String detalle, String empleado, String formaEntrega, LocalDate fechaEntrega,
+                                   String estadoPedido, String totalPedido) {
         try {
+            Cliente cliente = clienteDAO.findByDni(dniCliente);
+            if (cliente == null) {
+                throw new RuntimeException("Cliente con DNI " + dniCliente + " no encontrado en la base de datos.");
+            }
+
+            Trabajador trabajador = trabajadorDAO.findByNombre(empleado);
+            if (trabajador == null) {
+                throw new RuntimeException("Trabajador con nombre " + empleado + " no encontrado en la base de datos.");
+            }
+
             // Crear etiquetas para mostrar la información del pedido
             Label detalleCompletoPedido = new Label();
 
             // Crear un nuevo StackPane para el pedido
+            StackPane nuevoPedidoStackPane = crearStackPanePedido(detalleCompletoPedido);
+
+            // ✅ Convertir totalPedido de String a BigDecimal
+            BigDecimal totalPedidoBD = new BigDecimal(totalPedido);
+
+            // Crear el objeto Pedido
+            Pedido pedido = new Pedido(numeroPedido, cliente, trabajador, formaEntrega, fechaEntrega, estadoPedido, detalle, totalPedidoBD);
+
+            // Obtener el detalle generado
+            String detalleGenerado = pedido.generarDetalle();
+
+            // Mostrar el detalle en la etiqueta
+            configurarLabelDetalle(detalleCompletoPedido, detalleGenerado, empleado, fechaEntrega);
+
+            // Manejar el clic en el StackPane
+            manejarClicStackPane(nuevoPedidoStackPane, pedido, numeroPedido, nombre, detalleGenerado, contacto, empleado, formaEntrega, fechaEntrega, dniCliente);
+
+            // Agregar el StackPane al GridPane
+            agregarStackPaneAlGridPane(nuevoPedidoStackPane);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private StackPane crearStackPanePedido(Label detalleCompletoPedido) {
             StackPane nuevoPedidoStackPane = new StackPane(detalleCompletoPedido);
             nuevoPedidoStackPane.setPrefWidth(480);
             nuevoPedidoStackPane.setPrefHeight(190);
             nuevoPedidoStackPane.setStyle("-fx-background-color: #FFF4F4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 2px;");
+            return nuevoPedidoStackPane;
+        }
 
-            // Crear el objeto Pedido sin el detalle
-            Pedido pedido = new Pedido(numeroPedido, nombre, contacto, dniCliente, empleado, formaEntrega, fechaEntrega, estadoPedido);
-
-            // Llamar a generarDetalle() para obtener el detalle del pedido
-            String detalleGenerado = pedido.generarDetalle();
-
-            // Mostrar el detalle en la etiqueta
+        private void configurarLabelDetalle(Label detalleCompletoPedido, String detalleGenerado, String empleado, LocalDate fechaEntrega) {
             detalleCompletoPedido.setText(detalleGenerado + "\n" + empleado + "\n" + fechaEntrega.toString());
             detalleCompletoPedido.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-padding-top: 2px");
-            detalleCompletoPedido.setWrapText(true); // permitir que el texto se ajuste al ancho del TextArea
+            detalleCompletoPedido.setWrapText(true); // Permitir que el texto se ajuste al ancho del Label
+        }
 
-            // Añadir un EventHandler para hacer clic en el StackPane
+        private void manejarClicStackPane(StackPane nuevoPedidoStackPane, Pedido pedido, Long numeroPedido, String nombre, String detalleGenerado, String contacto, String empleado, String formaEntrega, LocalDate fechaEntrega, String dniCliente) {
             nuevoPedidoStackPane.setOnMouseClicked(event -> {
                 // Asignar el pedido correspondiente
                 pedidoSeleccionado = pedido;
@@ -174,6 +213,7 @@ public class PedidosController {
                 lblFormaEntrega.setText(formaEntrega);
                 lblFechaEntrega.setText(fechaEntrega.toString());
                 lblDNICliente.setText(dniCliente);
+                lblTotalPedido.setText(pedido.getTotalPedido().toString());
 
                 // Llamar a la función para procesar la visualización del pedido
                 pedidoActualVisualizandose();
@@ -185,8 +225,9 @@ public class PedidosController {
                     modificarController.obtenerDatos(pedidoSeleccionado); // Pasar el pedido seleccionado
                 }
             });
+        }
 
-            // Determinar la siguiente fila en el GridPane
+        private void agregarStackPaneAlGridPane(StackPane nuevoPedidoStackPane) {
             int newRowIndex = gridContenedorPedidos.getRowCount(); // Obtener el número de filas actuales
 
             // Añadir el StackPane al GridPane
@@ -198,10 +239,7 @@ public class PedidosController {
             rowConstraints.setMaxHeight(190 + 7);
             rowConstraints.setMinHeight(190 + 7);
             gridContenedorPedidos.getRowConstraints().add(rowConstraints);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
-    }
 
     private void actualizarGridPane() {
         gridContenedorPedidos.getChildren().clear();
@@ -209,20 +247,24 @@ public class PedidosController {
     }
 
     private void seleccionarPedido(Pedido pedido) {
+        if (pedido == null) return;  // Evita errores si el pedido es null
+
         paneVisualizarPedido.setVisible(true);
 
-        lblNomCliente.setText(pedido.getNombreCliente());
-        lblDetallePedidoCliente.setText(pedido.generarDetalle()); // Aquí usamos generarDetalle() en lugar de getDetallePedido()
-        lblTelefonoCliente.setText(pedido.getContactoCliente());
-        lblEmpleadoAsignadoAlPedido.setText(pedido.getEmpleadoAsignado());
+        // Evita NullPointerException usando valores por defecto si los objetos son null
+        lblNomCliente.setText(pedido.getCliente() != null ? pedido.getCliente().getNombre() : "Sin cliente");
+        lblDetallePedidoCliente.setText(pedido.generarDetalle());
+        lblTelefonoCliente.setText(pedido.getCliente() != null ? pedido.getCliente().getTelefono() : "No disponible");
+        lblEmpleadoAsignadoAlPedido.setText(pedido.getEmpleadoAsignado() != null ? pedido.getEmpleadoAsignado().getNombre() : "No asignado");
         lblFormaEntrega.setText(pedido.getFormaEntrega());
-        lblFechaEntrega.setText(pedido.getFechaEntrega().toString());
-        lblDNICliente.setText(pedido.getDniCliente());
+        lblFechaEntrega.setText(pedido.getFechaEntrega() != null ? pedido.getFechaEntrega().toString() : "No definida");
+        lblDNICliente.setText(pedido.getCliente() != null ? pedido.getCliente().getDni() : "No disponible");
+        lblTotalPedido.setText(pedido.getTotalPedido() != null ? pedido.getTotalPedido().toString() : "0.00");
 
-        pedidoSeleccionado = pedido;  // Asigna el pedido seleccionado aquí
-
+        pedidoSeleccionado = pedido;
         actualizarColoresStackPane();
     }
+
 
     public void agregarPedido(Pedido pedido) {
         // Guardar el pedido en la base de datos
@@ -235,7 +277,7 @@ public class PedidosController {
         actualizarGridPane();
 
         // Registrar la acción de agregar el pedido
-        ActionLogger.log("Pedido creado: " + pedido.getNombreCliente() +
+        ActionLogger.log("Pedido creado: " + pedido.getCliente().getNombre() +
                 " con productos: " + pedido.getProductos());
     }
 
@@ -352,7 +394,7 @@ public class PedidosController {
             // Validar y reducir insumos si es posible
             if (validarYReducirInsumos(nuevoPedido)) {
                 agregarPedido(nuevoPedido);
-                ActionLogger.log("Pedido creado: " + nuevoPedido.getNombreCliente() +
+                ActionLogger.log("Pedido creado: " + nuevoPedido.getCliente().getNombre() +
                         " con productos: " + nuevoPedido.getProductos());
             } else {
                 mostrarAlerta("Error", "No se pudo completar el pedido por falta de insumos.");

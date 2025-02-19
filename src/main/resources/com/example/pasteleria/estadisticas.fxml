@@ -4,9 +4,13 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,93 +18,131 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.estadisticaController">
-   <children>
-      <Pane prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: f7ede3;">
-         <children>
-            <Pane prefHeight="55.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
-               <children>
-                  <Label layoutX="635.0" layoutY="13.0" text="Estadística" textFill="WHITE">
-                     <font>
-                        <Font name="Inter Regular" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <SplitPane dividerPositions="0.5" layoutX="80.0" layoutY="110.0" prefHeight="500.0" prefWidth="1200.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="731.0" SplitPane.resizableWithParent="false">
-                     <children>
-                        <BarChart fx:id="bcIngresos" layoutX="48.0" layoutY="49.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
-                        <Label alignment="CENTER" layoutX="253.0" layoutY="14.0" text="Ingresos" textFill="#b70505">
-                           <font>
-                              <Font name="Inter Regular" size="22.0" />
-                           </font>
+<AnchorPane prefHeight="720.0" prefWidth="1360.0" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.estadisticaController">
+    <children>
+        <Pane prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: f7ede3;">
+            <children>
+                <!-- Header -->
+                <Pane prefHeight="55.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
+                    <children>
+                        <Label layoutX="635.0" layoutY="13.0" text="Estadística" textFill="WHITE">
+                            <font>
+                                <Font name="Inter Regular" size="22.0" />
+                            </font>
                         </Label>
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="571.0" SplitPane.resizableWithParent="false">
-                     <children>
-                        <BarChart fx:id="bcEgresos" layoutX="48.0" layoutY="49.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
-                        <Label layoutX="256.0" layoutY="14.0" text="Egresos" textFill="#b70505">
-                           <font>
-                              <Font name="Inter Regular" size="22.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-            <GridPane layoutX="80.0" layoutY="618.0" prefWidth="1200.0">
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="Generar Reportes">
-                     <cursor>
+                    </children>
+                </Pane>
+
+                <!-- Botón Volver -->
+                <Button fx:id="btnVolver" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="button-Volver">
+                            <image>
+                                <Image url="@../../../com.example.image/arrow_left.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Inter Regular" size="12.0" />
+                    </font>
+                    <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="Inter Regular" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </GridPane>
-            <Button fx:id="btnVolver" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="87.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="button-Volver">
-                     <image>
-                        <Image url="@../../../com.example.image/arrow_left.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Inter Regular" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </Pane>
-   </children>
+                    </cursor>
+                </Button>
+
+                <!-- TabPane para gráficos -->
+                <TabPane fx:id="tabPane" layoutX="80.0" layoutY="120.0" prefHeight="550.0" prefWidth="1200.0">
+                    <tabs>
+                        <!-- Pestaña para Ingresos vs Egresos -->
+                        <Tab fx:id="tabIngresosEgresos" text="Ingresos vs Egresos">
+                            <content>
+                                <VBox spacing="10">
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Comparación mensual de ingresos y egresos" />
+                                    <BarChart fx:id="barChart" prefHeight="450.0" prefWidth="1200.0">
+                                        <xAxis>
+                                            <CategoryAxis label="Meses" fx:id="xAxis" />
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis fx:id="yAxis" label="Monto ($)" />
+                                        </yAxis>
+                                    </BarChart>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <!-- Pestaña para Distribución de Ventas -->
+                        <Tab fx:id="tabPieChart" text="Distribución de Ventas">
+                            <content>
+                                <VBox spacing="10">
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Distribución de ventas por categoría" />
+                                    <PieChart fx:id="pieChart" prefHeight="450.0" prefWidth="1200.0" />
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <!-- Pestaña para Productos más Vendidos -->
+                        <Tab fx:id="tabProductos" text="Productos más Vendidos">
+                            <content>
+                                <VBox spacing="10">
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Productos más vendidos por cantidad" />
+                                    <BarChart fx:id="barChartProductos" prefHeight="450.0" prefWidth="1200.0">
+                                        <xAxis>
+                                            <CategoryAxis label="Productos" fx:id="xAxisProductos" />
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis fx:id="yAxisProductos" label="Cantidad Vendida" />
+                                        </yAxis>
+                                    </BarChart>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+
+                <!-- Sección de Filtros Simplificada -->
+                <GridPane layoutX="80.0" layoutY="84.0" prefHeight="40.0" prefWidth="576.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <!-- Filtros de fecha -->
+                        <DatePicker fx:id="datePickerDesde" promptText="Desde" GridPane.columnIndex="0" />
+                        <DatePicker fx:id="datePickerHasta" promptText="Hasta" GridPane.columnIndex="1" />
+
+                        <!-- Botón de filtrado -->
+                        <Button fx:id="btnFiltrar" onAction="#filtrarDatos" text="Aplicar Filtros" GridPane.columnIndex="2" />
+                    </children>
+                </GridPane>
+
+                <!-- Botón para generar reportes -->
+                <GridPane layoutX="80.0" layoutY="670.0" prefWidth="1200.0">
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="Generar Reportes">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font name="Inter Regular" size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                    <rowConstraints>
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+            <ComboBox fx:id="comboFiltro" layoutX="745.0" layoutY="92.0" prefHeight="25.0" prefWidth="195.0" />
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

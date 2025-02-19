@@ -2,34 +2,27 @@ package model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Embeddable
 public class PedidoProductoId implements Serializable {
 
+    // Getters y setters
     @Column(name = "id_producto")
     private Long productoId;
 
     @Column(name = "id_pedido")
     private Long pedidoId;
 
-    // Getters y setters
-    public Long getProductoId() {
-        return productoId;
-    }
-
-    public void setProductoId(Long productoId) {
-        this.productoId = productoId;
-    }
-
-    public Long getPedidoId() {
-        return pedidoId;
-    }
-
-    public void setPedidoId(Long pedidoId) {
-        this.pedidoId = pedidoId;
+    public PedidoProductoId(Long numeroPedido, long id) {
     }
 
     // Implementación segura de equals y hashCode

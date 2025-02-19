@@ -1,0 +1,72 @@
+[2025-02-02 17:25:52] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 12345678
+[2025-02-02 17:25:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:26:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-02-02 17:32:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:32:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-02-02 17:43:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:43:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-02-02 17:44:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:44:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-02-02 17:44:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:51:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:51:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-02-02 17:52:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-02-02 17:52:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-02-02 17:52:07] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-02-02 17:52:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-02-02 17:52:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-02-02 17:52:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-02-02 17:52:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-02-02 17:52:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-02-02 17:52:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-02-02 17:52:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-02-02 17:52:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-02-02 17:52:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:52:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-02-02 17:52:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-02-02 17:52:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:52:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-02-02 17:52:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-02-02 17:52:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Eventos
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-15
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-10
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-20
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-27
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-30
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-25
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-02 generado correctamente.
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-02 generado correctamente.
+[2025-02-02 17:52:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario inicializado para el mes: 2025-02
+[2025-02-02 17:52:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-01 generado correctamente.
+[2025-02-02 17:52:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambiado al mes anterior: 2025-01
+[2025-02-02 17:52:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2024-12 generado correctamente.
+[2025-02-02 17:52:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambiado al mes anterior: 2024-12
+[2025-02-02 17:52:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Detalles del evento cargados para la fecha: 2024-12-20
+[2025-02-02 17:53:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:53:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Volviendo al menú principal.
+[2025-02-02 17:53:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-02-02 17:53:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:53:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Volviendo al menú principal.
+[2025-02-02 17:53:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-02-02 17:53:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:53:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-02-02 17:53:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2025-02-02 17:54:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-02-02 17:54:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:54:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-02-02 17:54:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-02-02 17:54:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo.
+[2025-02-02 17:54:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 17:54:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-02-02 18:06:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-02-02 18:06:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Trufas de Chocolate
+[2025-02-02 18:06:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 18:06:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-02-02 18:06:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-02-02 18:07:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 18:07:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-02-02 20:34:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 20:34:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-02-02 20:36:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-02-02 20:36:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas

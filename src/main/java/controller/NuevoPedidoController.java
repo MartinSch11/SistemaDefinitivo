@@ -1,7 +1,5 @@
 package controller;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +16,7 @@ import persistence.dao.ClienteDAO;
 import persistence.dao.PedidoDAO;
 import persistence.dao.TrabajadorDAO;
 import utilities.*;
-
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.io.IOException;
@@ -43,7 +41,6 @@ public class NuevoPedidoController {
     private PedidosController pedidosController;
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
     private ClienteDAO clienteDAO = new ClienteDAO();
-
 
     public void setPedidosController(PedidosController pedidosController) {
         this.pedidosController = pedidosController;
@@ -200,49 +197,61 @@ public class NuevoPedidoController {
 
     public void crearPedido(String detalle) {
         String estadoPedido = "Sin empezar";
-        Long numeroPedido = null;  // O puedes obtener un número único si no usas auto-generación en la base de datos
 
-        // Crear el pedido
+        // Buscar cliente en la base de datos
+        Cliente cliente = clienteDAO.findByDni(dniClienteField.getText());
+        if (cliente == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Cliente no encontrado en la base de datos.");
+            return;
+        }
+
+        // Buscar empleado en la base de datos
+        Trabajador trabajador = trabajadorDAO.findByDNI(empleadoAsignado.getValue());
+        if (trabajador == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Empleado no encontrado en la base de datos.");
+            return;
+        }
+
+        // Obtener productos y calcular total del pedido
+        Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
+        BigDecimal totalPedido = calcularTotalPedido(productos);  // ✅ Nueva función para calcular el total
+
+        // Crear el pedido con el total calculado
         pedidoCreado = new Pedido(
-                numeroPedido,  // Aquí pasas el valor de numeroPedido
-                nombreCliente.getText(),
-                contactoCliente.getText(),
-                dniClienteField.getText(),
-                empleadoAsignado.getValue(),
+                null,  // Se generará automáticamente en la BD
+                cliente,
+                trabajador,
                 cmbFormaEntrega.getValue(),
                 fechaEntregaPedido.getValue(),
-                estadoPedido
+                estadoPedido,
+                detalle,  // Guardamos el detalle en `descripcion`
+                totalPedido  // ✅ Pasamos el total del pedido
         );
 
-        // Crear los objetos PedidoProducto y asociarlos al pedido
-        Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
+        // Guardar el pedido en la base de datos para obtener su ID
+        pedidoDAO.save(pedidoCreado);
 
-        // Crear una lista de PedidoProducto para asociar los productos
+        // Crear la lista de PedidoProducto
         List<PedidoProducto> pedidoProductos = new ArrayList<>();
         for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
             Producto producto = entry.getKey();
+            int cantidad = entry.getValue();
 
-            // Crear un nuevo PedidoProducto para cada producto
-            PedidoProducto pedidoProducto = new PedidoProducto();
-            PedidoProductoId id = new PedidoProductoId();
-            id.setProductoId(producto.getId());
-            id.setPedidoId(pedidoCreado.getNumeroPedido());
-
-            pedidoProducto.setId(id);
-            pedidoProducto.setProducto(producto);
-            pedidoProducto.setPedido(pedidoCreado);
-
-            pedidoProductos.add(pedidoProducto);  // Agregar a la lista de PedidoProducto
+            // Crear el objeto PedidoProducto
+            PedidoProducto pedidoProducto = new PedidoProducto(pedidoCreado, producto, cantidad);
+            pedidoProductos.add(pedidoProducto);
         }
 
-        // Asociar la lista de PedidoProducto al pedido
+        // Asociar los productos al pedido y actualizar en la base de datos
         pedidoCreado.setPedidoProductos(pedidoProductos);
-
-        // Persistir el pedido con la relación de productos
-        // Guardar pedido en base de datos
+        pedidoDAO.update(pedidoCreado);
     }
 
-
+    private BigDecimal calcularTotalPedido(Map<Producto, Integer> productos) {
+        return productos.entrySet().stream()
+                .map(entry -> entry.getKey().getPrecio().multiply(new BigDecimal(entry.getValue())))  // Multiplicar precio por cantidad
+                .reduce(BigDecimal.ZERO, BigDecimal::add);  // Sumar todos los valores
+    }
 
     private void guardarPedido() {
         try {
@@ -251,20 +260,22 @@ public class NuevoPedidoController {
             if (pedidosController != null) {
                 pedidosController.agregarNuevoPedido(
                         pedidoCreado.getNumeroPedido(),
-                        pedidoCreado.getDniCliente(),
-                        pedidoCreado.getNombreCliente(),
-                        pedidoCreado.getContactoCliente(),
-                        pedidoCreado.generarDetalle(), // Usar el método `generarDetalle()` en lugar de `getDetallePedido()`
-                        pedidoCreado.getEmpleadoAsignado(),
+                        pedidoCreado.getCliente().getDni(),
+                        pedidoCreado.getCliente().getNombre(),
+                        pedidoCreado.getCliente().getTelefono(),
+                        pedidoCreado.generarDetalle(),
+                        pedidoCreado.getEmpleadoAsignado().getNombre(),
                         pedidoCreado.getFormaEntrega(),
                         pedidoCreado.getFechaEntrega(),
-                        pedidoCreado.getEstadoPedido()
+                        pedidoCreado.getEstadoPedido(),
+                        pedidoCreado.getTotalPedido().toString()
                 );
             }
         } catch (RuntimeException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
+
 
 
     private void cerrarVentana(ActionEvent event) {

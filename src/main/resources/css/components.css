@@ -213,4 +213,23 @@
     -fx-background-color: #b3b3b3;
 }
 
+/* Color para la serie de Ingresos (series0) */
+.default-color0.chart-bar {
+    -fx-bar-fill: #4CAF50; /* Verde */
+}
+
+/* Color para la serie de Egresos (series1) */
+.default-color1.chart-bar {
+    -fx-bar-fill: #F44336; /* Rojo */
+}
+
+.chart-pie-label {
+    -fx-fill: black;
+    -fx-font-size: 18px;
+}
+
+.chart-legend {
+    -fx-background-color: #dbbea1;
+    -fx-text-fill: black;
+}
 
