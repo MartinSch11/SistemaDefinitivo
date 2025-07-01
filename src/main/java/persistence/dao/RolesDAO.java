@@ -4,8 +4,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import model.Rol;
+import model.Permiso;
+import model.RolPermiso;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RolesDAO {
     private EntityManagerFactory emf;
@@ -27,18 +30,17 @@ public class RolesDAO {
         }
     }
 
+    // Devuelve una lista de strings tipo "Recurso-Accion" para el rol
     public List<String> obtenerPermisosPorRol(int idRol) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery(
-                            """
-                                    SELECT p.nombre 
-                                    FROM RolPermiso rp 
-                                    JOIN rp.permiso p 
-                                    WHERE rp.idRol = :idRol
-                                    """, String.class)
+            List<Permiso> permisos = em.createQuery(
+                            "SELECT rp.permiso FROM RolPermiso rp WHERE rp.rol.idRol = :idRol", Permiso.class)
                     .setParameter("idRol", idRol)
                     .getResultList();
+            return permisos.stream()
+                    .map(p -> p.getRecurso() + "-" + p.getAccion())
+                    .collect(Collectors.toList());
         } finally {
             em.close();
         }
@@ -47,7 +49,7 @@ public class RolesDAO {
     public Integer obtenerIdRolPorNombre(String nombreRol) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT r.id FROM Rol r WHERE r.nombre = :nombreRol", Integer.class)
+            return em.createQuery("SELECT r.idRol FROM Rol r WHERE r.nombre = :nombreRol", Integer.class)
                     .setParameter("nombreRol", nombreRol)
                     .getSingleResult();
         } catch (Exception e) {
@@ -58,28 +60,35 @@ public class RolesDAO {
         }
     }
 
-    public void actualizarPermiso(int idRol, String permiso, boolean concedido) {
+    // Actualiza el permiso (agrega o elimina) para el rol y el permiso (por recurso y acción)
+    public void actualizarPermiso(int idRol, String recurso, String accion, boolean concedido) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
+            // Buscar el id_permiso correspondiente
+            Integer idPermiso = (Integer) em.createQuery(
+                            "SELECT p.idPermiso FROM Permiso p WHERE p.recurso = :recurso AND p.accion = :accion")
+                    .setParameter("recurso", recurso)
+                    .setParameter("accion", accion)
+                    .getSingleResult();
             if (concedido) {
-                // Agregar permiso si no existe
-                em.createNativeQuery(
-                                "INSERT INTO rol_permiso (id_rol, id_permiso) " +
-                                        "SELECT :idRol, p.id_permiso " +
-                                        "FROM permisos p WHERE p.nombre = :permiso " +
-                                        "ON DUPLICATE KEY UPDATE id_rol = id_rol"
-                        ).setParameter("idRol", idRol)
-                        .setParameter("permiso", permiso)
-                        .executeUpdate();
+                // Agregar si no existe
+                Long count = em.createQuery(
+                                "SELECT COUNT(rp) FROM RolPermiso rp WHERE rp.rol.idRol = :idRol AND rp.permiso.idPermiso = :idPermiso", Long.class)
+                        .setParameter("idRol", idRol)
+                        .setParameter("idPermiso", idPermiso)
+                        .getSingleResult();
+                if (count == 0) {
+                    RolPermiso rp = new RolPermiso();
+                    rp.setRol(em.find(Rol.class, idRol));
+                    rp.setPermiso(em.find(Permiso.class, idPermiso));
+                    em.persist(rp);
+                }
             } else {
-                // Eliminar permiso si está presente
-                em.createNativeQuery(
-                                "DELETE FROM rol_permiso " +
-                                        "WHERE id_rol = :idRol AND id_permiso = " +
-                                        "(SELECT id_permiso FROM permisos WHERE nombre = :permiso)"
-                        ).setParameter("idRol", idRol)
-                        .setParameter("permiso", permiso)
+                // Eliminar si existe
+                em.createQuery("DELETE FROM RolPermiso rp WHERE rp.rol.idRol = :idRol AND rp.permiso.idPermiso = :idPermiso")
+                        .setParameter("idRol", idRol)
+                        .setParameter("idPermiso", idPermiso)
                         .executeUpdate();
             }
             em.getTransaction().commit();
@@ -96,7 +105,7 @@ public class RolesDAO {
     public String obtenerNombreRolPorId(Integer idRol) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT r.nombre FROM Rol r WHERE r.id = :idRol", String.class)
+            return em.createQuery("SELECT r.nombre FROM Rol r WHERE r.idRol = :idRol", String.class)
                     .setParameter("idRol", idRol)
                     .getSingleResult();
         } catch (Exception e) {

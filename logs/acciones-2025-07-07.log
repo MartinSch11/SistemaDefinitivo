@@ -1,0 +1,228 @@
+[2025-07-07 01:52:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 02:55:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 02:55:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 03:00:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 03:00:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 03:00:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 03:00:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Limón
+[2025-07-07 03:00:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Limón
+[2025-07-07 03:00:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-07-07 03:00:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-07-07 03:00:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Pastel de Chocolate
+[2025-07-07 03:01:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Producto modificado: Pastel de Chocolate (ID: 1)
+[2025-07-07 03:01:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Pastel de Chocolate
+[2025-07-07 03:01:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 03:01:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Vainilla
+[2025-07-07 03:01:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-07-07 03:01:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha cancelado la acción de agregar o modificar sabor.
+[2025-07-07 03:01:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Pastel de Chocolate
+[2025-07-07 03:01:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Producto modificado: Pastel de Chocolate (ID: 1)
+[2025-07-07 03:01:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Pastel de Chocolate
+[2025-07-07 03:01:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 03:01:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 03:01:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 03:01:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 03:01:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Vainilla
+[2025-07-07 03:01:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-07-07 03:01:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Pastel de Chocolate
+[2025-07-07 03:01:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Producto modificado: Pastel de Chocolate (ID: 1)
+[2025-07-07 03:01:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Pastel de Chocolate
+[2025-07-07 03:07:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 03:07:10] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 03:09:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 03:09:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 03:10:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 03:10:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 03:10:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 03:10:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 05:17:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:18:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-07-07 05:18:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:18:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-07-07 05:21:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:21:33] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-07-07 05:21:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-07-07 05:21:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:21:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-07-07 05:21:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 05:21:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:21:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 05:21:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-07 05:22:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-07 05:22:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-07 05:22:03] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-07 05:22:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-07 05:22:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Settings-ver al rol: Empleado
+[2025-07-07 05:22:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-ver al rol: Empleado
+[2025-07-07 05:22:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-ver al rol: Empleado
+[2025-07-07 05:22:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-07 05:22:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-07-07 05:22:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:22:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-07 05:22:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-07-07 05:22:43] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:22:45] Usuario: Lionel Messi (Rol: Empleado) Acción: Accedió a la sección de Proveedores
+[2025-07-07 05:23:13] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:23:13] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario volvió al menú principal.
+[2025-07-07 05:23:25] Usuario: Lionel Messi (Rol: Empleado) Acción: Accedió a la sección de Proveedores
+[2025-07-07 05:23:27] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:23:27] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario volvió al menú principal.
+[2025-07-07 05:23:28] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-07 05:23:30] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-07 05:23:33] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-07 05:23:42] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-07 05:23:46] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:23:46] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-07 05:44:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:44:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-07-07 05:44:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:44:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-07-07 05:44:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 05:44:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:44:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 05:45:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 05:45:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:45:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 05:45:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-07 05:45:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-07 05:45:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-07 05:45:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-07 05:45:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-07 05:45:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-07 05:45:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-07 05:45:27] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-07 05:45:27] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-07 05:45:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-07 05:45:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-07 05:45:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 05:45:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-07 05:45:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 05:45:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-07 05:45:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:03:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:03:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 06:03:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 06:03:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:03:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:04:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:04:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 06:04:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 06:04:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:09:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:09:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 06:09:19] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 06:09:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:12:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:12:10] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 06:12:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 06:12:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:12:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-07-07 06:12:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha cancelado la acción de agregar o modificar sabor.
+[2025-07-07 06:12:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-07-07 06:13:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 06:13:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:13:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-07-07 06:13:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Chocolate
+[2025-07-07 06:13:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Vainilla
+[2025-07-07 06:13:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Chocolate
+[2025-07-07 06:13:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Limón
+[2025-07-07 06:13:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Fresa
+[2025-07-07 06:13:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Fresa
+[2025-07-07 06:13:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Limón
+[2025-07-07 06:14:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-07-07 06:14:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-07-07 06:14:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:14:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-07-07 06:19:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:19:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 06:19:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-07 06:19:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:19:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-07-07 06:19:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha cancelado la acción de agregar o modificar sabor.
+[2025-07-07 06:19:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-07-07 06:19:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha cancelado la acción de agregar o modificar sabor.
+[2025-07-07 06:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-07-07 06:22:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Nuevo sabor guardado: Pistacho
+[2025-07-07 06:22:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario canceló la selección de sabores.
+[2025-07-07 06:22:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-07-07 06:22:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-07-07 06:22:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Pistacho
+[2025-07-07 06:22:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Café
+[2025-07-07 06:22:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario canceló la selección de sabores.
+[2025-07-07 06:22:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-07-07 06:22:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:22:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 06:22:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-07 06:22:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:22:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-07 06:22:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-07 06:23:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 06:23:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-07 06:23:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 06:23:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 14:42:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 14:42:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 14:51:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 14:51:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 14:54:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 14:54:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:04:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:04:10] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:16:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:16:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:17:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:17:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:18:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:21:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:21:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:26:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:26:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:30:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:30:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:39:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:39:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-07 15:39:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 15:39:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 18:01:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:01:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 18:10:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:10:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 18:14:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:14:19] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 18:19:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:19:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 18:21:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:21:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 18:44:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:44:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 18:46:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:46:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 18:50:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:51:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 18:56:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 18:56:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:00:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:00:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:04:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:04:10] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:08:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:08:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:14:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:14:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:14:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:16:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:16:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:20:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:20:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:23:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:23:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:35:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:35:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:38:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:39:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:42:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:42:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-07 19:55:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:55:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-07 19:55:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-07 19:55:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas

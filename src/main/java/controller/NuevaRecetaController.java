@@ -174,8 +174,16 @@ public class NuevaRecetaController {
     }
 
     private void cargarDatosParaEdicion(InsumoReceta insumoReceta) {
+        // Aseguramos que el insumo esté en el ComboBox (por si la lista fue recargada)
+        if (!cmbIngredientes.getItems().contains(insumoReceta.getInsumo())) {
+            cmbIngredientes.getItems().add(insumoReceta.getInsumo());
+        }
         cmbIngredientes.setValue(insumoReceta.getInsumo());
         txtCantIngrediente.setText(String.valueOf(insumoReceta.getCantidadUtilizada()));
+        // Aseguramos que la unidad esté en el ComboBox (por si hay variantes)
+        if (!cmbUnidad.getItems().contains(insumoReceta.getUnidad())) {
+            cmbUnidad.getItems().add(insumoReceta.getUnidad());
+        }
         cmbUnidad.setValue(insumoReceta.getUnidad());
 
         btnAgregar.setDisable(true);

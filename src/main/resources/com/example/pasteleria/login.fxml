@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -26,7 +27,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-   
+
                   <!-- Campo DNI -->
                   <TextField fx:id="dniField" layoutX="105.0" layoutY="152.0" prefHeight="25.0" prefWidth="190.0" promptText="DNI" style="-fx-background-color: white;">
                      <styleClass>
@@ -34,27 +35,42 @@
                         <String fx:value="TextField" />
                      </styleClass>
                   </TextField>
-   
-                  <!-- Campo Contraseña -->
-                  <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="198.0" prefHeight="25.0" prefWidth="190.0" promptText="Contraseña" style="-fx-background-color: white;">
-                     <styleClass>
-                        <String fx:value="texto-textfield" />
-                        <String fx:value="TextField" />
-                     </styleClass>
-                  </PasswordField>
-   
+
+                  <!-- Campo Contraseña con botón de ojo -->
+                  <StackPane alignment="CENTER_LEFT" layoutX="105.0" layoutY="198.0">
+                     <children>
+                        <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="160.0" promptText="Contraseña" style="-fx-background-color: white; -fx-border-radius: 6 0 0 6; -fx-background-radius: 6 0 0 6;">
+                           <styleClass>
+                              <String fx:value="texto-textfield" />
+                              <String fx:value="TextField" />
+                           </styleClass>
+                        </PasswordField>
+                        <TextField fx:id="passwordTextField" managed="false" prefHeight="26.0" prefWidth="160.0" promptText="Contraseña" style="-fx-background-color: white; -fx-border-radius: 6 0 0 6; -fx-background-radius: 6 0 0 6;" visible="false">
+                           <styleClass>
+                              <String fx:value="texto-textfield" />
+                              <String fx:value="TextField" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </StackPane>
+
                   <!-- Botón de login -->
-                  <Button fx:id="btnLogin" layoutX="142.0" layoutY="295.0" onAction="#handleLogin" prefHeight="30.0" prefWidth="117.0" styleClass="buttons" text="Iniciar sesión">
+                  <Button fx:id="btnLogin" layoutX="139.0" layoutY="295.0" onAction="#handleLogin" prefHeight="30.0" styleClass="buttons" text="Iniciar sesión">
                      <font>
                         <Font name="Inter Regular" size="16.0" />
                      </font>
                   </Button>
                   <StackPane layoutY="237.0" prefHeight="50.0" prefWidth="400.0">
                      <children>
-                           <!-- Etiqueta de error -->
+                        <!-- Etiqueta de error -->
                         <Label fx:id="errorLabel" style="-fx-text-fill: red;" styleClass="texto" />
                      </children>
                   </StackPane>
+                  <Button fx:id="togglePasswordBtn" focusTraversable="false" layoutX="264.0" layoutY="198.0" onAction="#togglePasswordVisibility" prefHeight="25.0" prefWidth="31.0" styleClass="ojo-btn">
+                     <graphic>
+                        <ImageView fx:id="ojoImageView" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
                </children>
             </Pane>
 

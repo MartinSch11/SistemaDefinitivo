@@ -17,7 +17,7 @@ import model.Receta;
 import persistence.dao.ProductoDAO;
 import utilities.SceneLoader;
 import utilities.Paths;
-import utilities.ActionLogger;  // Importar ActionLogger
+import utilities.ActionLogger;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +35,7 @@ public class CrudProductosController {
     @FXML private TableColumn<Producto, String> colCategoria;
     @FXML private TableColumn<Producto, Float> colPrecio;
     @FXML private TableColumn<Producto, String> colSabor;
+    @FXML private TextField txtBuscar;
 
     @Getter
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
@@ -43,18 +44,27 @@ public class CrudProductosController {
     @FXML
     public void initialize() {
         productoDAO = new ProductoDAO();
-
-        // Inicializar listaProductos directamente en la declaración
         listaProductos = FXCollections.observableArrayList();
-
-        // Llamar primero a rellenarColumnas para asegurar que las columnas se configuren
         rellenarColumnas();
 
-        // Agregar Listener para habilitar los botones cuando se seleccione un producto
+        // Listener para búsqueda en tiempo real
+        txtBuscar.textProperty().addListener((obs, oldText, newText) -> filtrarProductos(newText));
+
+        // Obtener permisos del usuario
+        List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        boolean puedeModificar = permisos != null && permisos.contains("Productos-modificar");
+        boolean puedeEliminar = permisos != null && permisos.contains("Productos-eliminar");
+        boolean puedeCrear = permisos != null && permisos.contains("Productos-crear");
+
+        // Inicialmente deshabilitar según permisos
+        btnModificar.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnAgregar.setDisable(!puedeCrear); // Solo puede agregar si tiene permiso crear
+
+        // Listener para habilitar los botones solo si hay selección y permiso
         tableProductos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            boolean productoSeleccionado = newSelection != null;
-            btnModificar.setDisable(!productoSeleccionado);
-            btnEliminar.setDisable(!productoSeleccionado);
+            btnModificar.setDisable(!(puedeModificar && newSelection != null));
+            btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
     }
 
@@ -64,7 +74,12 @@ public class CrudProductosController {
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colSabor.setCellValueFactory(new PropertyValueFactory<>("sabores"));
+        colSabor.setCellValueFactory(cellData -> {
+            // Convierte la lista de sabores a un string separado por coma
+            var sabores = cellData.getValue().getSabores();
+            String textoSabores = sabores == null || sabores.isEmpty() ? "" : sabores.stream().map(Object::toString).reduce((a, b) -> a + ", " + b).orElse("");
+            return new SimpleStringProperty(textoSabores);
+        });
 
         // Para la columna colReceta, usamos un CellFactory para obtener el nombre de la receta
         colReceta.setCellValueFactory(cellData -> {
@@ -178,7 +193,7 @@ public class CrudProductosController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
 
         // Log de la acción
         ActionLogger.log("El usuario regresó al menú principal desde la pantalla de Productos.");
@@ -189,5 +204,27 @@ public class CrudProductosController {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private void filtrarProductos(String filtro) {
+        if (filtro == null || filtro.isEmpty()) {
+            tableProductos.setItems(listaProductos);
+        } else {
+            String filtroLower = filtro.toLowerCase();
+            ObservableList<Producto> filtrados = listaProductos.filtered(p -> {
+                // Buscar por nombre
+                boolean matchNombre = p.getNombre() != null && p.getNombre().toLowerCase().contains(filtroLower);
+                // Buscar por descripción
+                boolean matchDescripcion = p.getDescripcion() != null && p.getDescripcion().toLowerCase().contains(filtroLower);
+                // Buscar por categoría
+                boolean matchCategoria = p.getCategoria() != null && p.getCategoria().toString().toLowerCase().contains(filtroLower);
+                // Buscar por receta
+                boolean matchReceta = p.getReceta() != null && p.getReceta().getNombreReceta() != null && p.getReceta().getNombreReceta().toLowerCase().contains(filtroLower);
+                // Buscar por sabor
+                boolean matchSabor = p.getSabores() != null && p.getSabores().stream().anyMatch(s -> s != null && s.toString().toLowerCase().contains(filtroLower));
+                return matchNombre || matchDescripcion || matchCategoria || matchReceta || matchSabor;
+            });
+            tableProductos.setItems(filtrados);
+        }
     }
 }

@@ -28,6 +28,7 @@ public class RecetasController {
     @FXML private TableView<Receta> tableRecetas;
     @FXML private TableColumn<Receta, String> colNomReceta;
     @FXML private TableColumn<Receta, String> colIngReceta;
+    @FXML private Button btnAgregar;
     @FXML private Button btnModificar;
     @FXML private Button btnEliminar;
     @FXML private Pane paneDetallesReceta;
@@ -40,11 +41,22 @@ public class RecetasController {
         configurarColumnas();
         tableRecetas.setItems(listaRecetas);
 
+        // Permisos del usuario
+        java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        boolean puedeCrear = permisos != null && permisos.contains("Recetas-crear");
+        boolean puedeModificar = permisos != null && permisos.contains("Recetas-modificar");
+        boolean puedeEliminar = permisos != null && permisos.contains("Recetas-eliminar");
+
+        // Botón agregar (si existe)
+        if (btnAgregar != null) btnAgregar.setDisable(!puedeCrear);
+        btnModificar.setDisable(true);
+        btnEliminar.setDisable(true);
+
         tableRecetas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 mostrarDetallesReceta(newSelection);
-                btnModificar.setDisable(false);
-                btnEliminar.setDisable(false);
+                btnModificar.setDisable(!puedeModificar);
+                btnEliminar.setDisable(!puedeEliminar);
             } else {
                 paneDetallesReceta.setVisible(false);
                 btnModificar.setDisable(true);
@@ -170,8 +182,8 @@ public class RecetasController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de recetas.");
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        ActionLogger.log("El usuario regresó al menú principal.");
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
     }
 
     @FXML

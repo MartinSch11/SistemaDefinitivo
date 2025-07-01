@@ -17,6 +17,7 @@ public class NodeSceneStrategy implements SceneStrategy {
         Stage currentStage = (Stage) sourceNode.getScene().getWindow();
         currentStage.setMaximized(maximized);
         currentStage.setScene(scene);
+        currentStage.centerOnScreen();
         currentStage.show();
     }
 }

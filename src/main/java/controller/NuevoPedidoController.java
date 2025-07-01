@@ -28,12 +28,12 @@ public class NuevoPedidoController {
 
     private Pedido pedidoCreado;
     private CatalogoPedidosController catalogoPedidosController;
-    private PedidosController pedidosController;
+    private PedidosTableroController pedidosTableroController;
 
     private final PedidoService pedidoService = new PedidoService();
 
-    public void setPedidosController(PedidosController pedidosController) {
-        this.pedidosController = pedidosController;
+    public void setPedidosTableroController(PedidosTableroController pedidosTableroController) {
+        this.pedidosTableroController = pedidosTableroController;
     }
 
     public void setCatalogoPedidosController(CatalogoPedidosController catalogoPedidosController) {
@@ -57,15 +57,18 @@ public class NuevoPedidoController {
 
     private void configurarCamposTexto() {
         nombreCliente.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñÜü\\s]*")) nombreCliente.setText(oldVal);
+            if (!newVal.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñÜü\\s]*"))
+                nombreCliente.setText(oldVal);
         });
 
         contactoCliente.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("\\d*")) contactoCliente.setText(oldVal);
+            if (!newVal.matches("\\d*"))
+                contactoCliente.setText(oldVal);
         });
 
         dniClienteField.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.matches("\\d*")) dniClienteField.setText(oldVal);
+            if (!newVal.matches("\\d*"))
+                dniClienteField.setText(oldVal);
         });
 
         cmbFormaEntrega.getItems().addAll("Retira del local", "Paga su envío");
@@ -103,6 +106,16 @@ public class NuevoPedidoController {
             catalogoPedidosController = loader.getController();
             catalogoPedidosController.setDialogNuevoPedidoController(this);
 
+            // Si estamos editando un pedido y tiene productos, cargar SOLO una vez los productos originales
+            if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null && pedidoCreado.getPedidoProductos() != null) {
+                // Consolidar cantidades por producto (por si ya hay duplicados)
+                Map<Producto, Integer> productos = new HashMap<>();
+                for (PedidoProducto pp : pedidoCreado.getPedidoProductos()) {
+                    productos.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
+                }
+                catalogoPedidosController.cargarProductosGuardados(productos);
+            }
+
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Catálogo de Pedidos");
@@ -118,18 +131,33 @@ public class NuevoPedidoController {
 
     @FXML
     private void GuardarInfoPedido(ActionEvent event) {
-        if (!validarCampos()) return;
+        if (!validarCampos())
+            return;
 
         try {
             Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
 
-            PedidoService.PedidoConFaltantes resultado = pedidoService.crearPedido(
-                    dniClienteField.getText(),
-                    empleadoAsignado.getValue(),
-                    cmbFormaEntrega.getValue(),
-                    fechaEntregaPedido.getValue(),
-                    productos
-            );
+            PedidoService.PedidoConFaltantes resultado;
+            // Si estamos editando un pedido existente, actualizarlo
+            if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null) {
+                // Solo pasar el pedido original y el mapa de productos al servicio;
+                // la consolidación y sincronización de la lista queda a cargo del servicio
+                resultado = pedidoService.actualizarPedido(
+                        pedidoCreado,
+                        dniClienteField.getText(),
+                        empleadoAsignado.getValue(),
+                        cmbFormaEntrega.getValue(),
+                        fechaEntregaPedido.getValue(),
+                        productos);
+            } else {
+                // Si es un pedido nuevo, crearlo
+                resultado = pedidoService.crearPedido(
+                        dniClienteField.getText(),
+                        empleadoAsignado.getValue(),
+                        cmbFormaEntrega.getValue(),
+                        fechaEntregaPedido.getValue(),
+                        productos);
+            }
 
             Pedido pedidoCreado = resultado.getPedido();
             this.pedidoCreado = pedidoCreado; // Para el controlador principal
@@ -143,19 +171,9 @@ public class NuevoPedidoController {
                 faltantesAlert.showAndWait();
             }
 
-            if (pedidosController != null) {
-                pedidosController.agregarNuevoPedido(
-                        pedidoCreado.getNumeroPedido(),
-                        pedidoCreado.getCliente().getDni(),
-                        pedidoCreado.getCliente().getNombre(),
-                        pedidoCreado.getCliente().getTelefono(),
-                        pedidoCreado.generarDetalle(),
-                        pedidoCreado.getEmpleadoAsignado().getNombre(),
-                        pedidoCreado.getFormaEntrega(),
-                        pedidoCreado.getFechaEntrega(),
-                        pedidoCreado.getEstadoPedido(),
-                        pedidoCreado.getTotalPedido().toString()
-                );
+            // Elimina la lógica de PedidosController, solo usa PedidosTableroController
+            if (pedidosTableroController != null) {
+                pedidosTableroController.agregarNuevoPedido(pedidoCreado);
             }
 
             cerrarVentana(event);
@@ -165,8 +183,6 @@ public class NuevoPedidoController {
             showAlert(Alert.AlertType.ERROR, "Error al guardar", e.getMessage());
         }
     }
-
-
 
     private boolean validarCampos() {
         return !(dniClienteField.getText().isEmpty()
@@ -178,9 +194,13 @@ public class NuevoPedidoController {
     }
 
     private Map<Producto, Integer> obtenerProductosDelCatalogo() {
-        if (catalogoPedidosController == null) return new HashMap<>();
-        return catalogoPedidosController.getProductosGuardados();
+        if (catalogoPedidosController == null)
+            return new HashMap<>();
+
+        // Simplemente clonar el mapa como está, sin sumar cantidades
+        return new HashMap<>(catalogoPedidosController.getProductosGuardados());
     }
+
 
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -191,6 +211,7 @@ public class NuevoPedidoController {
     private void CancelarPedido(ActionEvent event) {
         if (confirmarCancelar()) {
             ActionLogger.log("Pedido cancelado por el usuario.");
+            pedidoCreado = null; // Evita que se agregue/modifique el pedido si se cancela
             cerrarVentana(event);
         }
     }
@@ -242,5 +263,44 @@ public class NuevoPedidoController {
 
     public Pedido getPedidoCreado() {
         return pedidoCreado;
+    }
+
+    /**
+     * Carga los datos de un pedido existente en el formulario para edición.
+     */
+    public void cargarPedidoParaEdicion(Pedido pedido) {
+        if (pedido == null) return;
+        this.pedidoCreado = pedido;
+        // Cliente
+        if (pedido.getCliente() != null) {
+            dniClienteField.setText(pedido.getCliente().getDni());
+            nombreCliente.setText(pedido.getCliente().getNombre() + (pedido.getCliente().getApellido() != null ? " " + pedido.getCliente().getApellido() : ""));
+            contactoCliente.setText(pedido.getCliente().getTelefono());
+        }
+        // Empleado
+        if (pedido.getEmpleadoAsignado() != null) {
+            empleadoAsignado.setValue(pedido.getEmpleadoAsignado().getNombre());
+        }
+        // Forma de entrega
+        cmbFormaEntrega.setValue(pedido.getFormaEntrega());
+        // Fecha de entrega
+        fechaEntregaPedido.setValue(pedido.getFechaEntrega());
+        // Consolidar productos antes de cargar en el catálogo
+        if (catalogoPedidosController != null && pedido.getPedidoProductos() != null) {
+            Map<Producto, Integer> productos = new HashMap<>();
+            for (PedidoProducto pp : pedido.getPedidoProductos()) {
+                productos.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
+            }
+            catalogoPedidosController.cargarProductosGuardados(productos);
+        }
+    }
+
+    /**
+     * Habilita o deshabilita el botón de catálogo de productos.
+     */
+    public void habilitarCatalogo(boolean habilitar) {
+        if (btnCatalogo != null) {
+            btnCatalogo.setDisable(!habilitar);
+        }
     }
 }

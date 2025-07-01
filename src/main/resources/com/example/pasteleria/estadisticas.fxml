@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -16,8 +17,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,7 +31,7 @@
                 <!-- Header -->
                 <Pane prefHeight="55.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
                     <children>
-                        <Label layoutX="635.0" layoutY="13.0" text="Estadística" textFill="WHITE">
+                        <Label layoutX="624.0" layoutY="14.0" text="Estadística" textFill="WHITE">
                             <font>
                                 <Font name="Inter Regular" size="22.0" />
                             </font>
@@ -54,21 +57,35 @@
                 </Button>
 
                 <!-- TabPane para gráficos -->
-                <TabPane fx:id="tabPane" layoutX="80.0" layoutY="120.0" prefHeight="550.0" prefWidth="1200.0">
+                <TabPane fx:id="tabPane" layoutX="30.0" layoutY="112.0" prefHeight="550.0" prefWidth="1300.0">
                     <tabs>
                         <!-- Pestaña para Ingresos vs Egresos -->
                         <Tab fx:id="tabIngresosEgresos" text="Ingresos vs Egresos">
                             <content>
-                                <VBox spacing="10">
-                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Comparación mensual de ingresos y egresos" />
-                                    <BarChart fx:id="barChart" prefHeight="450.0" prefWidth="1200.0">
+                                <VBox>
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Comparación mensual de ingresos y egresos">
+                              <padding>
+                                 <Insets top="5.0" />
+                              </padding></Label>
+                                    <BarChart fx:id="barChart" prefHeight="465.0" prefWidth="1200.0">
                                         <xAxis>
-                                            <CategoryAxis label="Meses" fx:id="xAxis" />
+                                            <CategoryAxis label="Meses" tickLength="0.0" tickMarkVisible="false" fx:id="xAxis">
+                                    <tickLabelFont>
+                                       <Font name="Inter Regular" size="8.0" />
+                                    </tickLabelFont></CategoryAxis>
                                         </xAxis>
                                         <yAxis>
                                             <NumberAxis fx:id="yAxis" label="Monto ($)" />
                                         </yAxis>
                                     </BarChart>
+                                    <StackPane prefHeight="40.0" prefWidth="1200.0">
+                                        <children>
+                                            <Label fx:id="labelResumen" alignment="CENTER" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #B70505;" text="" StackPane.alignment="CENTER">
+                                                <font>
+                                                    <Font name="Inter Regular" size="12.0" />
+                                                </font></Label>
+                                        </children>
+                                    </StackPane>
                                 </VBox>
                             </content>
                         </Tab>
@@ -77,7 +94,13 @@
                         <Tab fx:id="tabPieChart" text="Distribución de Ventas">
                             <content>
                                 <VBox spacing="10">
-                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Distribución de ventas por categoría" />
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Distribución de ventas por categoría">
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                              <padding>
+                                 <Insets top="5.0" />
+                              </padding></Label>
                                     <PieChart fx:id="pieChart" prefHeight="450.0" prefWidth="1200.0" />
                                 </VBox>
                             </content>
@@ -87,7 +110,13 @@
                         <Tab fx:id="tabProductos" text="Productos más Vendidos">
                             <content>
                                 <VBox spacing="10">
-                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Productos más vendidos por cantidad" />
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Productos más vendidos por cantidad">
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                              <padding>
+                                 <Insets top="5.0" />
+                              </padding></Label>
                                     <BarChart fx:id="barChartProductos" prefHeight="450.0" prefWidth="1200.0">
                                         <xAxis>
                                             <CategoryAxis label="Productos" fx:id="xAxisProductos" />
@@ -99,49 +128,114 @@
                                 </VBox>
                             </content>
                         </Tab>
+
+                        <!-- Nuevo tab para gráfico de torta de productos -->
+                        <Tab fx:id="tabPieProductos" text="Distribución de Productos">
+                            <content>
+                                <VBox spacing="10">
+                                    <Label style="-fx-font-size: 14; -fx-text-fill: #555;" text="Distribución proporcional de productos más vendidos">
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                              <padding>
+                                 <Insets top="5.0" />
+                              </padding></Label>
+                                    <PieChart fx:id="pieChartProductos" prefHeight="450.0" prefWidth="1200.0" />
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <!-- Pestaña para comparar meses -->
+                        <Tab fx:id="tabCompararMeses" text="Comparar Meses">
+                            <content>
+                                <VBox spacing="10.0">
+                                    <HBox alignment="CENTER" spacing="20">
+                                        <VBox alignment="CENTER" spacing="5">
+                                            <Label style="-fx-font-size: 14; -fx-font-weight: bold;" text="Mes 1" />
+                                            <ComboBox fx:id="comboMes1" prefWidth="150.0" />
+                                            <Label fx:id="labelResumenMes1" style="-fx-font-size: 13; -fx-text-fill: #4CAF50;" text="" />
+                                        </VBox>
+                                        <VBox alignment="TOP_CENTER" spacing="5">
+                                            <Label style="-fx-font-size: 14; -fx-font-weight: bold;" text="Mes 2" />
+                                            <ComboBox fx:id="comboMes2" prefWidth="150.0" />
+                                            <Label fx:id="labelResumenMes2" style="-fx-font-size: 13; -fx-text-fill: #F44336;" text="" />
+                                        </VBox>
+                                        <Button fx:id="btnCompararMeses" styleClass="buttons" text="Comparar" />
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                              <padding>
+                                 <Insets top="5.0" />
+                              </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="400.0" prefWidth="1200.0" spacing="20.0">
+                                        <VBox alignment="CENTER" prefHeight="397.0" prefWidth="600.0" spacing="5">
+                                            <Label style="-fx-font-size: 13;" text="Ingresos/Egresos Mes 1" />
+                                            <BarChart fx:id="barChartMes1" prefHeight="374.0" prefWidth="500.0">
+                                                <xAxis>
+                                                    <CategoryAxis label="Día" />
+                                                </xAxis>
+                                                <yAxis>
+                                                    <NumberAxis label="Monto ($)" />
+                                                </yAxis>
+                                            </BarChart>
+                                        </VBox>
+                                        <VBox alignment="CENTER" prefWidth="600.0" spacing="5">
+                                            <Label style="-fx-font-size: 13;" text="Ingresos/Egresos Mes 2" />
+                                            <BarChart fx:id="barChartMes2" prefHeight="376.0" prefWidth="500.0">
+                                                <xAxis>
+                                                    <CategoryAxis label="Día" />
+                                                </xAxis>
+                                                <yAxis>
+                                                    <NumberAxis label="Monto ($)" />
+                                                </yAxis>
+                                            </BarChart>
+                                        </VBox>
+                                    </HBox>
+                                    <Label fx:id="labelResumenComparacion" alignment="CENTER" style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #B70505;" text="" />
+                                </VBox>
+                            </content>
+                        </Tab>
                     </tabs>
                 </TabPane>
 
                 <!-- Sección de Filtros Simplificada -->
-                <GridPane layoutX="80.0" layoutY="84.0" prefHeight="40.0" prefWidth="576.0">
+                <GridPane layoutX="150.0" layoutY="64.0" prefHeight="40.0" prefWidth="1091.0">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="163.0" minWidth="79.0" prefWidth="79.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="227.0" minWidth="77.0" prefWidth="89.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="284.0" minWidth="80.0" prefWidth="95.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="317.0" minWidth="80.0" prefWidth="139.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="306.0" minWidth="80.0" prefWidth="306.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
                         <!-- Filtros de fecha -->
-                        <DatePicker fx:id="datePickerDesde" promptText="Desde" GridPane.columnIndex="0" />
+                        <DatePicker fx:id="datePickerDesde" prefWidth="196.0" promptText="Desde" GridPane.columnIndex="0" />
                         <DatePicker fx:id="datePickerHasta" promptText="Hasta" GridPane.columnIndex="1" />
 
-                        <!-- Botón de filtrado -->
-                        <Button fx:id="btnFiltrar" onAction="#filtrarDatos" text="Aplicar Filtros" GridPane.columnIndex="2" />
-                    </children>
-                </GridPane>
+                        <!-- Botones de rango rápido -->
+                        <Button fx:id="btnHoy" styleClass="buttons" text="Hoy" GridPane.columnIndex="2" />
+                        <Button fx:id="btnEsteMes" styleClass="buttons" text="Este mes" GridPane.columnIndex="3" />
+                        <Button fx:id="btnEsteAnio" styleClass="buttons" text="Este año" GridPane.columnIndex="4" />
 
-                <!-- Botón para generar reportes -->
-                <GridPane layoutX="80.0" layoutY="670.0" prefWidth="1200.0">
-                    <columnConstraints>
-                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="buttons" stylesheets="@../../../css/components.css" text="Generar Reportes">
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                            <font>
-                                <Font name="Inter Regular" size="14.0" />
-                            </font>
-                        </Button>
+                        <!-- Botón de filtrado -->
+                        <Button fx:id="btnFiltrar" onAction="#filtrarDatos" styleClass="buttons" text="Aplicar Filtros" GridPane.columnIndex="5" />
+                        <ComboBox fx:id="comboFiltro" prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="6" />
                     </children>
-                    <rowConstraints>
-                        <RowConstraints />
-                    </rowConstraints>
                 </GridPane>
-            <ComboBox fx:id="comboFiltro" layoutX="745.0" layoutY="92.0" prefHeight="25.0" prefWidth="195.0" />
+                  <Button fx:id="btnGenerarReportes" alignment="CENTER" contentDisplay="CENTER" layoutX="612.0" layoutY="676.0" mnemonicParsing="false" onAction="#exportarExcel" styleClass="buttons" stylesheets="@../../../css/components.css" text="Generar Reportes">
+                      <cursor>
+                          <Cursor fx:constant="HAND" />
+                      </cursor>
+                      <font>
+                          <Font name="Inter Regular" size="14.0" />
+                      </font>
+                  </Button>
             </children>
         </Pane>
     </children>

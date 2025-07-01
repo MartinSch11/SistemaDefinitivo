@@ -16,144 +16,147 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SettingsController">
-   <stylesheets>
-      <URL value="@../../../css/components.css" />
-   </stylesheets>
-   <children>
-        <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
-         <children>
-            <Button fx:id="btnVolver" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.example.image/arrow_left.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Inter Regular" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
-               <children>
-                  <Label layoutX="638.0" layoutY="13.0" styleClass="title" stylesheets="@../../../css/components.css" text="Ajustes" />
-               </children>
-            </Pane>
-            <GridPane fx:id="gridAjustes" layoutX="-7.0" layoutY="114.0" prefHeight="585.0" prefWidth="203.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="7.0" prefWidth="80.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="btnConfiguracionEmpleados" mnemonicParsing="false" onAction="#mostrarConfigEmpleados" prefHeight="43.0" prefWidth="203.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Configuración Empleados">
-                     <cursor>
+    <stylesheets>
+        <URL value="@../../../css/components.css" />
+    </stylesheets>
+    <children>
+        <Pane layoutX="-6.0" prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
+            <children>
+                <Button fx:id="btnVolver" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../com.example.image/arrow_left.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Inter Regular" size="12.0" />
+                    </font>
+                    <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnSabores" mnemonicParsing="false" onAction="#mostrarVentanaSabores" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Sabores" GridPane.rowIndex="2">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnInsumos" mnemonicParsing="false" onAction="#mostrarVentanaInsumos" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Insumos" GridPane.rowIndex="3">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnFuncionesUsuarios" mnemonicParsing="false" onAction="#mostrarVentanaPermisos" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Funciones usuarios" GridPane.rowIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnClientes" mnemonicParsing="false" onAction="#mostrarVentanaClientes" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Clientes" GridPane.rowIndex="4">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnAcciones" mnemonicParsing="false" onAction="#mostrarVentanaAcciones" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Acciones de usuarios" GridPane.rowIndex="5">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-               </children>
-            </GridPane>
-            <Pane fx:id="paneConfigEmpleados" layoutX="256.0" layoutY="88.0" prefHeight="94.0" prefWidth="1090.0" visible="false">
-               <children>
-                  <Label fx:id="title" layoutX="410.0" layoutY="1.0" text="Configuración de empleados">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <GridPane fx:id="gridEmpleadosActuales" alignment="CENTER" layoutY="30.0" prefHeight="38.0" prefWidth="622.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="187.9999755859375" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.20001220703125" minWidth="10.0" prefWidth="434.4000244140625" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Empleados actuales:">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="cmbEmpleadosActuales" prefHeight="26.0" prefWidth="435.0" GridPane.columnIndex="1" />
-                     </children>
-                  </GridPane>
-                  <GridPane layoutX="622.0" layoutY="29.0" prefHeight="40.0" prefWidth="475.0">
+                    </cursor>
+                </Button>
+                <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
+                    <children>
+                        <Label layoutX="638.0" layoutY="13.0" styleClass="title" stylesheets="@../../../css/components.css" text="Ajustes" />
+                    </children>
+                </Pane>
+                <GridPane fx:id="gridAjustes" layoutX="19.0" layoutY="135.0" prefHeight="375.0" prefWidth="180.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="7.0" prefWidth="80.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                     <children>
-                        <Button fx:id="btnAnadirEmpleado" mnemonicParsing="false" onAction="#anadirEmpleado" prefWidth="135.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" />
-                        <Button fx:id="btnModificarEmpleado" mnemonicParsing="false" onAction="#modificarEmpleado" prefWidth="160.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" GridPane.columnIndex="1" />
-                        <Button fx:id="btnEliminarEmpleado" mnemonicParsing="false" onAction="#eliminarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar empleado" GridPane.columnIndex="2" />
-                     </children>
-                  </GridPane>
-               </children>
-            </Pane>
-            <StackPane fx:id="contenedorDinamico" layoutX="210.0" layoutY="176.0" prefHeight="523.0" prefWidth="1136.0" visible="false" />
-            <StackPane fx:id="contenedorDinamico2" layoutX="210.0" layoutY="68.0" prefHeight="640.0" prefWidth="1120.0" visible="false" />
-         </children></Pane>
+                    <children>
+                        <Button fx:id="btnConfiguracionEmpleados" mnemonicParsing="false" onAction="#mostrarConfigEmpleados" prefHeight="43.0" prefWidth="203.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Empleados">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnFuncionesUsuarios" mnemonicParsing="false" onAction="#mostrarVentanaPermisos" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Roles y permisos" GridPane.rowIndex="1">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnClientes" mnemonicParsing="false" onAction="#mostrarVentanaClientes" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Clientes" GridPane.rowIndex="2">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnSabores" mnemonicParsing="false" onAction="#mostrarVentanaSabores" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Sabores" GridPane.rowIndex="3">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnInsumos" mnemonicParsing="false" onAction="#mostrarVentanaInsumos" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Insumos" GridPane.rowIndex="4">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnNotificaciones" mnemonicParsing="false" onAction="#mostrarPanelNotificaciones" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Notificaciones" GridPane.rowIndex="5">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnAcciones" mnemonicParsing="false" onAction="#mostrarVentanaAcciones" prefHeight="30.0" prefWidth="297.0" styleClass="buttons-Settings" stylesheets="@../../../css/components.css" text="Historial de acciones" GridPane.rowIndex="6">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </GridPane>
+                <Pane fx:id="paneConfigEmpleados" layoutX="256.0" layoutY="88.0" prefHeight="94.0" prefWidth="1090.0" visible="false">
+                    <children>
+                        <Label fx:id="title" layoutX="410.0" layoutY="1.0" text="Configuración de empleados">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <GridPane fx:id="gridEmpleadosActuales" alignment="CENTER" layoutY="30.0" prefHeight="38.0" prefWidth="622.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="187.9999755859375" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.20001220703125" minWidth="10.0" prefWidth="434.4000244140625" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Empleados actuales:">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="cmbEmpleadosActuales" prefHeight="26.0" prefWidth="435.0" GridPane.columnIndex="1" />
+                            </children>
+                        </GridPane>
+                        <GridPane layoutX="622.0" layoutY="29.0" prefHeight="40.0" prefWidth="475.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="btnAnadirEmpleado" mnemonicParsing="false" onAction="#anadirEmpleado" prefWidth="135.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" />
+                                <Button fx:id="btnModificarEmpleado" mnemonicParsing="false" onAction="#modificarEmpleado" prefWidth="160.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" GridPane.columnIndex="1" />
+                                <Button fx:id="btnEliminarEmpleado" mnemonicParsing="false" onAction="#eliminarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar empleado" GridPane.columnIndex="2" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </Pane>
+                <StackPane fx:id="contenedorDinamico" layoutX="210.0" layoutY="176.0" prefHeight="523.0" prefWidth="1136.0" visible="false" />
+                <StackPane fx:id="contenedorDinamico2" layoutX="210.0" layoutY="68.0" prefHeight="640.0" prefWidth="1120.0" visible="false" />
+            </children></Pane>
     </children>
 </AnchorPane>

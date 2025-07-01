@@ -10,3 +10,45 @@
 [2025-07-01 18:07:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
 [2025-07-01 18:13:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
 [2025-07-01 18:13:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 18:54:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 18:54:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 19:49:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 19:49:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 19:50:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-01 19:50:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo insuficiente: HARINA. Requerido: 250.0, disponible: 48.5
+[2025-07-01 19:56:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 19:56:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:00:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:00:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:01:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:01:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:27:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:27:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:27:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:27:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:29:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:29:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:29:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:29:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:32:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:32:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:34:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:34:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:34:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:34:19] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:41:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:41:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:45:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:45:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:46:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:46:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 20:54:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 20:54:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 21:00:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 21:00:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 21:18:48] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 12345678
+[2025-07-01 21:18:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-01 21:18:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-01 21:19:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido modificado: DNI Cliente = Pedido(numeroPedido=1, cliente=Cliente(dni=44280200, nombre=Martín, apellido=Schonberger, telefono=3751366634, direccion=Junin 2462 3B, correo=mschonberger11@gmail.com), empleadoAsignado=Juan Lopez, formaEntrega=Retira del local, fechaEntrega=2025-07-03, estadoPedido=Sin empezar, descripcion=1 Galletas de Vainilla
+1 Pastel de Chocolate
+, totalPedido=21.00)

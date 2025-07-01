@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProveedoresController {
-    @FXML private Button btnBuscar;
+    @FXML private Button btnAgregar;
     @FXML private Button btnEliminar;
     @FXML private Button btnModificar;
     @FXML private TableView<Proveedor> tableViewProveedores;
@@ -30,6 +30,7 @@ public class ProveedoresController {
     @FXML private TableColumn<Proveedor, String> colTelefono;
     @FXML private TableColumn<Proveedor, String> colUbicacion;
     @FXML private TableColumn<Proveedor, String> colCorreo;
+    @FXML private TextField txtFiltrar;
 
     private ObservableList<Proveedor> proveedoresList = FXCollections.observableArrayList();
     private ProveedorDAO proveedorDAO;
@@ -51,17 +52,46 @@ public class ProveedoresController {
         // Cargar los datos en la tabla
         cargarDatos();
 
+        // Permisos del usuario
+        java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        boolean puedeCrear = permisos != null && permisos.contains("Proveedores-crear");
+        boolean puedeModificar = permisos != null && permisos.contains("Proveedores-modificar");
+        boolean puedeEliminar = permisos != null && permisos.contains("Proveedores-eliminar");
+
+        btnAgregar.setDisable(!puedeCrear);
+        btnModificar.setDisable(true);
+        btnEliminar.setDisable(true);
+        // btnAgregar puede que no exista, si existe agregar lógica similar
+
+        // Listener para habilitar los botones solo si hay selección y permiso
         tableViewProveedores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            boolean productoSeleccionado = newSelection != null;
-            btnModificar.setDisable(!productoSeleccionado);
-            btnEliminar.setDisable(!productoSeleccionado);
+            btnModificar.setDisable(!(puedeModificar && newSelection != null));
+            btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
+
+        // Búsqueda en tiempo real
+        txtFiltrar.textProperty().addListener((obs, oldText, newText) -> filtrarProveedores(newText));
     }
 
     private void cargarDatos() {
         List<Proveedor> proveedores = proveedorDAO.findAll();
         proveedoresList.setAll(proveedores);
         tableViewProveedores.setItems(proveedoresList);
+    }
+
+    private void filtrarProveedores(String filtro) {
+        if (filtro == null || filtro.isEmpty()) {
+            tableViewProveedores.setItems(proveedoresList);
+        } else {
+            String filtroLower = filtro.toLowerCase();
+            ObservableList<Proveedor> filtrados = proveedoresList.filtered(p -> {
+                boolean matchNombre = p.getNombre() != null && p.getNombre().toLowerCase().contains(filtroLower);
+                boolean matchInsumo = p.getInsumosString() != null && p.getInsumosString().toLowerCase().contains(filtroLower);
+                boolean matchTelefono = p.getTelefono() != null && p.getTelefono().toLowerCase().contains(filtroLower);
+                return matchNombre || matchInsumo || matchTelefono;
+            });
+            tableViewProveedores.setItems(filtrados);
+        }
     }
 
     @FXML
@@ -78,7 +108,7 @@ public class ProveedoresController {
                     proveedorDAO.delete(proveedorSeleccionado);
                     cargarDatos();
                     mostrarAlerta("Proveedor eliminado", "El proveedor ha sido eliminado exitosamente.", Alert.AlertType.INFORMATION);
-                    ActionLogger.log("Proveedor eliminado: " + proveedorSeleccionado.getNombre());
+                    ActionLogger.log("El usuario eliminó el proveedor: " + proveedorSeleccionado.getNombre());
                 }
             });
         } else {
@@ -103,7 +133,7 @@ public class ProveedoresController {
                 stage.setTitle("Modificar Proveedor");
                 stage.show();
 
-                ActionLogger.log("Formulario de modificación abierto para el proveedor: " + proveedorSeleccionado.getNombre());
+                ActionLogger.log("El usuario accedió al formulario para modificar el proveedor: " + proveedorSeleccionado.getNombre());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -123,7 +153,7 @@ public class ProveedoresController {
             stage.setTitle("Agregar Proveedor");
             stage.show();
 
-            ActionLogger.log("Formulario de agregado de proveedor abierto.");
+            ActionLogger.log("El usuario accedió al formulario para crear un proveedor.");
         } catch (IOException e) {
             e.printStackTrace();
             ActionLogger.log("Error al intentar abrir el formulario de agregado.");
@@ -132,8 +162,8 @@ public class ProveedoresController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
-        ActionLogger.log("Volviendo al menú principal.");
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        ActionLogger.log("El usuario volvió al menú principal.");
     }
 
     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {

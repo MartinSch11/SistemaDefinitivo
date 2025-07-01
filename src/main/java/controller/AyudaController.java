@@ -14,7 +14,7 @@ public class AyudaController {
     @FXML
     void handleVolver(ActionEvent event) {
         ActionLogger.log("El usuario regresó al menú principal desde la pantalla de Ayuda.");
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
     }
 
 }

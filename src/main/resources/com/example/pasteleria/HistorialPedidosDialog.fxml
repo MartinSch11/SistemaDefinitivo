@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #f7ede3;" stylesheets="@../../../css/components.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="controller.HistorialPedidosDialogController">
+    <children>
+        <Label layoutX="14.0" layoutY="19.0" prefHeight="30.0" prefWidth="272.0" style="-fx-font-weight: bold;" text="Historial de pedidos entregados">
+         <font>
+            <Font name="Inter Regular" size="18.0" />
+         </font></Label>
+        <TableView fx:id="tablaPedidos" layoutX="20.0" layoutY="55.0" prefHeight="400.0" prefWidth="760.0" styleClass="table">
+            <columns>
+                <TableColumn fx:id="colNumero" prefWidth="80.0" text="N° Pedido" />
+                <TableColumn fx:id="colCliente" prefWidth="150.0" text="Cliente" />
+                <TableColumn fx:id="colProductos" prefWidth="250.0" text="Productos" />
+                <TableColumn fx:id="colFechaEntrega" prefWidth="120.0" text="Fecha Entrega" />
+                <TableColumn fx:id="colEmpleado" prefWidth="120.0" text="Empleado" />
+            </columns>
+        </TableView>
+        <Button layoutX="361.0" layoutY="463.0" onAction="#cerrarDialogo" styleClass="form-producto-btn" stylesheets="@../../../css/productos_form.css" text="Cerrar" />
+      <TextField fx:id="txtBuscar" layoutX="291.0" layoutY="21.0" prefHeight="25.0" prefWidth="220.0" promptText="Buscar por nombre... " />
+    </children>
+</AnchorPane>

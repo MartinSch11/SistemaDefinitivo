@@ -23,8 +23,9 @@ public class Insumo {
     @Column(name = "id_insumo")
     private Integer id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @ManyToOne
+    @JoinColumn(name = "id_catalogo_insumo")
+    private CatalogoInsumo catalogoInsumo;
 
     @Column(name = "cantidad")
     private double cantidad;
@@ -48,41 +49,62 @@ public class Insumo {
     @Transient
     private SimpleStringProperty nombreProperty;
 
-    public Insumo(String nombre, int cantidad, double precio, String medida, LocalDate fechaCompra, LocalDate fechaCaducidad, Proveedor proveedor) {
-        this.nombre = nombre;
+    // Constructor principal usando CatalogoInsumo
+    public Insumo(CatalogoInsumo catalogoInsumo, int cantidad, double precio, String medida, LocalDate fechaCompra,
+                  LocalDate fechaCaducidad, Proveedor proveedor) {
+        this.catalogoInsumo = catalogoInsumo;
         this.cantidad = cantidad;
         this.precio = precio;
         this.medida = medida;
         this.fechaCompra = fechaCompra;
         this.fechaCaducidad = fechaCaducidad;
         this.proveedor = proveedor;
-        this.nombreProperty = new SimpleStringProperty(nombre);
     }
 
-    public Insumo(String nombre, int cantidad, double precio, String medida, LocalDate fechaCompra, LocalDate fechaCaducidad) {
-        this.nombre = nombre;
+    public Insumo(CatalogoInsumo catalogoInsumo, int cantidad, double precio, String medida, LocalDate fechaCompra,
+                  LocalDate fechaCaducidad) {
+        this.catalogoInsumo = catalogoInsumo;
         this.cantidad = cantidad;
         this.precio = precio;
         this.medida = medida;
         this.fechaCompra = fechaCompra;
         this.fechaCaducidad = fechaCaducidad;
-        this.nombreProperty = new SimpleStringProperty(nombre);
     }
 
-    // Getter para nombreProperty
+    // Getter para nombreProperty (opcional, si la UI lo requiere)
     public StringProperty nombreProperty() {
-        if (nombreProperty == null) {
-            nombreProperty = new SimpleStringProperty(nombre);
-        }
-        return nombreProperty;
+        return new SimpleStringProperty(getNombre());
     }
 
-    // Setter para nombreProperty
+    // Setter para nombreProperty (opcional, si la UI lo requiere)
     public void setNombre(String nombre) {
-        this.nombre = nombre;
-        if (nombreProperty != null) {
-            this.nombreProperty.set(nombre);
+        if (this.catalogoInsumo != null) {
+            this.catalogoInsumo.setNombre(nombre);
         }
+    }
+
+    public String getNombre() {
+        return catalogoInsumo != null ? catalogoInsumo.getNombre() : null;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Insumo insumo = (Insumo) o;
+        return getNombre() != null && getNombre().equals(insumo.getNombre());
+    }
+
+    @Override
+    public int hashCode() {
+        return getNombre() != null ? getNombre().hashCode() : 0;
     }
 
     public double getCantidad() {
@@ -93,21 +115,12 @@ public class Insumo {
         this.cantidad = cantidad;
     }
 
-    @Override
-    public String toString() {
-        return nombre;
-    }
-
     public Proveedor getProveedor() {
         return proveedor;
     }
 
     public String getNombreProveedor() {
         return proveedor != null ? proveedor.getNombre() : "Sin proveedor";
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 
     public void reducirCantidad(double cantidadUtilizada, String unidadUtilizada) {
@@ -121,26 +134,12 @@ public class Insumo {
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
         } else {
-            throw new IllegalArgumentException("No hay suficiente cantidad disponible para el insumo: " + nombre);
+            throw new IllegalArgumentException("No hay suficiente cantidad disponible para el insumo: " + getNombre());
         }
     }
 
-
     public double getCantidadDisponible() {
         return this.cantidad; // Devuelve la cantidad actual como double
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Insumo insumo = (Insumo) o;
-        return nombre != null && nombre.equals(insumo.nombre);
-    }
-
-    @Override
-    public int hashCode() {
-        return nombre != null ? nombre.hashCode() : 0;
     }
 
     public double convertirUnidad(double cantidad, String unidadDesde, String unidadHacia) {
@@ -148,19 +147,38 @@ public class Insumo {
             throw new IllegalArgumentException("Las unidades de medida no pueden ser nulas");
         }
 
-        String de = unidadDesde.toUpperCase();
-        String a = unidadHacia.toUpperCase();
+        String de = unidadDesde.trim().toUpperCase();
+        String a = unidadHacia.trim().toUpperCase();
 
-        if (de.equals(a)) return cantidad; // misma unidad, no conversion
+        if (de.equals(a))
+            return cantidad; // misma unidad, no conversion
 
-        switch (de) {
-            case "KG": if (a.equals("GR")) return cantidad * 1000; break;
-            case "GR": if (a.equals("KG")) return cantidad / 1000; break;
-            case "L":  if (a.equals("ML")) return cantidad * 1000; break;
-            case "ML": if (a.equals("L"))  return cantidad / 1000; break;
+        // Agrupamos tipos de unidades
+        boolean esPesoDesde = de.equals("KG") || de.equals("GR");
+        boolean esPesoHacia = a.equals("KG") || a.equals("GR");
+        boolean esVolumenDesde = de.equals("L") || de.equals("ML");
+        boolean esVolumenHacia = a.equals("L") || a.equals("ML");
+        boolean esUnidadDesde = de.equals("UNIDADES");
+        boolean esUnidadHacia = a.equals("UNIDADES");
+
+        // Solo permitimos conversiones dentro del mismo tipo
+        if (esPesoDesde && esPesoHacia) {
+            if (de.equals("KG") && a.equals("GR"))
+                return cantidad * 1000;
+            if (de.equals("GR") && a.equals("KG"))
+                return cantidad / 1000;
+        } else if (esVolumenDesde && esVolumenHacia) {
+            if (de.equals("L") && a.equals("ML"))
+                return cantidad * 1000;
+            if (de.equals("ML") && a.equals("L"))
+                return cantidad / 1000;
+        } else if (esUnidadDesde && esUnidadHacia) {
+            return cantidad; // UNIDADES a UNIDADES
         }
 
-        throw new IllegalArgumentException("No se puede convertir de " + unidadDesde + " a " + unidadHacia);
+        // Si llegamos aquí, la conversión es inválida
+        throw new IllegalArgumentException("No se puede convertir de " + unidadDesde + " a " + unidadHacia
+                + ". Solo se permiten conversiones entre unidades compatibles (peso, volumen o unidades). Si necesitas convertir leche entre L y GR, implementa una excepción específica para ese insumo.");
     }
 
 }

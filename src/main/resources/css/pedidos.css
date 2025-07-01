@@ -45,9 +45,19 @@
 
 .pane-detalle-pedidos {
     -fx-background-color: #FFF4F4; /* Color de fondo */
-    -fx-background-radius: 5px; /* Radio del borde del fondo */
-    -fx-border-radius: 5px; /* Radio del borde */
+    -fx-background-radius: 6px; /* Radio del borde del fondo */
+    -fx-border-radius: 6px; /* Radio del borde */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); /* Sombra */
+}
+
+.ScrollPedidos {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); /* Sombra */
+}
+.ScrollPedidos > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px;
 }
 
 

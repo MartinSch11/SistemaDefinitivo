@@ -41,6 +41,21 @@ public class TablaClientesController {
         configurarTabla();
         cargarClientes();
         configurarBotones();
+
+        // Permisos del usuario
+        java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        boolean puedeCrear = permisos != null && permisos.contains("Clientes-crear");
+        boolean puedeModificar = permisos != null && permisos.contains("Clientes-modificar");
+        boolean puedeEliminar = permisos != null && permisos.contains("Clientes-eliminar");
+
+        btnAgregar.setDisable(!puedeCrear);
+        btnModificar.setDisable(true);
+        btnEliminar.setDisable(true);
+
+        tableClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            btnModificar.setDisable(!(puedeModificar && newSelection != null));
+            btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
+        });
     }
 
     private void configurarTabla() {

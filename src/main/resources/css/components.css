@@ -74,26 +74,28 @@
 }
 
 .button-Volver:hover {
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
-    -fx-background-color: transparent;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-background-color: #8a0404;
+    -fx-text-fill: white;
 }
 
 /*-----buttons en general--------*/
 .buttons{
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
-    -fx-alignment: center;
-    -fx-border-radius: 4px;
-    -fx-border-color: #B70505;
-    -fx-font-family: 'Inter';
-    -fx-font-size: 14px;
-}
-
-.buttons:hover{
     -fx-background-color: #B70505;
     -fx-text-fill: white;
-    -fx-border-radius: 4px;
+    -fx-background-radius: 8px;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 14px;
+    -fx-padding: 6px 18px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08), 2, 0, 0, 1);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-transition: background-color 0.2s;
+}
+.buttons:hover{
+    -fx-background-color: #E02020;
 }
 
 /*-----títulos--------*/
@@ -195,13 +197,10 @@
 
 /* Estilo para el ToggleButton */
 .toggle-button {
-    -fx-font-family: 'Inter';
     -fx-background-color: #e0e0e0;
-    -fx-text-fill: black;
-    -fx-padding: 5 20 5 20;
     -fx-background-radius: 15;
-    -fx-border-radius: 15;
-    -fx-pref-width: 115px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 8px; /* Un poco más alto para mejor presencia */
 }
 
 .toggle-button:selected {
@@ -213,23 +212,20 @@
     -fx-background-color: #b3b3b3;
 }
 
-/* Color para la serie de Ingresos (series0) */
-.default-color0.chart-bar {
-    -fx-bar-fill: #4CAF50; /* Verde */
-}
+/* --- Botón de ojo para login mimetizado con el TextField --- */
+.ojo-btn {
+    -fx-background-color: white;
 
-/* Color para la serie de Egresos (series1) */
-.default-color1.chart-bar {
-    -fx-bar-fill: #F44336; /* Rojo */
+    -fx-background-radius: 0 4 4 0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 0 0 0;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 0, 0, 0, 2); /* Sombra */
 }
-
-.chart-pie-label {
-    -fx-fill: black;
-    -fx-font-size: 18px;
+.ojo-btn:hover {
+    -fx-background-color: #f3f3f3;
 }
-
-.chart-legend {
-    -fx-background-color: #dbbea1;
-    -fx-text-fill: black;
+.tile-pane {
+    -fx-background-color: transparent !important;
 }
-

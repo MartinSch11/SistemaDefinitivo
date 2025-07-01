@@ -21,7 +21,8 @@ public class Evento {
     private int id;
     @Column(name = "nombre_evento")
     private String nombre_evento;
-    @Column(name = "descripcion_evento")
+    @Lob
+    @Column(name = "descripcion_evento", columnDefinition = "TEXT")
     private String descripcion_evento;
     @Column(name = "nombre_cliente")
     private String nombre_cliente;
@@ -32,13 +33,14 @@ public class Evento {
     @Column(name = "cant_personas")
     private int cant_personas;
     @Column(name = "presupuesto", precision = 10, scale = 2)
-    private BigDecimal presupuesto;;
+    private BigDecimal presupuesto;
     @Column(name = "fecha_evento")
-    @Temporal(TemporalType.DATE)
     private LocalDate fecha_evento;
+    @Column(name = "estado", nullable = false, length = 20)
+    private String estado = "Agendado";
 
-
-    public Evento(String nombre_evento, String descripcion_evento, String nombre_cliente, String telefono_cliente, String direccion_evento, LocalDate fecha_evento, int cant_personas, BigDecimal presupuesto ) {
+    public Evento(String nombre_evento, String descripcion_evento, String nombre_cliente, String telefono_cliente,
+                  String direccion_evento, LocalDate fecha_evento, int cant_personas, BigDecimal presupuesto) {
         this.nombre_evento = nombre_evento;
         this.descripcion_evento = descripcion_evento;
         this.nombre_cliente = nombre_cliente;
@@ -47,6 +49,7 @@ public class Evento {
         this.fecha_evento = fecha_evento;
         this.cant_personas = cant_personas;
         this.presupuesto = presupuesto;
+        this.estado = "Agendado";
     }
 
     @Override

@@ -32,16 +32,21 @@ public class EventosController {
     @FXML private Label lblDirecEvento;
     @FXML private Label lblCantPersonas;
     @FXML private Label lblPresupuesto;
+    @FXML private ComboBox<String> comboEstado;
 
     private YearMonth currentYearMonth;
     private Map<LocalDate, Evento> events = new HashMap<>();
     private LocalDate fechaSeleccionada;
+    private javafx.beans.value.ChangeListener<String> estadoListener; // Listener único para el ComboBox
+    private Evento eventoSeleccionado; // Evento actualmente seleccionado
 
     @FXML
     private void initialize() {
-        currentYearMonth = YearMonth.now();
+        currentYearMonth = YearMonth.now(); // Inicializar primero
+        reloadEvents(); // Actualiza estados antes de cualquier inicialización visual
         PaneDetalleEvento.setVisible(false);
-        reloadEvents();
+        comboEstado.getItems().addAll("Agendado", "Realizado");
+        comboEstado.setDisable(true); // Solo editable al editar
         llenarCalendario(currentYearMonth);
         ActionLogger.log("Calendario inicializado para el mes: " + currentYearMonth); // Log de acción
     }
@@ -69,6 +74,7 @@ public class EventosController {
     private void handleDayClick(LocalDate date) {
         fechaSeleccionada = date;
         Evento evento = events.get(date);
+        eventoSeleccionado = evento; // Guardar el evento seleccionado
 
         if (evento != null) {
             PaneDetalleEvento.setVisible(true);
@@ -79,9 +85,33 @@ public class EventosController {
             lblDirecEvento.setText(evento.getDireccion_evento());
             lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
             lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
+            comboEstado.setValue(evento.getEstado());
+            comboEstado.setDisable(false);
+            // Eliminar listener anterior si existe
+            if (estadoListener != null) {
+                comboEstado.valueProperty().removeListener(estadoListener);
+            }
+            // Listener solo modifica el evento actualmente seleccionado
+            estadoListener = (obs, oldVal, newVal) -> {
+                if (eventoSeleccionado != null && newVal != null && !newVal.equals(eventoSeleccionado.getEstado())) {
+                    eventoSeleccionado.setEstado(newVal);
+                    EventoDAO eventoDAO = new EventoDAO();
+                    eventoDAO.update(eventoSeleccionado);
+                    eventoDAO.close();
+                    ActionLogger.log("Estado de evento actualizado a: " + newVal);
+                    // Repintar calendario para actualizar el color
+                    llenarCalendario(currentYearMonth);
+                }
+            };
+            comboEstado.valueProperty().addListener(estadoListener);
             ActionLogger.log("Detalles del evento cargados para la fecha: " + date); // Log de acción
         } else {
             PaneDetalleEvento.setVisible(false);
+            eventoSeleccionado = null;
+            if (estadoListener != null) {
+                comboEstado.valueProperty().removeListener(estadoListener);
+                estadoListener = null;
+            }
         }
     }
 
@@ -129,11 +159,16 @@ public class EventosController {
 
             EventoFormController controller = loader.getController();
 
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                reloadEvents();
-                ActionLogger.log("Evento agregado o modificado correctamente."); // Log de acción
+            dialog.showAndWait();
+            // Siempre recarga después de cerrar el formulario
+            EventoDAO eventoDAO = new EventoDAO();
+            Evento ultimoEvento = eventoDAO.findUltimoEvento();
+            eventoDAO.close();
+            if (ultimoEvento != null) {
+                currentYearMonth = YearMonth.from(ultimoEvento.getFecha_evento());
             }
+            reloadEvents();
+            ActionLogger.log("Evento agregado o modificado correctamente."); // Log de acción
         } catch (IOException e) {
             ActionLogger.log("Error al intentar cargar el formulario de evento: " + e.getMessage()); // Log de acción
         }
@@ -203,8 +238,8 @@ public class EventosController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
-        ActionLogger.log("Volviendo al menú principal."); // Log de acción
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        ActionLogger.log("El usuario volvió al menú principal."); // Log de acción
     }
 
     private void actualizarEtiquetaMes(YearMonth mesAño) {
@@ -253,11 +288,16 @@ public class EventosController {
             LocalDate fechaActual = LocalDate.of(mesAnio.getYear(), mesAnio.getMonth(), numeroDia);
             Label etiquetaDia = new Label(String.valueOf(numeroDia));
 
-            if (events.containsKey(fechaActual)) {
-                etiquetaDia.getStyleClass().add("dia-con-evento");
+            Evento evento = events.get(fechaActual);
+            if (evento != null) {
+                if ("Realizado".equals(evento.getEstado())) {
+                    etiquetaDia.getStyleClass().add("dia-evento-realizado");
+                } else {
+                    etiquetaDia.getStyleClass().add("dia-con-evento");
+                }
             }
 
-            etiquetaDia.setOnMouseClicked(event -> handleDayClick(fechaActual));
+            etiquetaDia.setOnMouseClicked(e -> handleDayClick(fechaActual));
 
             if (columnaActual == 5 || columnaActual == 6) {
                 etiquetaDia.getStyleClass().add("celda-fin-de-semana");
@@ -278,22 +318,29 @@ public class EventosController {
     }
 
     private void rellenarDiasMesSiguiente(int diaDeLaSemana, int diasEnElMes, int filasNecesarias) {
-        int numeroDia = 1;
         int columnaActual = (diaDeLaSemana - 1 + diasEnElMes) % 7;
+        // Si columnaActual es 0, significa que el mes terminó en domingo, no hay que agregar días del mes siguiente
+        if (columnaActual == 0) {
+            return;
+        }
+        int numeroDia = 1;
         int filaActual = filasNecesarias;
-
         YearMonth mesAnioSiguiente = YearMonth.now().plusMonths(1); // O puedes pasar el mes actual y sumarle 1
 
         while (columnaActual < 7) {
             Label etiquetaDia = new Label(String.valueOf(numeroDia));
-
             LocalDate fechaActual = LocalDate.of(mesAnioSiguiente.getYear(), mesAnioSiguiente.getMonth(), numeroDia);
 
-            if (events.containsKey(fechaActual)) {
-                etiquetaDia.getStyleClass().add("dia-con-evento");
+            Evento evento = events.get(fechaActual);
+            if (evento != null) {
+                if ("Realizado".equals(evento.getEstado())) {
+                    etiquetaDia.getStyleClass().add("dia-evento-realizado");
+                } else {
+                    etiquetaDia.getStyleClass().add("dia-con-evento");
+                }
             }
 
-            etiquetaDia.setOnMouseClicked(event -> handleDayClick(fechaActual));
+            etiquetaDia.setOnMouseClicked(e -> handleDayClick(fechaActual));
 
             if (columnaActual == 5 || columnaActual == 6) {
                 etiquetaDia.getStyleClass().add("celda-mes-externo-fin-de-semana");
@@ -316,12 +363,15 @@ public class EventosController {
 
         EventoDAO eventoDAO = new EventoDAO();
         List<Evento> eventos = eventoDAO.findAll();
-        eventoDAO.close();
-
+        LocalDate hoy = LocalDate.now();
         for (Evento evento : eventos) {
+            if (evento.getFecha_evento().isBefore(hoy) && !"Realizado".equals(evento.getEstado())) {
+                evento.setEstado("Realizado");
+                eventoDAO.update(evento);
+            }
             addEvent(evento.getFecha_evento(), evento);
         }
-
+        eventoDAO.close();
         llenarCalendario(currentYearMonth);
     }
 
@@ -343,6 +393,7 @@ public class EventosController {
             lblDirecEvento.setText(evento.getDireccion_evento());
             lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
             lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
+            comboEstado.setValue(evento.getEstado());
         }
     }
 

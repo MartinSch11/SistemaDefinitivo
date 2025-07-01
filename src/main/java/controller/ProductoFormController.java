@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -178,12 +179,12 @@ public class ProductoFormController {
                 productoActual.setImagen(imagen);
             }
 
-        productoActual.setSabores(saboresSeleccionados);
-        // Asignar la receta seleccionada al producto
-        productoActual.setReceta(receta);
+            productoActual.setSabores(saboresSeleccionados);
+            // Asignar la receta seleccionada al producto
+            productoActual.setReceta(receta);
 
 
-        return productoActual;
+            return productoActual;
         } catch (Exception e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error", "Error al crear/actualizar el producto: " + e.getMessage());
             return null;
@@ -230,34 +231,25 @@ public class ProductoFormController {
 
     @FXML
     private void handleSeleccionarSabores(ActionEvent event) {
-        Dialog<List<Sabor>> dialog = crearDialogoSabores();
-        dialog.showAndWait().ifPresent(this::actualizarSaboresSeleccionados);
-        // Registro de la acción
-        ActionLogger.log("Sabores seleccionados para el producto: " + nombreProductoField.getText());
-    }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/sabores.fxml"));
+            AnchorPane root = loader.load();
+            SaboresController saboresController = loader.getController();
+            saboresController.setParentController(this);
+            saboresController.setSaboresSeleccionados(new ArrayList<>(saboresSeleccionados));
 
-    private Dialog<List<Sabor>> crearDialogoSabores() {
-        Dialog<List<Sabor>> dialog = new Dialog<>();
-        dialog.setTitle("Seleccionar Sabores");
-        FXMLLoader loader = SceneLoader.loadDialogPane("/com/example/pasteleria/sabores.fxml", "/css/sabores.css");
-        if (loader == null) return null;
+            Stage stage = new Stage();
+            stage.setTitle("Seleccionar Sabores");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.initOwner(nombreProductoField.getScene().getWindow());
+            stage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            stage.showAndWait();
 
-        dialog.setDialogPane(loader.getRoot());
-        SaboresController saboresController = loader.getController();
-        saboresController.setParentController(this);
-        saboresController.setSaboresSeleccionados(new ArrayList<>(saboresSeleccionados));
-        return dialog;
-    }
-
-    private void actualizarSaboresSeleccionados(List<Sabor> nuevosSabores) {
-        if (nuevosSabores != null && !nuevosSabores.isEmpty()) {
-            saboresSeleccionados.setAll(nuevosSabores);
-            // Registro de la acción
-            ActionLogger.log("Sabores actualizados para el producto: " + nombreProductoField.getText());
-        } else {
-            mostrarMensaje(Alert.AlertType.ERROR, "Error de selección", "Debe seleccionar al menos un sabor.");
-            // Registro de la acción
-            ActionLogger.log("Intento fallido de actualizar sabores para el producto: " + nombreProductoField.getText());
+            // Al cerrar la ventana, actualiza los sabores seleccionados
+            this.saboresSeleccionados.setAll(saboresController.getSaboresSeleccionados());
+            ActionLogger.log("Sabores seleccionados para el producto: " + nombreProductoField.getText());
+        } catch (IOException e) {
+            mostrarMensaje(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de selección de sabores.");
         }
     }
 

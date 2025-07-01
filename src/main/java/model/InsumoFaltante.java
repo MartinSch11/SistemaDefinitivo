@@ -18,16 +18,8 @@ public class InsumoFaltante {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "insumo_id")
+    @JoinColumn(name = "id_insumo ")
     private Insumo insumo;
-
-    @ManyToOne
-    @JoinColumn(name = "id_producto")
-    private Producto producto;
-
-    @ManyToOne
-    @JoinColumn(name ="id_pedido")
-    private Pedido pedido;
 
     @Column(name ="cantidad_faltante")
     private double cantidadFaltante;

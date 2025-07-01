@@ -125,6 +125,13 @@ public class CrudEliminarEmpleadoController {
                 if (result.isPresent() && result.get() == buttonSi) {
                     Trabajador trabajador = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
                     if (trabajador != null) {
+                        // Obtener el usuario logeado desde SessionContext
+                        String usuarioLogeado = model.SessionContext.getInstance().getUserName();
+                        if (usuarioLogeado != null && trabajador.getNombre().equals(usuarioLogeado)) {
+                            showAlert(Alert.AlertType.ERROR, "Acción no permitida", "No puedes eliminar tu propio usuario mientras estás logeado.");
+                            ActionLogger.log("Intento de auto-eliminación bloqueado para el usuario logeado: " + usuarioLogeado);
+                            return;
+                        }
                         trabajadorDAO.delete(trabajador);
                         SettingsController.getInstance().cargarNombresEnComboBox();
                         cargarNombresEnComboBox();

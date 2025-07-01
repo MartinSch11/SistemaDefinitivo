@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.SessionContext;
@@ -21,8 +22,12 @@ public class LoginController {
     @FXML private PasswordField passwordField;
     @FXML private Button btnLogin;
     @FXML private Label errorLabel;
+    @FXML private TextField passwordTextField;
+    @FXML private Button togglePasswordBtn;
+    @FXML private ImageView ojoImageView;
 
     private final CredencialesDAO credencialesDAO = new CredencialesDAO();
+    private boolean passwordVisible = false;
 
     @FXML
     public void initialize() {
@@ -33,8 +38,24 @@ public class LoginController {
             }
         });
 
+        // Sincronizar ambos campos
+        passwordField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!passwordVisible) passwordTextField.setText(newText);
+        });
+        passwordTextField.textProperty().addListener((obs, oldText, newText) -> {
+            if (passwordVisible) passwordField.setText(newText);
+        });
+
+        // Inicializar ícono
+        setOjoIcon(false);
+
         // Presionar "Enter" en el campo de contraseña ejecuta handleLogin
         passwordField.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) {
+                handleLogin(new ActionEvent());
+            }
+        });
+        passwordTextField.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 handleLogin(new ActionEvent());
             }
@@ -105,6 +126,37 @@ public class LoginController {
         } catch (Exception e) {
             errorLabel.setText("Hubo un error al cargar la vista.");
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void togglePasswordVisibility() {
+        passwordVisible = !passwordVisible;
+        if (passwordVisible) {
+            passwordTextField.setText(passwordField.getText());
+            passwordTextField.setVisible(true);
+            passwordTextField.setManaged(true);
+            passwordField.setVisible(false);
+            passwordField.setManaged(false);
+        } else {
+            passwordField.setText(passwordTextField.getText());
+            passwordField.setVisible(true);
+            passwordField.setManaged(true);
+            passwordTextField.setVisible(false);
+            passwordTextField.setManaged(false);
+        }
+        setOjoIcon(passwordVisible);
+    }
+
+    private void setOjoIcon(boolean visible) {
+        // Ajuste de ruta para recursos en Windows y estructura del proyecto
+        String iconPath = visible ? "/com.example.image/ojo_abierto.png" : "/com.example.image/ojo_cerrado.png";
+        java.io.InputStream is = getClass().getResourceAsStream(iconPath);
+        if (is != null) {
+            ojoImageView.setImage(new javafx.scene.image.Image(is));
+        } else {
+            // Si no encuentra la imagen, no lanza excepción
+            ojoImageView.setImage(null);
         }
     }
 }

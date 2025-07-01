@@ -4,14 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -44,54 +40,41 @@ public class Pedido {
     @Column(name = "estado_pedido", nullable = false)
     private String estadoPedido;
 
-    @Column(name = "descripcion")  // Nueva columna para observaciones
-    private String descripcion;
-
     @Column(name = "total_pedido", nullable = false)
     private BigDecimal totalPedido;
 
+    @Column(name = "fecha_entregado")
+    private LocalDate fechaEntregado;
+
     @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
     private List<PedidoProducto> pedidoProductos = new ArrayList<>();
 
     // Constructor sin cliente ni empleado para mayor flexibilidad
     public Pedido(Long numeroPedido, Cliente cliente, Trabajador empleadoAsignado,
                   String formaEntrega, LocalDate fechaEntrega, String estadoPedido,
-                  String descripcion, BigDecimal totalPedido) {  // ✅ Ahora usa BigDecimal
+                  String descripcion, BigDecimal totalPedido) {
         this.numeroPedido = numeroPedido;
         this.cliente = cliente;
         this.empleadoAsignado = empleadoAsignado;
         this.formaEntrega = formaEntrega;
         this.fechaEntrega = fechaEntrega;
         this.estadoPedido = estadoPedido;
-        this.descripcion = descripcion;
         this.totalPedido = totalPedido;
     }
-
 
     public String generarDetalle() {
         if (pedidoProductos == null || pedidoProductos.isEmpty()) {
             return "No hay productos en este pedido.";
         }
 
-        StringBuilder detalle = new StringBuilder("Detalle del Pedido:\n");
-
-        // Agrupar productos por objeto Producto y contar sus ocurrencias
-        Map<Producto, Long> contadorProductos = pedidoProductos.stream()
-                .collect(Collectors.groupingBy(
-                        PedidoProducto::getProducto,
-                        Collectors.counting()
-                ));
-
-        // Construir el detalle con manejo seguro de la receta
-        contadorProductos.forEach((producto, cantidad) -> {
-            String recetaNombre = (producto.getReceta() != null) ? producto.getReceta().getNombreReceta() : "Sin receta";
-            detalle.append("Producto: ").append(producto.getNombre())
-                    .append(", Cantidad: ").append(cantidad)
-                    .append(", Receta: ").append(recetaNombre)
+        StringBuilder detalle = new StringBuilder();
+        // Mostrar cada producto con su cantidad real, sin mostrar la receta
+        for (PedidoProducto pp : pedidoProductos) {
+            detalle.append(pp.getCantidad())
+                    .append(" ")
+                    .append(pp.getProducto().getNombre())
                     .append("\n");
-        });
-
+        }
         return detalle.toString();
     }
 
@@ -107,7 +90,8 @@ public class Pedido {
     // Método para calcular el total del pedido si es necesario
     public BigDecimal calcularTotalPedido() {
         return pedidoProductos.stream()
-                .map(p -> BigDecimal.valueOf(p.getCantidad()).multiply(p.getProducto().getPrecio())) // Convertimos int a BigDecimal
+                .map(p -> BigDecimal.valueOf(p.getCantidad()).multiply(p.getProducto().getPrecio())) // Convertimos int
+                // a BigDecimal
                 .reduce(BigDecimal.ZERO, BigDecimal::add); // Sumar todos los valores
     }
 }

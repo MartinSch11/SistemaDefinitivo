@@ -24,16 +24,6 @@ public class DialogNuevoProveedorController {
 
     @FXML
     private void initialize() {
-        /*btnGuardar.setOnAction(event -> guardarDatos());*/
-
-        /*---------momentaneo------------*/
-        insumo.setItems(FXCollections.observableArrayList(
-                "Harina",
-                "Azúcar",
-                "Leche",
-                "Huevos",
-                "Manteca"
-        ));
 
         proveedorField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-Z]*")) {
@@ -104,8 +94,4 @@ public class DialogNuevoProveedorController {
         }
 
     }
-
-
-
-
 }

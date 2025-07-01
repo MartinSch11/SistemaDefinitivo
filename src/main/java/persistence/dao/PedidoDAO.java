@@ -3,7 +3,6 @@ package persistence.dao;
 import jakarta.persistence.*;
 import model.Pedido;
 import model.PedidoProducto;
-import model.Producto;
 import java.util.List;
 
 public class PedidoDAO {
@@ -30,7 +29,8 @@ public class PedidoDAO {
                 pedido = em.merge(pedido); // Ya tiene ID, lo actualizamos
             }
 
-            // Gracias a cascade = CascadeType.ALL, los productos se guardarán automáticamente
+            // Gracias a cascade = CascadeType.ALL, los productos se guardarán
+            // automáticamente
             // Si los PedidoProducto tienen su ID embebido correctamente seteado
 
             transaction.commit();
@@ -45,17 +45,32 @@ public class PedidoDAO {
         }
     }
 
-
     public void update(Pedido pedido) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
 
-            // Asegura recalcular total si hubo cambios
-            pedido.setTotalPedido(pedido.calcularTotalPedido());
+            Pedido managedPedido = em.find(Pedido.class, pedido.getNumeroPedido());
+            if (managedPedido != null) {
+                // Actualiza los datos básicos
+                managedPedido.setCliente(pedido.getCliente());
+                managedPedido.setEmpleadoAsignado(pedido.getEmpleadoAsignado());
+                managedPedido.setFormaEntrega(pedido.getFormaEntrega());
+                managedPedido.setFechaEntrega(pedido.getFechaEntrega());
+                managedPedido.setFechaEntregado(pedido.getFechaEntregado());
+                managedPedido.setTotalPedido(pedido.getTotalPedido());
+                managedPedido.setEstadoPedido(pedido.getEstadoPedido());
 
-            em.merge(pedido);
+                // Limpia y vuelve a agregar los productos
+                managedPedido.getPedidoProductos().clear();
+                for (PedidoProducto pp : pedido.getPedidoProductos()) {
+                    pp.setPedido(managedPedido); // Asegura la relación bidireccional
+                    managedPedido.getPedidoProductos().add(pp);
+                }
+            }
+
+            em.merge(managedPedido);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -79,7 +94,11 @@ public class PedidoDAO {
     public List<Pedido> findAll() {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT p FROM Pedido p", Pedido.class).getResultList();
+            return em.createQuery(
+                    "SELECT DISTINCT p FROM Pedido p " +
+                            "LEFT JOIN FETCH p.pedidoProductos pp " +
+                            "LEFT JOIN FETCH pp.producto",
+                    Pedido.class).getResultList();
         } finally {
             em.close();
         }
@@ -97,6 +116,51 @@ public class PedidoDAO {
                 transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    // Devuelve la lista de PedidoProducto (incluyendo cantidad) para un pedido
+    public List<PedidoProducto> obtenerPedidoProductosPorPedido(Long idPedido) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT pp FROM PedidoProducto pp WHERE pp.pedido.numeroPedido = :idPedido",
+                            PedidoProducto.class).setParameter("idPedido", idPedido)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deletePedidoProducto(PedidoProducto pedidoProducto) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            PedidoProducto managed = em.find(PedidoProducto.class, pedidoProducto.getId());
+            if (managed != null) {
+                em.remove(managed);
+            }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Pedido> findByEstado(String estado) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT DISTINCT p FROM Pedido p " +
+                                    "LEFT JOIN FETCH p.pedidoProductos pp " +
+                                    "LEFT JOIN FETCH pp.producto " +
+                                    "LEFT JOIN FETCH p.empleadoAsignado ea " +
+                                    "LEFT JOIN FETCH ea.rol " +
+                                    "WHERE p.estadoPedido = :estado",
+                            Pedido.class)
+                    .setParameter("estado", estado)
+                    .getResultList();
         } finally {
             em.close();
         }

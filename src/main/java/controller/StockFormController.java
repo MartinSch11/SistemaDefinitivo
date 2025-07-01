@@ -3,24 +3,32 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import model.CatalogoInsumo;
+import model.HistorialCompra;
 import model.Insumo;
 import model.InsumoFaltante;
 import model.Proveedor;
+import persistence.dao.CatalogoInsumoDAO;
+import persistence.dao.HistorialCompraDAO;
 import persistence.dao.InsumoDAO;
 import persistence.dao.InsumoFaltanteDAO;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 public class StockFormController {
 
-    @FXML private ComboBox<Insumo> cmbInsumos;
+    @FXML private ComboBox<CatalogoInsumo> cmbInsumos;
     @FXML private TextField cantidadField;
     @FXML private DatePicker fechaCaducidadData;
     @FXML private DatePicker fechaCompraData;
@@ -29,27 +37,42 @@ public class StockFormController {
     @FXML private Button btnCancelar;
     @FXML private TextField precioTextField;
     @FXML private ComboBox cmbProveedor;
+    @FXML private Button btnAgregarInsumo;
 
     private InsumoDAO insumoDAO;
     private ProveedorDAO proveedorDAO;
     private InsumoFaltanteDAO insumoFaltanteDAO;
+    private CatalogoInsumoDAO catalogoInsumoDAO;
+    private HistorialCompraDAO historialCompraDAO = new HistorialCompraDAO();
 
-    // AGREGAR ESTE CONSTRUCTOR
-    public StockFormController(InsumoFaltanteDAO insumoFaltanteDAO) {
-        this.insumoDAO = new InsumoDAO(); // o pasarlo también si querés mockearlo
+    // Referencia al controlador principal para refrescar la tabla
+    private StockController stockController;
+
+    // Constructor vacío requerido por JavaFX/FXML
+    public StockFormController() {
+        this.insumoDAO = new InsumoDAO();
         this.proveedorDAO = new ProveedorDAO();
-        this.insumoFaltanteDAO = insumoFaltanteDAO;
+        this.insumoFaltanteDAO = new InsumoFaltanteDAO();
+        this.catalogoInsumoDAO = new CatalogoInsumoDAO();
     }
 
+    public void setStockController(StockController stockController) {
+        this.stockController = stockController;
+    }
 
     @FXML
     private void initialize() {
-        // Llenar el ChoiceBox con las unidades de medida
+        // Llenar el ChoiceBox con las unidades de medida (todas, para inicialización)
         medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
 
         // Llenar el ComboBox con los insumos
         cargarInsumos();
         cargarProveedores();
+
+        // Listener para filtrar unidades según el estado del insumo seleccionado
+        cmbInsumos.valueProperty().addListener((obs, oldVal, newVal) -> {
+            filtrarUnidadesPorEstado(newVal);
+        });
 
         // Configurar validadores para cantidadField y precioTextField
         cantidadField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0, change -> {
@@ -65,6 +88,56 @@ public class StockFormController {
             }
             return null;
         }));
+
+        // Validación: la fecha de caducidad no puede ser inferior a la de compra, y se muestra en rojo
+        fechaCompraData.valueProperty().addListener((obs, oldVal, newVal) -> {
+            fechaCaducidadData.setDayCellFactory(picker -> new DateCell() {
+                @Override
+                public void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (newVal != null && item.isBefore(newVal)) {
+                        setDisable(true);
+                        setStyle("-fx-background-color: #ffc0cb;");
+                    } else {
+                        setDisable(false);
+                        setStyle("");
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Filtra las unidades de medida disponibles según el estado del insumo seleccionado.
+     * LÍQUIDO: ML, L
+     * SÓLIDO: GR, KG
+     * UNIDAD: UNIDAD, UNIDADES
+     */
+    private void filtrarUnidadesPorEstado(CatalogoInsumo insumo) {
+        medidaChoiceBox.getItems().clear();
+        String estado = (insumo != null) ? insumo.getEstado() : null;
+        if (estado == null) {
+            // Si no hay insumo seleccionado, mostrar todas
+            medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
+            return;
+        }
+        switch (estado) {
+            case "LÍQUIDO":
+                medidaChoiceBox.getItems().addAll("ML", "L");
+                break;
+            case "SÓLIDO":
+                medidaChoiceBox.getItems().addAll("GR", "KG");
+                break;
+            case "UNIDAD":
+                medidaChoiceBox.getItems().addAll("UNIDAD", "UNIDADES");
+                break;
+            default:
+                medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
+        }
+        // Seleccionar la primera opción por defecto
+        if (!medidaChoiceBox.getItems().isEmpty()) {
+            medidaChoiceBox.setValue(medidaChoiceBox.getItems().get(0));
+        }
     }
 
     private void cargarProveedores() {
@@ -90,38 +163,30 @@ public class StockFormController {
     }
 
     private void cargarInsumos() {
-        List<Insumo> insumos = insumoDAO.findAll();
+        List<CatalogoInsumo> catalogo = catalogoInsumoDAO.findAll();
         cmbInsumos.getItems().clear();
-        cmbInsumos.getItems().addAll(insumos);
+        cmbInsumos.getItems().addAll(catalogo);
 
-        cmbInsumos.setCellFactory(param -> new ListCell<Insumo>() {
+        cmbInsumos.setCellFactory(param -> new ListCell<CatalogoInsumo>() {
             @Override
-            protected void updateItem(Insumo item, boolean empty) {
+            protected void updateItem(CatalogoInsumo item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getNombre());
-                }
+                setText(empty || item == null ? null : item.getNombre());
             }
         });
 
-        cmbInsumos.setButtonCell(new ListCell<Insumo>() {
+        cmbInsumos.setButtonCell(new ListCell<CatalogoInsumo>() {
             @Override
-            protected void updateItem(Insumo item, boolean empty) {
+            protected void updateItem(CatalogoInsumo item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getNombre());
-                }
+                setText(empty || item == null ? null : item.getNombre());
             }
         });
     }
 
     @FXML
     private void handleGuardar(ActionEvent event) {
-        Insumo insumoSeleccionado = cmbInsumos.getValue();
+        CatalogoInsumo insumoSeleccionado = cmbInsumos.getValue();
         Proveedor proveedorSeleccionado = (Proveedor) cmbProveedor.getValue();
         String cantidad = cantidadField.getText();
         String precio = precioTextField.getText();
@@ -140,13 +205,29 @@ public class StockFormController {
             int cantidadNumerica = Integer.parseInt(cantidad);
             double precioDouble = Double.parseDouble(precio);
 
-            Insumo insumo = new Insumo(insumoSeleccionado.getNombre(), cantidadNumerica, precioDouble, medida, fechaCompra, fechaCaducidad);
+            Insumo insumo = new Insumo(insumoSeleccionado, cantidadNumerica, precioDouble, medida, fechaCompra, fechaCaducidad);
             insumo.setProveedor(proveedorSeleccionado);
 
             insumoDAO.save(insumo);
-            ActionLogger.log("El usuario guardó correctamente un insumo: " + insumo.getNombre());
+            ActionLogger.log("El usuario guardó correctamente un insumo: " + insumoSeleccionado.getNombre());
 
-            resolverFaltantes(insumoSeleccionado, cantidadNumerica);
+            // Guardar en historial de compras
+            HistorialCompra compra = new HistorialCompra(
+                    insumoSeleccionado.getNombre(),
+                    cantidadNumerica,
+                    medida,
+                    fechaCompra,
+                    proveedorSeleccionado.getNombre(),
+                    precioDouble
+            );
+            historialCompraDAO.save(compra);
+
+            // Llamar a resolverFaltantes por nombre, para que tome todos los lotes actualizados
+            resolverFaltantesPorNombre(insumoSeleccionado.getNombre());
+            // Refrescar la tabla de insumos si se abrió desde StockController
+            if (stockController != null) {
+                stockController.recargarTablaInsumos();
+            }
             cerrarFormulario();
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "La cantidad o el precio no son válidos.");
@@ -172,48 +253,103 @@ public class StockFormController {
         alert.showAndWait();
     }
 
-    public void resolverFaltantes(Insumo insumo, double cantidadAgregada) {
-        List<InsumoFaltante> pendientes = insumoFaltanteDAO.findPendientesPorInsumo(insumo);
-
-        System.out.printf("📦 Resolviendo faltantes para insumo: %s (stock agregado: %.2f %s)\n",
-                insumo.getNombre(), cantidadAgregada, insumo.getMedida());
-
-        for (InsumoFaltante falta : pendientes) {
-            if (cantidadAgregada <= 0) break;
-
-            double requerido = falta.getCantidadFaltante();
-            double usado = Math.min(requerido, cantidadAgregada);
-
-            // Reducir el stock real
-            insumo.reducirCantidad(usado, falta.getUnidad());
-
-            // Actualizar el faltante
-            double nuevoPendiente = requerido - usado;
-            falta.setCantidadFaltante(nuevoPendiente);
-
-            if (nuevoPendiente <= 0.0001) {
-                falta.setResuelto(true);
+    // Nuevo método robusto: resuelve faltantes por nombre de insumo, usando todos los lotes
+    public void resolverFaltantesPorNombre(String nombreInsumo) {
+        // Buscar todos los lotes del insumo por nombre, ordenados por fecha de caducidad
+        List<Insumo> lotesInsumo = new java.util.ArrayList<>();
+        for (Insumo lote : insumoDAO.findAll()) {
+            if (lote.getNombre().equalsIgnoreCase(nombreInsumo)) {
+                lotesInsumo.add(lote);
             }
+        }
+        lotesInsumo.sort(java.util.Comparator.comparing(Insumo::getFechaCaducidad));
 
-            System.out.printf("🛠️ Pedido #%d - Producto: %s → Usado: %.2f %s → Pendiente: %.2f → Resuelto: %s\n",
-                    falta.getPedido().getNumeroPedido(),
-                    falta.getProducto().getNombre(),
-                    usado, falta.getUnidad(),
-                    falta.getCantidadFaltante(),
-                    falta.isResuelto() ? "✅" : "❌");
-
-            // Persistir cambio en faltante
-            insumoFaltanteDAO.update(falta);
-
-            // Actualizar stock disponible para otros faltantes
-            cantidadAgregada -= usado;
+        // Buscar todos los faltantes pendientes de ese insumo
+        List<InsumoFaltante> pendientes = new java.util.ArrayList<>();
+        if (!lotesInsumo.isEmpty()) {
+            pendientes = insumoFaltanteDAO.findPendientesPorInsumo(lotesInsumo.get(0));
         }
 
-        // Actualizar el insumo con el stock restante
-        new InsumoDAO().update(insumo);
+        System.out.printf("📦 Resolviendo faltantes para insumo: %s\n", nombreInsumo);
 
-        System.out.printf("✅ Resolución finalizada. Stock restante del insumo '%s': %.2f %s\n",
-                insumo.getNombre(), insumo.getCantidad(), insumo.getMedida());
+        for (InsumoFaltante falta : pendientes) {
+            // Calcular stock total disponible en la unidad del faltante
+            double stockTotal = 0.0;
+            for (Insumo lote : lotesInsumo) {
+                try {
+                    stockTotal += lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), falta.getUnidad());
+                } catch (Exception e) {
+                    // Si no se puede convertir, ignorar ese lote
+                }
+            }
+            double requerido = falta.getCantidadFaltante();
+            double usado = 0.0;
+            // Descontar de varios lotes en orden de vencimiento
+            for (Insumo lote : lotesInsumo) {
+                if (requerido <= 0.0001 || stockTotal <= 0.0001) break;
+                double disponible = 0.0;
+                try {
+                    disponible = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), falta.getUnidad());
+                } catch (Exception e) {
+                    continue;
+                }
+                double aDescontar = Math.min(disponible, requerido);
+                if (aDescontar > 0) {
+                    lote.reducirCantidad(aDescontar, falta.getUnidad());
+                    insumoDAO.update(lote);
+                    usado += aDescontar;
+                    requerido -= aDescontar;
+                    stockTotal -= aDescontar;
+                }
+            }
+            // Actualizar el faltante
+            if (usado >= falta.getCantidadFaltante() - 0.0001) {
+                falta.setCantidadFaltante(0.0);
+                falta.setResuelto(true);
+                System.out.printf("🛠️ Faltante resuelto: Usado: %.2f %s → Pendiente: 0.0 → Resuelto: ✅\n",
+                        usado, falta.getUnidad());
+            } else {
+                double nuevoPendiente = falta.getCantidadFaltante() - usado;
+                falta.setCantidadFaltante(nuevoPendiente);
+                falta.setResuelto(false);
+                System.out.printf("🛠️ Faltante parcialmente resuelto: Usado: %.2f %s → Pendiente: %.2f → Resuelto: ❌\n",
+                        usado, falta.getUnidad(), nuevoPendiente);
+            }
+            insumoFaltanteDAO.update(falta);
+        }
+
+        // Refrescar la tabla de insumos si se abrió desde StockController
+        if (stockController != null) {
+            stockController.recargarTablaInsumos();
+        }
+
+        System.out.printf("✅ Resolución finalizada.\n");
+    }
+
+    private void abrirFormularioInsumo(CatalogoInsumo insumo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoInsumo.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle(insumo == null ? "Agregar Insumo al Catálogo" : "Modificar Insumo del Catálogo");
+            stage.initModality(Modality.WINDOW_MODAL);
+
+            NuevoInsumoController controller = loader.getController();
+            if (insumo != null) {
+                controller.setInsumo(insumo);
+            }
+
+            stage.showAndWait();
+            cargarInsumos(); // Recargar la tabla después de cerrar el formulario
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void abrirFormularioInsumo() {
+        abrirFormularioInsumo(null);
+        cargarInsumos(); // Recargar ComboBox de insumos después de cerrar el formulario
     }
 
 }

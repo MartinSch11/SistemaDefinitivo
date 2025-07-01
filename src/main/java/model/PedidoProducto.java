@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.io.Serializable;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -15,15 +14,17 @@ import java.io.Serializable;
 @Table(name = "pedido_producto")
 public class PedidoProducto {
 
-    @EmbeddedId
-    private PedidoProductoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_producto", insertable = false, updatable = false)
+    @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_pedido", insertable = false, updatable = false)
+    @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
 
     @Column(name = "cantidad", nullable = false)
@@ -34,13 +35,20 @@ public class PedidoProducto {
         this.pedido = pedido;
         this.producto = producto;
         this.cantidad = cantidad;
+    }
 
-        if (pedido.getNumeroPedido() != null && producto.getId() != null) {
-            this.id = new PedidoProductoId(pedido.getNumeroPedido(), producto.getId());
-        } else {
-            // Lo dejás en null y lo seteás después, manualmente (en el controller)
-            this.id = null;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PedidoProducto that = (PedidoProducto) o;
+        return Objects.equals(pedido.getNumeroPedido(), that.pedido.getNumeroPedido()) &&
+                Objects.equals(producto.getId(), that.producto.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pedido.getNumeroPedido(), producto.getId());
     }
 
 }

@@ -73,4 +73,14 @@ public class EventoDAO {
             return null;
         }
     }
+
+    public Evento findUltimoEvento() {
+        try {
+            return em.createQuery("SELECT e FROM Evento e ORDER BY e.fecha_evento DESC", Evento.class)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

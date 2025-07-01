@@ -20,22 +20,40 @@ import utilities.SceneLoader;
 import java.util.List;
 
 public class SettingsController {
-    @FXML private GridPane gridAjustes;
-    @FXML private Button btnModificarEmpleado;
-    @FXML private Button btnEliminarEmpleado;
-    @FXML private Button btnAnadirEmpleado;
-    @FXML private Button btnConfiguracionEmpleados;
-    @FXML private Button btnSabores;
-    @FXML private Button btnInsumos;
-    @FXML private Button btnFuncionesUsuarios;
-    @FXML private Button btnClientes;
-    @FXML private Button btnAcciones;
-    @FXML private GridPane gridEmpleadosActuales;
-    @FXML private Label title;
-    @FXML private ComboBox<String> cmbEmpleadosActuales;
-    @FXML public StackPane contenedorDinamico;
-    @FXML public StackPane contenedorDinamico2;
-    @FXML public Pane paneConfigEmpleados;
+    @FXML
+    private GridPane gridAjustes;
+    @FXML
+    private Button btnModificarEmpleado;
+    @FXML
+    private Button btnEliminarEmpleado;
+    @FXML
+    private Button btnAnadirEmpleado;
+    @FXML
+    private Button btnConfiguracionEmpleados;
+    @FXML
+    private Button btnSabores;
+    @FXML
+    private Button btnInsumos;
+    @FXML
+    private Button btnFuncionesUsuarios;
+    @FXML
+    private Button btnClientes;
+    @FXML
+    private Button btnAcciones;
+    @FXML
+    private GridPane gridEmpleadosActuales;
+    @FXML
+    private Label title;
+    @FXML
+    private ComboBox<String> cmbEmpleadosActuales;
+    @FXML
+    public StackPane contenedorDinamico;
+    @FXML
+    public StackPane contenedorDinamico2;
+    @FXML
+    public Pane paneConfigEmpleados;
+    @FXML
+    private Button btnNotificaciones;
 
     public static int verificarVentanasAbiertas = 0;
 
@@ -54,6 +72,20 @@ public class SettingsController {
     @FXML
     private void initialize() {
         cargarNombresEnComboBox();
+
+        // Permisos del usuario
+        java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        btnSabores.setDisable(permisos == null || !permisos.contains("Sabores-ver"));
+        btnInsumos.setDisable(permisos == null || !permisos.contains("Insumos-ver"));
+        btnClientes.setDisable(permisos == null || !permisos.contains("Clientes-ver"));
+        btnFuncionesUsuarios.setDisable(permisos == null || !permisos.contains("FuncionesUsuarios-ver"));
+        btnAcciones.setDisable(permisos == null || !permisos.contains("Acciones-ver"));
+        btnConfiguracionEmpleados.setDisable(permisos == null || !permisos.contains("Config. Empleados-ver"));
+        btnAnadirEmpleado.setDisable(permisos == null || !permisos.contains("Config. Empleados-crear"));
+        btnModificarEmpleado.setDisable(permisos == null || !permisos.contains("Config. Empleados-modificar"));
+        btnEliminarEmpleado.setDisable(permisos == null || !permisos.contains("Config. Empleados-eliminar"));
+        btnNotificaciones.setDisable(permisos == null || !permisos.contains("Notificaciones-ver"));
+        // Eliminada la inicialización de los spinners de notificaciones
     }
 
     public Button getBtnModificarEmpleado() {
@@ -77,6 +109,7 @@ public class SettingsController {
         contenedorDinamico.setVisible(false);
         contenedorDinamico2.setVisible(false);
         paneConfigEmpleados.setVisible(false); // Ocultar paneConfigEmpleados
+        // El panel de notificaciones ya no se gestiona aquí
     }
 
     public void cerrarCrudAnadirEmpleado() {
@@ -111,7 +144,8 @@ public class SettingsController {
         verificarVentanasAbiertas = 1;
         verificarVentanas();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/CrudAnadirEmpleado.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/CrudAnadirEmpleado.fxml"));
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico, visualizarView);
 
@@ -130,7 +164,8 @@ public class SettingsController {
         verificarVentanasAbiertas = 2;
         verificarVentanas();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/CrudModificarEmpleado.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/CrudModificarEmpleado.fxml"));
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico, visualizarView);
 
@@ -149,7 +184,8 @@ public class SettingsController {
         verificarVentanasAbiertas = 3;
         verificarVentanas();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/CrudEliminarEmpleado.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/CrudEliminarEmpleado.fxml"));
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico, visualizarView);
 
@@ -176,7 +212,8 @@ public class SettingsController {
             TablaSaboresController controller = loader.getController();
             controller.setSettingsController(this);
 
-            ActionLogger.log("El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.");
+            ActionLogger.log(
+                    "El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.");
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de sabores: " + e.getMessage());
@@ -193,7 +230,8 @@ public class SettingsController {
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico2, visualizarView);
 
-            ActionLogger.log("El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.");
+            ActionLogger.log(
+                    "El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -209,7 +247,8 @@ public class SettingsController {
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico2, visualizarView);
 
-            ActionLogger.log("El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.");
+            ActionLogger.log(
+                    "El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -225,7 +264,8 @@ public class SettingsController {
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico2, visualizarView);
 
-            ActionLogger.log("El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.");
+            ActionLogger.log(
+                    "El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -237,13 +277,33 @@ public class SettingsController {
         verificarVentanas();
         ocultarContenedores();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/TableAccionesUsuarios.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/TableAccionesUsuarios.fxml"));
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico2, visualizarView);
 
             ActionLogger.log("El usuario abrió la ventana de acciones de usuario para visualizar las acciones.");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void mostrarPanelNotificaciones(ActionEvent event) {
+        verificarVentanasAbiertas = 9;
+        verificarVentanas();
+        ocultarContenedores();
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/ConfigNotificaciones.fxml"));
+            Parent visualizarView = loader.load();
+            mostrarEnContenedor(contenedorDinamico2, visualizarView);
+
+            ActionLogger.log("El usuario abrió la ventana de configuración de notificaciones.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se pudo cargar la configuración de notificaciones: " + e.getMessage());
         }
     }
 
@@ -262,12 +322,26 @@ public class SettingsController {
         btnFuncionesUsuarios.setDisable(false);
         btnClientes.setDisable(false);
         btnAcciones.setDisable(false);
+        btnNotificaciones.setDisable(false);
+
+        // Vuelve a aplicar la lógica de permisos
+        java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        btnSabores.setDisable(permisos == null || !permisos.contains("Sabores-ver"));
+        btnInsumos.setDisable(permisos == null || !permisos.contains("Insumos-ver"));
+        btnClientes.setDisable(permisos == null || !permisos.contains("Clientes-ver"));
+        btnFuncionesUsuarios.setDisable(permisos == null || !permisos.contains("FuncionesUsuarios-ver"));
+        btnAcciones.setDisable(permisos == null || !permisos.contains("Acciones-ver"));
+        btnConfiguracionEmpleados.setDisable(permisos == null || !permisos.contains("Config. Empleados-ver"));
+        btnAnadirEmpleado.setDisable(permisos == null || !permisos.contains("Config. Empleados-crear"));
+        btnModificarEmpleado.setDisable(permisos == null || !permisos.contains("Config. Empleados-modificar"));
+        btnEliminarEmpleado.setDisable(permisos == null || !permisos.contains("Config. Empleados-eliminar"));
+        btnNotificaciones.setDisable(permisos == null || !permisos.contains("Notificaciones-ver"));
 
         // Desactiva el botón correspondiente a la ventana activa
         switch (verificarVentanasAbiertas) {
             case 0 -> {
                 btnConfiguracionEmpleados.setDisable(true);
-                paneConfigEmpleados.setVisible(true); // Asegúrate de mostrarlo si es necesario
+                paneConfigEmpleados.setVisible(true);
             }
             case 1 -> btnAnadirEmpleado.setDisable(true);
             case 2 -> btnModificarEmpleado.setDisable(true);
@@ -277,6 +351,7 @@ public class SettingsController {
             case 6 -> btnFuncionesUsuarios.setDisable(true);
             case 7 -> btnClientes.setDisable(true);
             case 8 -> btnAcciones.setDisable(true);
+            case 9 -> btnNotificaciones.setDisable(true);
         }
     }
 
@@ -286,7 +361,8 @@ public class SettingsController {
             cmbEmpleadosActuales.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
         }
     }
 
@@ -299,7 +375,7 @@ public class SettingsController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
-        ActionLogger.log("El usuario regresó al menú principal desde la vista de configuraciones.");
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        ActionLogger.log("El usuario regresó al menú principal.");
     }
 }

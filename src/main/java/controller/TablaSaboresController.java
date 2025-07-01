@@ -47,16 +47,20 @@ public class TablaSaboresController {
         // Cargar los sabores desde la base de datos
         cargarSabores();
 
-        // Deshabilitar los botones por defecto
+        // Permisos del usuario
+        java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
+        boolean puedeCrear = permisos != null && permisos.contains("Sabores-crear");
+        boolean puedeModificar = permisos != null && permisos.contains("Sabores-modificar");
+        boolean puedeEliminar = permisos != null && permisos.contains("Sabores-eliminar");
+
+        btnAgregar.setDisable(!puedeCrear);
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
 
         // Agregar el listener para el cambio de selección en la tabla
         tableSabores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            // Habilitar los botones si hay un sabor seleccionado
-            boolean saborSeleccionado = newSelection != null;
-            btnModificar.setDisable(!saborSeleccionado);
-            btnEliminar.setDisable(!saborSeleccionado);
+            btnModificar.setDisable(!(puedeModificar && newSelection != null));
+            btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
     }
 

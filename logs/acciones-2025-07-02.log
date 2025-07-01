@@ -1,0 +1,801 @@
+[2025-07-02 01:05:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:05:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:06:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido modificado: DNI Cliente = Pedido(numeroPedido=1, cliente=Cliente(dni=44280200, nombre=Martín, apellido=Schonberger, telefono=3751366634, direccion=Junin 2462 3B, correo=mschonberger11@gmail.com), empleadoAsignado=Juan Lopez, formaEntrega=Retira del local, fechaEntrega=2025-07-03, estadoPedido=Sin empezar, descripcion=1 Galletas de Vainilla
+1 Pastel de Chocolate
+, totalPedido=21.00)
+[2025-07-02 01:06:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:06:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:21:22] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 1245678
+[2025-07-02 01:21:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:21:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:28:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:28:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:29:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:29:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:33:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:33:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:33:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:33:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:34:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:34:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:34:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:34:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:37:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:37:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:37:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:37:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:40:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:40:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:40:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:40:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:42:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:42:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 01:43:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-02 01:43:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo insuficiente: HARINA. Requerido: 250.0, disponible: 48.0
+[2025-07-02 01:44:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido modificado: DNI Cliente = Pedido(numeroPedido=2, cliente=Cliente(dni=44280200, nombre=Martín, apellido=Schonberger, telefono=3751366634, direccion=Junin 2462 3B, correo=mschonberger11@gmail.com), empleadoAsignado=Julieta Ibaez, formaEntrega=Retira del local, fechaEntrega=2025-07-04, estadoPedido=Sin empezar, descripcion=1 Mousse de Limón
+3 Tarta de Fresa
+, totalPedido=67.75)
+[2025-07-02 01:44:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:44:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-02 01:45:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 01:45:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-02 01:45:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-07-02 02:07:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:08:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 02:08:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-02 02:10:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:11:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 02:11:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:11:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-02 02:11:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 02:11:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 02:11:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:11:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 02:12:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-02 02:16:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:16:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 02:22:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:22:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 02:23:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-02 02:26:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:26:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 02:26:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2025-07-02 02:31:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:31:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 02:31:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-02 02:31:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Martín con productos: [Galletas de Vainilla, Trufas de Chocolate]
+[2025-07-02 02:31:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Martín con productos: [Galletas de Vainilla, Trufas de Chocolate]
+[2025-07-02 02:50:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:50:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 02:51:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:51:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-02 02:52:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 02:55:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2025-07-02 02:58:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:58:27] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 02:58:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2025-07-02 02:58:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo de receta seleccionado para editar: LECHE
+[2025-07-02 02:58:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambios guardados para ingrediente: LECHE
+[2025-07-02 02:58:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambios guardados para ingrediente: LECHE
+[2025-07-02 02:58:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente eliminado de la receta: LECHE
+[2025-07-02 02:59:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 200 ML
+[2025-07-02 02:59:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Receta guardada: Receta Pastel de Chocolate
+[2025-07-02 02:59:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 02:59:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 02:59:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 03:00:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2025-07-02 03:00:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Receta guardada: Receta Pastel de Chocolate
+[2025-07-02 03:00:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2025-07-02 03:00:44] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 200 ML
+[2025-07-02 03:00:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Receta guardada: Receta Pastel de Chocolate
+[2025-07-02 03:00:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 03:00:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:00:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 03:01:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 03:01:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:01:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 03:01:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Tarta de Fresa
+[2025-07-02 03:01:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 150 ML
+[2025-07-02 03:01:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Receta guardada: Receta Tarta de Fresa
+[2025-07-02 03:01:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 03:01:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:01:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 03:01:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 03:01:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:01:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 03:02:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 03:02:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:02:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-07-02 03:02:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:02:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Volviendo al menú principal.
+[2025-07-02 03:02:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 03:02:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 03:02:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-02 03:03:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:03:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 03:03:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 03:03:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 03:07:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:07:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 03:07:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 03:07:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo.
+[2025-07-02 03:07:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Operación de insumo cancelada.
+[2025-07-02 03:07:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el insumo: LECHECONDESADA
+[2025-07-02 03:08:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo LECHE CONDESADA editado con éxito.
+[2025-07-02 03:08:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 03:08:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 03:08:11] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 03:08:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 03:08:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 03:10:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:10:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 03:10:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 03:10:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:10:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 03:10:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:10:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-02 03:10:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 03:14:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:14:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 03:14:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo insumo.
+[2025-07-02 03:15:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó correctamente un insumo: LECHE CONDESADA
+[2025-07-02 03:15:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:15:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-02 03:15:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 03:22:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:22:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-02 03:22:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 03:30:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 03:30:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 03:30:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo insumo.
+[2025-07-02 03:30:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó correctamente un insumo: LECHE CONDESADA
+[2025-07-02 15:04:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:04:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 15:04:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:04:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-02 15:04:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:05:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-02 15:05:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:05:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2025-07-02 15:05:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 15:05:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 15:06:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el insumo: LECHE CONDESADA
+[2025-07-02 15:06:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo LECHE CONDENADA editado con éxito.
+[2025-07-02 15:06:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:06:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 15:06:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 15:06:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 15:06:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el insumo: LECHE CONDENADA
+[2025-07-02 15:06:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo LECHE CONDENSADA editado con éxito.
+[2025-07-02 15:06:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el insumo: LECHE CONDESADA
+[2025-07-02 15:06:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo LECHE CONDENSADA editado con éxito.
+[2025-07-02 15:06:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:06:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 15:08:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-07-02 15:09:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Formulario de agregado de proveedor abierto.
+[2025-07-02 15:10:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Formulario de modificación abierto para el proveedor: El campo
+[2025-07-02 15:47:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 15:47:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 15:47:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 15:47:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 15:47:14] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 15:47:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 15:47:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Cajera
+[2025-07-02 15:47:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 15:47:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 15:47:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-02 16:14:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:14:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 16:15:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 16:15:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 16:15:03] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 16:15:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 16:15:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Cajera
+[2025-07-02 16:15:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 16:15:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 16:15:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadística-ver al rol: Empleado
+[2025-07-02 16:15:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-ver al rol: Empleado
+[2025-07-02 16:15:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 16:15:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadística-ver al rol: Empleado
+[2025-07-02 16:15:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadística-modificar al rol: Empleado
+[2025-07-02 16:15:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadística-ver al rol: Empleado
+[2025-07-02 16:15:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadística-ver al rol: Empleado
+[2025-07-02 16:15:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadística-eliminar al rol: Empleado
+[2025-07-02 16:15:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadística-todos al rol: Empleado
+[2025-07-02 16:15:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:15:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:15:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:15:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:15:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:15:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:15:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:15:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:15:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:15:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:15:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-eliminar al rol: Empleado
+[2025-07-02 16:15:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-todos al rol: Empleado
+[2025-07-02 16:15:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:15:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:15:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-eliminar al rol: Empleado
+[2025-07-02 16:15:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-todos al rol: Empleado
+[2025-07-02 16:15:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:15:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:15:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:15:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:15:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:15:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:15:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-eliminar al rol: Empleado
+[2025-07-02 16:15:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-todos al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-eliminar al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-todos al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 16:15:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 16:15:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-02 16:15:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:15:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 16:18:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:18:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 16:18:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 16:18:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 16:18:32] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 16:18:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 16:18:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 16:18:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Empleado
+[2025-07-02 16:18:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:18:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-eliminar al rol: Empleado
+[2025-07-02 16:18:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-todos al rol: Empleado
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-02 16:18:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 16:18:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-02 16:18:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 16:18:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 16:18:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 16:18:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Cajera
+[2025-07-02 16:18:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 16:18:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Cajera
+[2025-07-02 16:18:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 16:18:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:18:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 16:25:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:25:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-07-02 16:26:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Eventos
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-15
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-10
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-20
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-27
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-30
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-25
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-07-02 16:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario inicializado para el mes: 2025-07
+[2025-07-02 16:26:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:26:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Volviendo al menú principal.
+[2025-07-02 16:26:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-02 16:26:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-02 16:26:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:26:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 16:26:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 16:26:27] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 16:26:27] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 16:26:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-todos al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-eliminar al rol: Empleado
+[2025-07-02 16:26:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 16:26:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-todos al rol: Empleado
+[2025-07-02 16:26:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:26:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-eliminar al rol: Empleado
+[2025-07-02 16:26:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Empleado
+[2025-07-02 16:26:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:26:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:26:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:26:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Empleado
+[2025-07-02 16:26:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Empleado
+[2025-07-02 16:26:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:26:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:26:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Empleado
+[2025-07-02 16:26:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:26:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:26:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Empleado
+[2025-07-02 16:26:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:26:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:26:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:26:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Empleado
+[2025-07-02 16:26:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Empleado
+[2025-07-02 16:26:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:26:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:26:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:26:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-todos al rol: Empleado
+[2025-07-02 16:26:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:26:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 16:26:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:26:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:26:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:26:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-eliminar al rol: Empleado
+[2025-07-02 16:26:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 16:27:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:27:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:27:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:27:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:27:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:27:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:27:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:27:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:27:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:27:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:27:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 16:27:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-07-02 16:28:07] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:28:09] Usuario: Jose Gonzalez (Rol: Cajera) Acción: Accedió a la sección de Pedidos
+[2025-07-02 16:28:14] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:28:24] Usuario: Jose Gonzalez (Rol: Cajera) Acción: Accedió a la sección de Productos
+[2025-07-02 16:28:27] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:28:27] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-02 16:35:19] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:35:23] Usuario: Jose Gonzalez (Rol: Cajera) Acción: Accedió a la sección de Pedidos
+[2025-07-02 16:35:28] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:35:29] Usuario: Jose Gonzalez (Rol: Cajera) Acción: Accedió a la sección de Estadísticas
+[2025-07-02 16:35:32] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:35:44] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario cerró sesión
+[2025-07-02 16:35:52] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:36:03] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-07-02 16:36:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:36:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 16:36:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 16:36:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 16:36:20] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 16:36:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:36:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 16:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:40:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 16:40:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:40:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:40:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:40:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:40:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:41:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:41:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 16:41:40] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:41:43] Usuario: Lionel Messi (Rol: Empleado) Acción: Accedió a la sección de Productos
+[2025-07-02 16:57:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:57:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-02 16:57:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:57:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-02 16:57:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 16:57:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 16:57:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 16:57:37] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 16:57:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 16:59:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 16:59:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 16:59:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 16:59:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 16:59:17] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 16:59:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 16:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 16:59:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-crear al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Empleado
+[2025-07-02 16:59:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 17:53:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:53:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 17:53:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 17:53:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 17:53:40] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 17:53:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 17:53:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 17:53:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Empleado
+[2025-07-02 17:53:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Cajera
+[2025-07-02 17:53:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-02 17:53:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:53:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 17:53:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-07-02 17:54:14] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:54:25] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-07-02 17:54:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:54:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 17:54:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 17:54:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 17:54:38] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 17:54:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 17:54:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 17:54:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Settings-ver al rol: Empleado
+[2025-07-02 17:54:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 17:54:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-crear al rol: Empleado
+[2025-07-02 17:54:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 17:54:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 17:54:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 17:54:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 17:54:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 17:54:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 17:54:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 17:54:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 17:54:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-crear al rol: Empleado
+[2025-07-02 17:54:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 17:54:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 17:54:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-crear al rol: Empleado
+[2025-07-02 17:54:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 17:54:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 17:54:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 17:54:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-07-02 17:54:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Empleado
+[2025-07-02 17:54:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Empleado
+[2025-07-02 17:54:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-crear al rol: Empleado
+[2025-07-02 17:55:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-07-02 17:55:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:55:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 17:55:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-07-02 17:55:15] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:55:18] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 17:55:25] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 17:55:25] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 18:01:26] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:18:06] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:18:09] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:18:18] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 18:18:18] Usuario: Lionel Messi (Rol: Empleado) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 18:18:18] Usuario: Lionel Messi (Rol: Empleado) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 18:18:18] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 18:18:19] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:18:21] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:18:22] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-02 18:18:23] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-02 18:18:24] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-02 18:18:29] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:18:31] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:18:33] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-02 18:18:35] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:18:35] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 18:18:39] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:18:42] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 18:18:42] Usuario: Lionel Messi (Rol: Empleado) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 18:18:42] Usuario: Lionel Messi (Rol: Empleado) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 18:18:42] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 18:18:43] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:18:43] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 18:19:39] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:30:15] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:30:17] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:30:22] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:30:22] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 18:30:25] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-07-02 18:30:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:30:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:30:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 18:30:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 18:30:42] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 18:30:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 18:35:42] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:35:45] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:35:48] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:35:49] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 18:35:51] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-07-02 18:35:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:36:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:36:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-02 18:36:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-02 18:36:04] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-02 18:36:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-02 18:36:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Settings-ver al rol: Empleado
+[2025-07-02 18:36:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-02 18:36:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-ver al rol: Empleado
+[2025-07-02 18:36:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-ver al rol: Empleado
+[2025-07-02 18:36:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:36:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2025-07-02 18:36:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-07-02 18:36:49] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:36:52] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:36:54] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:36:56] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:44:36] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:44:38] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario accedió a la sección de Configuración
+[2025-07-02 18:44:41] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:44:43] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:44:45] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:44:49] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:44:50] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:44:51] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:44:53] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-02 18:44:55] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-02 18:45:01] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-07-02 18:45:01] Usuario: Lionel Messi (Rol: Empleado) Acción: El usuario regresó al menú principal desde la vista de configuraciones.

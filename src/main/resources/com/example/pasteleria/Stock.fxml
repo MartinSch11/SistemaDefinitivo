@@ -6,13 +6,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockController">
@@ -21,7 +19,7 @@
          <children>
             <Pane prefHeight="55.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
                <children>
-                  <Label layoutX="635.0" layoutY="13.0" text="Stock" textFill="WHITE">
+                  <Label layoutX="650.0" layoutY="14.0" text="Stock" textFill="WHITE">
                      <font>
                         <Font name="Inter Regular" size="22.0" />
                      </font>
@@ -43,9 +41,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ScrollPane layoutX="23.0" layoutY="132.0" prefHeight="470.0" prefWidth="1315.0">
+            <ScrollPane layoutX="23.0" layoutY="107.0" prefHeight="555.0" prefWidth="1315.0">
                <content>
-                  <TableView fx:id="tableInsumos" prefHeight="470.0" prefWidth="1300.0" styleClass="table" stylesheets="@../../../css/components.css">
+                  <TableView fx:id="tableInsumos" prefHeight="553.0" prefWidth="1313.0" styleClass="table" stylesheets="@../../../css/components.css">
                      <columns>
                         <TableColumn fx:id="colNombre" editable="false" prefWidth="239.0" sortable="false" text="Nombre" />
                         <TableColumn fx:id="colFechaCompra" editable="false" prefWidth="250.0" sortable="false" text="Fecha de Compra" />
@@ -59,28 +57,34 @@
                   </TableView>
                </content>
             </ScrollPane>
-            <GridPane alignment="CENTER" layoutX="280.0" layoutY="634.0" prefHeight="30.0" prefWidth="800.0">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button fx:id="btnAgregar" alignment="CENTER" mnemonicParsing="false" onAction="#handleAgregar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar compra">
-                     <font>
-                        <Font name="Inter Regular" size="13.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../com.example.image/add.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </GridPane>
+            <TextField fx:id="txtBuscar" layoutX="531.0" layoutY="65.0" prefHeight="35.0" prefWidth="300.0" promptText="Buscar por nombre o categoría... " />
+            <Button fx:id="btnAgregar" alignment="CENTER" layoutX="595.0" layoutY="670.0" mnemonicParsing="false" onAction="#handleAgregar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar compra">
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnHistorialCompras" layoutX="1137.0" layoutY="65.0" mnemonicParsing="false" onAction="#abrirHistorialCompras" prefHeight="30.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Historial de compras">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/history.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </children>

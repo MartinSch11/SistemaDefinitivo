@@ -129,7 +129,7 @@ public class AgendaController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/components.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/components.css", false);
     }
 
     @FXML

@@ -5,9 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Insumo;
+import model.CatalogoInsumo;
 import model.Proveedor;
-import persistence.dao.InsumoDAO;
+import persistence.dao.CatalogoInsumoDAO;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 
@@ -17,29 +17,31 @@ public class NuevoInsumoController {
 
     @FXML private TextField txtNomInsumo;
     @FXML private ComboBox<Proveedor> cmbProveedor;
+    @FXML private ComboBox<String> cmbEstado;
     @FXML private Button btnCancelar;
     @FXML private Button btnAceptar;
 
     private ProveedorDAO proveedorDAO;
-    private InsumoDAO insumoDAO;
-    private Insumo insumo; // Variable de instancia para el insumo a modificar
+    private CatalogoInsumoDAO catalogoInsumoDAO;
     private TableInsumosController tableInsumosController; // Referencia al controlador de la tabla
 
     public NuevoInsumoController() {
         proveedorDAO = new ProveedorDAO();
-        insumoDAO = new InsumoDAO();
+        catalogoInsumoDAO = new CatalogoInsumoDAO(); // Recuerda ajustar el constructor según tu EntityManager
     }
 
     @FXML
     public void initialize() {
         configurarCampoNombreInsumo();
         cargarProveedores();
+        cargarEstados();
     }
 
     private void configurarCampoNombreInsumo() {
         txtNomInsumo.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
-            if (newText.matches("[a-zA-Z]*")) {
+            // Permitir letras y espacios
+            if (newText.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*")) {
                 change.setText(change.getText().toUpperCase());
                 return change;
             } else {
@@ -54,34 +56,31 @@ public class NuevoInsumoController {
         cmbProveedor.setItems(proveedoresList);
     }
 
+    private void cargarEstados() {
+        cmbEstado.setItems(FXCollections.observableArrayList("LÍQUIDO", "SÓLIDO", "UNIDAD"));
+    }
+
     @FXML
     private void handleAceptar() {
         String nombreInsumo = txtNomInsumo.getText();
         Proveedor proveedorSeleccionado = cmbProveedor.getSelectionModel().getSelectedItem();
+        String estadoSeleccionado = cmbEstado.getSelectionModel().getSelectedItem();
 
-        if (nombreInsumo.isEmpty() || proveedorSeleccionado == null) {
+        if (nombreInsumo.isEmpty() || proveedorSeleccionado == null || estadoSeleccionado == null) {
             mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.", Alert.AlertType.WARNING);
         } else {
-            if (insumo == null) {
-                insumo = new Insumo();
-            }
-
-            insumo.setNombre(nombreInsumo);
-            insumo.setProveedor(proveedorSeleccionado);
-
-            if (insumo.getId() == null) {
-                insumoDAO.save(insumo);
-                // Log de acción: creación de insumo
-                ActionLogger.log( "Insumo " + insumo.getNombre() + " creado con éxito.");
+            // Guardar solo en catalogo_insumo si no existe
+            if (catalogoInsumoDAO.findByNombre(nombreInsumo) == null) {
+                CatalogoInsumo cat = new CatalogoInsumo(nombreInsumo, estadoSeleccionado, proveedorSeleccionado.getNombre());
+                catalogoInsumoDAO.save(cat);
+                ActionLogger.log("CatalogoInsumo " + nombreInsumo + " creado con éxito.");
             } else {
-                insumoDAO.update(insumo);
-                // Log de acción: edición de insumo
-                ActionLogger.log( "Insumo " + insumo.getNombre() + " editado con éxito.");
+                mostrarAlerta("Duplicado", "Ya existe un insumo con ese nombre en el catálogo.", Alert.AlertType.WARNING);
+                return;
             }
-
-            mostrarAlerta("Éxito", "Insumo guardado exitosamente.", Alert.AlertType.INFORMATION);
+            mostrarAlerta("Éxito", "Insumo guardado exitosamente en el catálogo.", Alert.AlertType.INFORMATION);
             if (tableInsumosController != null) {
-                tableInsumosController.cargarInsumos(); // Recargar la tabla
+                tableInsumosController.cargarInsumos(); // Recargar la tabla si corresponde
             }
             cerrarVentana();
         }
@@ -107,10 +106,15 @@ public class NuevoInsumoController {
     }
 
     // Método para recibir un insumo para editarlo
-    public void setInsumo(Insumo insumo) {
-        this.insumo = insumo;
+    public void setInsumo(CatalogoInsumo insumo) {
         txtNomInsumo.setText(insumo.getNombre());
-        cmbProveedor.setValue(insumo.getProveedor());
+        // Buscar el proveedor por nombre y seleccionarlo en el ComboBox
+        Proveedor proveedor = proveedorDAO.findAll().stream()
+                .filter(p -> p.getNombre().equals(insumo.getProveedor()))
+                .findFirst()
+                .orElse(null);
+        cmbProveedor.setValue(proveedor);
+        cmbEstado.setValue(insumo.getEstado());
     }
 
     // Método para recibir el controlador de la tabla

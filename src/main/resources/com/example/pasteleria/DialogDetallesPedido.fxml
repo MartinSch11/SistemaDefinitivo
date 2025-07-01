@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="470.0" prefWidth="650.0" style="-fx-background-color: f7ede3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DetallesPedidoDialogController">
+    <stylesheets>
+        <URL value="@../../../css/components.css" />
+    </stylesheets>
+    <stylesheets>
+        <URL value="@../../../css/pedidos.css" />
+    </stylesheets>
+    <children>
+        <!-- Header superior -->
+        <Pane prefHeight="60.0" prefWidth="650.0" style="-fx-background-color: B70505;">
+            <children>
+                <Label alignment="CENTER" layoutX="221.0" layoutY="16.0" prefHeight="28.0" prefWidth="208.0" style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="title" text="Detalles del Pedido" />
+            </children>
+        </Pane>
+        <!-- Tarjeta central -->
+        <VBox layoutX="30.0" layoutY="70.0" prefWidth="590.0" spacing="18.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="70.0">
+            <StackPane>
+                <Label fx:id="lblNumeroPedido" alignment="CENTER" maxWidth="580.0" prefHeight="27.0" prefWidth="55.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #bf1010;" wrapText="true" />
+            </StackPane>
+            <HBox alignment="CENTER_LEFT" spacing="24.0">
+                <VBox alignment="CENTER_LEFT" prefWidth="285.0" spacing="6.0">
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <ImageView fitHeight="18.0" fitWidth="18.0">
+                            <image>
+                                <Image url="@../../../com.example.image/man.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lblCliente" maxWidth="260.0" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <ImageView fitHeight="16.0" fitWidth="16.0">
+                            <image>
+                                <Image url="@../../../com.example.image/id.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lblDni" maxWidth="260.0" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <ImageView fitHeight="16.0" fitWidth="16.0">
+                            <image>
+                                <Image url="@../../../com.example.image/mobile.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lblTelefono" maxWidth="260.0" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+                    </HBox>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" prefWidth="285.0" spacing="6.0">
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <ImageView fitHeight="16.0" fitWidth="16.0">
+                            <image>
+                                <Image url="@../../../com.example.image/man.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lblEmpleado" maxWidth="260.0" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <ImageView fitHeight="16.0" fitWidth="16.0">
+                            <image>
+                                <Image url="@../../../com.example.image/iconEventos.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lblFechaEntrega" maxWidth="260.0" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="6.0">
+                        <ImageView fitHeight="16.0" fitWidth="16.0">
+                            <image>
+                                <Image url="@../../../com.example.image/delivery.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lblFormaEntrega" maxWidth="260.0" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+                    </HBox>
+                </VBox>
+            </HBox>
+            <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 10 0 0 0;" text="Productos del pedido:" />
+            <ListView fx:id="listProductos" prefHeight="120.0" style="-fx-background-radius: 8; -fx-background-color: #fff; -fx-border-color: #d0d0d0; -fx-border-radius: 8; -fx-font-size: 13px;" />
+         <StackPane prefWidth="590.0">
+            <children>
+                  <Label fx:id="lblTotal" alignment="CENTER_RIGHT" style="-fx-font-size: 16px; -fx-text-fill: #bf1010; -fx-padding: 0 0 0;" />
+            </children>
+         </StackPane>
+        </VBox>
+        <Button fx:id="btnCerrar" layoutX="284.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleCerrar" style="-fx-background-color: #bf1010; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 15px; -fx-font-weight: bold;" styleClass="buttons" text="Cerrar" />
+    </children>
+</AnchorPane>

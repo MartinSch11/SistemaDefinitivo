@@ -7,6 +7,7 @@
     import java.math.BigDecimal;
     import java.util.ArrayList;
     import java.util.List;
+    import java.util.Objects;
 
     @Data
     @AllArgsConstructor
@@ -65,4 +66,18 @@
         public List<Sabor> getSabores() {
             return sabores;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Producto that = (Producto) obj;
+            return Objects.equals(this.id, that.id);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
+
     }
