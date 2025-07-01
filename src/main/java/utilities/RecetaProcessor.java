@@ -2,80 +2,115 @@ package utilities;
 
 import model.*;
 import persistence.dao.InsumoDAO;
-import java.util.Map;
+import persistence.dao.InsumoFaltanteDAO;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class RecetaProcessor {
 
-    InsumoDAO insumoDAO = new InsumoDAO();
+    private final InsumoDAO insumoDAO = new InsumoDAO();
+    private final InsumoFaltanteDAO faltanteDAO = new InsumoFaltanteDAO();
 
     /**
-     * Procesa las recetas de los productos seleccionados y calcula los insumos requeridos.
-     *
-     * @param productos Mapa de productos y sus cantidades.
+     * Procesa las recetas de productos, descuenta stock y guarda insumos faltantes si no alcanza.
+     * @param productos productos seleccionados con su cantidad
+     * @return lista de insumos faltantes
      */
-    public void procesarRecetas(Map<Producto, Integer> productos) {
-        // Primero validamos si hay suficientes insumos
-        if (!validarInsumosSuficientes(productos)) {
-            System.out.println("No hay suficientes insumos para procesar el pedido.");
-            return; // Si no hay insumos suficientes, no procesamos más
-        }
+    public List<InsumoFaltante> procesarRecetas(Map<Producto, Integer> productos) {
+        List<InsumoFaltante> faltantes = new ArrayList<>();
 
-        // Si la validación pasa, procesamos las recetas
         for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
             Producto producto = entry.getKey();
             int cantidadProducto = entry.getValue();
             Receta receta = producto.getReceta();
 
-            if (receta != null) {
-                for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
-                    Insumo insumo = insumoReceta.getInsumo();
-                    double cantidadRequerida = insumoReceta.getCantidadUtilizada() * cantidadProducto;
+            if (receta == null) continue;
 
-                    // Convertir la cantidad requerida de la receta a la unidad del insumo en el stock
-                    double cantidadRequeridaConvertida = insumo.convertirUnidad(cantidadRequerida, insumoReceta.getUnidad(), insumo.getMedida());
+            for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
+                String nombreInsumo = insumoReceta.getInsumo().getNombre();
+                String unidadRequerida = insumoReceta.getUnidad();
+                double totalNecesario = insumoReceta.getCantidadUtilizada() * cantidadProducto;
 
-                    // Validar si hay suficiente insumo disponible
-                    if (insumo.getCantidad() < cantidadRequeridaConvertida) {
-                        System.out.println("Insumo insuficiente: " + insumo.getNombre() +
-                                ". Requerido: " + cantidadRequeridaConvertida +
-                                ", disponible: " + insumo.getCantidad());
-                    } else {
-                        // Registrar el uso del insumo
-                        insumo.reducirCantidad(cantidadRequeridaConvertida, insumoReceta.getUnidad());
-                        insumoDAO.update(insumo); // Actualizar el insumo en la base de datos
-                        System.out.println("Usado " + cantidadRequeridaConvertida + " de " + insumo.getNombre() +
-                                ". Restante: " + insumo.getCantidad());
+                // 🔍 Buscar todos los lotes de este insumo por nombre (sin importar ID)
+                List<Insumo> lotes = insumoDAO.findAll().stream()
+                        .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
+                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad)) // FIFO por vencimiento
+                        .collect(Collectors.toList());
+
+                double restante = totalNecesario;
+
+                for (Insumo lote : lotes) {
+                    if (restante <= 0.0001) break;
+
+                    double disponible = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), unidadRequerida);
+                    double usado = Math.min(disponible, restante);
+
+                    if (usado > 0) {
+                        lote.reducirCantidad(usado, unidadRequerida);
+                        insumoDAO.update(lote);
+
+                        restante -= usado;
                     }
+                }
+
+                if (restante > 0.0001) {
+                    // ⚠️ Faltante
+                    InsumoFaltante faltante = new InsumoFaltante();
+                    faltante.setInsumo(insumoReceta.getInsumo());
+                    faltante.setProducto(producto);
+                    faltante.setCantidadFaltante(restante);
+                    faltante.setUnidad(unidadRequerida);
+                    faltante.setResuelto(false);
+                    faltante.setPedido(null); // No lo asociamos a un pedido
+
+                    faltanteDAO.save(faltante);
+                    faltantes.add(faltante);
                 }
             }
         }
+
+        return faltantes;
     }
 
+    /**
+     * Simula el stock para validar si alcanza para todos los productos.
+     * @param productos mapa de productos y sus cantidades
+     * @return true si alcanza el stock, false si falta alguno
+     */
+    public boolean validarInsumosSuficientes(Map<Producto, Integer> productos) {
+        Map<String, Double> stockPorNombre = new HashMap<>();
 
-    private boolean validarInsumosSuficientes(Map<Producto, Integer> productos) {
-        // Validación de insumos antes de procesar recetas
+        for (Insumo insumo : insumoDAO.findAll()) {
+            String nombre = insumo.getNombre();
+            double acumulado = stockPorNombre.getOrDefault(nombre, 0.0);
+            double enGramos = insumo.convertirUnidad(insumo.getCantidad(), insumo.getMedida(), "GR");
+            stockPorNombre.put(nombre, acumulado + enGramos);
+        }
+
         for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
             Producto producto = entry.getKey();
-            int cantidadProducto = entry.getValue();
-            Receta receta = producto.getReceta();
+            int cantidad = entry.getValue();
 
-            if (receta != null) {
-                for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
-                    Insumo insumo = insumoReceta.getInsumo();
-                    double cantidadRequerida = insumoReceta.getCantidadUtilizada() * cantidadProducto;
+            if (producto.getReceta() == null) continue;
 
-                    if (insumo.getCantidad() < cantidadRequerida) {
-                        System.out.println("Insumo insuficiente: " + insumo.getNombre() +
-                                ". Requerido: " + cantidadRequerida +
-                                ", disponible: " + insumo.getCantidad());
-                        return false; // Si hay algún insumo insuficiente, la validación falla
-                    }
+            for (InsumoReceta insumoReceta : producto.getReceta().getInsumosReceta()) {
+                String nombre = insumoReceta.getInsumo().getNombre();
+                String unidad = insumoReceta.getUnidad();
+                double requerido = insumoReceta.getCantidadUtilizada() * cantidad;
+                double disponible = stockPorNombre.getOrDefault(nombre, 0.0);
+                double requeridoGr = insumoReceta.getInsumo().convertirUnidad(requerido, unidad, "GR");
+
+                if (disponible < requeridoGr) {
+                    return false;
                 }
+
+                stockPorNombre.put(nombre, disponible - requeridoGr);
             }
         }
-        return true; // Todos los insumos son suficientes
+
+        return true;
     }
-
-
-
 }

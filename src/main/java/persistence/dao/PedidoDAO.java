@@ -23,11 +23,16 @@ public class PedidoDAO {
         try {
             transaction.begin();
 
-            // Calcular el total antes de persistir el pedido
-            pedido.setTotalPedido(pedido.calcularTotalPedido());
+            // Verificamos si es nuevo o existente (tiene ID o no)
+            if (pedido.getNumeroPedido() == null) {
+                em.persist(pedido); // Nuevo pedido
+            } else {
+                pedido = em.merge(pedido); // Ya tiene ID, lo actualizamos
+            }
 
-            // Persistir el pedido
-            em.persist(pedido);
+            // Gracias a cascade = CascadeType.ALL, los productos se guardarán automáticamente
+            // Si los PedidoProducto tienen su ID embebido correctamente seteado
+
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -40,13 +45,14 @@ public class PedidoDAO {
         }
     }
 
+
     public void update(Pedido pedido) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
 
-            // Recalcular total antes de actualizar
+            // Asegura recalcular total si hubo cambios
             pedido.setTotalPedido(pedido.calcularTotalPedido());
 
             em.merge(pedido);
@@ -60,7 +66,6 @@ public class PedidoDAO {
             em.close();
         }
     }
-
 
     public Pedido findByNumeroPedido(Long numeroPedido) {
         EntityManager em = getEntityManager();

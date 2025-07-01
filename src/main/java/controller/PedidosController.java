@@ -22,30 +22,47 @@ import utilities.Paths;
 import utilities.SceneLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
+import javafx.geometry.Insets;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
 import javafx.scene.control.Alert;
 
 public class PedidosController {
-    @FXML private Label lblNOrden;
-    @FXML private Label lblDNICliente;
-    @FXML private Label lblDetallePedidoCliente;
-    @FXML private Label lblEmpleadoAsignadoAlPedido;
-    @FXML private Label lblFechaEntrega;
-    @FXML  private Label lblFormaEntrega;
-    @FXML private Label lblNomCliente;
-    @FXML private Label lblTotalPedido;
-    @FXML private Label lblTelefonoCliente;
-    @FXML private ComboBox<String> cmbEstadoDelPedido;
-    @FXML private GridPane gridContenedorPedidos;
-    @FXML private Pane paneVisualizarPedido;
-    @FXML private Button btnBorrarPedido;
-    @FXML private Button btnModificar;
-    @FXML private VBox pedidosVBox; // Donde se mostrarán los pedidos
-
+    @FXML
+    private Label lblNOrden;
+    @FXML
+    private Label lblDNICliente;
+    @FXML
+    private Label lblDetallePedidoCliente;
+    @FXML
+    private Label lblEmpleadoAsignadoAlPedido;
+    @FXML
+    private Label lblFechaEntrega;
+    @FXML
+    private Label lblFormaEntrega;
+    @FXML
+    private Label lblNomCliente;
+    @FXML
+    private Label lblTotalPedido;
+    @FXML
+    private Label lblTelefonoCliente;
+    @FXML
+    private ComboBox<String> cmbEstadoDelPedido;
+    @FXML
+    private GridPane gridContenedorPedidos;
+    @FXML
+    private Pane paneVisualizarPedido;
+    @FXML
+    private Button btnBorrarPedido;
+    @FXML
+    private Button btnModificar;
+    @FXML
+    private VBox pedidosVBox; // Donde se mostrarán los pedidos
     //private PedidoDAO pedidoDAO;
     private RecetaDAO recetaDAO;
     private ClienteDAO clienteDAO;
@@ -96,9 +113,9 @@ public class PedidosController {
         for (Pedido pedido : pedidos) {
             agregarNuevoPedido(
                     pedido.getNumeroPedido(),
-                    pedido.getCliente().getNombre(),
+                    pedido.getCliente().getDni(), // <-- Cambiado: primero DNI
+                    pedido.getCliente().getNombre(), // <-- luego nombre
                     pedido.getCliente().getTelefono(),
-                    pedido.getCliente().getDni(),
                     pedido.generarDetalle(),
                     pedido.getEmpleadoAsignado().getNombre(),
                     pedido.getFormaEntrega(),
@@ -137,12 +154,13 @@ public class PedidosController {
         }
     }
 
-    @FXML void pedidoActualVisualizandose(){
+    @FXML
+    void pedidoActualVisualizandose() {
         String DNIpedidoActual;
         DNIpedidoActual = lblDNICliente.getText();
     }
 
-    public void agregarNuevoPedido(Long numeroPedido, String nombre, String contacto, String dniCliente,
+    public void agregarNuevoPedido(Long numeroPedido, String dniCliente, String nombre, String contacto,
                                    String detalle, String empleado, String formaEntrega, LocalDate fechaEntrega,
                                    String estadoPedido, String totalPedido) {
         try {
@@ -185,61 +203,70 @@ public class PedidosController {
     }
 
     private StackPane crearStackPanePedido(Label detalleCompletoPedido) {
-            StackPane nuevoPedidoStackPane = new StackPane(detalleCompletoPedido);
-            nuevoPedidoStackPane.setPrefWidth(480);
-            nuevoPedidoStackPane.setPrefHeight(190);
-            nuevoPedidoStackPane.setStyle("-fx-background-color: #FFF4F4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 2px;");
-            return nuevoPedidoStackPane;
-        }
+        StackPane nuevoPedidoStackPane = new StackPane(detalleCompletoPedido);
+        nuevoPedidoStackPane.setPrefWidth(140);
+        nuevoPedidoStackPane.setPrefHeight(150);
 
-        private void configurarLabelDetalle(Label detalleCompletoPedido, String detalleGenerado, String empleado, LocalDate fechaEntrega) {
-            detalleCompletoPedido.setText(detalleGenerado + "\n" + empleado + "\n" + fechaEntrega.toString());
-            detalleCompletoPedido.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-padding-top: 2px");
-            detalleCompletoPedido.setWrapText(true); // Permitir que el texto se ajuste al ancho del Label
-        }
+        nuevoPedidoStackPane.setStyle("""
+                    -fx-background-color: linear-gradient(to bottom right, #ffffff, #f9f9f9);
+                    -fx-border-radius: 8px;
+                    -fx-background-radius: 8px;
+                    -fx-border-color: #d0d0d0;
+                    -fx-border-width: 1;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.1, 2, 2);
+                    -fx-padding: 8;
+                """);
+        return nuevoPedidoStackPane;
+    }
 
-        private void manejarClicStackPane(StackPane nuevoPedidoStackPane, Pedido pedido, Long numeroPedido, String nombre, String detalleGenerado, String contacto, String empleado, String formaEntrega, LocalDate fechaEntrega, String dniCliente) {
-            nuevoPedidoStackPane.setOnMouseClicked(event -> {
-                // Asignar el pedido correspondiente
-                pedidoSeleccionado = pedido;
+    private void configurarLabelDetalle(Label detalleCompletoPedido, String detalleGenerado, String empleado, LocalDate fechaEntrega) {
+        detalleCompletoPedido.setText(detalleGenerado + "\n👤 " + empleado + "  📅 " + fechaEntrega.toString());
+        detalleCompletoPedido.setStyle("""
+                    -fx-font-size: 13px;
+                    -fx-text-fill: #444;
+                    -fx-font-family: 'Segoe UI', sans-serif;
+                    -fx-alignment: TOP_LEFT;
+                """);
+        detalleCompletoPedido.setWrapText(true);
+    }
 
-                // Mostrar los detalles en la interfaz
-                paneVisualizarPedido.setVisible(true);
-                lblNOrden.setText(numeroPedido.toString());
-                lblNomCliente.setText(nombre);
-                lblDetallePedidoCliente.setText(detalleGenerado); // Usar el detalle generado
-                lblTelefonoCliente.setText(contacto);
-                lblEmpleadoAsignadoAlPedido.setText(empleado);
-                lblFormaEntrega.setText(formaEntrega);
-                lblFechaEntrega.setText(fechaEntrega.toString());
-                lblDNICliente.setText(dniCliente);
-                lblTotalPedido.setText(pedido.getTotalPedido().toString());
+    private void manejarClicStackPane(StackPane nuevoPedidoStackPane, Pedido pedido, Long numeroPedido, String nombre, String detalleGenerado, String contacto, String empleado, String formaEntrega, LocalDate fechaEntrega, String dniCliente) {
+        nuevoPedidoStackPane.setOnMouseClicked(event -> {
+            // Asignar el pedido correspondiente
+            pedidoSeleccionado = pedido;
 
-                // Llamar a la función para procesar la visualización del pedido
-                pedidoActualVisualizandose();
-                actualizarColoresStackPane(); // Cambia el borde del StackPane según el estado del pedido
+            // Mostrar los detalles en la interfaz
+            paneVisualizarPedido.setVisible(true);
+            lblNOrden.setText(numeroPedido.toString());
+            lblNomCliente.setText(nombre);
+            lblDetallePedidoCliente.setText(detalleGenerado); // Usar el detalle generado
+            lblTelefonoCliente.setText(contacto);
+            lblEmpleadoAsignadoAlPedido.setText(empleado);
+            lblFormaEntrega.setText(formaEntrega);
+            lblFechaEntrega.setText(fechaEntrega.toString());
+            lblDNICliente.setText(dniCliente);
+            lblTotalPedido.setText(pedido.getTotalPedido().toString());
 
-                // Pasar los datos al controlador de modificación
-                if (pedidoSeleccionado != null) {
-                    ModificarPedidosController modificarController = new ModificarPedidosController();
-                    modificarController.obtenerDatos(pedidoSeleccionado); // Pasar el pedido seleccionado
-                }
-            });
-        }
+            // Llamar a la función para procesar la visualización del pedido
+            pedidoActualVisualizandose();
+            actualizarColoresStackPane(); // Cambia el borde del StackPane según el estado del pedido
 
-        private void agregarStackPaneAlGridPane(StackPane nuevoPedidoStackPane) {
-            int newRowIndex = gridContenedorPedidos.getRowCount(); // Obtener el número de filas actuales
+            // Pasar los datos al controlador de modificación
+            if (pedidoSeleccionado != null) {
+                ModificarPedidosController modificarController = new ModificarPedidosController();
+                modificarController.obtenerDatos(pedidoSeleccionado); // Pasar el pedido seleccionado
+            }
+        });
+    }
 
-            // Añadir el StackPane al GridPane
-            gridContenedorPedidos.add(nuevoPedidoStackPane, 0, newRowIndex); // Insertar el StackPane en la nueva fila y columna 0
+    private void agregarStackPaneAlGridPane(StackPane stackPane) {
+        int totalPedidos = gridContenedorPedidos.getChildren().size();
+        int columna = totalPedidos % 3; // 3 columnas por fila
+        int fila = totalPedidos / 3;
 
-            // Añadir una restricción de tamaño fijo a la nueva fila con margen
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setPrefHeight(190 + 7); // Altura del StackPane más el margen
-            rowConstraints.setMaxHeight(190 + 7);
-            rowConstraints.setMinHeight(190 + 7);
-            gridContenedorPedidos.getRowConstraints().add(rowConstraints);
-        }
+        gridContenedorPedidos.add(stackPane, columna, fila);
+        GridPane.setMargin(stackPane, new Insets(4, 6, 4, 6)); // top, right, bottom, left
+    }
 
     private void actualizarGridPane() {
         gridContenedorPedidos.getChildren().clear();
@@ -400,7 +427,11 @@ public class PedidosController {
                 mostrarAlerta("Error", "No se pudo completar el pedido por falta de insumos.");
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
+            // Mostrar el mensaje real de la excepción para depuración
+            Throwable cause = e.getCause();
+            String mensaje = (cause != null) ? cause.getMessage() : e.getMessage();
+            mostrarAlerta("Error inesperado", "Ocurrió un error al crear el pedido:\n" + mensaje);
             e.printStackTrace();
         }
     }

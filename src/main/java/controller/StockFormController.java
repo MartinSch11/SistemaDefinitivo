@@ -8,8 +8,10 @@ import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import model.Insumo;
+import model.InsumoFaltante;
 import model.Proveedor;
 import persistence.dao.InsumoDAO;
+import persistence.dao.InsumoFaltanteDAO;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 
@@ -30,11 +32,15 @@ public class StockFormController {
 
     private InsumoDAO insumoDAO;
     private ProveedorDAO proveedorDAO;
+    private InsumoFaltanteDAO insumoFaltanteDAO;
 
-    public StockFormController() {
-        insumoDAO = new InsumoDAO();
-        proveedorDAO = new ProveedorDAO();
+    // AGREGAR ESTE CONSTRUCTOR
+    public StockFormController(InsumoFaltanteDAO insumoFaltanteDAO) {
+        this.insumoDAO = new InsumoDAO(); // o pasarlo también si querés mockearlo
+        this.proveedorDAO = new ProveedorDAO();
+        this.insumoFaltanteDAO = insumoFaltanteDAO;
     }
+
 
     @FXML
     private void initialize() {
@@ -140,6 +146,7 @@ public class StockFormController {
             insumoDAO.save(insumo);
             ActionLogger.log("El usuario guardó correctamente un insumo: " + insumo.getNombre());
 
+            resolverFaltantes(insumoSeleccionado, cantidadNumerica);
             cerrarFormulario();
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "La cantidad o el precio no son válidos.");
@@ -164,4 +171,49 @@ public class StockFormController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    public void resolverFaltantes(Insumo insumo, double cantidadAgregada) {
+        List<InsumoFaltante> pendientes = insumoFaltanteDAO.findPendientesPorInsumo(insumo);
+
+        System.out.printf("📦 Resolviendo faltantes para insumo: %s (stock agregado: %.2f %s)\n",
+                insumo.getNombre(), cantidadAgregada, insumo.getMedida());
+
+        for (InsumoFaltante falta : pendientes) {
+            if (cantidadAgregada <= 0) break;
+
+            double requerido = falta.getCantidadFaltante();
+            double usado = Math.min(requerido, cantidadAgregada);
+
+            // Reducir el stock real
+            insumo.reducirCantidad(usado, falta.getUnidad());
+
+            // Actualizar el faltante
+            double nuevoPendiente = requerido - usado;
+            falta.setCantidadFaltante(nuevoPendiente);
+
+            if (nuevoPendiente <= 0.0001) {
+                falta.setResuelto(true);
+            }
+
+            System.out.printf("🛠️ Pedido #%d - Producto: %s → Usado: %.2f %s → Pendiente: %.2f → Resuelto: %s\n",
+                    falta.getPedido().getNumeroPedido(),
+                    falta.getProducto().getNombre(),
+                    usado, falta.getUnidad(),
+                    falta.getCantidadFaltante(),
+                    falta.isResuelto() ? "✅" : "❌");
+
+            // Persistir cambio en faltante
+            insumoFaltanteDAO.update(falta);
+
+            // Actualizar stock disponible para otros faltantes
+            cantidadAgregada -= usado;
+        }
+
+        // Actualizar el insumo con el stock restante
+        new InsumoDAO().update(insumo);
+
+        System.out.printf("✅ Resolución finalizada. Stock restante del insumo '%s': %.2f %s\n",
+                insumo.getNombre(), insumo.getCantidad(), insumo.getMedida());
+    }
+
 }

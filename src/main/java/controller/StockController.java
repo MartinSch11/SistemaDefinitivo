@@ -11,8 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Insumo;
+import model.InsumoFaltante;
 import model.Proveedor;
 import persistence.dao.InsumoDAO;
+import persistence.dao.InsumoFaltanteDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
 import utilities.ActionLogger;
@@ -30,6 +32,7 @@ public class StockController {
     @FXML private TableColumn<Insumo, String> colProveedor;
 
     private InsumoDAO insumoDAO;
+    private final InsumoFaltanteDAO insumoFaltanteDAO = new InsumoFaltanteDAO();
 
     public void initialize() {
         // Crear el objeto DAO
@@ -88,4 +91,5 @@ public class StockController {
         SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
         ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de insumos.");
     }
+
 }

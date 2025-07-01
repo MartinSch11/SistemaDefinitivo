@@ -53,6 +53,16 @@ public class InsumoDAO {
         }
     }
 
+    public List<Insumo> findDisponiblesPorNombreOrdenado(String nombre) {
+        return em.createQuery("""
+                            SELECT i FROM Insumo i 
+                            WHERE LOWER(i.nombre) = LOWER(:nombre) 
+                              AND i.cantidad > 0
+                            ORDER BY i.fechaCaducidad ASC
+                        """, Insumo.class)
+                .setParameter("nombre", nombre)
+                .getResultList();
+    }
 
     public void delete(Insumo insumo) {
         EntityTransaction transaction = em.getTransaction();

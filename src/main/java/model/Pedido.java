@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -49,7 +50,8 @@ public class Pedido {
     @Column(name = "total_pedido", nullable = false)
     private BigDecimal totalPedido;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<PedidoProducto> pedidoProductos = new ArrayList<>();
 
     // Constructor sin cliente ni empleado para mayor flexibilidad

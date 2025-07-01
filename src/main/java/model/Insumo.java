@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @Data
@@ -83,6 +85,14 @@ public class Insumo {
         }
     }
 
+    public double getCantidad() {
+        return this.cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
     @Override
     public String toString() {
         return nombre;
@@ -101,11 +111,15 @@ public class Insumo {
     }
 
     public void reducirCantidad(double cantidadUtilizada, String unidadUtilizada) {
-        // Convert the used amount to the insumo's unit
         double cantidadConvertida = convertirUnidad(cantidadUtilizada, unidadUtilizada, this.medida);
 
         if (this.cantidad >= cantidadConvertida) {
             this.cantidad -= cantidadConvertida;
+
+            // Redondear a 2 decimales para evitar infinitos flotantes
+            this.cantidad = BigDecimal.valueOf(this.cantidad)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
         } else {
             throw new IllegalArgumentException("No hay suficiente cantidad disponible para el insumo: " + nombre);
         }
@@ -129,24 +143,24 @@ public class Insumo {
         return nombre != null ? nombre.hashCode() : 0;
     }
 
-    public double convertirUnidad(double cantidad, String unidadActual, String unidadDeseada) {
-        // Reglas de conversión
-        switch (unidadActual) {
-            case "KG":
-                if (unidadDeseada.equals("GR")) return cantidad * 1000; // Kilos a Gramos
-                break;
-            case "GR":
-                if (unidadDeseada.equals("KG")) return cantidad / 1000; // Gramos a Kilos
-                break;
-            case "L":
-                if (unidadDeseada.equals("ML")) return cantidad * 1000; // Litros a Mililitros
-                break;
-            case "ML":
-                if (unidadDeseada.equals("L")) return cantidad / 1000; // Mililitros a Litros
-                break;
+    public double convertirUnidad(double cantidad, String unidadDesde, String unidadHacia) {
+        if (unidadDesde == null || unidadHacia == null) {
+            throw new IllegalArgumentException("Las unidades de medida no pueden ser nulas");
         }
-        // Si no se requiere conversión
-        return cantidad;
+
+        String de = unidadDesde.toUpperCase();
+        String a = unidadHacia.toUpperCase();
+
+        if (de.equals(a)) return cantidad; // misma unidad, no conversion
+
+        switch (de) {
+            case "KG": if (a.equals("GR")) return cantidad * 1000; break;
+            case "GR": if (a.equals("KG")) return cantidad / 1000; break;
+            case "L":  if (a.equals("ML")) return cantidad * 1000; break;
+            case "ML": if (a.equals("L"))  return cantidad / 1000; break;
+        }
+
+        throw new IllegalArgumentException("No se puede convertir de " + unidadDesde + " a " + unidadHacia);
     }
 
 }

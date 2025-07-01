@@ -22,7 +22,9 @@ public class PedidoProductoId implements Serializable {
     @Column(name = "id_pedido")
     private Long pedidoId;
 
-    public PedidoProductoId(Long numeroPedido, long id) {
+    public PedidoProductoId(Long pedidoId, Long productoId) {
+        this.pedidoId = pedidoId;
+        this.productoId = productoId;
     }
 
     // Implementación segura de equals y hashCode

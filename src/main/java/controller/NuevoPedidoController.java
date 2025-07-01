@@ -10,37 +10,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.*;
 import persistence.dao.ClienteDAO;
-import persistence.dao.PedidoDAO;
 import persistence.dao.TrabajadorDAO;
+import service.PedidoService;
 import utilities.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.io.IOException;
 
 public class NuevoPedidoController {
 
-    @FXML private Button btnCatalogo;
-    @FXML private Button btnCancelar;
-    @FXML private Button btnGuardar;
-    @FXML private TextField contactoCliente;
-    @FXML private ComboBox<String> empleadoAsignado;
-    @FXML private TextField dniClienteField;
+    @FXML private Button btnCatalogo, btnCancelar, btnGuardar, btnNuevoCliente;
+    @FXML private TextField contactoCliente, dniClienteField, nombreCliente;
+    @FXML private ComboBox<String> empleadoAsignado, cmbFormaEntrega;
     @FXML private DatePicker fechaEntregaPedido;
-    @FXML private TextField nombreCliente;
-    @FXML private ComboBox<String> cmbFormaEntrega;
-    @FXML private Button btnNuevoCliente;
 
-    private RecetaProcessor recetaProcessor = new RecetaProcessor();
-    private PedidoDAO pedidoDAO = new PedidoDAO();
     private Pedido pedidoCreado;
     private CatalogoPedidosController catalogoPedidosController;
     private PedidosController pedidosController;
-    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
-    private ClienteDAO clienteDAO = new ClienteDAO();
+
+    private final PedidoService pedidoService = new PedidoService();
 
     public void setPedidosController(PedidosController pedidosController) {
         this.pedidosController = pedidosController;
@@ -56,62 +46,51 @@ public class NuevoPedidoController {
         configurarCamposTexto();
         configurarFechaEntrega();
 
-        // Configurar evento para el campo dniClienteField
         dniClienteField.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 buscarYActualizarCliente(dniClienteField.getText());
             }
         });
+
         cmbFormaEntrega.setValue("Retira del local");
     }
 
     private void configurarCamposTexto() {
-        nombreCliente.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñÜü\\s]*")) {
-                nombreCliente.setText(oldValue);
-            }
+        nombreCliente.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñÜü\\s]*")) nombreCliente.setText(oldVal);
         });
 
-        contactoCliente.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                contactoCliente.setText(oldValue);
-            }
+        contactoCliente.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("\\d*")) contactoCliente.setText(oldVal);
         });
 
-        dniClienteField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                contactoCliente.setText(oldValue);
-            }
+        dniClienteField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("\\d*")) dniClienteField.setText(oldVal);
         });
 
         cmbFormaEntrega.getItems().addAll("Retira del local", "Paga su envío");
     }
 
     private void configurarFechaEntrega() {
-        fechaEntregaPedido.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+        fechaEntregaPedido.setDayCellFactory(picker -> new DateCell() {
             @Override
-            public DateCell call(final DatePicker datePicker) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item.isBefore(LocalDate.now())) {
-                            setDisable(true);
-                            setStyle("-fx-background-color: #ffc0cb;");
-                        }
-                    }
-                };
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;");
+                }
             }
         });
     }
 
     private void cargarNombresEmpleadosEnComboBox() {
         try {
-            List<String> nombres = trabajadorDAO.findAllNombres();
+            List<String> nombres = new TrabajadorDAO().findAllNombres();
             empleadoAsignado.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados.");
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los empleados.");
         }
     }
 
@@ -121,21 +100,19 @@ public class NuevoPedidoController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/CatalogoPedidos.fxml"));
             Parent root = loader.load();
 
-            // Configurar el controlador del catálogo
             catalogoPedidosController = loader.getController();
             catalogoPedidosController.setDialogNuevoPedidoController(this);
 
-            // Abrir el catálogo en un nuevo diálogo modal
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Catálogo de Pedidos");
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            ActionLogger.log("Catálogo de pedidos abierto correctamente.");
+            ActionLogger.log("Catálogo abierto correctamente.");
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo abrir el catálogo de pedidos: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo abrir el catálogo.");
         }
     }
 
@@ -143,119 +120,28 @@ public class NuevoPedidoController {
     private void GuardarInfoPedido(ActionEvent event) {
         if (!validarCampos()) return;
 
-        Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
-        if (productos.isEmpty()) return;
-
-        procesarRecetas(productos);
-        String detalle = generarDetallePedido(productos);
-
-        crearPedido(detalle);
-        if (pedidoCreado == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo crear el pedido.");
-            return;
-        }
-
-        guardarPedido();
-        cerrarVentana(event);
-    }
-
-    private boolean validarCampos() {
-        if (dniClienteField.getText().isEmpty() || nombreCliente.getText().isEmpty() ||
-                contactoCliente.getText().isEmpty() || empleadoAsignado.getValue() == null ||
-                cmbFormaEntrega.getValue() == null || fechaEntregaPedido.getValue() == null) {
-            showAlert(Alert.AlertType.WARNING, "Advertencia", "Campos obligatorios sin completar.");
-            return false;
-        }
-        return true;
-    }
-
-    private Map<Producto, Integer> obtenerProductosDelCatalogo() {
-        if (catalogoPedidosController == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "El catálogo de productos no está disponible.");
-            return new HashMap<>(); // Retorna un mapa mutable vacío
-        }
-
-        Map<Producto, Integer> productos = catalogoPedidosController.getProductosGuardados();
-        if (productos.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Advertencia", "Debe seleccionar al menos un producto.");
-        }
-        return productos;
-    }
-
-    private void procesarRecetas(Map<Producto, Integer> productos) {
-        // Delegamos la lógica a la clase especializada
-        recetaProcessor.procesarRecetas(productos);
-    }
-
-    private String generarDetallePedido(Map<Producto, Integer> productos) {
-        StringBuilder detalleBuilder = new StringBuilder();
-        productos.forEach((producto, cantidad) -> detalleBuilder
-                .append("Producto: ").append(producto.getNombre())
-                .append(", Cantidad: ").append(cantidad).append("\n"));
-        return detalleBuilder.toString();
-    }
-
-    public void crearPedido(String detalle) {
-        String estadoPedido = "Sin empezar";
-
-        // Buscar cliente en la base de datos
-        Cliente cliente = clienteDAO.findByDni(dniClienteField.getText());
-        if (cliente == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Cliente no encontrado en la base de datos.");
-            return;
-        }
-
-        // Buscar empleado en la base de datos
-        Trabajador trabajador = trabajadorDAO.findByDNI(empleadoAsignado.getValue());
-        if (trabajador == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Empleado no encontrado en la base de datos.");
-            return;
-        }
-
-        // Obtener productos y calcular total del pedido
-        Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
-        BigDecimal totalPedido = calcularTotalPedido(productos);  // ✅ Nueva función para calcular el total
-
-        // Crear el pedido con el total calculado
-        pedidoCreado = new Pedido(
-                null,  // Se generará automáticamente en la BD
-                cliente,
-                trabajador,
-                cmbFormaEntrega.getValue(),
-                fechaEntregaPedido.getValue(),
-                estadoPedido,
-                detalle,  // Guardamos el detalle en `descripcion`
-                totalPedido  // ✅ Pasamos el total del pedido
-        );
-
-        // Guardar el pedido en la base de datos para obtener su ID
-        pedidoDAO.save(pedidoCreado);
-
-        // Crear la lista de PedidoProducto
-        List<PedidoProducto> pedidoProductos = new ArrayList<>();
-        for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
-            Producto producto = entry.getKey();
-            int cantidad = entry.getValue();
-
-            // Crear el objeto PedidoProducto
-            PedidoProducto pedidoProducto = new PedidoProducto(pedidoCreado, producto, cantidad);
-            pedidoProductos.add(pedidoProducto);
-        }
-
-        // Asociar los productos al pedido y actualizar en la base de datos
-        pedidoCreado.setPedidoProductos(pedidoProductos);
-        pedidoDAO.update(pedidoCreado);
-    }
-
-    private BigDecimal calcularTotalPedido(Map<Producto, Integer> productos) {
-        return productos.entrySet().stream()
-                .map(entry -> entry.getKey().getPrecio().multiply(new BigDecimal(entry.getValue())))  // Multiplicar precio por cantidad
-                .reduce(BigDecimal.ZERO, BigDecimal::add);  // Sumar todos los valores
-    }
-
-    private void guardarPedido() {
         try {
-            pedidoDAO.save(pedidoCreado);
+            Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
+
+            PedidoService.PedidoConFaltantes resultado = pedidoService.crearPedido(
+                    dniClienteField.getText(),
+                    empleadoAsignado.getValue(),
+                    cmbFormaEntrega.getValue(),
+                    fechaEntregaPedido.getValue(),
+                    productos
+            );
+
+            Pedido pedidoCreado = resultado.getPedido();
+            this.pedidoCreado = pedidoCreado; // Para el controlador principal
+
+            // Mostrar mensaje si hubo insumos faltantes
+            if (resultado.getMensajeFaltantes() != null && !resultado.getMensajeFaltantes().isBlank()) {
+                Alert faltantesAlert = new Alert(Alert.AlertType.WARNING);
+                faltantesAlert.setTitle("Insumos Faltantes");
+                faltantesAlert.setHeaderText("Algunos insumos estaban incompletos");
+                faltantesAlert.setContentText(resultado.getMensajeFaltantes());
+                faltantesAlert.showAndWait();
+            }
 
             if (pedidosController != null) {
                 pedidosController.agregarNuevoPedido(
@@ -271,12 +157,30 @@ public class NuevoPedidoController {
                         pedidoCreado.getTotalPedido().toString()
                 );
             }
-        } catch (RuntimeException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+
+            cerrarVentana(event);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error al guardar", e.getMessage());
         }
     }
 
 
+
+    private boolean validarCampos() {
+        return !(dniClienteField.getText().isEmpty()
+                || nombreCliente.getText().isEmpty()
+                || contactoCliente.getText().isEmpty()
+                || empleadoAsignado.getValue() == null
+                || cmbFormaEntrega.getValue() == null
+                || fechaEntregaPedido.getValue() == null);
+    }
+
+    private Map<Producto, Integer> obtenerProductosDelCatalogo() {
+        if (catalogoPedidosController == null) return new HashMap<>();
+        return catalogoPedidosController.getProductosGuardados();
+    }
 
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -284,9 +188,9 @@ public class NuevoPedidoController {
     }
 
     @FXML
-    void CancelarPedido(ActionEvent event) {
+    private void CancelarPedido(ActionEvent event) {
         if (confirmarCancelar()) {
-            ActionLogger.log("Se canceló el pedido sin guardar.");
+            ActionLogger.log("Pedido cancelado por el usuario.");
             cerrarVentana(event);
         }
     }
@@ -294,9 +198,8 @@ public class NuevoPedidoController {
     private boolean confirmarCancelar() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
-        alert.setHeaderText("Se perderán los cambios realizados. ¿Desea salir?");
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.isPresent() && result.get() == ButtonType.OK;
+        alert.setHeaderText("¿Desea cancelar el pedido? Se perderán los cambios.");
+        return alert.showAndWait().filter(b -> b == ButtonType.OK).isPresent();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -309,15 +212,7 @@ public class NuevoPedidoController {
     @FXML
     private void handleNuevoCliente(ActionEvent event) {
         SceneLoader.loadScene(new NodeSceneStrategy(btnNuevoCliente), Paths.NUEVOCLIENTE, "/css/components.css", false);
-        ActionLogger.log("Accedió a la pantalla de nuevo cliente.");
-    }
-
-    public String getDniCliente() {
-        return dniClienteField.getText();
-    }
-
-    public Pedido getPedidoCreado() {
-        return pedidoCreado;
+        ActionLogger.log("Accedió a nuevo cliente.");
     }
 
     private void buscarYActualizarCliente(String dni) {
@@ -327,19 +222,25 @@ public class NuevoPedidoController {
         }
 
         try {
-            Cliente cliente = clienteDAO.findByDni(dni);
+            Cliente cliente = new ClienteDAO().findByDni(dni);
 
             if (cliente != null) {
                 nombreCliente.setText(cliente.getNombre() + " " + cliente.getApellido());
                 contactoCliente.setText(cliente.getTelefono());
             } else {
-                showAlert(Alert.AlertType.INFORMATION, "Información", "No se encontró un cliente con ese DNI.");
+                showAlert(Alert.AlertType.INFORMATION, "Información", "Cliente no encontrado.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Error al buscar el cliente: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al buscar cliente: " + e.getMessage());
         }
     }
 
+    public String getDniCliente() {
+        return dniClienteField.getText();
+    }
 
+    public Pedido getPedidoCreado() {
+        return pedidoCreado;
+    }
 }
