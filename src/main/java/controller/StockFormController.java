@@ -21,6 +21,7 @@ import persistence.dao.InsumoDAO;
 import persistence.dao.InsumoFaltanteDAO;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
+import utilities.RecetaProcessor;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -44,6 +45,7 @@ public class StockFormController {
     private InsumoFaltanteDAO insumoFaltanteDAO;
     private CatalogoInsumoDAO catalogoInsumoDAO;
     private HistorialCompraDAO historialCompraDAO = new HistorialCompraDAO();
+    private final RecetaProcessor recetaProcessor = new RecetaProcessor();
 
     // Referencia al controlador principal para refrescar la tabla
     private StockController stockController;
@@ -89,7 +91,8 @@ public class StockFormController {
             return null;
         }));
 
-        // Validación: la fecha de caducidad no puede ser inferior a la de compra, y se muestra en rojo
+        // Validación: la fecha de caducidad no puede ser inferior a la de compra, y se
+        // muestra en rojo
         fechaCompraData.valueProperty().addListener((obs, oldVal, newVal) -> {
             fechaCaducidadData.setDayCellFactory(picker -> new DateCell() {
                 @Override
@@ -108,7 +111,8 @@ public class StockFormController {
     }
 
     /**
-     * Filtra las unidades de medida disponibles según el estado del insumo seleccionado.
+     * Filtra las unidades de medida disponibles según el estado del insumo
+     * seleccionado.
      * LÍQUIDO: ML, L
      * SÓLIDO: GR, KG
      * UNIDAD: UNIDAD, UNIDADES
@@ -205,7 +209,8 @@ public class StockFormController {
             int cantidadNumerica = Integer.parseInt(cantidad);
             double precioDouble = Double.parseDouble(precio);
 
-            Insumo insumo = new Insumo(insumoSeleccionado, cantidadNumerica, precioDouble, medida, fechaCompra, fechaCaducidad);
+            Insumo insumo = new Insumo(insumoSeleccionado, cantidadNumerica, precioDouble, medida, fechaCompra,
+                    fechaCaducidad);
             insumo.setProveedor(proveedorSeleccionado);
 
             insumoDAO.save(insumo);
@@ -218,12 +223,10 @@ public class StockFormController {
                     medida,
                     fechaCompra,
                     proveedorSeleccionado.getNombre(),
-                    precioDouble
-            );
+                    precioDouble);
             historialCompraDAO.save(compra);
 
-            // Llamar a resolverFaltantes por nombre, para que tome todos los lotes actualizados
-            resolverFaltantesPorNombre(insumoSeleccionado.getNombre());
+            resolverFaltantesPorCatalogoInsumo(insumoSeleccionado);
             // Refrescar la tabla de insumos si se abrió desde StockController
             if (stockController != null) {
                 stockController.recargarTablaInsumos();
@@ -253,77 +256,22 @@ public class StockFormController {
         alert.showAndWait();
     }
 
-    // Nuevo método robusto: resuelve faltantes por nombre de insumo, usando todos los lotes
-    public void resolverFaltantesPorNombre(String nombreInsumo) {
-        // Buscar todos los lotes del insumo por nombre, ordenados por fecha de caducidad
-        List<Insumo> lotesInsumo = new java.util.ArrayList<>();
-        for (Insumo lote : insumoDAO.findAll()) {
-            if (lote.getNombre().equalsIgnoreCase(nombreInsumo)) {
-                lotesInsumo.add(lote);
-            }
-        }
-        lotesInsumo.sort(java.util.Comparator.comparing(Insumo::getFechaCaducidad));
-
-        // Buscar todos los faltantes pendientes de ese insumo
-        List<InsumoFaltante> pendientes = new java.util.ArrayList<>();
-        if (!lotesInsumo.isEmpty()) {
-            pendientes = insumoFaltanteDAO.findPendientesPorInsumo(lotesInsumo.get(0));
-        }
-
-        System.out.printf("📦 Resolviendo faltantes para insumo: %s\n", nombreInsumo);
-
-        for (InsumoFaltante falta : pendientes) {
-            // Calcular stock total disponible en la unidad del faltante
-            double stockTotal = 0.0;
-            for (Insumo lote : lotesInsumo) {
-                try {
-                    stockTotal += lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), falta.getUnidad());
-                } catch (Exception e) {
-                    // Si no se puede convertir, ignorar ese lote
-                }
-            }
-            double requerido = falta.getCantidadFaltante();
-            double usado = 0.0;
-            // Descontar de varios lotes en orden de vencimiento
-            for (Insumo lote : lotesInsumo) {
-                if (requerido <= 0.0001 || stockTotal <= 0.0001) break;
-                double disponible = 0.0;
-                try {
-                    disponible = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), falta.getUnidad());
-                } catch (Exception e) {
-                    continue;
-                }
-                double aDescontar = Math.min(disponible, requerido);
-                if (aDescontar > 0) {
-                    lote.reducirCantidad(aDescontar, falta.getUnidad());
-                    insumoDAO.update(lote);
-                    usado += aDescontar;
-                    requerido -= aDescontar;
-                    stockTotal -= aDescontar;
-                }
-            }
-            // Actualizar el faltante
-            if (usado >= falta.getCantidadFaltante() - 0.0001) {
-                falta.setCantidadFaltante(0.0);
-                falta.setResuelto(true);
-                System.out.printf("🛠️ Faltante resuelto: Usado: %.2f %s → Pendiente: 0.0 → Resuelto: ✅\n",
-                        usado, falta.getUnidad());
-            } else {
-                double nuevoPendiente = falta.getCantidadFaltante() - usado;
-                falta.setCantidadFaltante(nuevoPendiente);
-                falta.setResuelto(false);
-                System.out.printf("🛠️ Faltante parcialmente resuelto: Usado: %.2f %s → Pendiente: %.2f → Resuelto: ❌\n",
-                        usado, falta.getUnidad(), nuevoPendiente);
-            }
-            insumoFaltanteDAO.update(falta);
-        }
-
+    /**
+     * Resuelve faltantes pendientes para un insumo de catálogo usando la lógica centralizada de RecetaProcessor.
+     */
+    public void resolverFaltantesPorCatalogoInsumo(CatalogoInsumo catalogoInsumo) {
+        // Llama a la lógica centralizada (resuelve todos los faltantes posibles)
+        var resumen = recetaProcessor.resolverFaltantesPorCatalogoInsumo();
         // Refrescar la tabla de insumos si se abrió desde StockController
         if (stockController != null) {
             stockController.recargarTablaInsumos();
         }
-
-        System.out.printf("✅ Resolución finalizada.\n");
+        // Mostrar resumen profesional si se resolvió algún faltante
+        if (resumen != null && !resumen.isEmpty()) {
+            StringBuilder msg = new StringBuilder("Faltantes resueltos automáticamente:\n");
+            resumen.forEach((nombre, cantidad) -> msg.append("- ").append(nombre).append(": ").append(cantidad).append("\n"));
+            showAlert(Alert.AlertType.INFORMATION, "Faltantes resueltos", msg.toString());
+        }
     }
 
     private void abrirFormularioInsumo(CatalogoInsumo insumo) {

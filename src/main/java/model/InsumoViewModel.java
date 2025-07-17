@@ -51,4 +51,8 @@ public class InsumoViewModel {
     public StringProperty proveedorProperty() {
         return proveedor;
     }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad.set(cantidad);
+    }
 }

@@ -158,8 +158,8 @@ public class Insumo {
         boolean esPesoHacia = a.equals("KG") || a.equals("GR");
         boolean esVolumenDesde = de.equals("L") || de.equals("ML");
         boolean esVolumenHacia = a.equals("L") || a.equals("ML");
-        boolean esUnidadDesde = de.equals("UNIDADES");
-        boolean esUnidadHacia = a.equals("UNIDADES");
+        boolean esUnidadDesde = de.equals("UNIDAD") || de.equals("UNIDADES");
+        boolean esUnidadHacia = a.equals("UNIDAD") || a.equals("UNIDADES");
 
         // Solo permitimos conversiones dentro del mismo tipo
         if (esPesoDesde && esPesoHacia) {
@@ -173,7 +173,7 @@ public class Insumo {
             if (de.equals("ML") && a.equals("L"))
                 return cantidad / 1000;
         } else if (esUnidadDesde && esUnidadHacia) {
-            return cantidad; // UNIDADES a UNIDADES
+            return cantidad; // UNIDAD <-> UNIDADES
         }
 
         // Si llegamos aquí, la conversión es inválida
@@ -181,4 +181,26 @@ public class Insumo {
                 + ". Solo se permiten conversiones entre unidades compatibles (peso, volumen o unidades). Si necesitas convertir leche entre L y GR, implementa una excepción específica para ese insumo.");
     }
 
+    /**
+     * Aumenta la cantidad de insumo en la unidad indicada, sin superar la capacidad máxima (si se define una lógica de capacidad máxima).
+     * Si no hay límite, simplemente suma.
+     */
+    public void aumentarCantidad(double cantidadAAgregar, String unidadAAgregar) {
+        double cantidadConvertida = convertirUnidad(cantidadAAgregar, unidadAAgregar, this.medida);
+        this.cantidad += cantidadConvertida;
+        // Redondear a 2 decimales para evitar infinitos flotantes
+        this.cantidad = BigDecimal.valueOf(this.cantidad)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+    }
+
+    /**
+     * Devuelve la capacidad original del lote. Si no hay campo explícito, se asume que la capacidad máxima es la cantidad inicial al crear el lote.
+     * Por defecto, retorna la cantidad actual (sin límite). Si tienes un campo de capacidad máxima, reemplaza esta lógica.
+     */
+    public double getCapacidadOriginal() {
+        // Si tienes un campo de capacidad máxima, retorna ese valor aquí.
+        // Por ahora, asumimos que no hay límite y devolvemos Double.MAX_VALUE.
+        return Double.MAX_VALUE;
+    }
 }

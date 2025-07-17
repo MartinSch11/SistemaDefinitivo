@@ -85,6 +85,21 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="btnInsumosFaltantes" layoutX="947.0" layoutY="65.0" mnemonicParsing="false" onAction="#abrirInsumosFaltantes" prefHeight="30.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Insumos faltantes">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Inter Regular" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/emergency.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </children>

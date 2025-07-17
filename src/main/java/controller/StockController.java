@@ -60,7 +60,15 @@ public class StockController {
 
         List<InsumoViewModel> viewModels = insumosActualizados.stream()
                 .filter(i -> i.getCantidad() > 0.0001)
-                .map(InsumoViewModel::new)
+                .map(insumo -> {
+                    InsumoViewModel vm = new InsumoViewModel(insumo);
+                    // Formatear cantidad: sin decimales si es entero, con dos decimales si no
+                    double cantidad = insumo.getCantidad();
+                    String medida = insumo.getMedida();
+                    String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+                    vm.setCantidad(cantidadStr + " " + (medida != null ? medida : ""));
+                    return vm;
+                })
                 .collect(Collectors.toList());
 
         insumosObservable.addAll(viewModels);
@@ -113,6 +121,22 @@ public class StockController {
     private void abrirHistorialCompras(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/HistorialComprasDialog.fxml"));
+            AnchorPane root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Historial de compras de insumos");
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ActionLogger.log("Error al abrir el historial de compras: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void abrirInsumosFaltantes(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/InsumosFaltantesDialog.fxml"));
             AnchorPane root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

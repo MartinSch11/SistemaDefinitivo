@@ -78,7 +78,6 @@ public class NuevoInsumoController {
                 mostrarAlerta("Duplicado", "Ya existe un insumo con ese nombre en el catálogo.", Alert.AlertType.WARNING);
                 return;
             }
-            mostrarAlerta("Éxito", "Insumo guardado exitosamente en el catálogo.", Alert.AlertType.INFORMATION);
             if (tableInsumosController != null) {
                 tableInsumosController.cargarInsumos(); // Recargar la tabla si corresponde
             }

@@ -30,6 +30,7 @@ public class CrudAnadirEmpleadoController {
     @FXML private TextField direccionTxtField;
     @FXML private TextField sueldoTxtField;
     @FXML private TextField telTxtField;
+    @FXML private ComboBox<String> cmbSexo;
     @FXML private ComboBox<Rol> cmbRol;
     @FXML private TextField txtContraseña;
 
@@ -71,6 +72,9 @@ public class CrudAnadirEmpleadoController {
                 }
             }
         });
+        // Inicializar opciones de sexo
+        cmbSexo.getItems().clear();
+        cmbSexo.getItems().addAll("Femenino", "Masculino", "Otro");
         cargarRoles();
     }
 

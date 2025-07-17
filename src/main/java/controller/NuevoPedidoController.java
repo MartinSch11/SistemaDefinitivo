@@ -162,10 +162,19 @@ public class NuevoPedidoController {
             Pedido pedidoCreado = resultado.getPedido();
             this.pedidoCreado = pedidoCreado; // Para el controlador principal
 
+            // Mostrar mensaje si hubo insumos devueltos al modificar el pedido
+            if (resultado.getMensajeDevolucion() != null && !resultado.getMensajeDevolucion().isBlank()) {
+                Alert devueltosAlert = new Alert(Alert.AlertType.INFORMATION);
+                devueltosAlert.setTitle("Stock actualizado");
+                devueltosAlert.setHeaderText("Insumos devueltos al stock");
+                devueltosAlert.setContentText(resultado.getMensajeDevolucion());
+                devueltosAlert.showAndWait();
+            }
+
             // Mostrar mensaje si hubo insumos faltantes
             if (resultado.getMensajeFaltantes() != null && !resultado.getMensajeFaltantes().isBlank()) {
                 Alert faltantesAlert = new Alert(Alert.AlertType.WARNING);
-                faltantesAlert.setTitle("Insumos Faltantes");
+                faltantesAlert.setTitle("Insumos faltantes");
                 faltantesAlert.setHeaderText("Algunos insumos estaban incompletos");
                 faltantesAlert.setContentText(resultado.getMensajeFaltantes());
                 faltantesAlert.showAndWait();

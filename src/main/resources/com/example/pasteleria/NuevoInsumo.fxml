@@ -27,7 +27,7 @@
         <Label layoutX="38.0" layoutY="128.0" styleClass="form-producto-label" text="Estado" />
         <ComboBox fx:id="cmbEstado" layoutX="32.0" layoutY="150.0" prefHeight="28.0" prefWidth="275.0" styleClass="form-producto-combo" />
         <Label layoutX="38.0" layoutY="184.0" styleClass="form-producto-label" text="Proveedor" />
-        <ComboBox fx:id="cmbProveedor" layoutX="38.0" layoutY="206.0" prefHeight="28.0" prefWidth="275.0" styleClass="form-producto-combo" />
+        <ComboBox fx:id="cmbProveedor" layoutX="32.0" layoutY="206.0" prefHeight="28.0" prefWidth="275.0" styleClass="form-producto-combo" />
         <!-- Botones de acción -->
         <GridPane alignment="CENTER" layoutX="19.0" layoutY="256.0" prefHeight="30.0" prefWidth="300.0">
             <columnConstraints>

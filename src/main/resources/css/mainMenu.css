@@ -99,19 +99,21 @@
 /* --- ContextMenu personalizado para menú de ajustes --- */
 .context-menu-ajustes {
     -fx-background-color: #fff;
-    -fx-padding: 6px 0 6px 0;
-    -fx-background-radius: 6px;
+    -fx-background-radius: 8px;
     -fx-effect: dropshadow(one-pass-box, rgba(183,5,5,0.12), 8, 0, 0, 2);
     -fx-border-radius: 8px;
+    -fx-padding: 0; /* Elimina el padding vertical extra */
 }
 .context-menu-ajustes .menu-item {
     -fx-background-color: transparent;
     -fx-text-fill: #B70505;
     -fx-font-family: 'Inter';
     -fx-font-size: 14px;
-    -fx-padding: 8px 32px 8px 32px;
+    -fx-padding: 6px 16px 6px 16px; /* Solo padding, sin margin, para que el hover llegue al borde */
     -fx-background-radius: 6px;
     -fx-cursor: hand;
+    -fx-min-width: 120px; /* Opcional: ancho mínimo para consistencia visual */
+    -fx-pref-width: 180px; /* Opcional: ancho preferido para que el HBox ocupe todo el área */
 }
 .context-menu-ajustes .menu-item:focused,
 .context-menu-ajustes .menu-item:hover {

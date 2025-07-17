@@ -3,22 +3,28 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigNotificacionesController">
+<AnchorPane prefHeight="640.0" prefWidth="1120.0" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigNotificacionesController">
     <Pane fx:id="paneNotificaciones" prefHeight="640.0" prefWidth="1120.0">
         <children>
-         <Pane layoutY="14.0" prefHeight="200.0" prefWidth="1120.0">
-            <children>
-                  <Label layoutX="434.0" layoutY="14.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Configuración de notificaciones" />
-                  <Label layoutX="281.0" layoutY="92.0" text="Minutos entre notificaciones:" />
-                  <Spinner fx:id="spinnerMinutosNoti" layoutX="442.0" layoutY="86.0" prefHeight="28.0" prefWidth="80.0" />
-                  <Label layoutX="563.0" layoutY="92.0" text="Días de anticipación de eventos:" />
-                  <Spinner fx:id="spinnerDiasAnticipo" layoutX="745.0" layoutY="86.0" prefHeight="28.0" prefWidth="60.0" />
-                  <Button fx:id="btnGuardarNoti" layoutX="524.0" layoutY="153.0" onAction="#guardarConfigNotificaciones" text="Guardar" />
-            </children>
-         </Pane>
+            <Pane layoutY="14.0" prefHeight="200.0" prefWidth="1120.0">
+                <children>
+                    <Label layoutX="439.0" layoutY="14.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Configuración de notificaciones" />
+                    <ToggleButton fx:id="toggleNotificaciones" layoutX="458.0" layoutY="45.0" selected="true" styleClass="toggle-noti-personal" text="Notificaciones activas" />
+                    <Label layoutX="281.0" layoutY="92.0" text="Minutos entre notificaciones:" />
+                    <Spinner fx:id="spinnerMinutosNoti" layoutX="442.0" layoutY="86.0" prefHeight="28.0" prefWidth="80.0" />
+                    <Label layoutX="563.0" layoutY="92.0" text="Días de anticipación de eventos:" />
+                    <Spinner fx:id="spinnerDiasAnticipo" layoutX="752.0" layoutY="87.0" prefHeight="28.0" prefWidth="60.0" />
+                    <Label layoutX="563.0" layoutY="131.0" text="Días de anticipación de caducidad:" />
+                    <Spinner fx:id="spinnerDiasAnticipoCaducidad" layoutX="752.0" layoutY="125.0" prefHeight="28.0" prefWidth="60.0" />
+                    <Label layoutX="228.0" layoutY="131.0" text="Duración de la notificación (segundos):" />
+                    <Spinner fx:id="spinnerDuracionNoti" layoutX="442.0" layoutY="125.0" prefHeight="28.0" prefWidth="80.0" />
+                    <Button fx:id="btnGuardarNoti" layoutX="513.0" layoutY="163.0" onAction="#guardarConfigNotificaciones" styleClass="buttons" text="Guardar" />
+                </children>
+            </Pane>
         </children>
     </Pane>
 </AnchorPane>

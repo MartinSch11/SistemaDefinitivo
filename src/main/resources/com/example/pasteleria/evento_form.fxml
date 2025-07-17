@@ -67,7 +67,7 @@
                 <Font name="Inter Regular" size="13.0" />
             </font>
         </TextField>
-        <TextArea fx:id="descripcionEventoField" layoutX="47.0" layoutY="139.0" prefHeight="130.0" prefWidth="480.0" promptText="Descripción del evento" styleClass="form-producto-area">
+        <TextArea fx:id="descripcionEventoField" layoutX="47.0" layoutY="139.0" prefHeight="130.0" prefWidth="470.0" promptText="Descripción del evento" styleClass="form-producto-area" wrapText="true">
             <font>
                 <Font name="Inter Regular" size="13.0" />
             </font>

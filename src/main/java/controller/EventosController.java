@@ -5,10 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
+import javafx.stage.Modality;
+import javafx.scene.Scene;
 import model.Evento;
+import model.SessionContext;
 import persistence.dao.EventoDAO;
 import utilities.ActionLogger;
 import utilities.Paths;
@@ -33,12 +38,23 @@ public class EventosController {
     @FXML private Label lblCantPersonas;
     @FXML private Label lblPresupuesto;
     @FXML private ComboBox<String> comboEstado;
+    @FXML private Button eventoButton; // Agregar Evento
+    @FXML private Button btnClose; // Cerrar detalle
+    @FXML private Button btnVolver; // Volver
+    @FXML private Button btnEditar; // Editar evento
+    @FXML private Button btnBorrar; // Borrar evento
 
     private YearMonth currentYearMonth;
     private Map<LocalDate, Evento> events = new HashMap<>();
     private LocalDate fechaSeleccionada;
     private javafx.beans.value.ChangeListener<String> estadoListener; // Listener único para el ComboBox
     private Evento eventoSeleccionado; // Evento actualmente seleccionado
+
+    // Permisos del usuario actual
+    private final List<String> permisos = SessionContext.getInstance().getPermisos();
+    private final boolean puedeCrear = permisos != null && permisos.contains("Eventos-crear");
+    private final boolean puedeModificar = permisos != null && permisos.contains("Eventos-modificar");
+    private final boolean puedeEliminar = permisos != null && permisos.contains("Eventos-eliminar");
 
     @FXML
     private void initialize() {
@@ -49,6 +65,10 @@ public class EventosController {
         comboEstado.setDisable(true); // Solo editable al editar
         llenarCalendario(currentYearMonth);
         ActionLogger.log("Calendario inicializado para el mes: " + currentYearMonth); // Log de acción
+
+        if (eventoButton != null) eventoButton.setDisable(!puedeCrear);
+        if (btnEditar != null) btnEditar.setDisable(!puedeModificar);
+        if (btnBorrar != null) btnBorrar.setDisable(!puedeEliminar);
     }
 
     private void llenarCalendario(YearMonth mesAño) {
@@ -75,6 +95,7 @@ public class EventosController {
         fechaSeleccionada = date;
         Evento evento = events.get(date);
         eventoSeleccionado = evento; // Guardar el evento seleccionado
+        LocalDate hoy = LocalDate.now();
 
         if (evento != null) {
             PaneDetalleEvento.setVisible(true);
@@ -86,7 +107,11 @@ public class EventosController {
             lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
             lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
             comboEstado.setValue(evento.getEstado());
-            comboEstado.setDisable(false);
+            // Deshabilitar edición si el evento ya pasó
+            boolean eventoPasado = evento.getFecha_evento().isBefore(hoy);
+            comboEstado.setDisable(eventoPasado);
+            if (btnEditar != null) btnEditar.setDisable(eventoPasado || !puedeModificar);
+            if (btnBorrar != null) btnBorrar.setDisable(eventoPasado || !puedeEliminar);
             // Eliminar listener anterior si existe
             if (estadoListener != null) {
                 comboEstado.valueProperty().removeListener(estadoListener);
@@ -112,6 +137,9 @@ public class EventosController {
                 comboEstado.valueProperty().removeListener(estadoListener);
                 estadoListener = null;
             }
+            if (btnEditar != null) btnEditar.setDisable(!puedeModificar);
+            if (btnBorrar != null) btnBorrar.setDisable(!puedeEliminar);
+            comboEstado.setDisable(true);
         }
     }
 
@@ -151,15 +179,22 @@ public class EventosController {
     private void handleAddEvent() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
-            DialogPane dialogPane = loader.load();
+            AnchorPane anchorPane = loader.load();
 
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Agregar Evento");
+            // Usar Stage modal igual que en handleEditar
+            Stage stage = new Stage();
+            stage.setTitle("Agregar Evento");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setScene(new Scene(anchorPane));
 
             EventoFormController controller = loader.getController();
+            // Si el controlador tiene setStage, pásalo
+            try {
+                controller.getClass().getMethod("setStage", Stage.class).invoke(controller, stage);
+            } catch (Exception ignored) {}
 
-            dialog.showAndWait();
+            stage.showAndWait();
             // Siempre recarga después de cerrar el formulario
             EventoDAO eventoDAO = new EventoDAO();
             Evento ultimoEvento = eventoDAO.findUltimoEvento();
@@ -177,39 +212,53 @@ public class EventosController {
     @FXML
     private void handleEditar(ActionEvent event) {
         Evento eventoSeleccionado = obtenerEventoSeleccionado();
+        LocalDate hoy = LocalDate.now();
         if (eventoSeleccionado != null) {
+            if (eventoSeleccionado.getFecha_evento().isBefore(hoy)) {
+                mostrarAlerta("No permitido", "No se puede editar un evento que ya pasó.");
+                return;
+            }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
-                DialogPane dialogPane = loader.load();
+                AnchorPane anchorPane = loader.load();
 
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Editar Evento");
+                // Crear Stage modal en vez de Dialog
+                Stage stage = new Stage();
+                stage.setTitle("Editar Evento");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
+                stage.setScene(new Scene(anchorPane));
 
                 EventoFormController controller = loader.getController();
-
                 controller.setEvento(eventoSeleccionado);
+                // Si el controlador tiene setStage, pásalo
+                try {
+                    controller.getClass().getMethod("setStage", Stage.class).invoke(controller, stage);
+                } catch (Exception ignored) {}
 
-                Optional<ButtonType> result = dialog.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    reloadEvents();
-                    actualizarPaneDetalleEvento(eventoSeleccionado);
-                    ActionLogger.log("Evento editado correctamente para la fecha: " + eventoSeleccionado.getFecha_evento()); // Log de acción
-                }
+                stage.showAndWait();
+                // Al cerrar el modal, recargar eventos y actualizar panel
+                reloadEvents();
+                actualizarPaneDetalleEvento(eventoSeleccionado);
+                ActionLogger.log("Evento editado correctamente para la fecha: " + eventoSeleccionado.getFecha_evento());
             } catch (IOException e) {
-                ActionLogger.log("Error al intentar editar el evento: " + e.getMessage()); // Log de acción
+                ActionLogger.log("Error al intentar editar el evento: " + e.getMessage());
             }
         } else {
             mostrarAlerta("No se ha seleccionado ningún evento", "Por favor, selecciona un evento para editar.");
-            ActionLogger.log("Intento de editar sin seleccionar un evento."); // Log de acción
+            ActionLogger.log("Intento de editar sin seleccionar un evento.");
         }
     }
 
     @FXML
     public void handleBorrar() {
         Evento eventoSeleccionado = obtenerEventoSeleccionado();
-
+        LocalDate hoy = LocalDate.now();
         if (eventoSeleccionado != null) {
+            if (eventoSeleccionado.getFecha_evento().isBefore(hoy)) {
+                mostrarAlerta("No permitido", "No se puede borrar un evento que ya pasó.");
+                return;
+            }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Borrado");
             alert.setHeaderText(null);
@@ -411,6 +460,4 @@ public class EventosController {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
-
-
 }

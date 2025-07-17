@@ -7,7 +7,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,42 +16,38 @@ import javafx.scene.layout.StackPane;
 import model.Pedido;
 import model.PedidoProducto;
 import model.Producto;
-import model.Cliente;
-import model.Trabajador;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import persistence.dao.PedidoDAO;
-import model.Pedido;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.Region;
 import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.RecetaProcessor;
 import utilities.SceneLoader;
+import model.SessionContext;
 
 public class PedidosTableroController {
-    @FXML
-    private TilePane vboxPorHacer;
-    @FXML
-    private TilePane vboxEnProceso;
-    @FXML
-    private TilePane vboxHecho;
-    @FXML
-    private VBox colPorHacer;
-    @FXML
-    private VBox colEnProceso;
-    @FXML
-    private VBox colHecho;
+    @FXML private TilePane vboxPorHacer;
+    @FXML private TilePane vboxEnProceso;
+    @FXML private TilePane vboxHecho;
+    @FXML private VBox colPorHacer;
+    @FXML private VBox colEnProceso;
+    @FXML private VBox colHecho;
+    @FXML private javafx.scene.control.Button btnNuevoPedido;
 
     private PedidoDAO pedidoDAO = new PedidoDAO();
     private final RecetaProcessor recetaProcessor = new RecetaProcessor();
 
+    // Permisos del usuario actual
+    private final List<String> permisos = SessionContext.getInstance().getPermisos();
+    private final boolean puedeModificar = permisos != null && permisos.contains("Pedidos-modificar");
+    private final boolean puedeEliminar = permisos != null && permisos.contains("Pedidos-eliminar");
+    private final boolean puedeCrear = permisos != null && permisos.contains("Pedidos-crear");
+
     @FXML
     public void initialize() {
-        // Configurar el TilePane para que tenga 2 columnas fijas y ajuste filas
-        // automáticamente
         vboxPorHacer.setPrefColumns(2);
         vboxPorHacer.setPrefRows(2);
         vboxPorHacer.setTileAlignment(javafx.geometry.Pos.TOP_CENTER);
@@ -62,8 +57,19 @@ public class PedidosTableroController {
         vboxHecho.setPrefColumns(2);
         vboxHecho.setPrefRows(2);
         vboxHecho.setTileAlignment(javafx.geometry.Pos.TOP_CENTER);
-        // Cargar pedidos desde la base de datos
+        // Cargar pedidos desde la base de datos, excluyendo los entregados y ordenando por fecha de entrega
         List<Pedido> pedidos = pedidoDAO.findAll();
+        pedidos = pedidos.stream()
+                .filter(p -> p.getEstadoPedido() == null || !p.getEstadoPedido().equalsIgnoreCase("Entregado"))
+                .sorted((p1, p2) -> {
+                    LocalDate f1 = p1.getFechaEntrega();
+                    LocalDate f2 = p2.getFechaEntrega();
+                    if (f1 == null && f2 == null) return 0;
+                    if (f1 == null) return 1;
+                    if (f2 == null) return -1;
+                    return f1.compareTo(f2);
+                })
+                .toList();
         for (Pedido pedido : pedidos) {
             StackPane tarjeta = crearTarjetaPedidoKanban(pedido);
             tarjeta.setUserData(pedido.getNumeroPedido());
@@ -73,6 +79,8 @@ public class PedidosTableroController {
         setupDropTargetColumna(colPorHacer, vboxPorHacer, "Sin empezar");
         setupDropTargetColumna(colEnProceso, vboxEnProceso, "En proceso");
         setupDropTargetColumna(colHecho, vboxHecho, "Hecho");
+        // Deshabilitar el botón si no tiene permiso
+        btnNuevoPedido.setDisable(!puedeCrear);
     }
 
     private StackPane crearTarjetaPedidoKanban(Pedido pedido) {
@@ -135,11 +143,18 @@ public class PedidosTableroController {
             javafx.scene.control.ContextMenu contextMenu = new javafx.scene.control.ContextMenu();
             javafx.scene.control.MenuItem verDetalles = new javafx.scene.control.MenuItem("Ver detalles del pedido");
             verDetalles.setOnAction(ev -> mostrarDetallesPedido(pedido));
-            javafx.scene.control.MenuItem modificarPedido = new javafx.scene.control.MenuItem("Modificar pedido");
-            modificarPedido.setOnAction(ev -> modificarPedido(pedido));
-            javafx.scene.control.MenuItem eliminarPedido = new javafx.scene.control.MenuItem("Eliminar pedido");
-            eliminarPedido.setOnAction(ev -> eliminarPedidoConConfirmacion(pedido));
-            contextMenu.getItems().addAll(verDetalles, modificarPedido, eliminarPedido);
+            contextMenu.getItems().add(verDetalles);
+            // Modificar y eliminar: mostrar siempre si el estado es Sin empezar, pero deshabilitar si no hay permiso
+            if ("Sin empezar".equalsIgnoreCase(pedido.getEstadoPedido())) {
+                javafx.scene.control.MenuItem modificarPedido = new javafx.scene.control.MenuItem("Modificar pedido");
+                modificarPedido.setOnAction(ev -> modificarPedido(pedido));
+                modificarPedido.setDisable(!puedeModificar);
+                contextMenu.getItems().add(modificarPedido);
+                javafx.scene.control.MenuItem eliminarPedido = new javafx.scene.control.MenuItem("Eliminar pedido");
+                eliminarPedido.setOnAction(ev -> eliminarPedidoConConfirmacion(pedido));
+                eliminarPedido.setDisable(!puedeEliminar);
+                contextMenu.getItems().add(eliminarPedido);
+            }
             // Agregar opción "Entregar pedido" si el estado es "Hecho"
             if ("Hecho".equalsIgnoreCase(pedido.getEstadoPedido() != null ? pedido.getEstadoPedido().trim() : "")) {
                 javafx.scene.control.MenuItem entregarPedido = new javafx.scene.control.MenuItem("Entregar pedido");
@@ -205,13 +220,39 @@ public class PedidosTableroController {
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(type -> {
             if (type == ButtonType.YES) {
+                // --- Devolver insumos al stock antes de eliminar el pedido ---
+                Map<Producto, Integer> productosParaDevolver = new HashMap<>();
+                for (PedidoProducto pp : pedido.getPedidoProductos()) {
+                    productosParaDevolver.put(pp.getProducto(), pp.getCantidad());
+                }
+                StringBuilder resumenDevueltos = new StringBuilder();
+                if (!productosParaDevolver.isEmpty()) {
+                    Map<String, String> insumosDevueltos = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
+                    if (!insumosDevueltos.isEmpty()) {
+                        resumenDevueltos.append("Insumos devueltos al stock:\n");
+                        for (Map.Entry<String, String> entry : insumosDevueltos.entrySet()) {
+                            resumenDevueltos.append("- ").append(entry.getKey()).append(": ")
+                                    .append(entry.getValue()).append("\n");
+                        }
+                    }
+                    // Intentar resolver faltantes automáticamente y mostrar resumen si corresponde
+                    Map<String, String> faltantesResueltos = recetaProcessor.resolverFaltantesPorCatalogoInsumo();
+                    if (faltantesResueltos != null && !faltantesResueltos.isEmpty()) {
+                        resumenDevueltos.append("\nSe utilizaron estos insumos devueltos para resolver faltantes:\n");
+                        faltantesResueltos.forEach((nombre, cantidad) -> resumenDevueltos.append("- ").append(nombre).append(": ").append(cantidad).append("\n"));
+                    }
+                }
+                // --- Eliminar pedido ---
                 pedidoDAO.delete(pedido);
                 // Eliminar visualmente la tarjeta
                 StackPane tarjeta = buscarTarjetaPorId(pedido.getNumeroPedido());
                 if (tarjeta != null) {
                     ((TilePane) tarjeta.getParent()).getChildren().remove(tarjeta);
                 }
-                ActionLogger.log("Pedido eliminado: " + pedido.getNumeroPedido());
+                ActionLogger.log("El usuario a eliminado el pedido N°" + pedido.getNumeroPedido());
+                if (resumenDevueltos.length() > 0) {
+                    mostrarAlerta("Pedido eliminado", resumenDevueltos.toString());
+                }
             }
         });
     }
@@ -273,7 +314,11 @@ public class PedidosTableroController {
     }
 
     @FXML
-    void btnCrearNuevoPedido(ActionEvent event) {
+    void btnNuevoPedido(ActionEvent event) {
+        if (!puedeCrear) {
+            mostrarAlerta("Permiso denegado", "No tienes permiso para crear pedidos.");
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/example/pasteleria/DialogNuevoPedido.fxml"));
@@ -295,15 +340,17 @@ public class PedidosTableroController {
                 return;
             }
 
-            if (validarYReducirInsumos(nuevoPedido)) {
+            if (validarStockInsumos(nuevoPedido)) {
+                // Solo aquí, después de la validación, se descuenta el stock realmente
+                Map<Producto, Integer> productosMap = new java.util.HashMap<>();
+                for (PedidoProducto pp : nuevoPedido.getPedidoProductos()) {
+                    productosMap.put(pp.getProducto(), pp.getCantidad());
+                }
+                recetaProcessor.procesarRecetas(productosMap);
                 agregarPedido(nuevoPedido); // SOLO este método agrega la tarjeta visualmente
                 ActionLogger.log("Pedido creado: " + nuevoPedido.getCliente().getNombre() +
                         " con productos: " + nuevoPedido.getProductos());
-            } else {
-                mostrarAlerta("Error", "No se pudo completar el pedido por falta de insumos.");
             }
-
-            // NO LLAMES a agregarNuevoPedido aquí ni desde el diálogo
 
         } catch (Exception e) {
             Throwable cause = e.getCause();
@@ -323,21 +370,19 @@ public class PedidosTableroController {
                 " con productos: " + pedido.getProductos());
     }
 
-    private boolean validarYReducirInsumos(Pedido pedido) {
+    private boolean validarStockInsumos(Pedido pedido) {
         // Construir el mapa Producto -> cantidad
         Map<Producto, Integer> productosMap = new java.util.HashMap<>();
         for (PedidoProducto pp : pedido.getPedidoProductos()) {
             productosMap.put(pp.getProducto(), pp.getCantidad());
         }
 
-        // Validar stock suficiente
-        if (!recetaProcessor.validarInsumosSuficientes(productosMap)) {
-            ActionLogger.log("No hay insumos suficientes para el pedido.");
+        // Validar stock suficiente usando simularFaltantes
+        var faltantes = recetaProcessor.simularFaltantes(productosMap);
+        if (!faltantes.isEmpty()) {
+            ActionLogger.log("No hay insumos suficientes para el pedido. Faltantes: " + faltantes);
             return false;
         }
-
-        // Procesar reducción y registrar faltantes (si los hubiera)
-        recetaProcessor.procesarRecetas(productosMap);
         return true;
     }
 

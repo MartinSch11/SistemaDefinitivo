@@ -46,6 +46,8 @@ public class CatalogoPedidosController {
     public void initialize() {
         // Inicialmente cargar los productos de la base de datos
         productos = ProductoDAO.findAll();
+        // Filtrar solo productos con receta asignada
+        productos = productos.stream().filter(p -> p.getReceta() != null).toList();
         agregarProductosAlGrid();
         // Limpiar estado al abrir el catálogo
         contadoresProductos.clear();
@@ -127,19 +129,25 @@ public class CatalogoPedidosController {
         nombreProducto.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
         vbox.getChildren().add(nombreProducto);
 
-        ComboBox<String> comboBox = new ComboBox<>();
-        vbox.getChildren().add(comboBox);
+        // Eliminar ComboBox si no se usa
 
         HBox hBox = new HBox(5);
         hBox.setAlignment(Pos.CENTER);
 
         Button menosButton = new Button("-");
         menosButton.getStyleClass().add("buttons");
+        menosButton.setPrefWidth(24);
+        menosButton.setPrefHeight(24);
+        menosButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
 
         Label contadorLabel = new Label("0");
+        contadorLabel.setStyle("-fx-font-size: 14px; -fx-min-width: 24px; -fx-alignment: center;");
 
         Button masButton = new Button("+");
         masButton.getStyleClass().add("buttons");
+        masButton.setPrefWidth(24);
+        masButton.setPrefHeight(24);
+        masButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
 
         hBox.getChildren().addAll(menosButton, contadorLabel, masButton);
         vbox.getChildren().add(hBox);

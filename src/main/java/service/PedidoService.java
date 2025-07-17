@@ -36,20 +36,22 @@ public class PedidoService {
         Trabajador empleado = trabajadorDAO.findByNombre(nombreEmpleado);
         if (empleado == null) throw new Exception("Empleado no encontrado.");
 
-        // Procesar recetas y obtener faltantes
+        System.out.println("[DEBUG PedidoService] crearPedido productosSeleccionados:");
+        productosSeleccionados.forEach((p, c) -> System.out.println("  - " + p.getId() + " | " + p.getNombre() + " | cantidad: " + c));
+        // Procesar recetas y obtener faltantes (esto descuenta stock SOLO aquí)
         List<InsumoFaltante> faltantes = recetaProcessor.procesarRecetas(productosSeleccionados);
 
         // 💬 Mensaje para mostrar al usuario si hay insumos faltantes
         String mensajeFaltantes = "";
         if (!faltantes.isEmpty()) {
-            mensajeFaltantes = " Pedido creado, pero hay insumos faltantes:\n" + faltantes.stream().map(f -> "- " + f.getInsumo().getNombre() + ": faltan " + String.format(Locale.ROOT, "%.2f", f.getCantidadFaltante()) + " " + f.getUnidad()).collect(Collectors.joining("\n"));
+            mensajeFaltantes = " Pedido creado, pero hay insumos faltantes:\n" + faltantes.stream().map(f -> "- " + f.getCatalogoInsumo().getNombre() + ": faltan " + String.format(Locale.ROOT, "%.2f", f.getCantidadFaltante()) + " " + f.getUnidad()).collect(Collectors.joining("\n"));
         }
 
         BigDecimal totalPedido = calcularTotalPedido(productosSeleccionados);
 
         Pedido pedido = new Pedido(null, cliente, empleado, formaEntrega, fechaEntrega, "Sin empezar", "", totalPedido);
 
-        pedidoDAO.save(pedido); // Persistimos para obtener ID
+        // pedidoDAO.save(pedido); // Eliminado: solo se debe guardar después de setear los productos
 
         List<PedidoProducto> pedidoProductos = new ArrayList<>();
         for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
@@ -98,9 +100,27 @@ public class PedidoService {
         Trabajador empleado = trabajadorDAO.findByNombre(nombreEmpleado);
         if (empleado == null) throw new Exception("Empleado no encontrado.");
 
-        // 🔍 Preparar para procesar insumos faltantes
-        Map<Producto, Integer> productosParaDescontar = new HashMap<>();
+        // --- NUEVO: Devolver insumos al stock si se reduce cantidad o elimina producto ---
+        Map<Producto, Integer> productosParaDevolver = new HashMap<>();
+        for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
+            Producto producto = pp.getProducto();
+            int cantidadAntigua = pp.getCantidad();
+            int cantidadNueva = productosSeleccionados.getOrDefault(producto, 0);
+            int diferencia = cantidadAntigua - cantidadNueva;
+            if (diferencia > 0) {
+                productosParaDevolver.put(producto, diferencia);
+            } else if (cantidadNueva == 0 && cantidadAntigua > 0) {
+                productosParaDevolver.put(producto, cantidadAntigua);
+            }
+        }
+        Map<String, String> resumenDevolucion = null;
+        if (!productosParaDevolver.isEmpty()) {
+            resumenDevolucion = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
+        }
+        // --- FIN DEVOLUCIÓN ---
 
+        // 🔍 Preparar para procesar insumos faltantes (solo para aumentos o nuevos productos)
+        Map<Producto, Integer> productosParaDescontar = new HashMap<>();
         for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
             Producto producto = pp.getProducto();
             int cantidadAntigua = pp.getCantidad();
@@ -110,7 +130,6 @@ public class PedidoService {
                 productosParaDescontar.put(producto, diferencia);
             }
         }
-
         for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
             boolean esNuevo = pedidoOriginal.getPedidoProductos().stream()
                     .noneMatch(pp -> pp.getProducto().equals(entry.getKey()));
@@ -118,19 +137,19 @@ public class PedidoService {
                 productosParaDescontar.put(entry.getKey(), entry.getValue());
             }
         }
-
         // 🔥 Filtrar productos con cantidad > 0
         productosSeleccionados = productosSeleccionados.entrySet().stream()
                 .filter(entry -> entry.getValue() > 0)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
+        System.out.println("[DEBUG PedidoService] actualizarPedido productosParaDescontar:");
+        productosParaDescontar.forEach((p, c) -> System.out.println("  - " + p.getId() + " | " + p.getNombre() + " | cantidad: " + c));
         // 🧪 Procesar faltantes
         List<InsumoFaltante> faltantes = recetaProcessor.procesarRecetas(productosParaDescontar);
         String mensajeFaltantes = "";
         if (!faltantes.isEmpty()) {
             mensajeFaltantes = "⚠️ Pedido actualizado, pero hay insumos faltantes:\n" +
                     faltantes.stream()
-                            .map(f -> "- " + f.getInsumo().getNombre() + ": faltan " +
+                            .map(f -> "- " + f.getCatalogoInsumo().getNombre() + ": faltan " +
                                     String.format(Locale.ROOT, "%.2f", f.getCantidadFaltante()) + " " + f.getUnidad())
                             .collect(Collectors.joining("\n"));
         }
@@ -176,9 +195,25 @@ public class PedidoService {
         // ✅ Guardar cambios
         pedidoDAO.update(pedidoOriginal);
 
-        return new PedidoConFaltantes(pedidoOriginal, mensajeFaltantes);
+        // --- NUEVO: Componer mensaje profesional de insumos devueltos ---
+        String mensajeDevolucion = "";
+        if (resumenDevolucion != null && !resumenDevolucion.isEmpty()) {
+            mensajeDevolucion = "Insumos devueltos al stock por modificación del pedido:\n" +
+                    resumenDevolucion.entrySet().stream()
+                            .map(e -> "- " + e.getKey() + ": " + e.getValue())
+                            .collect(Collectors.joining("\n"));
+        }
+
+        return new PedidoConFaltantes(pedidoOriginal, mensajeFaltantes, mensajeDevolucion);
     }
 
+    /**
+     * Valida si hay stock suficiente para los productos seleccionados, sin descontar stock real.
+     * Devuelve lista de faltantes simulados, pero NO descuenta stock.
+     */
+    public List<InsumoFaltante> validarStockPedido(Map<Producto, Integer> productosSeleccionados) {
+        return recetaProcessor.simularFaltantes(productosSeleccionados);
+    }
 
     // Clase auxiliar que incluye el pedido y los faltantes
 
@@ -186,10 +221,17 @@ public class PedidoService {
     public static class PedidoConFaltantes {
         private final Pedido pedido;
         private final String mensajeFaltantes;
+        private final String mensajeDevolucion;
 
         public PedidoConFaltantes(Pedido pedido, String mensajeFaltantes) {
             this.pedido = pedido;
             this.mensajeFaltantes = mensajeFaltantes;
+            this.mensajeDevolucion = null;
+        }
+        public PedidoConFaltantes(Pedido pedido, String mensajeFaltantes, String mensajeDevolucion) {
+            this.pedido = pedido;
+            this.mensajeFaltantes = mensajeFaltantes;
+            this.mensajeDevolucion = mensajeDevolucion;
         }
     }
 

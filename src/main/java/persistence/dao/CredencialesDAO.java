@@ -97,6 +97,20 @@ public class CredencialesDAO {
         }
     }
 
+    public String obtenerSexoPorDNI(String dni) {
+        try {
+            String query = "SELECT t.sexo FROM Credencial c JOIN c.trabajador t WHERE c.dni = :dni";
+            return em.createQuery(query, String.class)
+                    .setParameter("dni", dni)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Si no se encuentra, retorna null
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void close() {
         em.close();
         emf.close();

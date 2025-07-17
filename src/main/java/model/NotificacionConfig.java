@@ -23,6 +23,15 @@ public class NotificacionConfig {
     @Column(name = "dias_anticipacion", nullable = false)
     private int diasAnticipacion;
 
+    @Column(name = "notificaciones_activas", nullable = false)
+    private boolean notificacionesActivas = true;
+
+    @Column(name = "duracion_segundos", nullable = false)
+    private int duracionSegundos = 5;
+
+    @Column(name = "dias_anticipacion_caducidad", nullable = false)
+    private int diasAnticipacionCaducidad = 3;
+
     public NotificacionConfig() {
         // Constructor vacío requerido por JPA
     }
@@ -37,4 +46,13 @@ public class NotificacionConfig {
 
     public int getDiasAnticipacion() { return diasAnticipacion; }
     public void setDiasAnticipacion(int diasAnticipacion) { this.diasAnticipacion = diasAnticipacion; }
+
+    public boolean isNotificacionesActivas() { return notificacionesActivas; }
+    public void setNotificacionesActivas(boolean notificacionesActivas) { this.notificacionesActivas = notificacionesActivas; }
+
+    public int getDuracionSegundos() { return duracionSegundos; }
+    public void setDuracionSegundos(int duracionSegundos) { this.duracionSegundos = duracionSegundos; }
+
+    public int getDiasAnticipacionCaducidad() { return diasAnticipacionCaducidad; }
+    public void setDiasAnticipacionCaducidad(int diasAnticipacionCaducidad) { this.diasAnticipacionCaducidad = diasAnticipacionCaducidad; }
 }

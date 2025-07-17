@@ -115,6 +115,9 @@ public class RecetasController {
             if (receta != null) {
                 // Carga los datos de la receta en el controlador de diálogo
                 dialogController.cargarRecetaParaModificar(receta);
+                dialogController.setTitulo("Editar Receta");
+            } else {
+                dialogController.setTitulo("Nueva Receta");
             }
 
             Stage stage = new Stage();
@@ -182,8 +185,8 @@ public class RecetasController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        ActionLogger.log("El usuario regresó al menú principal.");
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de recetas.");
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
     }
 
     @FXML

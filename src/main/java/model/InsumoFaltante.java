@@ -18,8 +18,8 @@ public class InsumoFaltante {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_insumo ")
-    private Insumo insumo;
+    @JoinColumn(name = "id_catalogo_insumo")
+    private CatalogoInsumo catalogoInsumo;
 
     @Column(name ="cantidad_faltante")
     private double cantidadFaltante;

@@ -58,6 +58,14 @@ public class ProveedorDAO{
         }
     }
 
+    // Devuelve los nombres de insumos de catalogo_insumo para un proveedor
+    public List<String> findInsumosByProveedor(String nombreProveedor) {
+        String jpql = "SELECT c.nombre FROM CatalogoInsumo c WHERE c.proveedor = :nombreProveedor";
+        return em.createQuery(jpql, String.class)
+                .setParameter("nombreProveedor", nombreProveedor)
+                .getResultList();
+    }
+
     public void close() {
         em.close();
         emf.close();

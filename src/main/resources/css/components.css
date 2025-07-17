@@ -229,3 +229,23 @@
 .tile-pane {
     -fx-background-color: transparent !important;
 }
+
+.toggle-noti-personal {
+    -fx-background-color: #e0e0e0;
+    -fx-pref-width: 200px;
+    -fx-background-radius: 15;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #757ccd;
+    -fx-border-color: #b3b3b3;
+    -fx-border-radius: 15;
+}
+
+.toggle-noti-personal:selected {
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}
+
+.toggle-noti-personal:hover {
+    -fx-background-color: #b3b3b3;
+}

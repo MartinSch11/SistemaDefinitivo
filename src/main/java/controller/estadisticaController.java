@@ -137,14 +137,29 @@ public class estadisticaController {
         datePickerDesde.valueProperty().addListener(fechasListener);
         datePickerHasta.valueProperty().addListener(fechasListener);
 
-        // Deshabilitar el botón de generar reportes si no hay fechas seleccionadas
+        // Deshabilitar el botón de generar reportes si no hay fechas seleccionadas o no tiene permiso
         btnGenerarReportes.setDisable(true);
         javafx.beans.value.ChangeListener<Object> fechasListenerReporte = (obs, oldVal, newVal) -> {
             boolean fechasOk = datePickerDesde.getValue() != null && datePickerHasta.getValue() != null;
-            btnGenerarReportes.setDisable(!fechasOk);
+            // Verificar permiso Estadística-crear
+            boolean puedeCrear = true;
+            try {
+                ToggleButton estadisticaCrearBtn = (ToggleButton) btnGenerarReportes.getScene().lookup("#estadisticaCrear");
+                puedeCrear = estadisticaCrearBtn == null || estadisticaCrearBtn.isSelected();
+            } catch (Exception ignored) {}
+            btnGenerarReportes.setDisable(!fechasOk || !puedeCrear);
         };
         datePickerDesde.valueProperty().addListener(fechasListenerReporte);
         datePickerHasta.valueProperty().addListener(fechasListenerReporte);
+        // También al mostrar la pantalla, por si el permiso cambia
+        btnGenerarReportes.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                ToggleButton estadisticaCrearBtn = (ToggleButton) newScene.lookup("#estadisticaCrear");
+                boolean puedeCrear = estadisticaCrearBtn == null || estadisticaCrearBtn.isSelected();
+                boolean fechasOk = datePickerDesde.getValue() != null && datePickerHasta.getValue() != null;
+                btnGenerarReportes.setDisable(!fechasOk || !puedeCrear);
+            }
+        });
     }
 
     private void cargarProductosMasVendidos() {
@@ -226,6 +241,14 @@ public class estadisticaController {
         } else {
             mostrarProductosMasVendidos();
         }
+        // Habilitar/deshabilitar btnGenerarReportes según fechas y permiso
+        boolean fechasOk = fechaDesde != null && fechaHasta != null;
+        boolean puedeCrear = true;
+        try {
+            ToggleButton estadisticaCrearBtn = (ToggleButton) btnGenerarReportes.getScene().lookup("#estadisticaCrear");
+            puedeCrear = estadisticaCrearBtn == null || estadisticaCrearBtn.isSelected();
+        } catch (Exception ignored) {}
+        btnGenerarReportes.setDisable(!fechasOk || !puedeCrear);
     }
 
     private void mostrarIngresosEgresos(LocalDate fechaDesde, LocalDate fechaHasta) {
@@ -328,7 +351,7 @@ public class estadisticaController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
     }
 
     private void showAlert(Alert.AlertType type, String title, String header, String content) {
@@ -690,3 +713,4 @@ public class estadisticaController {
         }
     }
 }
+    

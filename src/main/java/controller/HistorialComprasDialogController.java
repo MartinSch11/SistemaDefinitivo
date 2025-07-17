@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 public class HistorialComprasDialogController {
     @FXML private TableView<HistorialCompra> tablaCompras;
     @FXML private TableColumn<HistorialCompra, String> colInsumo;
-    @FXML private TableColumn<HistorialCompra, Double> colCantidad;
+    @FXML private TableColumn<HistorialCompra, String> colCantidad;
     @FXML private TableColumn<HistorialCompra, String> colMedida;
     @FXML private TableColumn<HistorialCompra, Double> colPrecio;
     @FXML private TableColumn<HistorialCompra, String> colProveedor;
@@ -30,7 +30,11 @@ public class HistorialComprasDialogController {
     @FXML
     public void initialize() {
         colInsumo.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getInsumo()));
-        colCantidad.setCellValueFactory(cellData -> new javafx.beans.property.SimpleDoubleProperty(cellData.getValue().getCantidad()).asObject());
+        colCantidad.setCellValueFactory(cellData -> {
+            double cantidad = cellData.getValue().getCantidad();
+            String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+            return new javafx.beans.property.SimpleStringProperty(cantidadStr);
+        });
         colMedida.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getMedida()));
         colPrecio.setCellValueFactory(cellData -> new javafx.beans.property.SimpleDoubleProperty(cellData.getValue().getPrecio()).asObject());
         colProveedor.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getProveedor()));
@@ -44,7 +48,10 @@ public class HistorialComprasDialogController {
 
     public void cargarCompras() {
         List<HistorialCompra> compras = historialCompraDAO.findAll();
-        ObservableList<HistorialCompra> data = FXCollections.observableArrayList(compras);
+        List<HistorialCompra> filtradas = compras.stream()
+                .filter(c -> c.getPrecio() > 0)
+                .toList();
+        ObservableList<HistorialCompra> data = FXCollections.observableArrayList(filtradas);
         tablaCompras.setItems(data);
     }
 

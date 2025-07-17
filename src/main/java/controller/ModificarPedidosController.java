@@ -40,12 +40,6 @@ public class ModificarPedidosController {
     private ObservableList<Pedido> pedidos = FXCollections.observableArrayList();
     private Pedido pedidoSeleccionado;
 
-    @Setter
-    private PedidosController pedidosController;
-    public void setPedidosController(PedidosController pedidosController) {
-        this.pedidosController = pedidosController;
-    }
-
     @FXML
     void CancelarModificacionPedido(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -142,7 +136,5 @@ public class ModificarPedidosController {
 
     }
 
-    public void setModificarPedidosController(PedidosController pedidosController) {
-    }
 }
 

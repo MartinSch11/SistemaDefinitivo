@@ -35,6 +35,9 @@ public class Trabajador {
     @Column(name = "ultimaActividad")
     private Timestamp ultimaActividad;
 
+    @Column(name = "sexo")
+    private String sexo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     private Rol rol;
@@ -43,11 +46,12 @@ public class Trabajador {
     private Credencial credencial;
 
     // Constructor con todos los campos
-    public Trabajador(String dni, String nombre, String direccion, String telefono,
+    public Trabajador(String dni, String nombre, String sexo, String direccion, String telefono,
                       BigDecimal sueldo, LocalDate fechaContratacion,
                       Timestamp ultimaActividad, Rol rol) {
         this.dni = dni;
         this.nombre = nombre;
+        this.sexo = sexo;
         this.direccion = direccion;
         this.telefono = telefono;
         this.sueldo = sueldo;

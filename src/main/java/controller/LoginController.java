@@ -18,13 +18,20 @@ import java.util.List;
 
 public class LoginController {
 
-    @FXML private TextField dniField;
-    @FXML private PasswordField passwordField;
-    @FXML private Button btnLogin;
-    @FXML private Label errorLabel;
-    @FXML private TextField passwordTextField;
-    @FXML private Button togglePasswordBtn;
-    @FXML private ImageView ojoImageView;
+    @FXML
+    private TextField dniField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private TextField passwordTextField;
+    @FXML
+    private Button togglePasswordBtn;
+    @FXML
+    private ImageView ojoImageView;
 
     private final CredencialesDAO credencialesDAO = new CredencialesDAO();
     private boolean passwordVisible = false;
@@ -33,17 +40,19 @@ public class LoginController {
     public void initialize() {
         // Restringir dniField a solo números
         dniField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {  // Permitir solo dígitos
+            if (!newValue.matches("\\d*")) { // Permitir solo dígitos
                 dniField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
         // Sincronizar ambos campos
         passwordField.textProperty().addListener((obs, oldText, newText) -> {
-            if (!passwordVisible) passwordTextField.setText(newText);
+            if (!passwordVisible)
+                passwordTextField.setText(newText);
         });
         passwordTextField.textProperty().addListener((obs, oldText, newText) -> {
-            if (passwordVisible) passwordField.setText(newText);
+            if (passwordVisible)
+                passwordField.setText(newText);
         });
 
         // Inicializar ícono
@@ -76,7 +85,7 @@ public class LoginController {
         if (idRol != null) {
             String userName = credencialesDAO.obtenerNombrePorDNI(dni); // Obtiene el nombre del trabajador
             RolesDAO rolDAO = new RolesDAO();
-            String roleName = rolDAO.obtenerNombreRolPorId(idRol);      // Obtiene el nombre del rol
+            String roleName = rolDAO.obtenerNombreRolPorId(idRol); // Obtiene el nombre del rol
 
             // Guardar en SessionContext
             SessionContext session = SessionContext.getInstance();
@@ -84,7 +93,7 @@ public class LoginController {
             session.setRoleName(roleName);
 
             // Cargar la vista del menú principal
-            loadMainMenu(userName, roleName);
+            loadMainMenu(userName, roleName, dni);
         } else {
             errorLabel.setText("Datos erróneos. Inténtelo de nuevo.");
             // Registrar el log de intento fallido
@@ -92,7 +101,7 @@ public class LoginController {
         }
     }
 
-    private void loadMainMenu(String userName, String roleName) {
+    private void loadMainMenu(String userName, String roleName, String dni) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Paths.MAINMENU));
             AnchorPane root = loader.load();
@@ -103,6 +112,8 @@ public class LoginController {
             SessionContext session = SessionContext.getInstance();
             session.setUserName(userName);
             session.setRoleName(roleName);
+            String sexo = credencialesDAO.obtenerSexoPorDNI(dni);
+            session.setSexo(sexo);
 
             // Obtener el ID del rol y sus permisos
             RolesDAO rolesDAO = new RolesDAO();
@@ -116,7 +127,7 @@ public class LoginController {
             }
 
             // Configurar el nombre del usuario y el rol en la interfaz
-            mainMenuController.setUserNameAndRole(userName, roleName);
+            mainMenuController.setUserNameAndRole(userName, roleName, sexo);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) btnLogin.getScene().getWindow();

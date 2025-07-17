@@ -28,6 +28,7 @@ public class CrudModificarEmpleadoController {
     @FXML private Pane paneModificarEmpleado;
     @FXML private ComboBox<Rol> cmbRolExistente;
     @FXML private TextField txtContraseñaExistente;
+    @FXML private ComboBox<String> cmbSexoExistente;
 
     @FXML
     public void initialize() {
@@ -135,6 +136,9 @@ public class CrudModificarEmpleadoController {
         FechaContratoExistente.setValue(trabajador.getFechaContratacion());
         cmbRolExistente.setValue(trabajador.getRol());
         txtContraseñaExistente.setText(trabajador.getCredencial().getContraseña());
+        // Cargar sexo en el ComboBox
+        cmbSexoExistente.getItems().setAll("Femenino", "Masculino", "Otro");
+        cmbSexoExistente.setValue(trabajador.getSexo());
     }
 
     private void cargarDatosTrabajador() {
@@ -171,7 +175,8 @@ public class CrudModificarEmpleadoController {
                 trabajador.setTelefono(TelEmpExistente.getText());
                 trabajador.setSueldo(new BigDecimal(SueldoEmpExistente.getText()));
                 trabajador.setFechaContratacion(FechaContratoExistente.getValue());
-                Rol rolSeleccionado = cmbRolExistente.getValue(); // Rol seleccionado en el ComboBox
+                trabajador.setSexo(cmbSexoExistente.getValue());
+                trabajador.setRol(cmbRolExistente.getValue());
                 String contraseña = txtContraseñaExistente.getText();
 
                 // Guardar los cambios en la base de datos del trabajador

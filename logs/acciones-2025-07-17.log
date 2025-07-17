@@ -1,0 +1,162 @@
+[2025-07-17 14:43:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 14:43:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 14:43:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 26
+[2025-07-17 14:48:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 14:48:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 14:48:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 21
+[2025-07-17 14:48:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 14:48:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 14:49:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 14:49:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 14:49:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 14:49:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 14:51:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 14:57:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 14:57:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:13:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:14:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:14:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:14:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 15:14:27] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 15:15:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-17 15:15:10] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [InsumoFaltante(id=null, catalogoInsumo=CatalogoInsumo(id=8, nombre=FRUTILLAS, estado=UNIDAD, proveedor=El campo), cantidadFaltante=15.0, unidad=UNIDADES, resuelto=false)]
+[2025-07-17 15:15:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:15:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:15:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:15:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 15:15:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 15:15:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:15:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:15:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:15:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 15:15:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 15:15:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 28
+[2025-07-17 15:16:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:16:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:22:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:23:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 15:23:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-17 15:23:53] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [InsumoFaltante(id=null, catalogoInsumo=CatalogoInsumo(id=8, nombre=FRUTILLAS, estado=UNIDAD, proveedor=El campo), cantidadFaltante=20.0, unidad=UNIDADES, resuelto=false)]
+[2025-07-17 15:23:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:23:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 15:24:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:24:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:24:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:24:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 15:24:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 15:24:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:24:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 15:24:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 15:24:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 29
+[2025-07-17 15:24:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 15:24:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 16:27:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:27:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 16:27:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 16:28:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:28:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 16:28:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-07-17 16:28:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:29:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:29:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 16:29:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:29:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 16:30:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 16:30:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 16:30:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:30:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 16:38:04] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 123456789
+[2025-07-17 16:38:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:39:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 16:39:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 16:40:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:40:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 16:42:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 16:42:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 16:43:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-17 16:46:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 16:46:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 16:46:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 17:02:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:20:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 17:20:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 17:22:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:22:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 17:22:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 17:23:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:23:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 17:27:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:36:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 17:36:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario a eliminado el pedido N°20
+[2025-07-17 17:36:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:36:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 17:36:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-17 17:50:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:50:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 17:50:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-17 17:52:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:55:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Eventos
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-15
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-10
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-20
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-27
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-30
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2025-07-05
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2025-07-18
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-07-17 17:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario inicializado para el mes: 2025-07
+[2025-07-17 17:55:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-07-17 17:55:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambiado al siguiente mes: 2025-08
+[2025-07-17 17:55:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 17:55:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-07-17 17:56:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 18:00:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:00:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-17 18:00:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:00:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 18:01:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 18:01:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:01:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:01:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 18:05:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:05:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 18:05:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:05:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-17 18:05:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-17 18:05:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-17 18:05:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:05:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-17 18:05:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:05:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-17 18:06:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:06:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-17 18:06:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:06:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-17 18:06:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:06:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:06:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-17 18:06:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-07-17 18:06:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:06:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 18:08:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:16:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:16:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 18:23:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:24:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-17 18:26:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-17 18:27:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Sergio con productos: [Torta de Chocolate, Trufas de Chocolate, Tarta de Fresa]
+[2025-07-17 18:27:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Sergio con productos: [Torta de Chocolate, Trufas de Chocolate, Tarta de Fresa]
+[2025-07-17 18:28:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-17 18:28:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido cancelado por el usuario.
+[2025-07-17 18:29:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:30:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-17 18:30:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-17 18:30:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-17 18:30:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-17 18:30:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-17 18:30:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-17 18:30:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.

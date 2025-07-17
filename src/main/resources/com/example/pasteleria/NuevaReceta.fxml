@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -24,16 +25,16 @@
         </stylesheets>
         <!-- Encabezado -->
         <Pane layoutX="-1.0" prefHeight="55.0" prefWidth="501.0" styleClass="form-producto-header">
-            <Label layoutX="178.0" layoutY="14.0" styleClass="form-producto-header-label" text="Nueva Receta" textFill="WHITE" />
+            <Label fx:id="lblTitulo" layoutX="178.0" layoutY="14.0" styleClass="form-producto-header-label" text="Nueva Receta" textFill="WHITE" />
         </Pane>
         <Label layoutX="182.0" layoutY="63.0" styleClass="form-producto-label" text="Nombre de la receta" />
         <TextField fx:id="txtNomReceta" layoutX="75.0" layoutY="85.0" prefHeight="25.0" prefWidth="350.0" styleClass="form-producto-input" />
-        <Label layoutX="32.0" layoutY="122.0" styleClass="form-producto-label" text="Ingrediente" />
-        <ComboBox fx:id="cmbIngredientes" layoutX="32.0" layoutY="144.0" prefHeight="25.0" prefWidth="230.0" styleClass="form-producto-combo" />
-        <Label layoutX="273.0" layoutY="122.0" styleClass="form-producto-label" text="Cantidad" />
-        <TextField fx:id="txtCantIngrediente" layoutX="273.0" layoutY="144.0" prefHeight="25.0" prefWidth="75.0" styleClass="form-producto-input" />
-        <ComboBox fx:id="cmbUnidad" layoutX="359.0" layoutY="144.0" prefHeight="25.0" prefWidth="100.0" styleClass="form-producto-combo" />
-        <GridPane layoutX="40.0" layoutY="185.0" prefHeight="30.0" prefWidth="419.0">
+        <Label layoutX="16.0" layoutY="123.0" styleClass="form-producto-label" text="Insumo" />
+        <ComboBox fx:id="cmbIngredientes" layoutX="14.0" layoutY="144.0" prefHeight="25.0" prefWidth="230.0" styleClass="form-producto-combo" />
+        <Label layoutX="250.0" layoutY="123.0" styleClass="form-producto-label" text="Cantidad" />
+        <TextField fx:id="txtCantIngrediente" layoutX="250.0" layoutY="144.0" prefHeight="25.0" prefWidth="75.0" styleClass="form-producto-input" />
+        <ComboBox fx:id="cmbUnidad" layoutX="338.0" layoutY="144.0" prefHeight="28.0" prefWidth="140.0" styleClass="form-producto-combo" />
+        <GridPane fx:id="gridAcciones" layoutX="40.0" layoutY="185.0" prefHeight="30.0" prefWidth="419.0">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,22 +47,34 @@
             <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" onAction="#handleEditar" styleClass="form-producto-btn" text="Editar" GridPane.columnIndex="1" />
             <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#handleEliminar" styleClass="form-producto-btn" text="Eliminar" GridPane.columnIndex="2" />
         </GridPane>
+        <!-- Grid de edición, oculto por defecto -->
+        <GridPane fx:id="gridEdicion" layoutX="40.0" layoutY="185.0" prefHeight="30.0" prefWidth="419.0" visible="false">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <Button fx:id="btnGuardarCambios" mnemonicParsing="false" onAction="#handleGuardarCambios" styleClass="form-producto-btn" text="Guardar cambios" />
+            <Button fx:id="btnCancelarEdicion" mnemonicParsing="false" onAction="#handleCancelarEdicion" styleClass="form-producto-btn" text="Cancelar" GridPane.columnIndex="1" />
+        </GridPane>
         <Separator layoutX="32.0" layoutY="215.0" prefHeight="25.0" prefWidth="436.0" />
         <ScrollPane layoutX="50.0" layoutY="240.0" prefHeight="250.0" prefWidth="400.0" styleClass="form-producto-area">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="248.0" prefWidth="398.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="248.0" prefWidth="396.0">
                     <children>
-                        <TableView fx:id="tableIngredientes" prefHeight="248.0" prefWidth="398.0">
+                        <TableView fx:id="tableIngredientes" prefHeight="248.0" prefWidth="396.0">
                             <columns>
-                                <TableColumn fx:id="colIngrediente" editable="false" prefWidth="192.0" resizable="false" sortable="false" text="Ingrediente" />
-                                <TableColumn fx:id="colCantidad" editable="false" prefWidth="205.0" resizable="false" sortable="false" text="Cantidad" />
+                                <TableColumn fx:id="colIngrediente" editable="false" prefWidth="198.0" resizable="false" sortable="false" text="Insumo" />
+                                <TableColumn fx:id="colCantidad" editable="false" prefWidth="198.0" resizable="false" sortable="false" text="Cantidad" />
                             </columns>
                         </TableView>
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <GridPane layoutX="100.0" layoutY="506.0" prefHeight="30.0" prefWidth="300.0">
+        <GridPane alignment="CENTER" layoutX="100.0" layoutY="506.0" prefHeight="30.0" prefWidth="300.0">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -88,5 +101,11 @@
                 </graphic>
             </Button>
         </GridPane>
+      <Button fx:id="btnNuevoInsumo" layoutX="146.0" layoutY="122.0" mnemonicParsing="false" onAction="#abrirFormularioInsumo" styleClass="btnAgregarSabores" text="Nuevo Insumo" textAlignment="CENTER" textFill="#757ccd" underline="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="338.0" layoutY="123.0" styleClass="form-producto-label" text="Medida" />
     </Pane>
 </AnchorPane>

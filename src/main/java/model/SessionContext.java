@@ -7,6 +7,7 @@ public class SessionContext {
     private String userName;
     private String roleName;
     private List<String> permisos;
+    private String sexo;
 
     private SessionContext() {
         // Inicialización de los valores por defecto
@@ -41,5 +42,13 @@ public class SessionContext {
 
     public List<String> getPermisos() {
         return permisos;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getSexo() {
+        return sexo;
     }
 }

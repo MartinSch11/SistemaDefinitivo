@@ -72,8 +72,15 @@ public class Proveedor {
         if (insumos == null || insumos.isEmpty()) {
             return "No tiene insumos";
         }
+        // Obtener los nombres de productos de catalogo_insumo asociados a cada insumo
         return insumos.stream()
-                .map(Insumo::getNombre) // Suponiendo que Insumo tiene un método getNombre()
-                .collect(Collectors.joining(", ")); // Unir los nombres de los insumos con una coma
+                .map(insumo -> {
+                    if (insumo.getCatalogoInsumo() != null) {
+                        return insumo.getCatalogoInsumo().getNombre();
+                    } else {
+                        return "(Sin producto)";
+                    }
+                })
+                .collect(Collectors.joining(", "));
     }
 }

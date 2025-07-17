@@ -14,7 +14,7 @@ public class ControlRoleController implements Initializable {
 
     @FXML private ComboBox<Rol> cmbRoles;
     // ToggleButtons para cada recurso y acción
-    @FXML private ToggleButton estadisticaVer, estadisticaModificar, estadisticaEliminar, estadisticaTodos;
+    @FXML private ToggleButton estadisticaVer, estadisticaCrear;
     @FXML private ToggleButton eventosVer, eventosModificar, eventosEliminar, eventosTodos;
     @FXML private ToggleButton pedidosVer, pedidosModificar, pedidosEliminar, pedidosTodos;
     @FXML private ToggleButton recetasVer, recetasModificar, recetasEliminar, recetasTodos;
@@ -27,7 +27,7 @@ public class ControlRoleController implements Initializable {
     @FXML private ToggleButton saboresVer, saboresCrear, saboresModificar, saboresEliminar, saboresTodos;
     @FXML private ToggleButton configEmpleadosVer, configEmpleadosCrear, configEmpleadosModificar, configEmpleadosEliminar, configEmpleadosTodos;
 
-    @FXML private ToggleButton estadisticaCrear, eventosCrear, pedidosCrear, recetasCrear, productosCrear, proveedoresCrear, stockCrear, agendaCrear;
+    @FXML private ToggleButton eventosCrear, pedidosCrear, recetasCrear, productosCrear, proveedoresCrear, stockCrear, agendaCrear;
     @FXML private ToggleButton settingsVer;
     @FXML private ToggleButton notificacionesVer;
 
@@ -51,9 +51,6 @@ public class ControlRoleController implements Initializable {
         // Mapea cada ToggleButton a su clave "Recurso-Accion"
         toggleMap.put("Estadísticas-ver", estadisticaVer);
         toggleMap.put("Estadísticas-crear", estadisticaCrear);
-        toggleMap.put("Estadísticas-modificar", estadisticaModificar);
-        toggleMap.put("Estadísticas-eliminar", estadisticaEliminar);
-        toggleMap.put("Estadísticas-todos", estadisticaTodos);
         toggleMap.put("Eventos-ver", eventosVer);
         toggleMap.put("Eventos-crear", eventosCrear);
         toggleMap.put("Eventos-modificar", eventosModificar);
@@ -182,6 +179,11 @@ public class ControlRoleController implements Initializable {
                     t.setDisable(true);
                     t.setSelected(true);
                 });
+                // Habilitar btnGenerarReportes para Administrador
+                try {
+                    javafx.scene.control.Button btnGenerarReportes = (javafx.scene.control.Button) cmbRoles.getScene().lookup("#btnGenerarReportes");
+                    if (btnGenerarReportes != null) btnGenerarReportes.setDisable(false);
+                } catch (Exception ignored) {}
                 ActionLogger.log("Se activaron todos los permisos para el rol Administrador.");
             } else {
                 // Habilitar toggles y cargar permisos
@@ -194,6 +196,12 @@ public class ControlRoleController implements Initializable {
                     ToggleButton t = toggleMap.get(permiso);
                     if (t != null) t.setSelected(true);
                 }
+                // Habilitar/deshabilitar btnGenerarReportes según permiso Estadística-crear
+                try {
+                    javafx.scene.control.Button btnGenerarReportes = (javafx.scene.control.Button) cmbRoles.getScene().lookup("#btnGenerarReportes");
+                    boolean puedeCrearEstadistica = permisosRol.contains("Estadísticas-crear");
+                    if (btnGenerarReportes != null) btnGenerarReportes.setDisable(!puedeCrearEstadistica);
+                } catch (Exception ignored) {}
                 ActionLogger.log("Se cargaron permisos para el rol: " + rolSeleccionado.getNombre());
             }
         } else {
@@ -202,6 +210,11 @@ public class ControlRoleController implements Initializable {
                 t.setDisable(true);
                 t.setSelected(false);
             });
+            // Deshabilitar btnGenerarReportes si no hay rol
+            try {
+                javafx.scene.control.Button btnGenerarReportes = (javafx.scene.control.Button) cmbRoles.getScene().lookup("#btnGenerarReportes");
+                if (btnGenerarReportes != null) btnGenerarReportes.setDisable(true);
+            } catch (Exception ignored) {}
             ActionLogger.log("No se seleccionó ningún rol. Los permisos han sido deshabilitados.");
         }
     }

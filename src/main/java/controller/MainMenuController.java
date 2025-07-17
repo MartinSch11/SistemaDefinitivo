@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import model.SessionContext;
@@ -24,6 +23,10 @@ import java.time.LocalDate;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.CustomMenuItem;
 
 public class MainMenuController {
 
@@ -59,20 +62,24 @@ public class MainMenuController {
         String userName = session.getUserName() != null ? session.getUserName() : "Desconocido";
         String roleName = session.getRoleName() != null ? session.getRoleName() : "Sin rol";
 
-        // Registrar un único log de inicio de sesión con valores válidos
+        // Registrar un único log de inicio de sesión with valores válidos
         ActionLogger.log("El usuario ha iniciado sesión.");
 
         // Actualizar la interfaz con los valores validados
-        setUserNameAndRole(userName, roleName);
+        setUserNameAndRole(userName, roleName, null);
         configurarPermisos(session.getPermisos());
 
         // Cargar configuración de notificaciones desde la base de datos usando el método uniforme
         configNotificaciones = configDAO.findOrDefault();
         int minutos = configNotificaciones.getMinutos();
         int diasAnticipo = configNotificaciones.getDiasAnticipacion();
+        boolean notificacionesActivas = configNotificaciones.isNotificacionesActivas();
         // Mostrar notificación solo una vez al inicio de sesión
-        if (!notificacionMostradaAlInicio) {
-            mostrarNotificacionesEventos(diasAnticipo);
+        if (notificacionesActivas && !notificacionMostradaAlInicio) {
+            mostrarNotificacionesEventos(
+                    configNotificaciones.getDiasAnticipacion(),
+                    configNotificaciones.getDiasAnticipacionCaducidad()
+            );
             notificacionMostradaAlInicio = true;
         }
         // Iniciar timer para mostrar notificaciones según configuración
@@ -81,25 +88,28 @@ public class MainMenuController {
                     new KeyFrame(Duration.minutes(minutos), e -> {
                         // Recargar la configuración por si fue modificada
                         configNotificaciones = configDAO.findOrDefault();
-                        mostrarNotificacionesEventos(configNotificaciones.getDiasAnticipacion());
+                        if (configNotificaciones.isNotificacionesActivas()) {
+                            mostrarNotificacionesEventos(
+                                    configNotificaciones.getDiasAnticipacion(),
+                                    configNotificaciones.getDiasAnticipacionCaducidad()
+                            );
+                        }
                     })
             );
             notificacionTimer.setCycleCount(Timeline.INDEFINITE);
             notificacionTimer.play();
         }
 
+        // Reiniciar el timer de notificaciones con la configuración más reciente
+        reiniciarTimerNotificaciones();
+
         // Crear el ContextMenu de ajustes
         ajustesMenu = new ContextMenu();
         ajustesMenu.getStyleClass().add("context-menu-ajustes");
-        MenuItem itemConfig = new MenuItem("Configuración");
-        itemConfig.setOnAction(this::handleSettings);
-        itemConfig.setGraphic(new javafx.scene.image.ImageView(new javafx.scene.image.Image(getClass().getResource("/com.example.image/settings-negro.png").toExternalForm(), 18, 18, true, true)));
-        MenuItem itemAyuda = new MenuItem("Ayuda");
-        itemAyuda.setOnAction(this::handleAyuda);
-        itemAyuda.setGraphic(new javafx.scene.image.ImageView(new javafx.scene.image.Image(getClass().getResource("/com.example.image/help-negro.png").toExternalForm(), 18, 18, true, true)));
-        MenuItem itemCerrarSesion = new MenuItem("Cerrar Sesión");
-        itemCerrarSesion.setOnAction(this::changeUser);
-        itemCerrarSesion.setGraphic(new javafx.scene.image.ImageView(new javafx.scene.image.Image(getClass().getResource("/com.example.image/logout-negro.png").toExternalForm(), 18, 18, true, true)));
+        // Crear CustomMenuItem para cada opción con ícono que cambia color en hover/focus
+        CustomMenuItem itemConfig = crearCustomMenuItem("Configuración", "/com.example.image/settings-negro.png", "/com.example.image/settings.png", this::handleSettings);
+        CustomMenuItem itemAyuda = crearCustomMenuItem("Ayuda", "/com.example.image/help-negro.png", "/com.example.image/help-blanco.png", this::handleAyuda); // Usa el mismo ícono si no hay versión blanca
+        CustomMenuItem itemCerrarSesion = crearCustomMenuItem("Cerrar Sesión", "/com.example.image/logout-negro.png", "/com.example.image/logout-blanco.png", this::changeUser); // Usa el mismo ícono si no hay versión blanca
         ajustesMenu.getItems().addAll(itemConfig, itemAyuda, itemCerrarSesion);
 
         // Actualizar estado de eventos pasados a 'Realizado' al iniciar la app
@@ -115,13 +125,22 @@ public class MainMenuController {
     }
 
     private void mostrarNotificacionesEventos() {
-        mostrarNotificacionesEventos(configNotificaciones != null ? configNotificaciones.getDiasAnticipacion() : 3);
+        int diasEventos = configNotificaciones != null ? configNotificaciones.getDiasAnticipacion() : 3;
+        int diasCaducidad = configNotificaciones != null ? configNotificaciones.getDiasAnticipacionCaducidad() : 3;
+        mostrarNotificacionesEventos(diasEventos, diasCaducidad);
     }
 
-    private void mostrarNotificacionesEventos(int diasAnticipo) {
+    private int getToastDurationMs() {
+        // Siempre obtener la configuración más reciente
+        NotificacionConfig config = configDAO.findOrDefault();
+        int duracionSegundos = config.getDuracionSegundos();
+        return duracionSegundos > 0 ? duracionSegundos * 1000 : 5000;
+    }
+
+    private void mostrarNotificacionesEventos(int diasEventos, int diasCaducidad) {
         if (toastVisible) return; // No superponer toasts
         NotificacionService notiService = new NotificacionService();
-        List<Notificacion> notificaciones = notiService.obtenerNotificacionesEventosProximos(diasAnticipo);
+        List<Notificacion> notificaciones = notiService.obtenerNotificacionesEventosYCaducidad(diasEventos, diasCaducidad);
         if (!notificaciones.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (Notificacion n : notificaciones) {
@@ -131,17 +150,33 @@ public class MainMenuController {
                             .append(n.getFechaEvento().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")))
                             .append(")");
                 }
-                sb.append("\n");
+                sb.append("\n\n"); // Espacio extra entre notificaciones
             }
             String hora = java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
             System.out.println("[NOTIFICACIÓN] Toast mostrado a las " + hora);
-            mostrarToast(sb.toString().trim(), TOAST_DURATION_MS);
+            mostrarToast(sb.toString().trim(), getToastDurationMs());
         }
     }
 
-    public void setUserNameAndRole(String userName, String roleName) {
-        lblRol.setText(roleName);     // Muestra el rol en el Label
-        lblBienvenida.setText("¡Bienvenid@, " + userName + "!"); // Mensaje personalizado
+    public void setUserNameAndRole(String userName, String roleName, String sexo) {
+        lblRol.setText(roleName); // Muestra el rol en el Label
+        String saludo;
+        // Si no se pasa sexo, tomarlo de SessionContext
+        if (sexo == null) {
+            sexo = SessionContext.getInstance().getSexo();
+        }
+        if (sexo != null) {
+            if (sexo.equalsIgnoreCase("Femenino")) {
+                saludo = "¡Bienvenida, ";
+            } else if (sexo.equalsIgnoreCase("Masculino")) {
+                saludo = "¡Bienvenido, ";
+            } else {
+                saludo = "¡Bienvenid@, ";
+            }
+        } else {
+            saludo = "¡Bienvenid@, ";
+        }
+        lblBienvenida.setText(saludo + userName + "!"); // Mensaje personalizado
     }
 
     public void configurarPermisos(List<String> permisos) {
@@ -169,7 +204,7 @@ public class MainMenuController {
         toastVisible = true;
         toastMessage.setText(mensaje);
         toastNotification.setVisible(true);
-        toastProgressBar.setPrefWidth(300); // Ahora la barra es de 300px
+        toastProgressBar.setPrefWidth(300); // la barra es de 300px
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(toastProgressBar.prefWidthProperty(), 300)),
                 new KeyFrame(Duration.millis(duracionMs), new KeyValue(toastProgressBar.prefWidthProperty(), 0))
@@ -187,11 +222,10 @@ public class MainMenuController {
      */
     @FXML
     public void mostrarMenuAjustes(ActionEvent event) {
-        // Verifica permisos antes de mostrar el menú
-        List<String> permisos = SessionContext.getInstance().getPermisos();
-        boolean puedeVerAjustes = permisos != null && permisos.contains("Settings-ver");
-        if (puedeVerAjustes) {
-            Button btn = (Button) event.getSource();
+        Button btn = (Button) event.getSource();
+        if (ajustesMenu.isShowing()) {
+            ajustesMenu.hide();
+        } else {
             ajustesMenu.show(btn, javafx.geometry.Side.BOTTOM, 0, 0);
         }
     }
@@ -199,9 +233,18 @@ public class MainMenuController {
     // Oculta el MenuButton tras seleccionar una opción
     @FXML
     private void handleSettings(ActionEvent event) {
-        ActionLogger.log("El usuario accedió a la sección de Configuración");
-        ajustesMenu.hide();
-        SceneLoader.loadScene(new NodeSceneStrategy(btnSettings), Paths.SETTINGS, "/css/components.css", false);
+        // Verificar permisos antes de abrir la pantalla de configuración
+        List<String> permisos = SessionContext.getInstance().getPermisos();
+        String roleName = SessionContext.getInstance().getRoleName();
+        boolean esAdmin = roleName != null && roleName.trim().equalsIgnoreCase("Administrador");
+        if ((permisos != null && permisos.contains("Settings-ver")) || esAdmin) {
+            ActionLogger.log("El usuario accedió a la sección de Configuración");
+            ajustesMenu.hide();
+            SceneLoader.loadScene(new NodeSceneStrategy(btnSettings), Paths.SETTINGS, "/css/components.css", false);
+        } else {
+            ajustesMenu.hide();
+            mostrarToast("No tienes permiso para acceder a Configuración.", 3500);
+        }
     }
     @FXML
     private void handleAyuda(ActionEvent event) {
@@ -263,6 +306,52 @@ public class MainMenuController {
     void handleTablero(ActionEvent event){
         ActionLogger.log("Accedió a la sección de Pedidos");
         SceneLoader.loadScene(new NodeSceneStrategy(btnPedidos), Paths.PEDIDOS, "/css/components.css", false);
+    }
+
+    /**
+     * Crea un CustomMenuItem con ícono que cambia color en hover/focus.
+     */
+    private CustomMenuItem crearCustomMenuItem(String texto, String iconoNormal, String iconoHover, javafx.event.EventHandler<ActionEvent> handler) {
+        ImageView iconView = new ImageView(new Image(getClass().getResource(iconoNormal).toExternalForm(), 18, 18, true, true));
+        Label label = new Label(texto);
+        HBox hbox = new HBox(8, iconView, label);
+        hbox.setStyle("-fx-padding: 4 12 4 8; -fx-alignment: center-left;");
+        hbox.setMinWidth(180);
+        hbox.setPrefWidth(180);
+        CustomMenuItem item = new CustomMenuItem(hbox);
+        item.setOnAction(handler);
+        hbox.setOnMouseEntered(e -> {
+            iconView.setImage(new Image(getClass().getResource(iconoHover).toExternalForm(), 18, 18, true, true));
+        });
+        hbox.setOnMouseExited(e -> {
+            iconView.setImage(new Image(getClass().getResource(iconoNormal).toExternalForm(), 18, 18, true, true));
+        });
+        return item;
+    }
+
+    /**
+     * Reinicia el timer de notificaciones con la configuración más reciente.
+     */
+    public void reiniciarTimerNotificaciones() {
+        if (notificacionTimer != null) {
+            notificacionTimer.stop();
+            notificacionTimer = null;
+        }
+        configNotificaciones = configDAO.findOrDefault();
+        int minutos = configNotificaciones.getMinutos();
+        notificacionTimer = new Timeline(
+                new KeyFrame(Duration.minutes(minutos), e -> {
+                    configNotificaciones = configDAO.findOrDefault();
+                    if (configNotificaciones.isNotificacionesActivas()) {
+                        mostrarNotificacionesEventos(
+                                configNotificaciones.getDiasAnticipacion(),
+                                configNotificaciones.getDiasAnticipacionCaducidad()
+                        );
+                    }
+                })
+        );
+        notificacionTimer.setCycleCount(Timeline.INDEFINITE);
+        notificacionTimer.play();
     }
 
 }

@@ -54,7 +54,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="36.0" prefWidth="121.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
+                  <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

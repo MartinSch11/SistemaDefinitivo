@@ -121,7 +121,7 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <GridPane fx:id="gridEmpleadosActuales" alignment="CENTER" layoutY="30.0" prefHeight="38.0" prefWidth="622.0">
+                        <GridPane fx:id="gridEmpleadosActuales" alignment="CENTER" layoutY="30.0" prefHeight="38.0" prefWidth="513.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="187.9999755859375" />
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.20001220703125" minWidth="10.0" prefWidth="434.4000244140625" />
@@ -130,7 +130,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label text="Empleados actuales:">
+                                <Label text="Empleados:">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
@@ -138,7 +138,7 @@
                                 <ComboBox fx:id="cmbEmpleadosActuales" prefHeight="26.0" prefWidth="435.0" GridPane.columnIndex="1" />
                             </children>
                         </GridPane>
-                        <GridPane layoutX="622.0" layoutY="29.0" prefHeight="40.0" prefWidth="475.0">
+                        <GridPane layoutX="531.0" layoutY="29.0" prefHeight="40.0" prefWidth="566.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -148,8 +148,8 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button fx:id="btnAnadirEmpleado" mnemonicParsing="false" onAction="#anadirEmpleado" prefWidth="135.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" />
-                                <Button fx:id="btnModificarEmpleado" mnemonicParsing="false" onAction="#modificarEmpleado" prefWidth="160.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" GridPane.columnIndex="1" />
+                                <Button fx:id="btnAnadirEmpleado" mnemonicParsing="false" onAction="#anadirEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Añadir empleado" />
+                                <Button fx:id="btnModificarEmpleado" mnemonicParsing="false" onAction="#modificarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar empleado" GridPane.columnIndex="1" />
                                 <Button fx:id="btnEliminarEmpleado" mnemonicParsing="false" onAction="#eliminarEmpleado" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar empleado" GridPane.columnIndex="2" />
                             </children>
                         </GridPane>

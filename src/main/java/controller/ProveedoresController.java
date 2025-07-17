@@ -44,7 +44,13 @@ public class ProveedoresController {
         // Configuración de las columnas
         colCuit.setCellValueFactory(new PropertyValueFactory<>("cuit"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colInsumo.setCellValueFactory(new PropertyValueFactory<>("insumosString"));
+        // Mostrar insumos de catalogo_insumo usando el DAO
+        colInsumo.setCellValueFactory(cellData -> {
+            Proveedor proveedor = cellData.getValue();
+            java.util.List<String> insumos = proveedorDAO.findInsumosByProveedor(proveedor.getNombre());
+            String insumosStr = insumos.isEmpty() ? "No tiene insumos" : String.join(", ", insumos);
+            return new javafx.beans.property.SimpleStringProperty(insumosStr);
+        });
         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
         colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -162,7 +168,7 @@ public class ProveedoresController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
         ActionLogger.log("El usuario volvió al menú principal.");
     }
 
