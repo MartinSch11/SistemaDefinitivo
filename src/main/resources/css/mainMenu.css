@@ -1,22 +1,127 @@
+/* Estilos para el MenuButton de inicio de sesión */
+.login {
+    -fx-background-color: transparent;
+    -fx-font-family: "Inter";
+    -fx-font-size: 12px; /* Tamaño de fuente ajustado */
+    -fx-transition: transform 0.2s ease-in-out;
+}
 
-.buttonsMainMenu{
-    -fx-background-color: none;
-    -fx-border-color:  #B70505;
-    -fx-border-radius: 5px;
-    -fx-border-width: 2px;
-    -fx-text: none;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0, 4);
+/* Efecto hover para el MenuButton */
+.login:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Estilos para el MenuItem dentro del MenuButton */
+.login .menu-item {
+    -fx-font-family: "Inter";
+    -fx-font-size: 12px;
+}
+
+/* Estilos específicos para las imágenes dentro de los MenuItem */
+.login .menu-item .image-view {
+    -fx-fit-width: 20px;  /* Ajusta el ancho */
+    -fx-fit-height: 20px; /* Ajusta la altura */
+}
+
+/* Efecto hover para cada MenuItem */
+.login .menu-item:hover {
+    -fx-background-color: #E0E0E0; /* Cambia el color de fondo en hover */
+}
+
+/* Estilo adicional para imagen principal dentro del MenuButton */
+.login .image-view-main {
+    -fx-fit-width: 32px; /* Tamaño ajustado */
+    -fx-fit-height: 32px; /* Tamaño ajustado */
+}
+
+.buttonsMainMenu {
+    -fx-background-color: #f7ede1;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+    -fx-border-width: 1.5px;
     -fx-pref-width: 125px;
     -fx-pref-height: 125px;
-    -fx-transition: all 0.3s ease;
+    -fx-effect: null;
+    -fx-background-insets: 0;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: all 1s;
+}
+
+.buttonsMainMenuImage {
+    -fx-effect: null; /* Sin sombra para las imágenes */
 }
 
 .buttonsMainMenu:hover {
-    -fx-translate-y: -5px;
+    -fx-background-color: #e3e4e5;
+    -fx-border-color: #B70505;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(183,5,5,0.10), 8, 0.2, 0, 2);
+    -fx-translate-y: -4px;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: all 0.7s ease;
 }
 
 .txtButtonsMainMenu{
-    -fx-font-family: Arial;
-    -fx-text-size: 24px;
-    -fx-text-fill: black;
+    -fx-font-family: "Inter";
+    -fx-font-size: 17px;
+    -fx-fill: #3E2723;
+    -fx-font-weight: 500;
+}
+
+.button-Ayuda-MainMenu{
+    -fx-background-color: transparent;
+    -fx-pref-width: 55px;
+    -fx-pref-height: 55px;
+    -fx-transition: transform 0.7s ease-in-out;
+}
+
+.button-Ayuda-MainMenu .image-view {
+    -fx-fit-width: 40px;
+    -fx-fit-height: 40px;
+}
+
+.button-Ayuda-MainMenu:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.lblRol{
+    -fx-font-family: "Inter";
+    -fx-font-size: 11px;
+    -fx-text-fill: white;
+}
+
+/* --- ContextMenu personalizado para menú de ajustes --- */
+.context-menu-ajustes {
+    -fx-background-color: #fff;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(one-pass-box, rgba(183,5,5,0.12), 8, 0, 0, 2);
+    -fx-border-radius: 8px;
+    -fx-padding: 0; /* Elimina el padding vertical extra */
+}
+.context-menu-ajustes .menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B70505;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 14px;
+    -fx-padding: 6px 16px 6px 16px; /* Solo padding, sin margin, para que el hover llegue al borde */
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-min-width: 120px; /* Opcional: ancho mínimo para consistencia visual */
+    -fx-pref-width: 180px; /* Opcional: ancho preferido para que el HBox ocupe todo el área */
+}
+.context-menu-ajustes .menu-item:focused,
+.context-menu-ajustes .menu-item:hover {
+    -fx-background-color: #B70505;
+    -fx-text-fill: #fff;
+}
+.context-menu-ajustes .menu-item .image-view {
+    -fx-fit-width: 18px;
+    -fx-fit-height: 18px;
+    -fx-padding: 0 8px 0 0;
 }

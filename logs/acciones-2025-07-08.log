@@ -1,0 +1,173 @@
+[2025-07-08 02:51:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 02:51:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 02:51:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 02:51:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Martín con productos: [Pastel de Chocolate, Tarta de Fresa, Trufas de Chocolate]
+[2025-07-08 02:51:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Martín con productos: [Pastel de Chocolate, Tarta de Fresa, Trufas de Chocolate]
+[2025-07-08 02:51:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 02:52:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 02:56:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 02:56:27] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 02:56:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 02:57:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Martín con productos: [Tarta de Fresa, Trufas de Chocolate]
+[2025-07-08 02:57:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido creado: Martín con productos: [Tarta de Fresa, Trufas de Chocolate]
+[2025-07-08 03:03:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:03:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:03:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 03:03:45] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido.
+[2025-07-08 03:04:12] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:04:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:13:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:14:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:14:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 03:14:31] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido.
+[2025-07-08 03:21:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:22:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:24:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:24:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:33:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:34:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:43:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:43:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 03:49:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 03:49:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:08:26] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 12345678
+[2025-07-08 04:08:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:08:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:11:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:11:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:14:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:15:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:17:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:17:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:23:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:23:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:26:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:27:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:28:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:28:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:40:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:40:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:40:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido cancelado por el usuario.
+[2025-07-08 04:41:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 04:41:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:41:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:48:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:48:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:48:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido cancelado por el usuario.
+[2025-07-08 04:48:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:48:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:55:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:55:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:55:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 04:58:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 04:58:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 04:59:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 05:00:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 05:05:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 05:05:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 05:05:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 05:06:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 05:06:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:25:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:25:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:25:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 17:26:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:26:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:36:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:36:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:37:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 17:37:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:37:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:38:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 17:40:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:40:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:40:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:40:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:46:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 17:46:40] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido.
+[2025-07-08 17:46:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:46:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:49:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:49:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 17:49:44] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 17:49:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 17:49:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:08:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:08:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:09:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 16
+[2025-07-08 18:09:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 13
+[2025-07-08 18:09:19] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 11
+[2025-07-08 18:09:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 18:11:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:11:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:11:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 18:23:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:23:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:24:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:24:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:24:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 18:24:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:24:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:32:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:32:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:32:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 18:32:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:32:33] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:39:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:39:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:39:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 18:39:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:39:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:55:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:55:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 18:55:49] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 18:55:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 18:55:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:03:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:03:44] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:03:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:04:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:04:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:11:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:11:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:12:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:12:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:13:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:13:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:13:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido cancelado por el usuario.
+[2025-07-08 19:18:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:18:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:18:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Pedido eliminado: 15
+[2025-07-08 19:18:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:19:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:19:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:31:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:31:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:32:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:32:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:32:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:34:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:36:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:36:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:36:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:36:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:36:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:44:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:45:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:45:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:45:37] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido.
+[2025-07-08 19:45:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:45:44] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:45:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 19:51:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:51:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:52:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 19:52:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 19:52:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 23:34:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 23:35:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 23:35:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 23:35:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-08 23:36:27] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-08 23:36:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-08 23:36:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas

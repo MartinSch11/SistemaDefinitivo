@@ -1,47 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800" prefWidth="1280" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+<AnchorPane prefHeight="400.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <Pane prefHeight="800" prefWidth="1280" style="-fx-background-color: f7ede3;">
+      <Pane prefHeight="400.0" prefWidth="440.0" style="-fx-background-color: f7ede3;" stylesheets="@../../../css/components.css">
          <children>
-            <Button fx:id="btnAdmin" alignment="CENTER" cache="true" contentDisplay="TOP" graphicTextGap="20.0" layoutX="135.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f7ede3;" text="Administrador" textAlignment="CENTER" textFill="#a40000">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.example.image/avatar_usuario.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Inter Regular" size="20.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="btnEmple" contentDisplay="TOP" graphicTextGap="20.0" layoutX="490.0" layoutY="196.0" mnemonicParsing="false" onAction="#click" style="-fx-background-color: f7ede3;" text="Empleado" textFill="#a40000">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.example.image/avatar_usuario.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Inter Regular" size="20.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+            <Pane layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="400.0">
+               <children>
+                  <!-- Etiqueta de bienvenida -->
+                  <Label fx:id="textologin" layoutX="54.0" layoutY="55.0" style="-fx-text-fill: #B70505;" stylesheets="@../../../css/components.css" text="¡Bienvenido!">
+                     <styleClass>
+                        <String fx:value="texto-login" />
+                        <String fx:value="TextField" />
+                     </styleClass>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Campo DNI -->
+                  <TextField fx:id="dniField" layoutX="105.0" layoutY="152.0" prefHeight="25.0" prefWidth="190.0" promptText="DNI" style="-fx-background-color: white;">
+                     <styleClass>
+                        <String fx:value="texto-textfield" />
+                        <String fx:value="TextField" />
+                     </styleClass>
+                  </TextField>
+
+                  <!-- Campo Contraseña con botón de ojo -->
+                  <StackPane alignment="CENTER_LEFT" layoutX="105.0" layoutY="198.0">
+                     <children>
+                        <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="160.0" promptText="Contraseña" style="-fx-background-color: white; -fx-border-radius: 6 0 0 6; -fx-background-radius: 6 0 0 6;">
+                           <styleClass>
+                              <String fx:value="texto-textfield" />
+                              <String fx:value="TextField" />
+                           </styleClass>
+                        </PasswordField>
+                        <TextField fx:id="passwordTextField" managed="false" prefHeight="26.0" prefWidth="160.0" promptText="Contraseña" style="-fx-background-color: white; -fx-border-radius: 6 0 0 6; -fx-background-radius: 6 0 0 6;" visible="false">
+                           <styleClass>
+                              <String fx:value="texto-textfield" />
+                              <String fx:value="TextField" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                  </StackPane>
+
+                  <!-- Botón de login -->
+                  <Button fx:id="btnLogin" layoutX="139.0" layoutY="295.0" onAction="#handleLogin" prefHeight="30.0" styleClass="buttons" text="Iniciar sesión">
+                     <font>
+                        <Font name="Inter Regular" size="16.0" />
+                     </font>
+                  </Button>
+                  <StackPane layoutY="237.0" prefHeight="50.0" prefWidth="400.0">
+                     <children>
+                        <!-- Etiqueta de error -->
+                        <Label fx:id="errorLabel" style="-fx-text-fill: red;" styleClass="texto" />
+                     </children>
+                  </StackPane>
+                  <Button fx:id="togglePasswordBtn" focusTraversable="false" layoutX="264.0" layoutY="198.0" onAction="#togglePasswordVisibility" prefHeight="25.0" prefWidth="31.0" styleClass="ojo-btn">
+                     <graphic>
+                        <ImageView fx:id="ojoImageView" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+
          </children>
       </Pane>
    </children>

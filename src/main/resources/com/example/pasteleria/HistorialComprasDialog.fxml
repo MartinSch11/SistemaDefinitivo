@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #f7ede3;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="controller.HistorialComprasDialogController">
+    <children>
+        <Label layoutX="20.0" layoutY="18.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Historial de compras de insumos">
+            <font>
+                <Font name="Inter Regular" size="12.0" />
+            </font></Label>
+        <TableView fx:id="tablaCompras" layoutX="20.0" layoutY="55.0" prefHeight="400.0" prefWidth="860.0" styleClass="table" stylesheets="@../../../css/components.css">
+            <columns>
+                <TableColumn fx:id="colInsumo" prefWidth="150.0" text="Insumo" />
+                <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
+                <TableColumn fx:id="colMedida" prefWidth="100.0" text="Medida" />
+                <TableColumn fx:id="colPrecio" prefWidth="100.0" text="Precio" />
+                <TableColumn fx:id="colProveedor" prefWidth="150.0" text="Proveedor" />
+                <TableColumn fx:id="colFechaCompra" prefWidth="140.0" text="Fecha de Compra" />
+            </columns>
+        </TableView>
+        <Button layoutX="411.0" layoutY="463.0" onAction="#cerrarDialogo" styleClass="form-producto-btn" stylesheets="@../../../css/productos_form.css" text="Cerrar" />
+        <TextField fx:id="txtBuscar" layoutX="340.0" layoutY="21.0" prefHeight="25.0" prefWidth="220.0" promptText="Buscar por insumo, proveedor o medida... " />
+    </children>
+</AnchorPane>

@@ -1,0 +1,78 @@
+[2024-12-17 17:16:22] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 17:16:22] Usuario: null (Rol: Sin rol) Acción: Usuario null (Rol: null) ha iniciado sesión.
+[2024-12-17 17:16:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2024-12-17 17:16:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 17:16:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Configuración
+[2024-12-17 17:16:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 17:16:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2024-12-17 17:16:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2024-12-17 17:16:39] Usuario: Juan Lopez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2024-12-17 17:16:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2024-12-17 17:16:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2024-12-17 17:16:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-17 17:16:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-17 17:16:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 17:20:18] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 17:20:18] Usuario: null (Rol: Sin rol) Acción: Usuario null (Rol: null) ha iniciado sesión.
+[2024-12-17 17:20:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Eventos
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-15
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2024-12 generado correctamente.
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-10
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2024-12 generado correctamente.
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-20
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-27
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-30
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-25
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2024-12 generado correctamente.
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2024-12 generado correctamente.
+[2024-12-17 17:20:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario inicializado para el mes: 2024-12
+[2024-12-17 17:20:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 17:20:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Volviendo al menú principal.
+[2024-12-17 17:20:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Configuración
+[2024-12-17 17:20:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 17:32:29] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 17:32:29] Usuario: null (Rol: Sin rol) Acción: Usuario Desconocido (Rol: Sin rol) ha iniciado sesión.
+[2024-12-17 17:32:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2024-12-17 17:32:33] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 17:32:33] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2024-12-17 17:32:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 17:32:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2024-12-17 17:32:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2024-12-17 17:32:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 17:32:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2024-12-17 17:33:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 17:33:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 17:33:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-17 17:33:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 19:58:01] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 19:58:01] Usuario: null (Rol: Sin rol) Acción: Usuario Desconocido (Rol: Sin rol) ha iniciado sesión.
+[2024-12-17 19:58:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 19:58:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:00:51] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 20:00:51] Usuario: null (Rol: Sin rol) Acción: Usuario Desconocido (Rol: Sin rol) ha iniciado sesión.
+[2024-12-17 20:00:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 20:00:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:05:41] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido con DNI: 12345678
+[2024-12-17 20:05:48] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 20:05:48] Usuario: null (Rol: Sin rol) Acción: Usuario Desconocido (Rol: Sin rol) ha iniciado sesión.
+[2024-12-17 20:05:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 20:05:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:14:13] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 20:14:13] Usuario: null (Rol: Sin rol) Acción: Usuario Desconocido (Rol: Sin rol) ha iniciado sesión.
+[2024-12-17 20:14:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 20:14:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:14:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-17 20:14:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:23:22] Usuario: null (Rol: Sin rol) Acción: Login exitoso para el usuario: Juan Lopez con rol: Administrador
+[2024-12-17 20:23:22] Usuario: null (Rol: Sin rol) Acción: Usuario Desconocido (Rol: Sin rol) ha iniciado sesión.
+[2024-12-17 20:23:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 20:23:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:29:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 20:29:49] Usuario: Juan Lopez (Rol: Administrador) Acción: Usuario Juan Lopez (Rol: Administrador) ha iniciado sesión.
+[2024-12-17 20:29:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 20:29:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:31:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-17 20:31:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-17 20:31:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-17 20:31:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-17 20:31:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RecetasController">
+
+    <stylesheets>
+        <URL value="@../../../css/components.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane-principal" stylesheets="@../../../css/components.css">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="1360.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
+               <children>
+                  <Label layoutX="634.0" layoutY="13.0" styleClass="title" stylesheets="@../../../css/components.css" text="Recetas" />
+               </children>
+            </Pane>
+            <Button fx:id="btnVolver" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/arrow_left.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Pane layoutX="62.0" layoutY="106.0" prefHeight="600.0" prefWidth="600.0">
+               <children>
+                  <ScrollPane prefHeight="550.0" prefWidth="600.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="546.0" prefWidth="595.0">
+                           <children>
+                              <TableView fx:id="tableRecetas" layoutX="-1.0" prefHeight="548.0" prefWidth="598.0" styleClass="table">
+                                <columns>
+                                  <TableColumn fx:id="colNomReceta" prefWidth="177.0" text="Receta" />
+                                  <TableColumn fx:id="colIngReceta" prefWidth="418.0" text="Ingredientes" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <GridPane alignment="CENTER" layoutX="32.0" layoutY="562.0" prefHeight="30.0" prefWidth="536.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Button fx:id="btnAgregar" alignment="CENTER" mnemonicParsing="false" onAction="#handleAgregar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar">
+                           <font>
+                              <Font name="Inter Regular" size="13.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../com.example.image/add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Inter Regular" size="13.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../com.example.image/edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnEliminar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleEliminar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar" GridPane.columnIndex="2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Inter Regular" size="13.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../com.example.image/delete.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </GridPane>
+               </children>
+            </Pane>
+            <Pane fx:id="paneDetallesReceta" layoutX="708.0" layoutY="101.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: f7ede3;" visible="false">
+               <children>
+                  <StackPane fx:id="nombreReceta" prefHeight="36.0" prefWidth="600.0">
+                     <children>
+                        <Label fx:id="labelNombreReceta" styleClass="title-red" text="Nombre de la Receta" />
+                     </children>
+                  </StackPane>
+                  <Label layoutX="24.0" layoutY="48.0" styleClass="title-red" text="Ingredientes" />
+                  <ScrollPane layoutX="14.0" layoutY="73.0" prefHeight="500.0" prefWidth="572.0" style="-fx-background-color: f7ede3;">
+                     <content>
+                        <!-- Contenedor VBox para mostrar los ingredientes en forma de lista -->
+                        <VBox fx:id="vboxIngredientes">
+                           <!-- Aquí se agregarán los Labels de los ingredientes -->
+                           <Label text="Ingrediente 1" />
+                           <Label text="Ingrediente 2" />
+                           <Label text="Ingrediente 3" />
+                           <!-- Más ingredientes se agregarán dinámicamente desde el controlador -->
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

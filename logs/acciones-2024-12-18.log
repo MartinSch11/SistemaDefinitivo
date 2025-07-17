@@ -1,0 +1,195 @@
+[2024-12-18 10:21:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 10:21:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2024-12-18 10:22:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Producto modificado: Pastel de Chocolate (ID: 1)
+[2024-12-18 10:22:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Pastel de Chocolate
+[2024-12-18 10:22:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 10:22:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2024-12-18 10:22:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2024-12-18 13:06:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:06:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2024-12-18 13:06:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:06:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2024-12-18 13:06:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 13:06:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 13:06:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:06:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 13:06:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:06:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Tarta de Fresa
+[2024-12-18 13:07:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:07:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Trufas de Chocolate
+[2024-12-18 13:07:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:07:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Mousse de Limón
+[2024-12-18 13:07:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:07:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2024-12-18 13:07:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:07:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 13:07:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:08:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:08:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 13:08:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Tarta de Fresa
+[2024-12-18 13:08:19] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:13:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:13:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 13:13:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2024-12-18 13:13:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:13:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Tarta de Fresa
+[2024-12-18 13:13:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:13:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Operación cancelada en la pantalla de nueva receta.
+[2024-12-18 13:13:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Operación cancelada en la pantalla de nueva receta.
+[2024-12-18 13:13:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Operación cancelada en la pantalla de nueva receta.
+[2024-12-18 13:13:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 13:13:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:41:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:41:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 13:41:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 13:41:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:41:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Tarta de Fresa
+[2024-12-18 13:41:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 13:44:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 13:44:06] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 13:44:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 13:44:10] Usuario: Juan Lopez (Rol: Administrador) Acción: Pantalla de nueva receta cargada.
+[2024-12-18 15:21:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 15:22:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 15:22:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 15:22:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo de receta seleccionado para editar: LECHE
+[2024-12-18 15:22:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambios guardados para ingrediente: LECHE
+[2024-12-18 15:22:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Operación cancelada en la pantalla de nueva receta.
+[2024-12-18 15:22:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2024-12-18 15:22:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 15:22:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 200 ML
+[2024-12-18 15:25:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 15:25:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 15:25:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 15:25:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 200 ML
+[2024-12-18 15:25:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente eliminado de la receta: LECHE
+[2024-12-18 15:26:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Receta guardada: Receta Pastel de Chocolate
+[2024-12-18 15:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 15:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 15:26:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 15:28:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 15:28:40] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 15:28:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Pastel de Chocolate
+[2024-12-18 16:39:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:39:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2024-12-18 16:40:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:40:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2024-12-18 16:40:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2024-12-18 16:40:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo insumo.
+[2024-12-18 16:40:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:40:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2024-12-18 16:41:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2024-12-18 16:41:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:41:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2024-12-18 16:41:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:41:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2024-12-18 16:41:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:41:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Volviendo al menú principal.
+[2024-12-18 16:44:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 16:44:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-18 16:45:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 16:45:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 16:45:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 16:45:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la vista de configuraciones.
+[2024-12-18 17:49:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:49:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2024-12-18 17:49:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:49:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2024-12-18 17:49:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 17:51:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 17:51:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:52:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:52:49] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 17:55:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:55:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 17:55:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 17:55:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:57:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 17:57:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 18:03:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 18:03:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2024-12-18 18:04:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de insumos.
+[2024-12-18 18:04:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2024-12-18 18:04:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 18:04:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 18:04:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:33] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2024-12-18 18:04:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2024-12-18 18:04:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2024-12-18 18:04:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2024-12-18 18:04:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2024-12-18 18:04:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:04:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2024-12-18 18:05:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Producto modificado: Tarta de Fresa (ID: 2)
+[2024-12-18 18:05:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Tarta de Fresa
+[2024-12-18 18:05:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:05:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2024-12-18 18:05:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2024-12-18 18:18:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:18:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2024-12-18 18:18:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la pantalla de nuevo cliente.
+[2024-12-18 18:19:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Cliente guardado: Martín Schonberger
+[2024-12-18 18:22:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Se canceló el pedido sin guardar.
+[2024-12-18 18:22:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:22:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 18:22:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:23:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:23:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:27:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:27:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 18:27:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:27:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo cliente.
+[2024-12-18 18:29:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Cliente guardado: Nicolas Barrueco
+[2024-12-18 18:29:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:29:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:30:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:30:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:33:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el cliente con DNI: 44280200
+[2024-12-18 18:34:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:34:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:42:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:42:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 18:42:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:42:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo cliente.
+[2024-12-18 18:44:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Cliente guardado: Lionel Messi
+[2024-12-18 18:45:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:45:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:45:59] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:46:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo.
+[2024-12-18 18:46:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Insumo LECHECONDESADA creado con éxito.
+[2024-12-18 18:53:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 18:53:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 18:53:17] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 18:53:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 18:53:21] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 19:22:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 19:22:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 19:24:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 19:24:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 19:24:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 19:24:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo cliente.
+[2024-12-18 19:26:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Cliente guardado: Ángel Di María
+[2024-12-18 19:26:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-18 19:26:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 19:29:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 19:29:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 19:29:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 19:29:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo cliente.
+[2024-12-18 19:30:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Cliente guardado: Leandro Paredes
+[2024-12-18 19:30:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2024-12-18 19:30:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 19:33:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 19:33:25] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 19:33:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2024-12-18 19:44:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2024-12-18 19:44:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2024-12-18 19:44:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2024-12-18 19:44:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario agregó un nuevo cliente.
+[2024-12-18 19:46:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Cliente actualizado: Emiliano Martínez
+[2024-12-18 19:47:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el cliente: 21312477
+[2024-12-18 19:47:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el cliente: 21312477

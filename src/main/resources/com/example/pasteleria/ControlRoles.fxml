@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1120.0" stylesheets="@../../../css/components.css"
+            xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControlRoleController">
+    <children>
+        <Pane prefHeight="640.0" prefWidth="1120.0" style="-fx-background-color: #f7ede3;">
+            <children>
+                <StackPane prefHeight="55.0" prefWidth="1120.0">
+                    <children>
+                        <Label styleClass="title-red" text="Control de permisos" />
+                    </children>
+                </StackPane>
+                <Pane layoutY="55.0" prefHeight="585.0" prefWidth="1120.0">
+                    <children>
+                        <GridPane layoutX="305.0" layoutY="27.0" prefHeight="500.0" prefWidth="510.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="110.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="40.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="40.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="40.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="40.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="40.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <!-- Cabecera de acciones -->
+                                <Label styleClass="texto" text="Recurso" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label styleClass="texto" text="Ver" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label styleClass="texto" text="Crear" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                <Label styleClass="texto" text="Modificar" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                <Label styleClass="texto" text="Eliminar" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                                <Label styleClass="texto" text="Todos" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+
+                                <!-- Eventos -->
+                                <Label styleClass="texto" text="Eventos" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <ToggleButton fx:id="eventosVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <ToggleButton fx:id="eventosCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <ToggleButton fx:id="eventosModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                <ToggleButton fx:id="eventosEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                <ToggleButton fx:id="eventosTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+
+                                <!-- Pedidos -->
+                                <Label styleClass="texto" text="Pedidos" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <ToggleButton fx:id="pedidosVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <ToggleButton fx:id="pedidosCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <ToggleButton fx:id="pedidosModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                <ToggleButton fx:id="pedidosEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                <ToggleButton fx:id="pedidosTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+
+                                <!-- Recetas -->
+                                <Label styleClass="texto" text="Recetas" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                <ToggleButton fx:id="recetasVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <ToggleButton fx:id="recetasCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                <ToggleButton fx:id="recetasModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                <ToggleButton fx:id="recetasEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                <ToggleButton fx:id="recetasTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+
+                                <!-- Productos -->
+                                <Label styleClass="texto" text="Productos" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                <ToggleButton fx:id="productosVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <ToggleButton fx:id="productosCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                <ToggleButton fx:id="productosModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                <ToggleButton fx:id="productosEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                                <ToggleButton fx:id="productosTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+
+                                <!-- Proveedores -->
+                                <Label styleClass="texto" text="Proveedores" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                <ToggleButton fx:id="proveedoresVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <ToggleButton fx:id="proveedoresCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                <ToggleButton fx:id="proveedoresModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                <ToggleButton fx:id="proveedoresEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                                <ToggleButton fx:id="proveedoresTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+
+                                <!-- Stock -->
+                                <Label styleClass="texto" text="Stock" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                                <ToggleButton fx:id="stockVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <ToggleButton fx:id="stockCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                <ToggleButton fx:id="stockModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                                <ToggleButton fx:id="stockEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                                <ToggleButton fx:id="stockTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+
+                                <!-- Agenda -->
+                                <Label styleClass="texto" text="Agenda" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                                <ToggleButton fx:id="agendaVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                <ToggleButton fx:id="agendaCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                                <ToggleButton fx:id="agendaModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                                <ToggleButton fx:id="agendaEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                                <ToggleButton fx:id="agendaTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+
+                                <!-- Insumos -->
+                                <Label styleClass="texto" text="Insumos" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                                <ToggleButton fx:id="insumosVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                <ToggleButton fx:id="insumosCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                                <ToggleButton fx:id="insumosModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                                <ToggleButton fx:id="insumosEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                                <ToggleButton fx:id="insumosTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+
+                                <!-- Clientes -->
+                                <Label styleClass="texto" text="Clientes" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                                <ToggleButton fx:id="clientesVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                <ToggleButton fx:id="clientesCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                                <ToggleButton fx:id="clientesModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                                <ToggleButton fx:id="clientesEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                                <ToggleButton fx:id="clientesTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+
+                                <!-- Sabores -->
+                                <Label styleClass="texto" text="Sabores" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                                <ToggleButton fx:id="saboresVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                <ToggleButton fx:id="saboresCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                                <ToggleButton fx:id="saboresModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                                <ToggleButton fx:id="saboresEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                                <ToggleButton fx:id="saboresTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+
+                                <!-- Configuración Empleados -->
+                                <Label styleClass="texto" text="Config. Empleados" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                                <ToggleButton fx:id="configEmpleadosVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                                <ToggleButton fx:id="configEmpleadosCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                                <ToggleButton fx:id="configEmpleadosModificar" styleClass="toggle-button" text="" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                                <ToggleButton fx:id="configEmpleadosEliminar" styleClass="toggle-button" text="" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+                                <ToggleButton fx:id="configEmpleadosTodos" styleClass="toggle-button" text="" GridPane.columnIndex="5" GridPane.rowIndex="11" />
+
+                                <!-- Estadística -->
+                                <Label styleClass="texto" text="Estadística" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                                <ToggleButton fx:id="estadisticaVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                                <ToggleButton fx:id="estadisticaCrear" styleClass="toggle-button" text="" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                                <Label text="" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                                <Label text="" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+                                <Label text="" GridPane.columnIndex="5" GridPane.rowIndex="12" />
+
+                                <!-- Notificaciones -->
+                                <Label styleClass="texto" text="Notificaciones" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+                                <ToggleButton fx:id="notificacionesVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                                <Label text="" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                                <Label text="" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                                <Label text="" GridPane.columnIndex="4" GridPane.rowIndex="13" />
+                                <Label text="" GridPane.columnIndex="5" GridPane.rowIndex="13" />
+
+                                <!-- Settings -->
+                                <Label styleClass="texto" text="Configuraciones" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                                <ToggleButton fx:id="settingsVer" styleClass="toggle-button" text="" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                                <Label text="" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                                <Label text="" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                                <Label text="" GridPane.columnIndex="4" GridPane.rowIndex="14" />
+                                <Label text="" GridPane.columnIndex="5" GridPane.rowIndex="14" />
+                            </children>
+                        </GridPane>
+                        <ComboBox fx:id="cmbRoles" layoutX="460.0" layoutY="2.0" prefWidth="200.0" />
+                    </children>
+                </Pane>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
