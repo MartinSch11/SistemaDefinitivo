@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class eventosController {
+public class EventosController {
 
     @FXML
     private GridPane calendarGrid;
