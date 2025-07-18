@@ -3,14 +3,12 @@ package model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 
 @Entity
 @Table(name = "proveedor")
@@ -83,4 +81,62 @@ public class Proveedor {
                 })
                 .collect(Collectors.joining(", "));
     }
+
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    public String getUbicacion() {
+        return ubicacion;
+    }
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+    public String getCorreo() {
+        return correo;
+    }
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    public String getPrefijo() {
+        return prefijo;
+    }
+    public void setPrefijo(String prefijo) {
+        this.prefijo = prefijo;
+    }
+    public String getDni() {
+        return dni;
+    }
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    public String getPostfijo() {
+        return postfijo;
+    }
+    public void setPostfijo(String postfijo) {
+        this.postfijo = postfijo;
+    }
+    public List<Insumo> getInsumos() {
+        return insumos;
+    }
+    public void setInsumos(List<Insumo> insumos) {
+        this.insumos = insumos;
+    }
+
+    // Constructor vacío para compatibilidad con JPA y controladores
+    public Proveedor(){}
 }

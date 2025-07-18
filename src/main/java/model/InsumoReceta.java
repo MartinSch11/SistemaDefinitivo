@@ -2,7 +2,6 @@ package model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import model.Receta;
 
 @Data
 @Entity
@@ -37,8 +36,35 @@ public class InsumoReceta {
         this.unidad = unidad;  // Asignamos la unidad
     }
 
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public Receta getReceta() {
+        return receta;
+    }
+    public void setReceta(Receta receta) {
+        this.receta = receta;
+    }
+    public Insumo getInsumo() {
+        return insumo;
+    }
+    public void setInsumo(Insumo insumo) {
+        this.insumo = insumo;
+    }
+    public int getCantidadUtilizada() {
+        return cantidadUtilizada;
+    }
+    public void setCantidadUtilizada(int cantidadUtilizada) {
+        this.cantidadUtilizada = cantidadUtilizada;
+    }
     public String getUnidad() {
         return unidad;
+    }
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
     }
 
     @Override
@@ -46,7 +72,4 @@ public class InsumoReceta {
         return "InsumoReceta{id=" + id + ", insumo=" + insumo.getNombre() + ", cantidadUtilizada=" + cantidadUtilizada + ", unidad=" + unidad + "}";
     }
 
-    public double getCantidadUtilizada() {
-        return this.cantidadUtilizada;
-    }
 }

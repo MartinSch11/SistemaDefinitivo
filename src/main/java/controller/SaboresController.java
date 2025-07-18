@@ -14,9 +14,6 @@ import javafx.stage.Stage;
 import model.Sabor;
 import persistence.dao.SaborDAO;
 import utilities.ActionLogger;
-import utilities.NodeSceneStrategy;
-import utilities.Paths;
-import utilities.SceneLoader;
 
 import java.io.IOException;
 import java.util.List;

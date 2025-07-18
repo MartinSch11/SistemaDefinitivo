@@ -1,15 +1,11 @@
 package model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
-@Data
 @Entity
-@NoArgsConstructor
 @Table(name = "trabajadores")
 public class Trabajador {
 
@@ -58,6 +54,89 @@ public class Trabajador {
         this.fechaContratacion = fechaContratacion;
         this.ultimaActividad = ultimaActividad;
         this.rol = rol;
+    }
+
+    public Trabajador() {
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public BigDecimal getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(BigDecimal sueldo) {
+        this.sueldo = sueldo;
+    }
+
+    public LocalDate getFechaContratacion() {
+        return fechaContratacion;
+    }
+
+    public void setFechaContratacion(LocalDate fechaContratacion) {
+        this.fechaContratacion = fechaContratacion;
+    }
+
+    public Timestamp getUltimaActividad() {
+        return ultimaActividad;
+    }
+
+    public void setUltimaActividad(Timestamp ultimaActividad) {
+        this.ultimaActividad = ultimaActividad;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Credencial getCredencial() {
+        return credencial;
+    }
+
+    public void setCredencial(Credencial credencial) {
+        this.credencial = credencial;
     }
 
     @Override

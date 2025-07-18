@@ -3,7 +3,6 @@ package model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
@@ -94,4 +92,69 @@ public class Pedido {
                 // a BigDecimal
                 .reduce(BigDecimal.ZERO, BigDecimal::add); // Sumar todos los valores
     }
+
+    public Long getNumeroPedido() {
+        return numeroPedido;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Trabajador getEmpleadoAsignado() {
+        return empleadoAsignado;
+    }
+
+    public String getFormaEntrega() {
+        return formaEntrega;
+    }
+
+    public LocalDate getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public String getEstadoPedido() {
+        return estadoPedido;
+    }
+
+    public BigDecimal getTotalPedido() {
+        return totalPedido;
+    }
+
+    public LocalDate getFechaEntregado() {
+        return fechaEntregado;
+    }
+
+    public List<PedidoProducto> getPedidoProductos() {
+        return pedidoProductos;
+    }
+
+    public void setEstadoPedido(String estadoPedido) {
+        this.estadoPedido = estadoPedido;
+    }
+
+    public void setFechaEntregado(LocalDate fechaEntregado) {
+        this.fechaEntregado = fechaEntregado;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    public void setEmpleadoAsignado(Trabajador empleadoAsignado) {
+        this.empleadoAsignado = empleadoAsignado;
+    }
+    public void setFormaEntrega(String formaEntrega) {
+        this.formaEntrega = formaEntrega;
+    }
+    public void setFechaEntrega(LocalDate fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+    public void setTotalPedido(BigDecimal totalPedido) {
+        this.totalPedido = totalPedido;
+    }
+    public void setPedidoProductos(List<PedidoProducto> pedidoProductos) {
+        this.pedidoProductos = pedidoProductos;
+    }
+
+    public Pedido() {}
 }

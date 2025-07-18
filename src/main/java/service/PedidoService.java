@@ -233,6 +233,15 @@ public class PedidoService {
             this.mensajeFaltantes = mensajeFaltantes;
             this.mensajeDevolucion = mensajeDevolucion;
         }
+        public Pedido getPedido() {
+            return pedido;
+        }
+        public String getMensajeFaltantes() {
+            return mensajeFaltantes;
+        }
+        public String getMensajeDevolucion() {
+            return mensajeDevolucion;
+        }
     }
 
 }

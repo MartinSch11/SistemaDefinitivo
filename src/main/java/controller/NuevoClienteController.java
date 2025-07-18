@@ -145,6 +145,10 @@ public class NuevoClienteController {
         txtCorreo.setText(cliente.getCorreo());
     }
 
+    public void setTableClientesController(TablaClientesController tableClientesController) {
+        this.tableClientesController = tableClientesController;
+    }
+
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

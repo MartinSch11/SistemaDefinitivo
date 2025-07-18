@@ -20,4 +20,16 @@ public class Sabor {
         return this.sabor;  // Asumiendo que 'sabor' es el nombre del sabor
     }
 
+    public int getId_sabor() {
+        return id_sabor;
+    }
+    public void setId_sabor(int id_sabor) {
+        this.id_sabor = id_sabor;
+    }
+    public String getSabor() {
+        return sabor;
+    }
+    public void setSabor(String sabor) {
+        this.sabor = sabor;
+    }
 }

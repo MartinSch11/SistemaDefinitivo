@@ -3,14 +3,11 @@ package model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "eventos")
 public class Evento {
@@ -52,8 +49,71 @@ public class Evento {
         this.estado = "Agendado";
     }
 
+    public Evento() {}
+
     @Override
     public String toString() {
         return nombre_evento;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getNombre_evento() {
+        return nombre_evento;
+    }
+    public void setNombre_evento(String nombre_evento) {
+        this.nombre_evento = nombre_evento;
+    }
+    public String getDescripcion_evento() {
+        return descripcion_evento;
+    }
+    public void setDescripcion_evento(String descripcion_evento) {
+        this.descripcion_evento = descripcion_evento;
+    }
+    public String getNombre_cliente() {
+        return nombre_cliente;
+    }
+    public void setNombre_cliente(String nombre_cliente) {
+        this.nombre_cliente = nombre_cliente;
+    }
+    public String getTelefono_cliente() {
+        return telefono_cliente;
+    }
+    public void setTelefono_cliente(String telefono_cliente) {
+        this.telefono_cliente = telefono_cliente;
+    }
+    public String getDireccion_evento() {
+        return direccion_evento;
+    }
+    public void setDireccion_evento(String direccion_evento) {
+        this.direccion_evento = direccion_evento;
+    }
+    public int getCant_personas() {
+        return cant_personas;
+    }
+    public void setCant_personas(int cant_personas) {
+        this.cant_personas = cant_personas;
+    }
+    public BigDecimal getPresupuesto() {
+        return presupuesto;
+    }
+    public void setPresupuesto(BigDecimal presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+    public LocalDate getFecha_evento() {
+        return fecha_evento;
+    }
+    public void setFecha_evento(LocalDate fecha_evento) {
+        this.fecha_evento = fecha_evento;
+    }
+    public String getEstado() {
+        return estado;
+    }
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

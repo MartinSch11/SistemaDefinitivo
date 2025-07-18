@@ -227,4 +227,11 @@ public class CrudProductosController {
             tableProductos.setItems(filtrados);
         }
     }
+
+    public ObservableList<Producto> getListaProductos() {
+        return listaProductos;
+    }
+    public void setListaProductos(ObservableList<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
 }

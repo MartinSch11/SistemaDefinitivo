@@ -3,13 +3,11 @@ package model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.sql.Time;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "agendas")
 public class Agenda {
@@ -37,6 +35,8 @@ public class Agenda {
         this.estado = estado;
         this.idEmpleado = idEmpleado;
     }
+
+    public Agenda() {}
 
     /*@Override
     public String toString() {

@@ -41,6 +41,13 @@ public class NotificacionConfig {
         this.diasAnticipacion = diasAnticipacion;
     }
 
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public int getMinutos() { return minutos; }
     public void setMinutos(int minutos) { this.minutos = minutos; }
 

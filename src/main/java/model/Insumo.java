@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -13,7 +12,6 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "insumos")
 public class Insumo {
@@ -70,6 +68,9 @@ public class Insumo {
         this.fechaCompra = fechaCompra;
         this.fechaCaducidad = fechaCaducidad;
     }
+
+    // Constructor vacío para compatibilidad con JPA y controladores
+    public Insumo() {}
 
     // Getter para nombreProperty (opcional, si la UI lo requiere)
     public StringProperty nombreProperty() {
@@ -202,5 +203,51 @@ public class Insumo {
         // Si tienes un campo de capacidad máxima, retorna ese valor aquí.
         // Por ahora, asumimos que no hay límite y devolvemos Double.MAX_VALUE.
         return Double.MAX_VALUE;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public CatalogoInsumo getCatalogoInsumo() {
+        return catalogoInsumo;
+    }
+    public void setCatalogoInsumo(CatalogoInsumo catalogoInsumo) {
+        this.catalogoInsumo = catalogoInsumo;
+    }
+    public LocalDate getFechaCaducidad() {
+        return fechaCaducidad;
+    }
+    public void setFechaCaducidad(LocalDate fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
+    }
+    public LocalDate getFechaCompra() {
+        return fechaCompra;
+    }
+    public void setFechaCompra(LocalDate fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+    public String getMedida() {
+        return medida;
+    }
+    public void setMedida(String medida) {
+        this.medida = medida;
+    }
+    public double getPrecio() {
+        return precio;
+    }
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+    public SimpleStringProperty getNombreProperty() {
+        return nombreProperty;
+    }
+    public void setNombreProperty(SimpleStringProperty nombreProperty) {
+        this.nombreProperty = nombreProperty;
     }
 }

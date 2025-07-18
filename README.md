@@ -8,6 +8,7 @@ Sistema de gestión para pastelería, desarrollado en Java con JavaFX, Hibernate
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Autores](#autores)
+- [Cómo importar y ejecutar el proyecto fácilmente](#cómo-importar-y-ejecutar-el-proyecto-fácilmente)
 
 ---
 
@@ -60,3 +61,21 @@ README.md
 
 - Martín Schönberger
 - Sofia Lopez
+
+## Cómo importar y ejecutar el proyecto fácilmente
+
+1. **Instala Java 22** en tu computadora.
+2. **Descarga e instala IntelliJ IDEA**.
+3. **Importa el proyecto como Maven Project:**
+   - En IntelliJ: `File > Open` y selecciona la carpeta del proyecto.
+4. **Maven descargará automáticamente todas las dependencias** (incluyendo JavaFX y demás librerías).
+5. **Ejecuta el proyecto:**
+   - Desde la terminal, en la carpeta del proyecto:
+     ```sh
+     mvn javafx:run
+     ```
+   - O desde el IDE, ejecuta la clase principal `application.App`.
+
+No es necesario configurar VM Options ni descargar JavaFX manualmente. Todo se gestiona automáticamente gracias a Maven y el archivo `pom.xml`.
+
+Si tienes dudas, revisa la sección de instalación y ejecución o consulta al autor.

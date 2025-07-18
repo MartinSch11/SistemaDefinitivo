@@ -284,4 +284,17 @@ public class ProductoFormController {
             }
         }
     }
+
+    public CrudProductosController getParentController() {
+        return parentController;
+    }
+    public void setParentController(CrudProductosController parentController) {
+        this.parentController = parentController;
+    }
+    public ObservableList<Producto> getListaProductos() {
+        return listaProductos;
+    }
+    public void setListaProductos(ObservableList<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
 }

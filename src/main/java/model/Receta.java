@@ -88,12 +88,31 @@ public class Receta {
         return insumosReceta.stream()
                 .filter(insumoReceta -> insumoReceta.getInsumo().equals(insumo))
                 .findFirst()
-                .map(InsumoReceta::getCantidadUtilizada) // Already returns double
-                .orElse(0.0); // Default to 0.0
+                .map(ir -> (double) ir.getCantidadUtilizada())
+                .orElse(0.0);
     }
 
     @Override
     public String toString() {
         return nombreReceta.get(); // Retorna el valor de la propiedad
+    }
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public String getNombreRecetaTexto() {
+        return nombreRecetaTexto;
+    }
+    public void setNombreRecetaTexto(String nombreRecetaTexto) {
+        this.nombreRecetaTexto = nombreRecetaTexto;
+    }
+    public List<InsumoReceta> getInsumosReceta() {
+        return insumosReceta;
+    }
+    public void setInsumosReceta(List<InsumoReceta> insumosReceta) {
+        this.insumosReceta = insumosReceta;
     }
 }
