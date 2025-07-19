@@ -12,10 +12,6 @@ import javafx.util.Callback;
 import model.Evento;
 import persistence.dao.EventoDAO;
 import utilities.ActionLogger;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -29,6 +25,7 @@ public class EventoFormController {
     @FXML private DatePicker fechaEventoPicker;
     @FXML private TextField cantPersonasField;
     @FXML private TextField presupuestoField;
+    @FXML private TextField horarioEventoField;
 
     private Evento eventoActual;
 
@@ -57,6 +54,11 @@ public class EventoFormController {
         this.eventoActual = evento;
         if (evento != null) {
             cargarDatosEvento(evento);
+            if (evento.getHorario_evento() != null) {
+                horarioEventoField.setText(evento.getHorario_evento().toString());
+            } else {
+                horarioEventoField.setText("");
+            }
         }
     }
 
@@ -68,6 +70,16 @@ public class EventoFormController {
         String telefonoCliente = telefonoClienteField.getText();
         String direccionEvento = direccionEventoField.getText();
         LocalDate fechaEvento = fechaEventoPicker.getValue();
+        String horarioStr = horarioEventoField.getText();
+        java.time.LocalTime horarioEvento = null;
+        if (horarioStr != null && !horarioStr.isBlank()) {
+            try {
+                horarioEvento = java.time.LocalTime.parse(horarioStr);
+            } catch (Exception e) {
+                showAlert(AlertType.ERROR, "Error de Validación", "El horario debe tener formato HH:mm (por ejemplo, 14:30)");
+                return;
+            }
+        }
 
         // Convertir los valores de los TextFields
         int cantPersonas;
@@ -107,12 +119,23 @@ public class EventoFormController {
                 eventoActual.setFecha_evento(fechaEvento);
                 eventoActual.setCant_personas(cantPersonas);
                 eventoActual.setPresupuesto(presupuesto);
+                eventoActual.setHorario_evento(horarioEvento);
 
                 eventoDAO.update(eventoActual);  // Método update para actualizar el evento
                 ActionLogger.log("Evento actualizado: " + nombreEvento + " para la fecha " + fechaEvento);
             } else {
                 // Crear un nuevo evento
-                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, nombreCliente, telefonoCliente, direccionEvento, fechaEvento, cantPersonas, presupuesto);
+                Evento nuevoEvento = new Evento();
+                nuevoEvento.setNombre_evento(nombreEvento);
+                nuevoEvento.setDescripcion_evento(descripcionEvento);
+                nuevoEvento.setNombre_cliente(nombreCliente);
+                nuevoEvento.setTelefono_cliente(telefonoCliente);
+                nuevoEvento.setDireccion_evento(direccionEvento);
+                nuevoEvento.setFecha_evento(fechaEvento);
+                nuevoEvento.setCant_personas(cantPersonas);
+                nuevoEvento.setPresupuesto(presupuesto);
+                nuevoEvento.setHorario_evento(horarioEvento);
+
                 eventoDAO.save(nuevoEvento);
                 ActionLogger.log("Nuevo evento guardado: " + nombreEvento + " para la fecha " + fechaEvento);
             }

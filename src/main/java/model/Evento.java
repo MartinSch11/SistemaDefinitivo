@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -35,6 +36,8 @@ public class Evento {
     private LocalDate fecha_evento;
     @Column(name = "estado", nullable = false, length = 20)
     private String estado = "Agendado";
+    @Column(name = "horario_evento")
+    private LocalTime horario_evento;
 
     public Evento(String nombre_evento, String descripcion_evento, String nombre_cliente, String telefono_cliente,
                   String direccion_evento, LocalDate fecha_evento, int cant_personas, BigDecimal presupuesto) {
@@ -115,5 +118,11 @@ public class Evento {
     }
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public LocalTime getHorario_evento() {
+        return horario_evento;
+    }
+    public void setHorario_evento(LocalTime horario_evento) {
+        this.horario_evento = horario_evento;
     }
 }

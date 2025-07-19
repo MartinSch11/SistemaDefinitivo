@@ -82,5 +82,31 @@ public class AgendaDAO {
     public List<Agenda> findAll() {
         return em.createQuery("SELECT e FROM Agenda e", Agenda.class).getResultList();
     }
+
+    public List<Agenda> findByFechaBetween(LocalDate desde, LocalDate hasta) {
+        return em.createQuery("SELECT a FROM Agenda a WHERE a.fecha_pendiente BETWEEN :desde AND :hasta", Agenda.class)
+                .setParameter("desde", desde)
+                .setParameter("hasta", hasta)
+                .getResultList();
+    }
+
+    public Agenda findByCampos(String empleado, LocalDate fecha, int hora, int minuto, String pendiente) {
+        try {
+            // Obtener el dni del trabajador por nombre
+            String dni = em.createQuery("SELECT t.dni FROM Trabajador t WHERE t.nombre = :empleado", String.class)
+                .setParameter("empleado", empleado)
+                .getSingleResult();
+            return em.createQuery(
+                "SELECT a FROM Agenda a WHERE a.pendiente = :pendiente AND a.fecha_pendiente = :fecha AND FUNCTION('HOUR', a.hora) = :hora AND FUNCTION('MINUTE', a.hora) = :minuto AND a.idEmpleado = :dni", Agenda.class)
+                .setParameter("pendiente", pendiente)
+                .setParameter("fecha", fecha)
+                .setParameter("hora", hora)
+                .setParameter("minuto", minuto)
+                .setParameter("dni", dni)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
 

@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import model.CatalogoInsumo;
 import model.HistorialCompra;
 import model.Insumo;
-import model.InsumoFaltante;
 import model.Proveedor;
 import persistence.dao.CatalogoInsumoDAO;
 import persistence.dao.HistorialCompraDAO;
@@ -37,7 +36,7 @@ public class StockFormController {
     @FXML private Button btnGuardar;
     @FXML private Button btnCancelar;
     @FXML private TextField precioTextField;
-    @FXML private ComboBox cmbProveedor;
+    @FXML private ComboBox<Proveedor> cmbProveedor;
     @FXML private Button btnAgregarInsumo;
 
     private InsumoDAO insumoDAO;
@@ -144,27 +143,22 @@ public class StockFormController {
         }
     }
 
-    private void cargarProveedores() {
-        List<Proveedor> proveedores = proveedorDAO.findAll();
-        cmbProveedor.getItems().clear();
-        cmbProveedor.getItems().addAll(proveedores);
+private void cargarProveedores() {
+    List<Proveedor> proveedores = proveedorDAO.findAll();
+    cmbProveedor.getItems().clear();
+    cmbProveedor.getItems().addAll(proveedores);
 
-        cmbProveedor.setCellFactory(param -> new ListCell<Proveedor>() {
-            @Override
-            protected void updateItem(Proveedor item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getNombre());
-            }
-        });
-
-        cmbProveedor.setButtonCell(new ListCell<Proveedor>() {
-            @Override
-            protected void updateItem(Proveedor item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getNombre());
-            }
-        });
-    }
+    // Configura la celda y el botón con la misma lógica
+    Callback<ListView<Proveedor>, ListCell<Proveedor>> cellFactory = lv -> new ListCell<Proveedor>() {
+        @Override
+        protected void updateItem(Proveedor item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(empty || item == null ? null : item.getNombre());
+        }
+    };
+    cmbProveedor.setCellFactory(cellFactory);
+    cmbProveedor.setButtonCell(cellFactory.call(null));
+}
 
     private void cargarInsumos() {
         List<CatalogoInsumo> catalogo = catalogoInsumoDAO.findAll();

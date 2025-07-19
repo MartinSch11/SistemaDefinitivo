@@ -38,6 +38,7 @@ public class EventosController {
     @FXML private Label lblCantPersonas;
     @FXML private Label lblPresupuesto;
     @FXML private ComboBox<String> comboEstado;
+    @FXML private Label lblHorarioEvento;
     @FXML private Button eventoButton; // Agregar Evento
     @FXML private Button btnClose; // Cerrar detalle
     @FXML private Button btnVolver; // Volver
@@ -107,6 +108,7 @@ public class EventosController {
             lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
             lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
             comboEstado.setValue(evento.getEstado());
+            lblHorarioEvento.setText(evento.getHorario_evento() != null ? evento.getHorario_evento().toString() : "-");
             // Deshabilitar edición si el evento ya pasó
             boolean eventoPasado = evento.getFecha_evento().isBefore(hoy);
             comboEstado.setDisable(eventoPasado);

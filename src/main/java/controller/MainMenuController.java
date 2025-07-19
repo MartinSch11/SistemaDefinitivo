@@ -261,12 +261,14 @@ public class MainMenuController {
 
     @FXML
     void handleEventos(ActionEvent event) {
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Eventos");
         SceneLoader.loadScene(new NodeSceneStrategy(btnEventos), Paths.EVENTOS, "/css/eventos.css", false);
     }
 
     @FXML
     void handleProductos(ActionEvent event) {
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Productos");
         SceneLoader.loadScene(new NodeSceneStrategy(btnProductos), Paths.PRODUCTOS, "/css/productos.css", false);
     }
@@ -274,36 +276,42 @@ public class MainMenuController {
 
     @FXML
     void handleProveedores(ActionEvent event)  {
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Proveedores");
         SceneLoader.loadScene(new NodeSceneStrategy(btnProveedores), Paths.PROVEEDORES, "/css/components.css", false);
     }
 
     @FXML
     void handleEstadistica(ActionEvent event) {
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Estadísticas");
         SceneLoader.loadScene(new NodeSceneStrategy(btnEstadistica), Paths.ESTADISTICA, "/css/components.css", false);
     }
 
     @FXML
     void handleStock(ActionEvent event) {
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Stock");
         SceneLoader.loadScene(new NodeSceneStrategy(btnStock), Paths.STOCK, "/css/components.css", false);
     }
 
     @FXML
     void handleRecetas(ActionEvent event){
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Recetas");
         SceneLoader.loadScene(new NodeSceneStrategy(btnRecetas), Paths.RECETAS, "/css/components.css", false);
     }
 
     @FXML
     void viewAgenda(ActionEvent event) {
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Agenda");
         SceneLoader.loadScene(new NodeSceneStrategy(btnAgenda), Paths.AGENDA, "/css/components.css", false);
     }
 
     @FXML
     void handleTablero(ActionEvent event){
+        if (notificacionTimer != null) notificacionTimer.stop();
         ActionLogger.log("Accedió a la sección de Pedidos");
         SceneLoader.loadScene(new NodeSceneStrategy(btnPedidos), Paths.PEDIDOS, "/css/components.css", false);
     }

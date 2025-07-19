@@ -38,6 +38,22 @@ public class Agenda {
 
     public Agenda() {}
 
+    public Integer getIdTrabajador() {
+        return idEmpleado;
+    }
+
+    public LocalDate getFecha() {
+        return fecha_pendiente;
+    }
+
+    public String getDescripcion() {
+        return pendiente;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
     /*@Override
     public String toString() {
         return nombre_evento;

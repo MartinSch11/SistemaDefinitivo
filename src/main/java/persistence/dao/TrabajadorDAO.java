@@ -2,7 +2,6 @@ package persistence.dao;
 
 import jakarta.persistence.*;
 import model.Trabajador;
-import java.time.LocalDate;
 import java.util.List;
 
 public class TrabajadorDAO {
@@ -97,5 +96,15 @@ public class TrabajadorDAO {
 
     public List<Trabajador> findAll() {
         return em.createQuery("SELECT t FROM Trabajador t", Trabajador.class).getResultList();
+    }
+
+    public String findNombreById(Integer id) {
+        try {
+            return em.createQuery("SELECT t.nombre FROM Trabajador t WHERE t.id = :id", String.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

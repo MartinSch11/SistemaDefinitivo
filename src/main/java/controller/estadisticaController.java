@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xddf.usermodel.chart.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -277,7 +276,10 @@ public class estadisticaController {
         );
 
         barChart.getData().clear();
-        barChart.getData().addAll(seriesIngresos, seriesEgresos);
+        java.util.List<XYChart.Series<String, Number>> seriesList = new java.util.ArrayList<>();
+        seriesList.add(seriesIngresos);
+        seriesList.add(seriesEgresos);
+        barChart.getData().addAll(seriesList);
         agregarTooltips(barChart, true);
         animarBarras(barChart);
         // NO forzar colores manualmente, dejar que JavaFX y el CSS los asignen para sincronizar con la leyenda
@@ -450,7 +452,10 @@ public class estadisticaController {
         sEgr1.setName("Egresos");
         egresos1.forEach((fecha, monto) -> sEgr1.getData().add(new XYChart.Data<>(fecha, monto)));
         barChartMes1.getData().clear();
-        barChartMes1.getData().addAll(sIng1, sEgr1);
+        java.util.List<XYChart.Series<String, Number>> seriesMes1 = new java.util.ArrayList<>();
+        seriesMes1.add(sIng1);
+        seriesMes1.add(sEgr1);
+        barChartMes1.getData().addAll(seriesMes1);
         agregarTooltips(barChartMes1, true);
         // Graficar mes 2
         XYChart.Series<String, Number> sIng2 = new XYChart.Series<>();
@@ -460,7 +465,10 @@ public class estadisticaController {
         sEgr2.setName("Egresos");
         egresos2.forEach((fecha, monto) -> sEgr2.getData().add(new XYChart.Data<>(fecha, monto)));
         barChartMes2.getData().clear();
-        barChartMes2.getData().addAll(sIng2, sEgr2);
+        java.util.List<XYChart.Series<String, Number>> seriesMes2 = new java.util.ArrayList<>();
+        seriesMes2.add(sIng2);
+        seriesMes2.add(sEgr2);
+        barChartMes2.getData().addAll(seriesMes2);
         agregarTooltips(barChartMes2, true);
         // Resúmenes
         labelResumenMes1.setText(String.format("Ingresos: $%,.2f | Egresos: $%,.2f | Dif: $%,.2f", totalIng1, totalEgr1, totalIng1-totalEgr1));
@@ -560,15 +568,15 @@ public class estadisticaController {
                 java.util.List<model.IngresoDetallado> ingresosDetallados = estadisticasService.obtenerIngresosDetallados(desde, hasta);
                 for (model.IngresoDetallado ingreso : ingresosDetallados) {
                     Row row = sheet.createRow(rowIdx++);
-                    Object[] values = {
-                            ingreso.getFecha() != null ? ingreso.getFecha().toString() : "",
-                            ingreso.getNumeroPedido(),
-                            ingreso.getCliente(),
-                            ingreso.getProducto(),
-                            ingreso.getCantidad(),
-                            ingreso.getPrecioUnitario(),
-                            ingreso.getTotalPedido()
-                    };
+                    java.util.List<Object> valuesList = new java.util.ArrayList<>();
+                    valuesList.add(ingreso.getFecha() != null ? ingreso.getFecha().toString() : "");
+                    valuesList.add(ingreso.getNumeroPedido());
+                    valuesList.add(ingreso.getCliente());
+                    valuesList.add(ingreso.getProducto());
+                    valuesList.add(ingreso.getCantidad());
+                    valuesList.add(ingreso.getPrecioUnitario());
+                    valuesList.add(ingreso.getTotalPedido());
+                    Object[] values = valuesList.toArray(new Object[0]);
                     for (int i = 0; i < values.length; i++) {
                         org.apache.poi.ss.usermodel.Cell cell = row.createCell(i);
                         if (values[i] instanceof Number) {
@@ -599,14 +607,14 @@ public class estadisticaController {
                 java.util.List<model.EgresoDetallado> egresosDetallados = estadisticasService.obtenerEgresosDetallados(desde, hasta);
                 for (model.EgresoDetallado egreso : egresosDetallados) {
                     Row row = sheet.createRow(rowIdx++);
-                    Object[] values = {
-                            egreso.getFechaCompra() != null ? egreso.getFechaCompra().toString() : "",
-                            egreso.getInsumo(),
-                            egreso.getCantidad(),
-                            egreso.getMedida(),
-                            egreso.getProveedor(),
-                            egreso.getTotalEgreso()
-                    };
+                    java.util.List<Object> valuesList = new java.util.ArrayList<>();
+                    valuesList.add(egreso.getFechaCompra() != null ? egreso.getFechaCompra().toString() : "");
+                    valuesList.add(egreso.getInsumo());
+                    valuesList.add(egreso.getCantidad());
+                    valuesList.add(egreso.getMedida());
+                    valuesList.add(egreso.getProveedor());
+                    valuesList.add(egreso.getTotalEgreso());
+                    Object[] values = valuesList.toArray(new Object[0]);
                     for (int i = 0; i < values.length; i++) {
                         org.apache.poi.ss.usermodel.Cell cell = row.createCell(i);
                         if (values[i] instanceof Number) {
@@ -636,12 +644,12 @@ public class estadisticaController {
                 java.util.List<model.Evento> eventos = estadisticasService.obtenerEventosRealizados(desde, hasta);
                 for (model.Evento evento : eventos) {
                     Row row = sheet.createRow(rowIdx++);
-                    Object[] values = {
-                            evento.getFecha_evento() != null ? evento.getFecha_evento().toString() : "",
-                            evento.getNombre_evento(),
-                            evento.getEstado(),
-                            evento.getPresupuesto() != null ? evento.getPresupuesto().doubleValue() : 0.0
-                    };
+                    java.util.List<Object> valuesList = new java.util.ArrayList<>();
+                    valuesList.add(evento.getFecha_evento() != null ? evento.getFecha_evento().toString() : "");
+                    valuesList.add(evento.getNombre_evento());
+                    valuesList.add(evento.getEstado());
+                    valuesList.add(evento.getPresupuesto() != null ? evento.getPresupuesto().doubleValue() : 0.0);
+                    Object[] values = valuesList.toArray(new Object[0]);
                     for (int i = 0; i < values.length; i++) {
                         org.apache.poi.ss.usermodel.Cell cell = row.createCell(i);
                         if (values[i] instanceof Number) {
@@ -713,4 +721,3 @@ public class estadisticaController {
         }
     }
 }
-    
