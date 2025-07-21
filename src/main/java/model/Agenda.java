@@ -19,7 +19,6 @@ public class Agenda {
     @Column(name = "pendiente")
     private String pendiente;
     @Column(name = "fecha_pendiente")
-    //@Temporal(TemporalType.DATE)
     private LocalDate fecha_pendiente;
     @Column(name = "hora")
     private Time hora;
@@ -52,6 +51,14 @@ public class Agenda {
 
     public Time getHora() {
         return hora;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     /*@Override

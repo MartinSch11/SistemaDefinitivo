@@ -29,17 +29,24 @@
     <children>
         <Pane prefHeight="720" prefWidth="1360" style="-fx-background-color: f7ede3;">
             <children>
-                <Button fx:id="btnAnterior" layoutX="465.0" layoutY="93.0" minWidth="36.0" mnemonicParsing="false" onAction="#anteriorSemana" prefHeight="30.0" prefWidth="50.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="&lt;">
+                <Button fx:id="btnAnterior" layoutX="422.0" layoutY="93.0" minWidth="36.0" mnemonicParsing="false" onAction="#anteriorSemana" prefHeight="30.0" prefWidth="50.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="&lt;">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="btnSiguiente" layoutX="533.0" layoutY="93.0" minHeight="1.0" minWidth="41.0" mnemonicParsing="false" onAction="#siguienteSemana" prefHeight="30.0" prefWidth="50.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="&gt;">
+                <Button fx:id="btnSiguiente" layoutX="491.0" layoutY="93.0" minHeight="1.0" minWidth="41.0" mnemonicParsing="false" onAction="#siguienteSemana" prefHeight="30.0" prefWidth="50.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="&gt;">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="btnNuevaTarea" layoutX="829.0" layoutY="91.0" mnemonicParsing="false" onAction="#NuevaTarea" prefHeight="34.0" prefWidth="124.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nueva tarea" />
+                <Button fx:id="btnNuevaTarea" layoutX="791.0" layoutY="90.0" mnemonicParsing="false" onAction="#NuevaTarea" prefHeight="36.0" prefWidth="150.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Nueva tarea">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
                 <Label fx:id="txtFechaSemanal" layoutX="24.0" layoutY="99.0" />
                 <Pane fx:id="paneAgregarTareaPendiente" layoutX="980.0" layoutY="129.0" prefHeight="381.0" prefWidth="368.0" style="-fx-background-color: f8f9fa;">
                     <children>
