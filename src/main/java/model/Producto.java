@@ -33,18 +33,14 @@ public class Producto {
     private BigDecimal precio;
 
     @ManyToMany
-    @JoinTable(
-            name = "producto_sabor",
-            joinColumns = @JoinColumn(name = "id_producto"),
-            inverseJoinColumns = @JoinColumn(name = "id_sabor")
-    )
+    @JoinTable(name = "producto_sabor", joinColumns = @JoinColumn(name = "id_producto"), inverseJoinColumns = @JoinColumn(name = "id_sabor"))
     private List<Sabor> sabores = new ArrayList<>();
 
     @Lob
-    @Column(name = "imagen")
+    @Column(name = "imagen", columnDefinition = "LONGBLOB")
     private byte[] imagen;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "id_receta")
     private Receta receta;
 
@@ -56,7 +52,8 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public Producto() {}
+    public Producto() {
+    }
 
     @Override
     public String toString() {
@@ -70,53 +67,69 @@ public class Producto {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public Categoria getCategoria() {
         return categoria;
     }
+
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
     public BigDecimal getPrecio() {
         return precio;
     }
+
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
+
     public void setSabores(List<Sabor> sabores) {
         this.sabores = sabores;
     }
+
     public byte[] getImagen() {
         return imagen;
     }
+
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
+
     public Receta getReceta() {
         return receta;
     }
+
     public void setReceta(Receta receta) {
         this.receta = receta;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
         Producto that = (Producto) obj;
         return Objects.equals(this.id, that.id);
     }

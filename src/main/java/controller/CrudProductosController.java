@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lombok.Getter;
+import model.Combo;
 import model.Producto;
 import model.Receta;
 import persistence.dao.ProductoDAO;
@@ -19,6 +20,7 @@ import utilities.SceneLoader;
 import utilities.Paths;
 import utilities.ActionLogger;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,16 +38,27 @@ public class CrudProductosController {
     @FXML private TableColumn<Producto, Float> colPrecio;
     @FXML private TableColumn<Producto, String> colSabor;
     @FXML private TextField txtBuscar;
+    @FXML private ComboBox<String> comboFiltro;
+    @FXML private ScrollPane scrollPaneCombos;
+    @FXML private ScrollPane scrollPaneProductos;
+    @FXML private TableView<Combo> tableCombos;
+    @FXML private TableColumn<Combo, String> colComboNombre;
+    @FXML private TableColumn<Combo, String> colComboDescripcion;
+    @FXML private TableColumn<Combo, String> colComboProductos;
+    @FXML private TableColumn<Combo, String> colComboPrecio;
 
     @Getter
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
+    private ObservableList<Combo> listaCombos = FXCollections.observableArrayList();
     private ProductoDAO productoDAO;
+    private List<Combo> combos = new ArrayList<>();
 
     @FXML
     public void initialize() {
         productoDAO = new ProductoDAO();
         listaProductos = FXCollections.observableArrayList();
         rellenarColumnas();
+        rellenarColumnasCombos();
 
         // Listener para búsqueda en tiempo real
         txtBuscar.textProperty().addListener((obs, oldText, newText) -> filtrarProductos(newText));
@@ -66,6 +79,14 @@ public class CrudProductosController {
             btnModificar.setDisable(!(puedeModificar && newSelection != null));
             btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
+
+        // --- Filtro de productos/combos ---
+        persistence.dao.ComboDAO comboDAO = new persistence.dao.ComboDAO();
+        combos = comboDAO.findAll();
+        comboFiltro.getItems().addAll("Productos", "Combos");
+        comboFiltro.getSelectionModel().selectFirst();
+        comboFiltro.setOnAction(e -> filtrarTablaPorTipo());
+        filtrarTablaPorTipo();
     }
 
     private void rellenarColumnas() {
@@ -92,6 +113,23 @@ public class CrudProductosController {
         cargarProductos();
     }
 
+    private void rellenarColumnasCombos() {
+        colComboNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colComboDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        colComboPrecio.setCellValueFactory(cellData -> {
+            var precio = cellData.getValue().getPrecio();
+            return new SimpleStringProperty(precio != null ? precio.toString() : "");
+        });
+        colComboProductos.setCellValueFactory(cellData -> {
+            var productos = cellData.getValue().getProductos();
+            String texto = productos == null || productos.isEmpty() ? "" : productos.stream()
+                .map(cp -> cp.getProducto().getNombre() + " x" + cp.getCantidad())
+                .reduce((a, b) -> a + ", " + b).orElse("");
+            return new SimpleStringProperty(texto);
+        });
+        cargarCombos();
+    }
+
     private void cargarProductos() {
         listaProductos.clear(); // Limpiar la lista antes de cargar los nuevos productos
         List<Producto> productos = productoDAO.findAll(); // Obtener productos de la base de datos
@@ -99,31 +137,46 @@ public class CrudProductosController {
         tableProductos.setItems(listaProductos); // Establecer la lista en la TableView
     }
 
+    private void cargarCombos() {
+        listaCombos.clear();
+        listaCombos.addAll(combos);
+        tableCombos.setItems(listaCombos);
+    }
+
     @FXML
     public void handleAgregar(ActionEvent event) {
-        try {
-            // Cargar el FXML del formulario
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
-            Parent root = loader.load();
-
-            // Obtener el controlador del formulario
-            ProductoFormController controller = loader.getController();
-            controller.setParentController(this); // Establecer el controlador padre
-            controller.setListaProductos(listaProductos); // Pasar la lista observable
-
-            // Crear una nueva ventana para el formulario
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Agregar Producto");
-            stage.show();
-
-            cargarProductos(); // Recargar la tabla de productos después de cerrar el formulario
-
-            // Log de la acción
-            ActionLogger.log("Agregar producto: Producto agregado.");
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        String filtro = comboFiltro.getValue();
+        if ("Combos".equals(filtro)) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/combo_form.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Agregar Combo");
+                stage.showAndWait();
+                // Recargar combos desde la base de datos para reflejar los nuevos
+                persistence.dao.ComboDAO comboDAO = new persistence.dao.ComboDAO();
+                combos = comboDAO.findAll();
+                cargarCombos();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
+                Parent root = loader.load();
+                ProductoFormController controller = loader.getController();
+                controller.setParentController(this);
+                controller.setListaProductos(listaProductos);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Agregar Producto");
+                stage.show();
+                cargarProductos();
+                ActionLogger.log("Agregar producto: Producto agregado.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -225,6 +278,23 @@ public class CrudProductosController {
                 return matchNombre || matchDescripcion || matchCategoria || matchReceta || matchSabor;
             });
             tableProductos.setItems(filtrados);
+        }
+    }
+
+    private void filtrarTablaPorTipo() {
+        String filtro = comboFiltro.getValue();
+        if (filtro == null || filtro.equals("Productos")) {
+            scrollPaneCombos.setVisible(false);
+            scrollPaneCombos.setManaged(false);
+            scrollPaneProductos.setVisible(true);
+            scrollPaneProductos.setManaged(true);
+            cargarProductos();
+        } else if (filtro.equals("Combos")) {
+            scrollPaneCombos.setVisible(true);
+            scrollPaneCombos.setManaged(true);
+            scrollPaneProductos.setVisible(false);
+            scrollPaneProductos.setManaged(false);
+            cargarCombos();
         }
     }
 

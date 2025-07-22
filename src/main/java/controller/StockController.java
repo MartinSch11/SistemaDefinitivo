@@ -66,6 +66,8 @@ public class StockController {
                     double cantidad = insumo.getCantidad();
                     String medida = insumo.getMedida();
                     String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+                    // Eliminar ".0" si el número es entero (por si acaso)
+                    if (cantidadStr.endsWith(".00")) cantidadStr = cantidadStr.substring(0, cantidadStr.length() - 3);
                     vm.setCantidad(cantidadStr + " " + (medida != null ? medida : ""));
                     return vm;
                 })

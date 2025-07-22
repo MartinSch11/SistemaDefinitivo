@@ -18,20 +18,13 @@ import java.util.List;
 
 public class LoginController {
 
-    @FXML
-    private TextField dniField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private Button btnLogin;
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private TextField passwordTextField;
-    @FXML
-    private Button togglePasswordBtn;
-    @FXML
-    private ImageView ojoImageView;
+    @FXML private TextField dniField;
+    @FXML private PasswordField passwordField;
+    @FXML private Button btnLogin;
+    @FXML private Label errorLabel;
+    @FXML private TextField passwordTextField;
+    @FXML private Button togglePasswordBtn;
+    @FXML private ImageView ojoImageView;
 
     private final CredencialesDAO credencialesDAO = new CredencialesDAO();
     private boolean passwordVisible = false;
@@ -73,16 +66,41 @@ public class LoginController {
 
     @FXML
     void handleLogin(ActionEvent event) {
-        String dni = dniField.getText().trim();
-        String password = passwordField.getText().trim();
+        String dni = dniField.getText() != null ? dniField.getText().trim() : "";
+        String password = passwordField.getText() != null ? passwordField.getText().trim() : "";
 
         if (dni.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Por favor, ingrese ambos campos.");
             return;
         }
 
-        Integer idRol = credencialesDAO.validateCredentials(dni, password);
-        if (idRol != null) {
+        try {
+            model.Credencial credencial = credencialesDAO.findById(dni);
+            if (credencial == null) {
+                errorLabel.setText("Usuario no encontrado.");
+                ActionLogger.log("Intento de login fallido: usuario no encontrado (DNI: " + dni + ")");
+                return;
+            }
+            if (credencial.getContraseña() == null) {
+                errorLabel.setText("Contraseña no establecida para este usuario.");
+                ActionLogger.log("Intento de login fallido: contraseña nula (DNI: " + dni + ")");
+                return;
+            }
+            if (!credencial.getContraseña().equals(password)) {
+                errorLabel.setText("Datos erróneos. Inténtelo de nuevo.");
+                ActionLogger.log("Intento de login fallido: contraseña incorrecta (DNI: " + dni + ")");
+                return;
+            }
+            // Obtener el idRol de la relación con Trabajador
+            Integer idRol = null;
+            if (credencial.getTrabajador() != null && credencial.getTrabajador().getRol() != null) {
+                idRol = credencial.getTrabajador().getRol().getIdRol();
+            }
+            if (idRol == null) {
+                errorLabel.setText("No se pudo determinar el rol del usuario.");
+                ActionLogger.log("Intento de login fallido: rol no encontrado (DNI: " + dni + ")");
+                return;
+            }
             String userName = credencialesDAO.obtenerNombrePorDNI(dni); // Obtiene el nombre del trabajador
             RolesDAO rolDAO = new RolesDAO();
             String roleName = rolDAO.obtenerNombreRolPorId(idRol); // Obtiene el nombre del rol
@@ -94,10 +112,10 @@ public class LoginController {
 
             // Cargar la vista del menú principal
             loadMainMenu(userName, roleName, dni);
-        } else {
-            errorLabel.setText("Datos erróneos. Inténtelo de nuevo.");
-            // Registrar el log de intento fallido
-            ActionLogger.log("Intento de login fallido con DNI: " + dni);
+        } catch (Exception ex) {
+            errorLabel.setText("Error inesperado en el login. Consulte al administrador.");
+            ActionLogger.log("Error inesperado en login (DNI: " + dni + "): " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

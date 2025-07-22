@@ -36,7 +36,7 @@ public class EstadisticasService {
                 .collect(Collectors.toList());
 
         Map<String, Double> ingresosPorFecha = pedidos.stream().collect(Collectors.groupingBy(
-                p -> p.getFechaEntrega().toString(), // Agrupar por fecha de entrega
+                p -> p.getFechaEntregado().toString(), // Agrupar por fecha de entrega
                 Collectors.summingDouble(p -> p.getTotalPedido().doubleValue()) // Usar total_pedido real
         ));
 
@@ -80,9 +80,24 @@ public class EstadisticasService {
 
         Map<String, Integer> productosVendidos = new HashMap<>();
         for (Pedido pedido : pedidos) {
+            // Productos individuales
             for (PedidoProducto pp : pedido.getPedidoProductos()) {
                 String nombre = pp.getProducto() != null ? pp.getProducto().getNombre() : "";
                 productosVendidos.put(nombre, productosVendidos.getOrDefault(nombre, 0) + pp.getCantidad());
+            }
+            // Productos de combos
+            if (pedido.getPedidoCombos() != null) {
+                for (model.PedidoCombo pc : pedido.getPedidoCombos()) {
+                    int cantidadCombo = pc.getCantidad();
+                    model.Combo combo = pc.getCombo();
+                    if (combo != null && combo.getProductos() != null) {
+                        for (model.ComboProducto cp : combo.getProductos()) {
+                            String nombreProd = cp.getProducto() != null ? cp.getProducto().getNombre() : "";
+                            int cantidadEnCombo = cp.getCantidad() != null ? cp.getCantidad() : 1;
+                            productosVendidos.put(nombreProd, productosVendidos.getOrDefault(nombreProd, 0) + cantidadCombo * cantidadEnCombo);
+                        }
+                    }
+                }
             }
         }
         return productosVendidos;
@@ -99,6 +114,7 @@ public class EstadisticasService {
         List<IngresoDetallado> detalles = new java.util.ArrayList<>();
         for (Pedido pedido : pedidos) {
             String cliente = pedido.getCliente() != null ? pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellido() : "";
+            // Productos individuales
             for (PedidoProducto pp : pedido.getPedidoProductos()) {
                 String producto = pp.getProducto() != null ? pp.getProducto().getNombre() : "";
                 double precioUnitario = pp.getProducto() != null ? pp.getProducto().getPrecio().doubleValue() : 0.0;
@@ -111,6 +127,22 @@ public class EstadisticasService {
                         precioUnitario,
                         pedido.getTotalPedido() != null ? pedido.getTotalPedido().doubleValue() : 0.0
                 ));
+            }
+            // Combos vendidos (mostrar como combo, no desglosar)
+            if (pedido.getPedidoCombos() != null) {
+                for (model.PedidoCombo pc : pedido.getPedidoCombos()) {
+                    String nombreCombo = pc.getCombo() != null ? pc.getCombo().getNombre() : "";
+                    double precioUnitarioCombo = pc.getCombo() != null && pc.getCombo().getPrecio() != null ? pc.getCombo().getPrecio().doubleValue() : 0.0;
+                    detalles.add(new IngresoDetallado(
+                            pedido.getFechaEntregado(),
+                            pedido.getNumeroPedido() != null ? pedido.getNumeroPedido().intValue() : 0,
+                            cliente,
+                            nombreCombo,
+                            pc.getCantidad(),
+                            precioUnitarioCombo,
+                            pedido.getTotalPedido() != null ? pedido.getTotalPedido().doubleValue() : 0.0
+                    ));
+                }
             }
         }
         return detalles;

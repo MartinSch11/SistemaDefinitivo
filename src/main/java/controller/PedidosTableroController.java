@@ -16,6 +16,9 @@ import javafx.scene.layout.StackPane;
 import model.Pedido;
 import model.PedidoProducto;
 import model.Producto;
+import model.Combo;
+import model.ComboProducto;
+import model.PedidoCombo;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -222,8 +225,19 @@ public class PedidosTableroController {
             if (type == ButtonType.YES) {
                 // --- Devolver insumos al stock antes de eliminar el pedido ---
                 Map<Producto, Integer> productosParaDevolver = new HashMap<>();
+                // Devolver productos individuales
                 for (PedidoProducto pp : pedido.getPedidoProductos()) {
-                    productosParaDevolver.put(pp.getProducto(), pp.getCantidad());
+                    productosParaDevolver.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
+                }
+                // Devolver productos de combos
+                for (PedidoCombo pc : pedido.getPedidoCombos()) {
+                    Combo combo = pc.getCombo();
+                    int cantidadCombo = pc.getCantidad();
+                    for (ComboProducto cp : combo.getProductos()) {
+                        Producto prodCombo = cp.getProducto();
+                        int cantidadEnCombo = cp.getCantidad() != null ? cp.getCantidad() : 1;
+                        productosParaDevolver.merge(prodCombo, cantidadCombo * cantidadEnCombo, Integer::sum);
+                    }
                 }
                 StringBuilder resumenDevueltos = new StringBuilder();
                 if (!productosParaDevolver.isEmpty()) {
@@ -335,17 +349,20 @@ public class PedidosTableroController {
 
             Pedido nuevoPedido = nuevoPedidoController.getPedidoCreado();
 
-            if (nuevoPedido == null) {
-                mostrarAlerta("Error", "El pedido no se creó correctamente.");
+            // Validación extra para mostrar en alert si hay datos nulos
+            if (nuevoPedido.getCliente() == null || nuevoPedido.getEmpleadoAsignado() == null || nuevoPedido.getPedidoProductos() == null || nuevoPedido.getPedidoCombos() == null) {
+                StringBuilder sb = new StringBuilder("Datos faltantes al crear el pedido:\n");
+                if (nuevoPedido.getCliente() == null) sb.append("- Cliente nulo\n");
+                if (nuevoPedido.getEmpleadoAsignado() == null) sb.append("- Empleado nulo\n");
+                if (nuevoPedido.getPedidoProductos() == null) sb.append("- Lista de productos nula\n");
+                if (nuevoPedido.getPedidoCombos() == null) sb.append("- Lista de combos nula\n");
+                mostrarAlerta("Error de datos", sb.toString());
                 return;
             }
 
             if (validarStockInsumos(nuevoPedido)) {
                 // Solo aquí, después de la validación, se descuenta el stock realmente
-                Map<Producto, Integer> productosMap = new java.util.HashMap<>();
-                for (PedidoProducto pp : nuevoPedido.getPedidoProductos()) {
-                    productosMap.put(pp.getProducto(), pp.getCantidad());
-                }
+                Map<Producto, Integer> productosMap = obtenerMapaProductosTotales(nuevoPedido);
                 recetaProcessor.procesarRecetas(productosMap);
                 agregarPedido(nuevoPedido); // SOLO este método agrega la tarjeta visualmente
                 ActionLogger.log("Pedido creado: " + nuevoPedido.getCliente().getNombre() +
@@ -370,13 +387,31 @@ public class PedidosTableroController {
                 " con productos: " + pedido.getProductos());
     }
 
-    private boolean validarStockInsumos(Pedido pedido) {
-        // Construir el mapa Producto -> cantidad
+    /**
+     * Devuelve un mapa Producto -> cantidad total, desglosando combos en sus productos.
+     */
+    private Map<Producto, Integer> obtenerMapaProductosTotales(Pedido pedido) {
         Map<Producto, Integer> productosMap = new java.util.HashMap<>();
+        // Procesar productos individuales
         for (PedidoProducto pp : pedido.getPedidoProductos()) {
-            productosMap.put(pp.getProducto(), pp.getCantidad());
+            productosMap.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
         }
+        // Procesar combos por separado
+        for (PedidoCombo pc : pedido.getPedidoCombos()) {
+            Combo combo = pc.getCombo();
+            int cantidadCombo = pc.getCantidad();
+            for (ComboProducto cp : combo.getProductos()) {
+                Producto prodCombo = cp.getProducto();
+                int cantidadEnCombo = cp.getCantidad() != null ? cp.getCantidad() : 1;
+                productosMap.merge(prodCombo, cantidadCombo * cantidadEnCombo, Integer::sum);
+            }
+        }
+        return productosMap;
+    }
 
+    private boolean validarStockInsumos(Pedido pedido) {
+        // Usar el mapa total de productos (desglosando combos)
+        Map<Producto, Integer> productosMap = obtenerMapaProductosTotales(pedido);
         // Validar stock suficiente usando simularFaltantes
         var faltantes = recetaProcessor.simularFaltantes(productosMap);
         if (!faltantes.isEmpty()) {

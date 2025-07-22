@@ -2,11 +2,12 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogoPedidosController">
+<AnchorPane prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogoPedidosController">
    <stylesheets>
       <URL value="@../../../css/pedidos.css" />
    </stylesheets>
@@ -14,12 +15,20 @@
       <URL value="@../../../css/components.css" />
    </stylesheets>
    <children>
-      <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f7ede3;">
+      <Pane prefHeight="600.0" prefWidth="790.0" style="-fx-background-color: #f7ede3;">
          <children>
-            <ScrollPane fx:id="scrollPaneCatalogo" hbarPolicy="NEVER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f7ede3;">
+            <ComboBox fx:id="comboFiltro" layoutX="310.0" layoutY="14.0" prefHeight="25.0" prefWidth="170.0" promptText="Filtrar por..." />
+            <ScrollPane fx:id="scrollPaneCatalogo" hbarPolicy="NEVER" layoutY="46.0" prefHeight="555.0" prefWidth="790.0" style="-fx-background-color: #f7ede3;">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding></ScrollPane>
+               </padding>
+               <content>
+                  <Pane fx:id="catalogoContentPane" />
+               </content>
+               <style>-fx-background-color: #f7ede3;</style>
+               <fitToWidth>true</fitToWidth>
+               <fitToHeight>false</fitToHeight>
+            </ScrollPane>
          </children>
       </Pane>
    </children>

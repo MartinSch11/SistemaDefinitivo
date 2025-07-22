@@ -158,3 +158,193 @@
 [2025-07-21 14:36:23] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
 [2025-07-21 14:36:24] Usuario: Jose Gonzalez (Rol: Cajera) Acción: Accedió a la sección de Agenda
 [2025-07-21 14:36:33] Usuario: Jose Gonzalez (Rol: Cajera) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:22:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:22:50] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 16:24:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 16:24:08] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [InsumoFaltante(id=null, catalogoInsumo=CatalogoInsumo(id=8, nombre=FRUTILLAS, estado=UNIDAD, proveedor=El campo), cantidadFaltante=5.0, unidad=UNIDADES, resuelto=false)]
+[2025-07-21 16:24:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 16:25:02] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [InsumoFaltante(id=null, catalogoInsumo=CatalogoInsumo(id=8, nombre=FRUTILLAS, estado=UNIDAD, proveedor=El campo), cantidadFaltante=5.0, unidad=UNIDADES, resuelto=false)]
+[2025-07-21 16:29:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:30:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-21 16:30:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo insumo.
+[2025-07-21 16:31:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó correctamente un insumo: FRUTILLAS
+[2025-07-21 16:31:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:31:16] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-21 16:32:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-21 16:35:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:36:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-21 16:37:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:37:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-21 16:37:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-21 16:40:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:40:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-21 16:42:26] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:42:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-21 16:42:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-21 16:42:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-07-21 16:42:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:42:33] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 16:42:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:42:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-21 16:47:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:47:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 16:51:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:51:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 16:55:03] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:55:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 16:56:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 16:56:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 17:17:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:17:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 17:17:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Agregar producto: Producto agregado.
+[2025-07-21 17:17:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Imagen cargada para el producto: Torta de Chocolate
+[2025-07-21 17:18:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:18:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:19:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:21:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:22:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Torta de Chocolate
+[2025-07-21 17:25:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:25:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 17:26:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Imagen cargada para el producto: Torta de Chocolate
+[2025-07-21 17:26:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:29:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Torta de Chocolate
+[2025-07-21 17:30:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:30:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 17:31:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Imagen cargada para el producto: Torta de Chocolate
+[2025-07-21 17:31:16] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:31:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:31:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:32:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:32:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 17:32:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Torta de Chocolate
+[2025-07-21 17:35:42] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:35:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-21 17:40:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:40:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 17:42:43] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 17:43:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:43:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 17:46:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 17:46:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:46:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 17:49:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 17:50:13] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:50:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 17:52:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 17:53:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:53:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 17:55:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 17:56:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:56:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 17:57:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 17:58:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 17:58:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 18:01:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 18:02:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 18:02:26] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 18:02:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 18:02:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 18:03:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 18:04:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Imagen cargada para el producto: Tarta de Fresa
+[2025-07-21 18:04:19] Usuario: Juan Lopez (Rol: Administrador) Acción: Error al guardar producto: null
+[2025-07-21 18:04:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Modificar producto: Producto modificado: Tarta de Fresa
+[2025-07-21 18:04:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 18:04:31] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-21 18:04:32] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-07-21 18:04:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 18:04:35] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-21 18:04:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 18:09:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 18:11:41] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 18:11:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 18:13:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 18:14:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 18:14:44] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 18:15:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 19:11:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:11:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:13:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:13:52] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:24:37] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:24:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:32:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:32:56] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:36:40] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:37:18] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:45:19] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:45:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:47:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:48:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:48:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:48:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-21 19:48:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 19:49:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 19:49:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-21 19:49:51] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 19:51:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 21:40:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 21:40:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 21:42:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 21:42:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 21:42:49] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-07-21 21:42:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 21:42:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-07-21 21:42:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 21:46:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 21:47:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 21:47:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:12:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:12:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:13:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:17:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:17:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:17:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:25:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:26:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:26:37] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:28:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:29:27] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:29:36] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:33:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:33:49] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:33:57] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:35:28] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:35:55] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:36:02] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:42:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:42:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:43:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:50:14] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:50:58] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:51:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:52:07] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:53:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:53:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:54:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:55:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:55:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 22:57:04] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 22:58:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 22:58:58] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:00:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:01:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:01:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:03:21] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:03:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:03:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:04:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:06:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:06:47] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:06:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:09:22] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:09:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:09:53] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:11:00] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:41:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:41:55] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:42:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:42:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-07-21 23:43:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-07-21 23:43:36] Usuario: Juan Lopez (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [model.InsumoFaltante@684fc25b]
+[2025-07-21 23:58:54] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-21 23:59:10] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos

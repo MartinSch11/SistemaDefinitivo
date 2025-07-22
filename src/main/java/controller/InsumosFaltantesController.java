@@ -15,7 +15,7 @@ import persistence.dao.InsumoFaltanteDAO;
 public class InsumosFaltantesController {
     @FXML private TableView<InsumoFaltante> tableInsumosFaltantes;
     @FXML private TableColumn<InsumoFaltante, String> colNombre;
-    @FXML private TableColumn<InsumoFaltante, Number> colCantidad;
+    @FXML private TableColumn<InsumoFaltante, String> colCantidad;
     @FXML private TableColumn<InsumoFaltante, String> colUnidad;
     @FXML private TableColumn<InsumoFaltante, String> colProveedor;
     @FXML private Button btnCerrar;
@@ -29,7 +29,11 @@ public class InsumosFaltantesController {
     public void initialize() {
         colNombre.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(
                 cellData.getValue().getCatalogoInsumo() != null ? cellData.getValue().getCatalogoInsumo().getNombre() : ""));
-        colCantidad.setCellValueFactory(cellData -> new javafx.beans.property.SimpleDoubleProperty(cellData.getValue().getCantidadFaltante()));
+        colCantidad.setCellValueFactory(cellData -> {
+            double cantidad = cellData.getValue().getCantidadFaltante();
+            String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format(java.util.Locale.ROOT, "%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+            return new javafx.beans.property.SimpleStringProperty(cantidadStr);
+        });
         colUnidad.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUnidad()));
         tableInsumosFaltantes.setItems(insumosFaltantesFiltrados);
         cargarInsumosFaltantes();

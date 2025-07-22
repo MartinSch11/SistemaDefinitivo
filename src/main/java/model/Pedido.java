@@ -47,10 +47,13 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PedidoProducto> pedidoProductos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PedidoCombo> pedidoCombos = new ArrayList<>();
+
     // Constructor sin cliente ni empleado para mayor flexibilidad
     public Pedido(Long numeroPedido, Cliente cliente, Trabajador empleadoAsignado,
-                  String formaEntrega, LocalDate fechaEntrega, String estadoPedido,
-                  String descripcion, BigDecimal totalPedido) {
+            String formaEntrega, LocalDate fechaEntrega, String estadoPedido,
+            String descripcion, BigDecimal totalPedido) {
         this.numeroPedido = numeroPedido;
         this.cliente = cliente;
         this.empleadoAsignado = empleadoAsignado;
@@ -58,20 +61,34 @@ public class Pedido {
         this.fechaEntrega = fechaEntrega;
         this.estadoPedido = estadoPedido;
         this.totalPedido = totalPedido;
+        this.pedidoCombos = new ArrayList<>();
     }
 
     public String generarDetalle() {
-        if (pedidoProductos == null || pedidoProductos.isEmpty()) {
-            return "No hay productos en este pedido.";
+        StringBuilder detalle = new StringBuilder();
+
+        // Mostrar combos primero
+        if (pedidoCombos != null && !pedidoCombos.isEmpty()) {
+            for (PedidoCombo pc : pedidoCombos) {
+                detalle.append(pc.getCantidad())
+                        .append(" ")
+                        .append(pc.getCombo().getNombre())
+                        .append("\n");
+            }
         }
 
-        StringBuilder detalle = new StringBuilder();
-        // Mostrar cada producto con su cantidad real, sin mostrar la receta
-        for (PedidoProducto pp : pedidoProductos) {
-            detalle.append(pp.getCantidad())
-                    .append(" ")
-                    .append(pp.getProducto().getNombre())
-                    .append("\n");
+        // Mostrar productos individuales (que NO están en combos)
+        if (pedidoProductos != null && !pedidoProductos.isEmpty()) {
+            for (PedidoProducto pp : pedidoProductos) {
+                detalle.append(pp.getCantidad())
+                        .append(" ")
+                        .append(pp.getProducto().getNombre())
+                        .append("\n");
+            }
+        }
+
+        if (detalle.length() == 0) {
+            return "No hay productos en este pedido.";
         }
         return detalle.toString();
     }
@@ -85,12 +102,26 @@ public class Pedido {
         return productos;
     }
 
-    // Método para calcular el total del pedido si es necesario
+    // Calcula el total sumando productos individuales y combos
     public BigDecimal calcularTotalPedido() {
-        return pedidoProductos.stream()
-                .map(p -> BigDecimal.valueOf(p.getCantidad()).multiply(p.getProducto().getPrecio())) // Convertimos int
-                // a BigDecimal
-                .reduce(BigDecimal.ZERO, BigDecimal::add); // Sumar todos los valores
+        java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+        // Sumar productos individuales
+        if (pedidoProductos != null) {
+            for (PedidoProducto pp : pedidoProductos) {
+                if (pp.getProducto() != null && pp.getProducto().getPrecio() != null) {
+                    total = total.add(java.math.BigDecimal.valueOf(pp.getCantidad()).multiply(pp.getProducto().getPrecio()));
+                }
+            }
+        }
+        // Sumar combos
+        if (pedidoCombos != null) {
+            for (PedidoCombo pc : pedidoCombos) {
+                if (pc.getCombo() != null && pc.getCombo().getPrecio() != null) {
+                    total = total.add(pc.getCombo().getPrecio().multiply(java.math.BigDecimal.valueOf(pc.getCantidad())));
+                }
+            }
+        }
+        return total;
     }
 
     public Long getNumeroPedido() {
@@ -129,6 +160,10 @@ public class Pedido {
         return pedidoProductos;
     }
 
+    public List<PedidoCombo> getPedidoCombos() {
+        return pedidoCombos;
+    }
+
     public void setEstadoPedido(String estadoPedido) {
         this.estadoPedido = estadoPedido;
     }
@@ -140,21 +175,31 @@ public class Pedido {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
     public void setEmpleadoAsignado(Trabajador empleadoAsignado) {
         this.empleadoAsignado = empleadoAsignado;
     }
+
     public void setFormaEntrega(String formaEntrega) {
         this.formaEntrega = formaEntrega;
     }
+
     public void setFechaEntrega(LocalDate fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
+
     public void setTotalPedido(BigDecimal totalPedido) {
         this.totalPedido = totalPedido;
     }
+
     public void setPedidoProductos(List<PedidoProducto> pedidoProductos) {
         this.pedidoProductos = pedidoProductos;
     }
 
-    public Pedido() {}
+    public void setPedidoCombos(List<PedidoCombo> pedidoCombos) {
+        this.pedidoCombos = pedidoCombos;
+    }
+
+    public Pedido() {
+    }
 }

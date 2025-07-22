@@ -57,7 +57,7 @@
                   </TableView>
                </content>
             </ScrollPane>
-            <TextField fx:id="txtBuscar" layoutX="531.0" layoutY="65.0" prefHeight="35.0" prefWidth="300.0" promptText="Buscar por nombre o categoría... " />
+            <TextField fx:id="txtBuscar" layoutX="531.0" layoutY="65.0" prefHeight="35.0" prefWidth="300.0" promptText="Buscar por nombre... " />
             <Button fx:id="btnAgregar" alignment="CENTER" layoutX="595.0" layoutY="670.0" mnemonicParsing="false" onAction="#handleAgregar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar compra">
                <font>
                   <Font name="Inter Regular" size="13.0" />

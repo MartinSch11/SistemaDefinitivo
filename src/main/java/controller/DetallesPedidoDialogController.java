@@ -39,6 +39,24 @@ public class DetallesPedidoDialogController {
         lblFechaEntrega.setText("Fecha de entrega: " + (pedido.getFechaEntrega() != null ? pedido.getFechaEntrega().toString() : "Sin fecha"));
         lblFormaEntrega.setText("Forma de entrega: " + (pedido.getFormaEntrega() != null ? pedido.getFormaEntrega() : ""));
         listProductos.getItems().clear();
+        // --- Mostrar combos con desglose ---
+        if (pedido.getPedidoCombos() != null) {
+            for (model.PedidoCombo pc : pedido.getPedidoCombos()) {
+                model.Combo combo = pc.getCombo();
+                int cantidadCombo = pc.getCantidad();
+                String nombreCombo = combo != null ? combo.getNombre() : "Combo desconocido";
+                listProductos.getItems().add("Combo: " + nombreCombo + " x " + cantidadCombo + ":");
+                if (combo != null && combo.getProductos() != null) {
+                    for (model.ComboProducto cp : combo.getProductos()) {
+                        model.Producto prodCombo = cp.getProducto();
+                        int cantidadEnCombo = cp.getCantidad() != null ? cp.getCantidad() : 1;
+                        String nombreProd = prodCombo != null ? prodCombo.getNombre() : "Producto desconocido";
+                        listProductos.getItems().add("    - " + nombreProd + " x " + (cantidadEnCombo * cantidadCombo));
+                    }
+                }
+            }
+        }
+        // --- Mostrar productos individuales ---
         if (pedido.getPedidoProductos() != null) {
             for (PedidoProducto pp : pedido.getPedidoProductos()) {
                 Producto prod = pp.getProducto();
@@ -47,11 +65,7 @@ public class DetallesPedidoDialogController {
             }
         }
         // Mostrar total
-        if (pedido.getTotalPedido() != null) {
-            lblTotal.setText("Total: $ " + pedido.getTotalPedido().toString());
-        } else {
-            lblTotal.setText("Total: $ " + pedido.calcularTotalPedido().toString());
-        }
+        lblTotal.setText("Total: $ " + pedido.calcularTotalPedido().toString());
     }
 
     @FXML

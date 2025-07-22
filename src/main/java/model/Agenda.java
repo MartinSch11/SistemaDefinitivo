@@ -61,6 +61,19 @@ public class Agenda {
         this.estado = estado;
     }
 
+    public void setPendiente(String pendiente) {
+        this.pendiente = pendiente;
+    }
+    public void setFecha_pendiente(LocalDate fecha_pendiente) {
+        this.fecha_pendiente = fecha_pendiente;
+    }
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
     /*@Override
     public String toString() {
         return nombre_evento;

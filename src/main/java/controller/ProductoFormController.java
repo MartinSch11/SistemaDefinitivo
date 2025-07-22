@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,6 +36,7 @@ public class ProductoFormController {
     @FXML private ChoiceBox<Categoria> categoriaChoiceBox;
     @FXML private ComboBox<Receta> cmbReceta;  // El ComboBox de Recetas
     @FXML private TextField precioField;
+    @FXML private ImageView imagenProductoView;
 
     @Setter
     private ObservableList<Producto> listaProductos;
@@ -90,7 +92,44 @@ public class ProductoFormController {
         categoriaChoiceBox.setValue(producto.getCategoria());
         precioField.setText(producto.getPrecio().toString());
         saboresSeleccionados.setAll(producto.getSabores());
-        cmbReceta.setValue(producto.getReceta());  // Esto seleccionará la receta asociada al producto
+        cmbReceta.setValue(producto.getReceta());
+        // Mostrar imagen si existe
+        if (producto.getImagen() != null && producto.getImagen().length > 0) {
+            javafx.scene.image.Image img = null;
+            double rotation = 0;
+            try {
+                java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(producto.getImagen());
+                com.drew.metadata.Metadata metadata = com.drew.imaging.ImageMetadataReader.readMetadata(bais);
+                com.drew.metadata.exif.ExifIFD0Directory directory = metadata.getFirstDirectoryOfType(com.drew.metadata.exif.ExifIFD0Directory.class);
+                if (directory != null && directory.containsTag(com.drew.metadata.exif.ExifIFD0Directory.TAG_ORIENTATION)) {
+                    int orientation = directory.getInt(com.drew.metadata.exif.ExifIFD0Directory.TAG_ORIENTATION);
+                    switch (orientation) {
+                        case 6: rotation = 90; break;
+                        case 3: rotation = 180; break;
+                        case 8: rotation = 270; break;
+                        default: rotation = 0;
+                    }
+                }
+                bais.reset();
+                img = new javafx.scene.image.Image(bais);
+            } catch (Exception ex) {
+                img = new javafx.scene.image.Image(new java.io.ByteArrayInputStream(producto.getImagen()));
+            }
+            imagenProductoView.setImage(img);
+            imagenProductoView.setRotate(rotation);
+            // --- CROP CUADRADO centrado para cualquier orientación ---
+            double imgWidth = img.getWidth();
+            double imgHeight = img.getHeight();
+            double side = Math.min(imgWidth, imgHeight);
+            double x = (imgWidth - side) / 2;
+            double y = (imgHeight - side) / 2;
+            imagenProductoView.setViewport(new javafx.geometry.Rectangle2D(x, y, side, side));
+            imagenProductoView.setFitWidth(100);
+            imagenProductoView.setFitHeight(100);
+            imagen = producto.getImagen(); // Para conservar la imagen si no se carga una nueva
+        } else {
+            imagenProductoView.setImage(null);
+        }
     }
 
     private CatalogoPedidosController catalogoController;
@@ -109,6 +148,11 @@ public class ProductoFormController {
             }
 
             Producto producto = crearOActualizarProducto();
+
+            if (producto == null) {
+                // Si hubo error de validación, no continuar ni cerrar
+                return;
+            }
 
             if (productoActual != null) {
                 // Modificar producto existente
@@ -222,7 +266,9 @@ public class ProductoFormController {
     private void cargarImagen(File archivo) {
         try (FileInputStream fis = new FileInputStream(archivo)) {
             imagen = fis.readAllBytes();
-            // Guardar los bytes de la imagen en la nueva variable imagenUsuario
+            // Mostrar la imagen cargada
+            javafx.scene.image.Image img = new javafx.scene.image.Image(new java.io.ByteArrayInputStream(imagen));
+            imagenProductoView.setImage(img);
             mostrarMensaje(Alert.AlertType.INFORMATION, "Imagen Cargada", "La imagen ha sido cargada exitosamente.");
         } catch (IOException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error al cargar la imagen", e.getMessage());

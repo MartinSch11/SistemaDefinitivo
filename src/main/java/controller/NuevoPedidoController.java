@@ -106,14 +106,24 @@ public class NuevoPedidoController {
             catalogoPedidosController = loader.getController();
             catalogoPedidosController.setDialogNuevoPedidoController(this);
 
-            // Si estamos editando un pedido y tiene productos, cargar SOLO una vez los productos originales
-            if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null && pedidoCreado.getPedidoProductos() != null) {
-                // Consolidar cantidades por producto (por si ya hay duplicados)
-                Map<Producto, Integer> productos = new HashMap<>();
-                for (PedidoProducto pp : pedidoCreado.getPedidoProductos()) {
-                    productos.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
+            // Si estamos editando un pedido y tiene productos o combos, cargar SOLO una vez los productos y combos originales
+            if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null) {
+                // Consolidar cantidades por producto
+                if (pedidoCreado.getPedidoProductos() != null) {
+                    Map<Producto, Integer> productos = new HashMap<>();
+                    for (PedidoProducto pp : pedidoCreado.getPedidoProductos()) {
+                        productos.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
+                    }
+                    catalogoPedidosController.cargarProductosGuardados(productos);
                 }
-                catalogoPedidosController.cargarProductosGuardados(productos);
+                // Consolidar cantidades por combo
+                if (pedidoCreado.getPedidoCombos() != null) {
+                    Map<Combo, Integer> combos = new HashMap<>();
+                    for (PedidoCombo pc : pedidoCreado.getPedidoCombos()) {
+                        combos.merge(pc.getCombo(), pc.getCantidad(), Integer::sum);
+                    }
+                    catalogoPedidosController.cargarCombosGuardados(combos);
+                }
             }
 
             Stage stage = new Stage();
@@ -129,6 +139,13 @@ public class NuevoPedidoController {
         }
     }
 
+// --- NUEVO: Obtener combos guardados del catálogo ---
+    private Map<Combo, Integer> obtenerCombosDelCatalogo() {
+        if (catalogoPedidosController == null)
+            return new HashMap<>();
+        return new HashMap<>(catalogoPedidosController.getCombosGuardados());
+    }
+
     @FXML
     private void GuardarInfoPedido(ActionEvent event) {
         if (!validarCampos())
@@ -136,19 +153,19 @@ public class NuevoPedidoController {
 
         try {
             Map<Producto, Integer> productos = obtenerProductosDelCatalogo();
+            Map<Combo, Integer> combos = obtenerCombosDelCatalogo();
 
             PedidoService.PedidoConFaltantes resultado;
             // Si estamos editando un pedido existente, actualizarlo
             if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null) {
-                // Solo pasar el pedido original y el mapa de productos al servicio;
-                // la consolidación y sincronización de la lista queda a cargo del servicio
                 resultado = pedidoService.actualizarPedido(
                         pedidoCreado,
                         dniClienteField.getText(),
                         empleadoAsignado.getValue(),
                         cmbFormaEntrega.getValue(),
                         fechaEntregaPedido.getValue(),
-                        productos);
+                        productos,
+                        combos);
             } else {
                 // Si es un pedido nuevo, crearlo
                 resultado = pedidoService.crearPedido(
@@ -156,7 +173,8 @@ public class NuevoPedidoController {
                         empleadoAsignado.getValue(),
                         cmbFormaEntrega.getValue(),
                         fechaEntregaPedido.getValue(),
-                        productos);
+                        productos,
+                        combos);
             }
 
             Pedido pedidoCreado = resultado.getPedido();
@@ -301,6 +319,14 @@ public class NuevoPedidoController {
                 productos.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
             }
             catalogoPedidosController.cargarProductosGuardados(productos);
+        }
+        // Consolidar combos antes de cargar en el catálogo
+        if (catalogoPedidosController != null && pedido.getPedidoCombos() != null) {
+            Map<Combo, Integer> combos = new HashMap<>();
+            for (PedidoCombo pc : pedido.getPedidoCombos()) {
+                combos.merge(pc.getCombo(), pc.getCantidad(), Integer::sum);
+            }
+            catalogoPedidosController.cargarCombosGuardados(combos);
         }
     }
 
