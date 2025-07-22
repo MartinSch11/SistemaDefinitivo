@@ -64,9 +64,9 @@ README.md
 
 ## Cómo importar y ejecutar el proyecto fácilmente
 
-1. **Instala Java 22** en tu computadora.
-2. **Descarga e instala IntelliJ IDEA**.
-3. **Importa el proyecto como Maven Project:**
+1. **Instalá Java 22** en tu computadora.
+2. **Descargá e instala IntelliJ IDEA**.
+3. **Importá el proyecto como Maven Project:**
    - En IntelliJ: `File > Open` y selecciona la carpeta del proyecto.
 4. **Maven descargará automáticamente todas las dependencias** (incluyendo JavaFX y demás librerías).
 5. **Ejecuta el proyecto:**
@@ -74,8 +74,3 @@ README.md
      ```sh
      mvn javafx:run
      ```
-   - O desde el IDE, ejecuta la clase principal `application.App`.
-
-No es necesario configurar VM Options ni descargar JavaFX manualmente. Todo se gestiona automáticamente gracias a Maven y el archivo `pom.xml`.
-
-Si tienes dudas, revisa la sección de instalación y ejecución o consulta al autor.
