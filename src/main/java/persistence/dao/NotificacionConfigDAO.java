@@ -1,15 +1,13 @@
 package persistence.dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import model.NotificacionConfig;
+import utilities.JpaUtil;
 
 public class NotificacionConfigDAO {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("pasteleriaPU");
-
+    
     public void save(NotificacionConfig config) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(config);
@@ -20,7 +18,7 @@ public class NotificacionConfigDAO {
     }
 
     public void update(NotificacionConfig config) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(config);
@@ -31,7 +29,7 @@ public class NotificacionConfigDAO {
     }
 
     public NotificacionConfig findById(int id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.find(NotificacionConfig.class, id);
         } finally {
@@ -54,7 +52,7 @@ public class NotificacionConfigDAO {
      * Guarda o actualiza la configuración global (id=1).
      */
     public void saveOrUpdateGlobal(NotificacionConfig config) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             if (config.getId() == null) {

@@ -10,7 +10,7 @@ import persistence.dao.CredencialesDAO;
 import persistence.dao.RolesDAO;
 import persistence.dao.TrabajadorDAO;
 import model.Trabajador;
-import utilities.ActionLogger;  // Importar ActionLogger
+import utilities.ActionLogger;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;

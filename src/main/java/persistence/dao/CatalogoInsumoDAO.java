@@ -3,16 +3,12 @@ package persistence.dao;
 import jakarta.persistence.TypedQuery;
 import model.CatalogoInsumo;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import java.util.List;
+import utilities.JpaUtil;
 
 public class CatalogoInsumoDAO {
-
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("pasteleriaPU");
-
     public void save(CatalogoInsumo catalogoInsumo) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(catalogoInsumo);
@@ -23,7 +19,7 @@ public class CatalogoInsumoDAO {
     }
 
     public CatalogoInsumo findById(Long id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.find(CatalogoInsumo.class, id);
         } finally {
@@ -32,7 +28,7 @@ public class CatalogoInsumoDAO {
     }
 
     public List<CatalogoInsumo> findAll() {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             TypedQuery<CatalogoInsumo> query = em.createQuery("SELECT c FROM CatalogoInsumo c", CatalogoInsumo.class);
             return query.getResultList();
@@ -42,7 +38,7 @@ public class CatalogoInsumoDAO {
     }
 
     public CatalogoInsumo findByNombre(String nombre) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             TypedQuery<CatalogoInsumo> query = em.createQuery(
                     "SELECT c FROM CatalogoInsumo c WHERE c.nombre = :nombre", CatalogoInsumo.class);
@@ -55,7 +51,7 @@ public class CatalogoInsumoDAO {
     }
 
     public void update(CatalogoInsumo catalogoInsumo) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(catalogoInsumo);
@@ -66,7 +62,7 @@ public class CatalogoInsumoDAO {
     }
 
     public void delete(CatalogoInsumo catalogoInsumo) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.remove(em.contains(catalogoInsumo) ? catalogoInsumo : em.merge(catalogoInsumo));

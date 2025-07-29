@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Evento;
@@ -139,8 +137,6 @@ public class EventoFormController {
                 eventoDAO.save(nuevoEvento);
                 ActionLogger.log("Nuevo evento guardado: " + nombreEvento + " para la fecha " + fechaEvento);
             }
-
-            eventoDAO.close();
 
             // Cerrar el formulario
             Stage stage = (Stage) nombreEventoField.getScene().getWindow();

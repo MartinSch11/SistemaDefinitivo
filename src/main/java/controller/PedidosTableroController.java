@@ -349,6 +349,11 @@ public class PedidosTableroController {
 
             Pedido nuevoPedido = nuevoPedidoController.getPedidoCreado();
 
+            // Si el usuario cerró el diálogo sin crear el pedido, no hacer nada
+            if (nuevoPedido == null) {
+                return;
+            }
+
             // Validación extra para mostrar en alert si hay datos nulos
             if (nuevoPedido.getCliente() == null || nuevoPedido.getEmpleadoAsignado() == null || nuevoPedido.getPedidoProductos() == null || nuevoPedido.getPedidoCombos() == null) {
                 StringBuilder sb = new StringBuilder("Datos faltantes al crear el pedido:\n");
@@ -370,9 +375,6 @@ public class PedidosTableroController {
             }
 
         } catch (Exception e) {
-            Throwable cause = e.getCause();
-            String mensaje = (cause != null) ? cause.getMessage() : e.getMessage();
-            mostrarAlerta("Error inesperado", "Ocurrió un error al crear el pedido:\n" + mensaje);
             e.printStackTrace();
         }
     }

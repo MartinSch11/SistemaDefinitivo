@@ -124,7 +124,6 @@ public class EventosController {
                     eventoSeleccionado.setEstado(newVal);
                     EventoDAO eventoDAO = new EventoDAO();
                     eventoDAO.update(eventoSeleccionado);
-                    eventoDAO.close();
                     ActionLogger.log("Estado de evento actualizado a: " + newVal);
                     // Repintar calendario para actualizar el color
                     llenarCalendario(currentYearMonth);
@@ -200,7 +199,6 @@ public class EventosController {
             // Siempre recarga después de cerrar el formulario
             EventoDAO eventoDAO = new EventoDAO();
             Evento ultimoEvento = eventoDAO.findUltimoEvento();
-            eventoDAO.close();
             if (ultimoEvento != null) {
                 currentYearMonth = YearMonth.from(ultimoEvento.getFecha_evento());
             }
@@ -270,7 +268,6 @@ public class EventosController {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 EventoDAO eventoDAO = new EventoDAO();
                 eventoDAO.delete(eventoSeleccionado);
-                eventoDAO.close();
 
                 mostrarAlerta("Éxito", "Evento borrado exitosamente.");
                 reloadEvents();
@@ -422,7 +419,6 @@ public class EventosController {
             }
             addEvent(evento.getFecha_evento(), evento);
         }
-        eventoDAO.close();
         llenarCalendario(currentYearMonth);
     }
 

@@ -98,15 +98,17 @@ public class CrudProductosController {
         colSabor.setCellValueFactory(cellData -> {
             // Convierte la lista de sabores a un string separado por coma
             var sabores = cellData.getValue().getSabores();
-            String textoSabores = sabores == null || sabores.isEmpty() ? "" : sabores.stream().map(Object::toString).reduce((a, b) -> a + ", " + b).orElse("");
+            String textoSabores = sabores == null || sabores.isEmpty() ? ""
+                    : sabores.stream().map(Object::toString).reduce((a, b) -> a + ", " + b).orElse("");
             return new SimpleStringProperty(textoSabores);
         });
 
-        // Para la columna colReceta, usamos un CellFactory para obtener el nombre de la receta
+        // Para la columna colReceta, usamos un CellFactory para obtener el nombre de la
+        // receta
         colReceta.setCellValueFactory(cellData -> {
             // Obtener la receta del producto y, si existe, su nombre
             Receta receta = cellData.getValue().getReceta();
-            return receta != null ? new SimpleStringProperty(receta.getNombreReceta()) : new SimpleStringProperty("");  // Devuelve el nombre de la receta o vacío
+            return receta != null ? new SimpleStringProperty(receta.getNombreReceta()) : new SimpleStringProperty("");
         });
 
         // Rellenamos la tabla con los productos
@@ -122,9 +124,10 @@ public class CrudProductosController {
         });
         colComboProductos.setCellValueFactory(cellData -> {
             var productos = cellData.getValue().getProductos();
-            String texto = productos == null || productos.isEmpty() ? "" : productos.stream()
-                .map(cp -> cp.getProducto().getNombre() + " x" + cp.getCantidad())
-                .reduce((a, b) -> a + ", " + b).orElse("");
+            String texto = productos == null || productos.isEmpty() ? ""
+                    : productos.stream()
+                            .map(cp -> cp.getProducto().getNombre() + " x" + cp.getCantidad())
+                            .reduce((a, b) -> a + ", " + b).orElse("");
             return new SimpleStringProperty(texto);
         });
         cargarCombos();
@@ -163,7 +166,8 @@ public class CrudProductosController {
             }
         } else {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
                 Parent root = loader.load();
                 ProductoFormController controller = loader.getController();
                 controller.setParentController(this);
@@ -173,7 +177,7 @@ public class CrudProductosController {
                 stage.setTitle("Agregar Producto");
                 stage.show();
                 cargarProductos();
-                ActionLogger.log("Agregar producto: Producto agregado.");
+                ActionLogger.log("Producto agregado: " + (controller.getListaProductos().isEmpty() ? "" : controller.getListaProductos().get(controller.getListaProductos().size() - 1).getNombre()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -186,7 +190,7 @@ public class CrudProductosController {
         if (productoSeleccionado != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
-                Parent root = loader.load(); // Cargar el FXML como un contenedor normal
+                Parent root = loader.load();
 
                 // Crear un nuevo Stage (ventana)
                 Stage stage = new Stage();
@@ -203,13 +207,14 @@ public class CrudProductosController {
                 cargarProductos(); // Recargar la lista tras modificar
 
                 // Log de la acción
-                ActionLogger.log("Modificar producto: Producto modificado: " + productoSeleccionado.getNombre());
+                ActionLogger.log("Producto modificado: " + productoSeleccionado.getNombre());
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto", "Por favor, selecciona un producto para modificar.");
+            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto",
+                    "Por favor, selecciona un producto para modificar.");
         }
     }
 
@@ -221,21 +226,23 @@ public class CrudProductosController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");
             alert.setHeaderText("Eliminar Producto");
-            alert.setContentText("¿Estás seguro de que deseas eliminar el producto: " + productoSeleccionado.getNombre() + "?");
+            alert.setContentText(
+                    "¿Estás seguro de que deseas eliminar el producto: " + productoSeleccionado.getNombre() + "?");
 
             // Mostrar el cuadro de diálogo y esperar la respuesta
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 productoDAO.delete(productoSeleccionado);
-                listaProductos.remove(productoSeleccionado);  // Eliminar el producto de la lista observable
+                listaProductos.remove(productoSeleccionado); // Eliminar el producto de la lista observable
                 tableProductos.setItems(listaProductos); // Asegurarse de que la tabla se actualice
 
                 // Log de la acción
-                ActionLogger.log("Eliminar producto: Producto eliminado: " + productoSeleccionado.getNombre());
+                ActionLogger.log("Producto eliminado: " + productoSeleccionado.getNombre());
             }
         } else {
             // Usar showAlert para mostrar un mensaje de error si no hay selección
-            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto", "Por favor, selecciona un producto para eliminar.");
+            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto",
+                    "Por favor, selecciona un producto para eliminar.");
         }
     }
 
@@ -268,13 +275,17 @@ public class CrudProductosController {
                 // Buscar por nombre
                 boolean matchNombre = p.getNombre() != null && p.getNombre().toLowerCase().contains(filtroLower);
                 // Buscar por descripción
-                boolean matchDescripcion = p.getDescripcion() != null && p.getDescripcion().toLowerCase().contains(filtroLower);
+                boolean matchDescripcion = p.getDescripcion() != null
+                        && p.getDescripcion().toLowerCase().contains(filtroLower);
                 // Buscar por categoría
-                boolean matchCategoria = p.getCategoria() != null && p.getCategoria().toString().toLowerCase().contains(filtroLower);
+                boolean matchCategoria = p.getCategoria() != null
+                        && p.getCategoria().toString().toLowerCase().contains(filtroLower);
                 // Buscar por receta
-                boolean matchReceta = p.getReceta() != null && p.getReceta().getNombreReceta() != null && p.getReceta().getNombreReceta().toLowerCase().contains(filtroLower);
+                boolean matchReceta = p.getReceta() != null && p.getReceta().getNombreReceta() != null
+                        && p.getReceta().getNombreReceta().toLowerCase().contains(filtroLower);
                 // Buscar por sabor
-                boolean matchSabor = p.getSabores() != null && p.getSabores().stream().anyMatch(s -> s != null && s.toString().toLowerCase().contains(filtroLower));
+                boolean matchSabor = p.getSabores() != null && p.getSabores().stream()
+                        .anyMatch(s -> s != null && s.toString().toLowerCase().contains(filtroLower));
                 return matchNombre || matchDescripcion || matchCategoria || matchReceta || matchSabor;
             });
             tableProductos.setItems(filtrados);
@@ -301,6 +312,7 @@ public class CrudProductosController {
     public ObservableList<Producto> getListaProductos() {
         return listaProductos;
     }
+
     public void setListaProductos(ObservableList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }

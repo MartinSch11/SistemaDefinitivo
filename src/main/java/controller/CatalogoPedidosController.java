@@ -23,10 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.util.*;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Metadata;
-import com.drew.metadata.Directory;
 import com.drew.metadata.exif.ExifIFD0Directory;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 
 public class CatalogoPedidosController {
     @FXML private Button guardarPedidoButton;

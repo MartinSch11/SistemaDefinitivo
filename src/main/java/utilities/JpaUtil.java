@@ -2,12 +2,10 @@ package utilities;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import lombok.Getter;
 
 public class JpaUtil {
 
     private static final String PERSISTENCE_UNIT_NAME = "pasteleriaPU";
-    @Getter
     private static EntityManagerFactory entityManagerFactory;
 
     static {
@@ -16,5 +14,15 @@ public class JpaUtil {
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
+    }
+
+    public static void close() {
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
+    }
+
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
     }
 }

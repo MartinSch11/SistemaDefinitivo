@@ -4,108 +4,114 @@ import jakarta.persistence.*;
 import model.Agenda;
 import java.time.LocalDate;
 import java.util.List;
+import utilities.JpaUtil;
 
 public class AgendaDAO {
-    private EntityManagerFactory emf;
-    private EntityManager em;
-
-    public AgendaDAO() {
-        emf = Persistence.createEntityManagerFactory("pasteleriaPU"); // Asegúrate de que el nombre coincida con el de tu persistence.xml
-        em = emf.createEntityManager();
-    }
-
     public void save(Agenda agenda) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.persist(agenda);
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public void update(Agenda agenda) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.merge(agenda);
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public void delete(Agenda agenda) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.remove(em.contains(agenda) ? agenda : em.merge(agenda));
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
-    }
-
-    public void close() {
-        em.close();
-        emf.close();
     }
 
     public List<Agenda> findByFecha(LocalDate fecha) {
-        return em.createQuery("SELECT e FROM Agenda e WHERE e.fecha_pendiente = :fecha", Agenda.class)
-                .setParameter("fecha", fecha)
-                .getResultList();
-    }
-
-    public EntityManager getEntityManager() {
-        if (!em.isOpen()) {
-            em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT e FROM Agenda e WHERE e.fecha_pendiente = :fecha", Agenda.class)
+                    .setParameter("fecha", fecha)
+                    .getResultList();
+        } finally {
+            em.close();
         }
-        return em;
     }
 
     public List<Agenda> findByWeek(LocalDate startOfWeek, LocalDate endOfWeek) {
-        return getEntityManager().createQuery("SELECT e FROM Agenda e WHERE e.fecha_pendiente BETWEEN :startOfWeek AND :endOfWeek", Agenda.class)
-                .setParameter("startOfWeek", startOfWeek)
-                .setParameter("endOfWeek", endOfWeek)
-                .getResultList();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT e FROM Agenda e WHERE e.fecha_pendiente BETWEEN :startOfWeek AND :endOfWeek", Agenda.class)
+                    .setParameter("startOfWeek", startOfWeek)
+                    .setParameter("endOfWeek", endOfWeek)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     public Agenda findById(Long id) {
-        return em.find(Agenda.class, id);
-    }
-
-    public List<Agenda> findAll() {
-        return em.createQuery("SELECT e FROM Agenda e", Agenda.class).getResultList();
-    }
-
-    public List<Agenda> findByFechaBetween(LocalDate desde, LocalDate hasta) {
-        return em.createQuery("SELECT a FROM Agenda a WHERE a.fecha_pendiente BETWEEN :desde AND :hasta", Agenda.class)
-                .setParameter("desde", desde)
-                .setParameter("hasta", hasta)
-                .getResultList();
-    }
-
-    public Agenda findByCampos(String empleado, LocalDate fecha, int hora, int minuto, String pendiente) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            // Obtener el dni del trabajador por nombre
-            String dni = em.createQuery("SELECT t.dni FROM Trabajador t WHERE t.nombre = :empleado", String.class)
-                .setParameter("empleado", empleado)
-                .getSingleResult();
+            return em.find(Agenda.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Agenda> findByFechaBetween(LocalDate fechaInicio, LocalDate fechaFin) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT e FROM Agenda e WHERE e.fecha_pendiente BETWEEN :fechaInicio AND :fechaFin", Agenda.class)
+                    .setParameter("fechaInicio", fechaInicio)
+                    .setParameter("fechaFin", fechaFin)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Agenda findByCampos(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente, int minutoPendiente, String pendiente) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
             return em.createQuery(
-                "SELECT a FROM Agenda a WHERE a.pendiente = :pendiente AND a.fecha_pendiente = :fecha AND FUNCTION('HOUR', a.hora) = :hora AND FUNCTION('MINUTE', a.hora) = :minuto AND a.idEmpleado = :dni", Agenda.class)
+                "SELECT a FROM Agenda a WHERE a.pendiente = :pendiente AND a.fecha_pendiente = :fecha AND a.hora = :hora AND a.idEmpleado = (SELECT e.id FROM Trabajador e WHERE e.nombre = :empleado)",
+                Agenda.class)
                 .setParameter("pendiente", pendiente)
-                .setParameter("fecha", fecha)
-                .setParameter("hora", hora)
-                .setParameter("minuto", minuto)
-                .setParameter("dni", dni)
+                .setParameter("fecha", fechaPendiente)
+                .setParameter("hora", java.sql.Time.valueOf(String.format("%02d:%02d:00", horaPendiente, minutoPendiente)))
+                .setParameter("empleado", empleadoTarea)
+                .setMaxResults(1)
                 .getSingleResult();
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
         }
     }
 }

@@ -59,7 +59,6 @@ public class NotificacionService {
         EventoDAO eventoDAO = new EventoDAO();
         LocalDate hasta = hoy.plusDays(diasAnticipoEventos);
         List<Evento> eventos = eventoDAO.findAll();
-        eventoDAO.close();
         for (Evento evento : eventos) {
             LocalDate fecha = evento.getFecha_evento();
             if (fecha != null && !fecha.isBefore(hoy) && !fecha.isAfter(hasta)) {
@@ -76,7 +75,6 @@ public class NotificacionService {
         LocalDate finSemana = hoy.with(DayOfWeek.SUNDAY);
         AgendaDAO agendaDAO = new AgendaDAO();
         List<Agenda> tareasSemana = agendaDAO.findByWeek(inicioSemana, finSemana);
-        agendaDAO.close();
         boolean hayPendientes = tareasSemana.stream().anyMatch(a -> a.getEstado() == null || a.getEstado().equalsIgnoreCase("Pendiente"));
         if (hayPendientes) {
             notificaciones.add(new Notificacion("Hay tareas pendientes para esta semana", "Agenda", hoy));

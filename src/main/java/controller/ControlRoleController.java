@@ -78,9 +78,6 @@ public class ControlRoleController implements Initializable {
         toggleMap.put("Proveedores-todos", proveedoresTodos);
         toggleMap.put("Stock-ver", stockVer);
         toggleMap.put("Stock-crear", stockCrear);
-        toggleMap.put("Stock-modificar", stockModificar);
-        toggleMap.put("Stock-eliminar", stockEliminar);
-        toggleMap.put("Stock-todos", stockTodos);
         toggleMap.put("Agenda-ver", agendaVer);
         toggleMap.put("Agenda-crear", agendaCrear);
         toggleMap.put("Agenda-modificar", agendaModificar);
@@ -176,8 +173,10 @@ public class ControlRoleController implements Initializable {
             if (rolSeleccionado.getNombre().equals("Administrador")) {
                 // Todos los permisos activados y deshabilitados
                 toggleMap.values().forEach(t -> {
-                    t.setDisable(true);
-                    t.setSelected(true);
+                    if (t != null) {
+                        t.setDisable(true);
+                        t.setSelected(true);
+                    }
                 });
                 // Habilitar btnGenerarReportes para Administrador
                 try {
@@ -188,8 +187,10 @@ public class ControlRoleController implements Initializable {
             } else {
                 // Habilitar toggles y cargar permisos
                 toggleMap.values().forEach(t -> {
-                    t.setDisable(false);
-                    t.setSelected(false);
+                    if (t != null) {
+                        t.setDisable(false);
+                        t.setSelected(false);
+                    }
                 });
                 List<String> permisosRol = rolesDAO.obtenerPermisosPorRol(rolSeleccionado.getIdRol());
                 for (String permiso : permisosRol) {
@@ -207,8 +208,10 @@ public class ControlRoleController implements Initializable {
         } else {
             // Deshabilitar todos
             toggleMap.values().forEach(t -> {
-                t.setDisable(true);
-                t.setSelected(false);
+                if (t != null) {
+                    t.setDisable(true);
+                    t.setSelected(false);
+                }
             });
             // Deshabilitar btnGenerarReportes si no hay rol
             try {

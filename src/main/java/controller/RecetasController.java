@@ -73,7 +73,6 @@ public class RecetasController {
 
         tableRecetas.setItems(listaRecetas);
 
-        recetaDAO.close();
     }
 
     private void configurarColumnas() {
@@ -170,7 +169,6 @@ public class RecetasController {
             e.printStackTrace();
             mostrarError("Error al guardar o modificar la receta. Intenta nuevamente.");
         } finally {
-            recetaDAO.close();
         }
     }
 
@@ -219,7 +217,6 @@ public class RecetasController {
                 ActionLogger.log("El usuario quiere eliminar la receta: " + recetaSeleccionada.getNombreReceta());
                 RecetaDAO recetaDAO = new RecetaDAO();
                 recetaDAO.delete(recetaSeleccionada);
-                recetaDAO.close();
 
                 cargarRecetas();
             }

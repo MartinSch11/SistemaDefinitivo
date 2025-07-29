@@ -1,13 +1,11 @@
 package controller;
 
-import javafx.collections.FXCollections;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert.AlertType;
-
 import java.util.Optional;
 
 public class DialogNuevoProveedorController {

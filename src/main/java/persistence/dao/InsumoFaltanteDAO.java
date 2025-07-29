@@ -3,18 +3,13 @@ package persistence.dao;
 import jakarta.persistence.*;
 import model.CatalogoInsumo;
 import model.InsumoFaltante;
-
+import utilities.JpaUtil;
 import java.util.List;
 
 public class InsumoFaltanteDAO {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("pasteleriaPU");
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
 
     public void save(InsumoFaltante faltante) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -29,7 +24,7 @@ public class InsumoFaltanteDAO {
     }
 
     public void update(InsumoFaltante faltante) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -44,7 +39,7 @@ public class InsumoFaltanteDAO {
     }
 
     public List<InsumoFaltante> findPendientesPorInsumo(CatalogoInsumo catalogoInsumo) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT i FROM InsumoFaltante i WHERE i.catalogoInsumo = :catalogoInsumo AND i.resuelto = false",
                     InsumoFaltante.class).setParameter("catalogoInsumo", catalogoInsumo).getResultList();
@@ -54,7 +49,7 @@ public class InsumoFaltanteDAO {
     }
 
     public List<InsumoFaltante> findAll() {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT i FROM InsumoFaltante i", InsumoFaltante.class).getResultList();
         } finally {
@@ -63,7 +58,7 @@ public class InsumoFaltanteDAO {
     }
 
     public List<InsumoFaltante> findAllPendientes() {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT i FROM InsumoFaltante i WHERE i.resuelto = false", InsumoFaltante.class)
                     .getResultList();

@@ -2,117 +2,127 @@ package persistence.dao;
 
 import jakarta.persistence.*;
 import model.Credencial;
+import utilities.JpaUtil;
 
 public class CredencialesDAO {
-    private EntityManagerFactory emf;
-    private EntityManager em;
-
-    public CredencialesDAO() {
-        emf = Persistence.createEntityManagerFactory("pasteleriaPU");
-        em = emf.createEntityManager();
-    }
 
     public Integer validateCredentials(String dni, String password) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            String query = "SELECT t.rol.id FROM Credencial c " + // Accedemos al id del rol a través de la relación
-                    "JOIN c.trabajador t " +
-                    "WHERE c.dni = :dni AND c.contraseña = :password";
-            Integer rolId = (Integer) em.createQuery(query)
+            String query = "SELECT t.rol.idRol FROM Credencial c JOIN c.trabajador t WHERE c.dni = :dni AND c.contraseña = :password";
+            return em.createQuery(query, Integer.class)
                     .setParameter("dni", dni)
                     .setParameter("password", password)
                     .getSingleResult();
-            return rolId;
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
         }
     }
 
     public void save(Credencial credencial) {
-        em.getTransaction().begin();
-        em.persist(credencial); // Guarda las credenciales
-        em.getTransaction().commit();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.persist(credencial);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public String obtenerNombrePorDNI(String dni) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            String query = "SELECT t.nombre FROM Credencial c " +
-                    "JOIN c.trabajador t " +
-                    "WHERE c.dni = :dni";
+            String query = "SELECT t.nombre FROM Credencial c JOIN c.trabajador t WHERE c.dni = :dni";
             return em.createQuery(query, String.class)
                     .setParameter("dni", dni)
                     .getSingleResult();
         } catch (NoResultException e) {
-            return "Usuario"; // Valor por defecto en caso de no encontrar el nombre
+            return "Usuario";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error"; // Manejo de excepciones generales
+            return "Error";
+        } finally {
+            em.close();
         }
     }
 
-
     public Credencial findById(String dni) {
-        return em.find(Credencial.class, dni);
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.find(Credencial.class, dni);
+        } finally {
+            em.close();
+        }
     }
 
     public Credencial findByUsername(String dni) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT c FROM Credencial c WHERE c.dni = :dni", Credencial.class)
                     .setParameter("dni", dni)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
         }
     }
 
     public void update(String dni, String contraseña) {
-        // Buscamos la credencial por DNI
-        Credencial credencial = findById(dni);
-        if (credencial != null) {
-            // Si la credencial existe, actualizamos la contraseña
-            credencial.setContraseña(contraseña);
-
-            // Comienza la transacción para actualizar
-            EntityTransaction transaction = em.getTransaction();
-            try {
-                transaction.begin();
-                em.merge(credencial); // Actualiza la credencial
-                transaction.commit();
-            } catch (Exception e) {
-                transaction.rollback();
-                e.printStackTrace();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            Credencial credencial = em.find(Credencial.class, dni);
+            if (credencial != null) {
+                tx.begin();
+                credencial.setContraseña(contraseña);
+                em.merge(credencial);
+                tx.commit();
             }
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
-
     public void delete(Credencial credencial) {
-        EntityTransaction transaction = em.getTransaction();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
         try {
-            transaction.begin();
+            tx.begin();
             em.remove(em.contains(credencial) ? credencial : em.merge(credencial));
-            transaction.commit();
+            tx.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (tx.isActive()) tx.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public String obtenerSexoPorDNI(String dni) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             String query = "SELECT t.sexo FROM Credencial c JOIN c.trabajador t WHERE c.dni = :dni";
             return em.createQuery(query, String.class)
                     .setParameter("dni", dni)
                     .getSingleResult();
         } catch (NoResultException e) {
-            return null; // Si no se encuentra, retorna null
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        } finally {
+            em.close();
         }
-    }
-
-    public void close() {
-        em.close();
-        emf.close();
     }
 }

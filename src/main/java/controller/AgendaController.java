@@ -486,13 +486,16 @@ public class AgendaController {
         radioSi.setDisable(false);
     }
     private Integer obtenerIdEmpleadoPorNombre(String nombreEmpleado) {
-        EntityManager em = agendaDAO.getEntityManager();
+        // Usar un EntityManager temporal, ya que AgendaDAO ya no expone getEntityManager()
+        EntityManager em = utilities.JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT e.id FROM Trabajador e WHERE e.nombre = :nombre", Integer.class)
                     .setParameter("nombre", nombreEmpleado)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
         }
     }
     private String obtenerNombreEmpleadoPorId(Integer idTrabajador) {

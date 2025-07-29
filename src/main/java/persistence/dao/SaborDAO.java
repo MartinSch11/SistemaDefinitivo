@@ -2,23 +2,21 @@ package persistence.dao;
 
 import model.Sabor;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 import java.util.List;
+import utilities.JpaUtil;
 
 public class SaborDAO {
-    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pasteleriaPU");
-
     public List<Sabor> findAll() {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        List<Sabor> sabores = em.createQuery("FROM Sabor", Sabor.class).getResultList();
-        em.close();
-        return sabores;
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("FROM Sabor", Sabor.class).getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     public Sabor findByName(String nombre) {
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT s FROM Sabor s WHERE s.nombre = :nombre", Sabor.class)
                     .setParameter("nombre", nombre)
@@ -30,7 +28,7 @@ public class SaborDAO {
 
     // Método para save un nuevo sabor en la base de datos
     public void guardarSabor(Sabor sabor) {
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(sabor);
@@ -42,7 +40,7 @@ public class SaborDAO {
 
     // Método para actualizar un sabor existente en la base de datos
     public void actualizarSabor(Sabor sabor) {
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(sabor);
@@ -54,7 +52,7 @@ public class SaborDAO {
 
     // Método para eliminar un sabor de la base de datos
     public void eliminarSabor(Sabor sabor) {
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             Sabor saborAEliminar = em.find(Sabor.class, sabor.getId_sabor());

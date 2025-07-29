@@ -21,13 +21,26 @@ import persistence.dao.CategoriaDAO;
 import persistence.dao.ProductoDAO;
 import persistence.dao.RecetaDAO;
 import utilities.ActionLogger;
-import utilities.SceneLoader;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifIFD0Directory;
 
 public class ProductoFormController {
 
@@ -95,28 +108,9 @@ public class ProductoFormController {
         cmbReceta.setValue(producto.getReceta());
         // Mostrar imagen si existe
         if (producto.getImagen() != null && producto.getImagen().length > 0) {
-            javafx.scene.image.Image img = null;
-            double rotation = 0;
-            try {
-                java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(producto.getImagen());
-                com.drew.metadata.Metadata metadata = com.drew.imaging.ImageMetadataReader.readMetadata(bais);
-                com.drew.metadata.exif.ExifIFD0Directory directory = metadata.getFirstDirectoryOfType(com.drew.metadata.exif.ExifIFD0Directory.class);
-                if (directory != null && directory.containsTag(com.drew.metadata.exif.ExifIFD0Directory.TAG_ORIENTATION)) {
-                    int orientation = directory.getInt(com.drew.metadata.exif.ExifIFD0Directory.TAG_ORIENTATION);
-                    switch (orientation) {
-                        case 6: rotation = 90; break;
-                        case 3: rotation = 180; break;
-                        case 8: rotation = 270; break;
-                        default: rotation = 0;
-                    }
-                }
-                bais.reset();
-                img = new javafx.scene.image.Image(bais);
-            } catch (Exception ex) {
-                img = new javafx.scene.image.Image(new java.io.ByteArrayInputStream(producto.getImagen()));
-            }
+            javafx.scene.image.Image img = new javafx.scene.image.Image(new java.io.ByteArrayInputStream(producto.getImagen()));
             imagenProductoView.setImage(img);
-            imagenProductoView.setRotate(rotation);
+            imagenProductoView.setRotate(0); // No rotar, ya está bien
             // --- CROP CUADRADO centrado para cualquier orientación ---
             double imgWidth = img.getWidth();
             double imgHeight = img.getHeight();
@@ -264,11 +258,93 @@ public class ProductoFormController {
     }
 
     private void cargarImagen(File archivo) {
-        try (FileInputStream fis = new FileInputStream(archivo)) {
-            imagen = fis.readAllBytes();
-            // Mostrar la imagen cargada
-            javafx.scene.image.Image img = new javafx.scene.image.Image(new java.io.ByteArrayInputStream(imagen));
+        try {
+            BufferedImage original = ImageIO.read(archivo);
+            if (original == null) throw new IOException("Formato de imagen no soportado");
+
+            // Leer orientación EXIF
+            int orientation = 1;
+            try {
+                Metadata metadata = ImageMetadataReader.readMetadata(archivo);
+                ExifIFD0Directory directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+                if (directory != null && directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)) {
+                    orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+                }
+            } catch (Exception ex) {
+                // Si falla la lectura EXIF, continuar sin rotar
+            }
+
+            // Rotar imagen si es necesario
+            BufferedImage rotated = original;
+            if (orientation != 1) {
+                AffineTransform tx = new AffineTransform();
+                switch (orientation) {
+                    case 6: // 90°
+                        tx.translate(original.getHeight(), 0);
+                        tx.rotate(Math.toRadians(90));
+                        rotated = new BufferedImage(original.getHeight(), original.getWidth(), BufferedImage.TYPE_INT_RGB);
+                        break;
+                    case 3: // 180°
+                        tx.translate(original.getWidth(), original.getHeight());
+                        tx.rotate(Math.toRadians(180));
+                        rotated = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
+                        break;
+                    case 8: // 270°
+                        tx.translate(0, original.getWidth());
+                        tx.rotate(Math.toRadians(270));
+                        rotated = new BufferedImage(original.getHeight(), original.getWidth(), BufferedImage.TYPE_INT_RGB);
+                        break;
+                    default:
+                        break;
+                }
+                if (orientation == 6 || orientation == 3 || orientation == 8) {
+                    Graphics2D g2d = rotated.createGraphics();
+                    g2d.drawImage(original, tx, null);
+                    g2d.dispose();
+                }
+            }
+
+            // Redimensionar si es necesario
+            int maxDim = 400;
+            int width = rotated.getWidth();
+            int height = rotated.getHeight();
+            if (width > maxDim || height > maxDim) {
+                float scale = Math.min((float)maxDim / width, (float)maxDim / height);
+                width = Math.round(width * scale);
+                height = Math.round(height * scale);
+                Image tmp = rotated.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2d = resized.createGraphics();
+                g2d.drawImage(tmp, 0, 0, null);
+                g2d.dispose();
+                rotated = resized;
+            }
+
+            // Comprimir a JPEG con calidad 0.85
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+            ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
+            writer.setOutput(ios);
+            ImageWriteParam param = writer.getDefaultWriteParam();
+            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            param.setCompressionQuality(0.85f); // Calidad alta
+            writer.write(null, new javax.imageio.IIOImage(rotated, null, null), param);
+            writer.dispose();
+            ios.close();
+
+            imagen = baos.toByteArray();
+            javafx.scene.image.Image img = new javafx.scene.image.Image(new ByteArrayInputStream(imagen));
             imagenProductoView.setImage(img);
+            imagenProductoView.setRotate(0);
+            // --- CROP CUADRADO centrado para cualquier orientación ---
+            double imgWidth = img.getWidth();
+            double imgHeight = img.getHeight();
+            double side = Math.min(imgWidth, imgHeight);
+            double x = (imgWidth - side) / 2;
+            double y = (imgHeight - side) / 2;
+            imagenProductoView.setViewport(new javafx.geometry.Rectangle2D(x, y, side, side));
+            imagenProductoView.setFitWidth(100);
+            imagenProductoView.setFitHeight(100);
             mostrarMensaje(Alert.AlertType.INFORMATION, "Imagen Cargada", "La imagen ha sido cargada exitosamente.");
         } catch (IOException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error al cargar la imagen", e.getMessage());

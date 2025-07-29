@@ -2,18 +2,12 @@ package persistence.dao;
 
 import jakarta.persistence.*;
 import model.Insumo;
-
 import java.util.List;
+import utilities.JpaUtil;
 
 public class InsumoDAO {
-    private EntityManagerFactory emf;
-
-    public InsumoDAO() {
-        emf = Persistence.createEntityManagerFactory("pasteleriaPU"); // Cambia por el nombre correcto de tu persistence.xml
-    }
-
     public void save(Insumo insumo) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
@@ -28,7 +22,7 @@ public class InsumoDAO {
     }
 
     public Insumo findById(Long id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.find(Insumo.class, id);
         } finally {
@@ -37,7 +31,7 @@ public class InsumoDAO {
     }
 
     public List<Insumo> findAll() {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT i FROM Insumo i", Insumo.class).getResultList();
         } finally {
@@ -46,14 +40,14 @@ public class InsumoDAO {
     }
 
     public void update(Insumo insumo) {
-        EntityManager em = emf.createEntityManager();
-        if (insumo.getId() == null) {
-            System.out.println("El insumo no tiene ID, no se puede actualizar.");
-        } else {
-            System.out.println("Actualizando insumo con ID: " + insumo.getId());
-        }
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
+            if (insumo.getId() == null) {
+                System.out.println("El insumo no tiene ID, no se puede actualizar.");
+            } else {
+                System.out.println("Actualizando insumo con ID: " + insumo.getId());
+            }
             transaction.begin();
             em.merge(insumo);
             transaction.commit();
@@ -67,7 +61,7 @@ public class InsumoDAO {
     }
 
     public List<Insumo> findDisponiblesPorNombreOrdenado(String nombre) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("""
                             SELECT i FROM Insumo i 
@@ -82,36 +76,18 @@ public class InsumoDAO {
         }
     }
 
-    public void delete(Insumo insumo) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-            em.remove(em.contains(insumo) ? insumo : em.merge(insumo));
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
-
     public Insumo findByCatalogoInsumoId(Long catalogoInsumoId) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            return em.createQuery("SELECT i FROM Insumo i WHERE i.catalogoInsumo.id = :catalogoId ORDER BY i.id ASC", Insumo.class)
-                    .setParameter("catalogoId", catalogoInsumoId)
+            return em.createQuery("SELECT i FROM Insumo i WHERE i.catalogoInsumo.id = :catalogoInsumoId ORDER BY i.id ASC", Insumo.class)
+                    .setParameter("catalogoInsumoId", catalogoInsumoId)
                     .setMaxResults(1)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
+                    .getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
         } finally {
             em.close();
         }
-    }
-
-    public void close() {
-        emf.close();
     }
 }

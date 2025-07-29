@@ -2,37 +2,34 @@ package persistence.dao;
 
 import model.Categoria;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import java.util.List;
+import utilities.JpaUtil;
 
 public class CategoriaDAO {
-    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pasteleriaPU");
-
     public List<Categoria> findAll() {
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         List<Categoria> categorias = null;
         try {
             categorias = em.createQuery("FROM Categoria", Categoria.class).getResultList();
         } catch (Exception e) {
-            e.printStackTrace(); // Manejo básico de excepciones
+            e.printStackTrace();
         } finally {
-            em.close(); // Asegurarse de cerrar el entityManager
+            em.close();
         }
         return categorias;
     }
 
     public Categoria findByName(String nombre) {
-        EntityManager em = entityManagerFactory.createEntityManager(); // Crear entityManager
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         Categoria categoria = null;
         try {
             categoria = em.createQuery("SELECT c FROM Categoria c WHERE c.nombre = :nombre", Categoria.class)
                     .setParameter("nombre", nombre)
                     .getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace(); // Manejo básico de excepciones
+            e.printStackTrace();
         } finally {
-            em.close(); // Asegurarse de cerrar el entityManager
+            em.close();
         }
         return categoria;
     }

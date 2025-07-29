@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import lombok.Setter;
 import model.Cliente;
 import model.Pedido;
 import model.Trabajador;
@@ -16,8 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import persistence.dao.TrabajadorDAO;
-
-import java.time.LocalDate;
 import java.util.Optional;
 
 public class ModificarPedidosController {

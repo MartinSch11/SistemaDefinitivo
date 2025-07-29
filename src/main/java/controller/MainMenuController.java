@@ -121,7 +121,6 @@ public class MainMenuController {
                 eventoDAO.update(evento);
             }
         }
-        eventoDAO.close();
     }
 
     private void mostrarNotificacionesEventos() {
@@ -233,6 +232,8 @@ public class MainMenuController {
     // Oculta el MenuButton tras seleccionar una opción
     @FXML
     private void handleSettings(ActionEvent event) {
+        // Detener el timer de notificaciones antes de cambiar de pantalla
+        if (notificacionTimer != null) notificacionTimer.stop();
         // Verificar permisos antes de abrir la pantalla de configuración
         List<String> permisos = SessionContext.getInstance().getPermisos();
         String roleName = SessionContext.getInstance().getRoleName();

@@ -52,7 +52,6 @@ public class EstadisticasService {
             double presupuesto = evento.getPresupuesto() != null ? evento.getPresupuesto().doubleValue() : 0.0;
             ingresosPorFecha.put(fecha, ingresosPorFecha.getOrDefault(fecha, 0.0) + presupuesto);
         }
-        eventoDAO.close();
         return ingresosPorFecha;
     }
 
@@ -187,7 +186,6 @@ public class EstadisticasService {
                 .filter(e -> "Realizado".equalsIgnoreCase(e.getEstado()))
                 .mapToDouble(e -> e.getPresupuesto() != null ? e.getPresupuesto().doubleValue() : 0.0)
                 .sum();
-        eventoDAO.close();
 
         Map<String, Double> resultado = new HashMap<>();
         resultado.put("pedidos", totalPedidos);
@@ -206,7 +204,6 @@ public class EstadisticasService {
                 .filter(e -> !e.getFecha_evento().isBefore(fechaDesde) && !e.getFecha_evento().isAfter(fechaHasta))
                 .filter(e -> "Realizado".equalsIgnoreCase(e.getEstado()))
                 .collect(java.util.stream.Collectors.toList());
-        eventoDAO.close();
         return eventos;
     }
 

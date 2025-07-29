@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.Pedido;
 import persistence.dao.PedidoDAO;
 import java.time.format.DateTimeFormatter;

@@ -7,7 +7,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import model.Pedido;
 import model.PedidoProducto;
 import model.Producto;

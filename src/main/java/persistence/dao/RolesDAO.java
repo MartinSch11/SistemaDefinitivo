@@ -1,28 +1,17 @@
 package persistence.dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import model.Rol;
 import model.Permiso;
 import model.RolPermiso;
-
+import utilities.JpaUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RolesDAO {
-    private EntityManagerFactory emf;
-
-    public RolesDAO() {
-        emf = Persistence.createEntityManagerFactory("pasteleriaPU");
-    }
-
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
 
     public List<Rol> findAll() {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("FROM Rol", Rol.class).getResultList();
         } finally {
@@ -32,7 +21,7 @@ public class RolesDAO {
 
     // Devuelve una lista de strings tipo "Recurso-Accion" para el rol
     public List<String> obtenerPermisosPorRol(int idRol) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             List<Permiso> permisos = em.createQuery(
                             "SELECT rp.permiso FROM RolPermiso rp WHERE rp.rol.idRol = :idRol", Permiso.class)
@@ -47,7 +36,7 @@ public class RolesDAO {
     }
 
     public Integer obtenerIdRolPorNombre(String nombreRol) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT r.idRol FROM Rol r WHERE r.nombre = :nombreRol", Integer.class)
                     .setParameter("nombreRol", nombreRol)
@@ -62,7 +51,7 @@ public class RolesDAO {
 
     // Actualiza el permiso (agrega o elimina) para el rol y el permiso (por recurso y acción)
     public void actualizarPermiso(int idRol, String recurso, String accion, boolean concedido) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             // Buscar el id_permiso correspondiente
@@ -103,7 +92,7 @@ public class RolesDAO {
     }
 
     public String obtenerNombreRolPorId(Integer idRol) {
-        EntityManager em = getEntityManager();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT r.nombre FROM Rol r WHERE r.idRol = :idRol", String.class)
                     .setParameter("idRol", idRol)

@@ -2,72 +2,82 @@ package persistence.dao;
 
 import jakarta.persistence.*;
 import model.Proveedor;
-
 import java.util.List;
+import utilities.JpaUtil;
 
-public class ProveedorDAO{
-    private EntityManagerFactory emf;
-    private EntityManager em;
-
-    public ProveedorDAO() {
-        emf = Persistence.createEntityManagerFactory("pasteleriaPU"); // Cambia por el nombre correcto de tu persistence.xml
-        em = emf.createEntityManager();
-    }
-
+public class ProveedorDAO {
     public void save(Proveedor proveedor) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.persist(proveedor);
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public Proveedor findById(Long id) {
-        return em.find(Proveedor.class, id);
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.find(Proveedor.class, id);
+        } finally {
+            em.close();
+        }
     }
 
     public List<Proveedor> findAll() {
-        return em.createQuery("SELECT p FROM Proveedor p", Proveedor.class).getResultList();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT p FROM Proveedor p", Proveedor.class).getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     public void update(Proveedor proveedor) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.merge(proveedor);
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public void delete(Proveedor proveedor) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.remove(em.contains(proveedor) ? proveedor : em.merge(proveedor));
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
-    // Devuelve los nombres de insumos de catalogo_insumo para un proveedor
     public List<String> findInsumosByProveedor(String nombreProveedor) {
-        String jpql = "SELECT c.nombre FROM CatalogoInsumo c WHERE c.proveedor = :nombreProveedor";
-        return em.createQuery(jpql, String.class)
-                .setParameter("nombreProveedor", nombreProveedor)
-                .getResultList();
-    }
-
-    public void close() {
-        em.close();
-        emf.close();
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            String jpql = "SELECT c.nombre FROM CatalogoInsumo c WHERE c.proveedor = :nombreProveedor";
+            return em.createQuery(jpql, String.class)
+                    .setParameter("nombreProveedor", nombreProveedor)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
     }
 }
