@@ -1,6 +1,7 @@
 package persistence.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import model.Rol;
 import model.Permiso;
 import model.RolPermiso;
@@ -100,6 +101,33 @@ public class RolesDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return "Desconocido"; // Valor predeterminado si no encuentra el rol
+        } finally {
+            em.close();
+        }
+    }
+
+    public Rol findByName(String nombre) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            List<Rol> roles = em.createQuery("FROM Rol r WHERE r.nombre = :nombre", Rol.class)
+                    .setParameter("nombre", nombre)
+                    .getResultList();
+            return roles.isEmpty() ? null : roles.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void save(Rol rol) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.persist(rol);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
