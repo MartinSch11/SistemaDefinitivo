@@ -7,6 +7,8 @@ Sistema de gestión para pastelería, desarrollado en Java con JavaFX, Hibernate
 - [Características](#características)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Estructura del proyecto](#estructura-del-proyecto)
+- [Flujo Operativo Recomendado del Sistema](#flujo-operativo-recomendado-del-sistema)
+- [Usuarios de ejemplo del sistema](#usuarios-de-ejemplo-del-sistema)
 - [Autores](#autores)
 - [Cómo importar y ejecutar el proyecto fácilmente](#cómo-importar-y-ejecutar-el-proyecto-fácilmente)
 
@@ -56,6 +58,59 @@ src/
 pom.xml
 README.md
 ```
+
+## Flujo Operativo Recomendado del Sistema
+A continuación se describe el flujo sugerido para la utilización integral y correcta del sistema de gestión de pastelería, asegurando la trazabilidad de los datos y la demostración de las principales funcionalidades:
+
+### Gestión de Proveedores
+- Acceda al módulo de proveedores.
+- Registre un nuevo proveedor, completando los datos requeridos para su identificación y contacto.
+
+### Gestión de Insumos
+- Diríjase a la sección de configuración y seleccione el apartado de insumos.
+- Registre un nuevo insumo, asociándolo al proveedor previamente creado para garantizar la trazabilidad de origen.
+
+### Control de Stock
+- Ingrese a la pestaña de stock.
+- Registre una nueva compra del insumo recientemente creado, incrementando así el inventario disponible y reflejando la entrada de mercancía.
+
+### Gestión de Recetas
+- Acceda al módulo de recetas.
+- Cree una nueva receta, incorporando el insumo cargado en los pasos anteriores como parte de su composición.
+
+### Gestión de Productos
+- Diríjase a la sección de productos.
+- Registre un nuevo producto y asígnele la receta creada, estableciendo la relación entre producto final y sus componentes.
+
+### Gestión de Clientes
+- Desde el módulo de configuración o directamente desde el apartado de pedidos, registre un nuevo cliente, asegurando que los datos estén disponibles para futuras transacciones.
+
+### Gestión de Pedidos
+1. Ingrese al módulo de pedidos.
+2. Cree un nuevo pedido seleccionando el cliente y el producto previamente registrados.
+3. Para cargar los datos del cliente, ingrese el DNI en el campo correspondiente y presione Enter. Por ejemplo: DNI: 99.
+4. Utilice la funcionalidad de tablero para modificar el estado del pedido, avanzando por las distintas etapas del ciclo de vida: “Pendiente” → “En proceso” → “Hecho” → “Entregado”.
+5. Además, según el estado del pedido, puede modificar, eliminar, entregar o visualizar el detalle del mismo haciendo clic derecho sobre la etiqueta del pedido.
+
+### Gestión de Eventos
+- Acceda al módulo de eventos.
+- Registre un nuevo evento, como puede ser una entrega especial, promoción o actividad relevante para la pastelería.
+
+### Análisis y Reportes
+- Diríjase a la sección de estadísticas.
+- Visualice los diferentes gráficos generados por el sistema, tales como ventas, consumo de insumos, desempeño de productos, entre otros.
+- Genere y descargue el reporte correspondiente para su análisis o presentación.
+
+#### Notas adicionales
+Se recomienda seguir este flujo para garantizar la correcta vinculación de datos entre módulos y la demostración de la funcionalidad integral del sistema.
+
+## Usuarios de ejemplo del sistema
+
+| DNI        | Contraseña         | Rol           |
+|------------|--------------------|---------------|
+| 12345678   | contraseña123      | Administrador |
+| 15975368   | contraseña_jose    | Cajera        |
+| 39393939   | contraseña_lionel  | Empleado      |
 
 ## Autores
 
