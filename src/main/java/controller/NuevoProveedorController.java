@@ -58,14 +58,11 @@ public class NuevoProveedorController {
 
     @FXML
     public void handleGuardar(ActionEvent event) {
-        // Inicializar proveedorActual si es null (nuevo proveedor)
         if (proveedorActual == null) {
-            proveedorActual = new Proveedor();
+            proveedorActual = new Proveedor(); // Alta nueva
         }
 
-        // Validar los campos
         if (camposValidos()) {
-            // Asignar los valores de los campos al objeto proveedorActual
             proveedorActual.setNombre(txtNombre.getText());
             proveedorActual.setTelefono(txtTelefono.getText());
             proveedorActual.setUbicacion(txtUbicacion.getText());
@@ -74,18 +71,22 @@ public class NuevoProveedorController {
             proveedorActual.setDni(txtDNI.getText());
             proveedorActual.setPostfijo(txtPosfijo.getText());
 
-            // Guardar el proveedor en la base de datos
-            proveedorDAO.save(proveedorActual);
-            mostrarAlerta("Proveedor guardado", "El nuevo proveedor ha sido guardado exitosamente.", Alert.AlertType.INFORMATION);
-
-            // Loguear la acción de guardar proveedor
-            ActionLogger.log("Proveedor guardado: " + proveedorActual.getNombre());
+            if (proveedorActual.getIdProveedor() == 0) {
+                proveedorDAO.save(proveedorActual);
+                mostrarAlerta("Proveedor guardado", "El nuevo proveedor ha sido guardado exitosamente.", Alert.AlertType.INFORMATION);
+                ActionLogger.log("Proveedor guardado: " + proveedorActual.getNombre());
+            } else {
+                proveedorDAO.update(proveedorActual);
+                mostrarAlerta("Proveedor actualizado", "El proveedor ha sido modificado exitosamente.", Alert.AlertType.INFORMATION);
+                ActionLogger.log("Proveedor actualizado: " + proveedorActual.getNombre());
+            }
 
             cerrarVentana();
         } else {
             mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
         }
     }
+
 
     @FXML
     public void handleCancelar(ActionEvent event) {

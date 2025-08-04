@@ -3,12 +3,14 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.Rol;
 import model.Trabajador;
 import persistence.dao.RolesDAO;
 import persistence.dao.TrabajadorDAO;
 import persistence.dao.CredencialesDAO;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class PrimerAdminController {
     @FXML private TextField txtDni;
@@ -32,6 +34,23 @@ public class PrimerAdminController {
         txtRol.setText("Administrador");
         txtRol.setEditable(false);
         btnRegistrar.setOnAction(e -> registrarPrimerAdmin());
+
+        // Limitar fecha hasta hoy
+        dpFechaContratacion.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isAfter(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #eeeeee;");
+                        }
+                    }
+                };
+            }
+        });
     }
 
     private void registrarPrimerAdmin() {

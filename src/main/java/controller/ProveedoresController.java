@@ -137,6 +137,10 @@ public class ProveedoresController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Modificar Proveedor");
+
+                // 🔁 Recargar la tabla al cerrar la ventana de modificación
+                stage.setOnHidden(e -> cargarDatos());
+
                 stage.show();
 
                 ActionLogger.log("El usuario accedió al formulario para modificar el proveedor: " + proveedorSeleccionado.getNombre());
@@ -148,6 +152,7 @@ public class ProveedoresController {
         }
     }
 
+
     @FXML
     void handleAgregar(ActionEvent event) {
         try {
@@ -157,6 +162,10 @@ public class ProveedoresController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Agregar Proveedor");
+
+            // Al cerrar la ventana, recargar la tabla
+            stage.setOnHidden(e -> cargarDatos());
+
             stage.show();
 
             ActionLogger.log("El usuario accedió al formulario para crear un proveedor.");
@@ -165,6 +174,7 @@ public class ProveedoresController {
             ActionLogger.log("Error al intentar abrir el formulario de agregado.");
         }
     }
+
 
     @FXML
     void handleVolver(ActionEvent event) {
