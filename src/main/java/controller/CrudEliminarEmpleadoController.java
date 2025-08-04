@@ -22,6 +22,8 @@ public class CrudEliminarEmpleadoController {
     @FXML private Pane paneEliminarEmpleado;
     private SettingsController settingsController;
 
+    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
+
     @FXML
     public void initialize() {
         cargarNombresEnComboBox();
@@ -92,7 +94,8 @@ public class CrudEliminarEmpleadoController {
 
     private void cargarNombresEnComboBox() {
         try {
-            List<String> nombres = trabajadorDAO.findAllNombres();
+            // excluye admins
+            List<String> nombres = trabajadorDAO.findAllNombresSinAdministradores();
             cmbEliminarEmpExistente.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,10 +103,6 @@ public class CrudEliminarEmpleadoController {
             ActionLogger.log("Error al cargar los nombres de empleados: " + e.getMessage());
         }
     }
-
-    private Trabajador trabajador;
-
-    private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
 
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
@@ -125,29 +124,45 @@ public class CrudEliminarEmpleadoController {
                 if (result.isPresent() && result.get() == buttonSi) {
                     Trabajador trabajador = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
                     if (trabajador != null) {
-                        // Obtener el usuario logeado desde SessionContext
+
+                        // Validar que NO sea administrador
+                        if (trabajador.getRol() != null &&
+                                "administrador".equalsIgnoreCase(trabajador.getRol().getNombre())) {
+                            showAlert(Alert.AlertType.ERROR, "Acción no permitida",
+                                    "No puedes eliminar un usuario con rol de administrador.");
+                            ActionLogger.log("Intento de eliminación de un administrador bloqueado: " + trabajador.getNombre());
+                            return;
+                        }
+
+                        // Evitar auto-eliminación si el usuario logueado es el mismo
                         String usuarioLogeado = model.SessionContext.getInstance().getUserName();
                         if (usuarioLogeado != null && trabajador.getNombre().equals(usuarioLogeado)) {
-                            showAlert(Alert.AlertType.ERROR, "Acción no permitida", "No puedes eliminar tu propio usuario mientras estás logeado.");
+                            showAlert(Alert.AlertType.ERROR, "Acción no permitida",
+                                    "No puedes eliminar tu propio usuario mientras estás logueado.");
                             ActionLogger.log("Intento de auto-eliminación bloqueado para el usuario logeado: " + usuarioLogeado);
                             return;
                         }
-                        trabajadorDAO.delete(trabajador);
-                        SettingsController.getInstance().cargarNombresEnComboBox();
-                        cargarNombresEnComboBox();
-                        showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
 
+                        // Eliminar trabajador
+                        trabajadorDAO.delete(trabajador);
+
+                        // Actualizar ComboBox y UI
+                        if (settingsController != null) {
+                            settingsController.cargarNombresEnComboBox();
+                            settingsController.cerrarCrudEliminarEmpleado();
+                        }
+                        cargarNombresEnComboBox();
+
+                        showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
                         ActionLogger.log("Empleado eliminado: " + eliminarEmpleadoSeleccionado);
+
+                        visibilidadButtons();
+
                     } else {
                         showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un trabajador con ese nombre.");
                         ActionLogger.log("Error: No se encontró el empleado: " + eliminarEmpleadoSeleccionado);
                     }
 
-                    visibilidadButtons();
-
-                    if (settingsController != null) {
-                        settingsController.cerrarCrudEliminarEmpleado();
-                    }
                 } else {
                     alert.close();
                 }

@@ -117,4 +117,16 @@ public class TrabajadorDAO {
             em.close();
         }
     }
+
+    public List<String> findAllNombresSinAdministradores() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT t.nombre FROM Trabajador t WHERE t.rol.nombre <> 'administrador'", String.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
