@@ -206,3 +206,173 @@
 [2025-08-04 01:16:55] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
 [2025-08-04 01:16:55] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
 [2025-08-04 01:17:00] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-08-04 16:25:52] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:25:56] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:26:02] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:26:09] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:26:09] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 16:33:11] Usuario: null (Rol: Sin rol) Acción: Error inesperado en login (DNI: 44280200): Could not initialize proxy [model.Trabajador#1] - no session
+[2025-08-04 16:34:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:34:35] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:34:38] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-08-04 16:35:08] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado guardado: jULIAN ALVAREZ
+[2025-08-04 16:35:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 16:35:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 16:35:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 16:35:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 16:35:16] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 16:35:17] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 16:35:17] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Empleado
+[2025-08-04 16:35:18] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Empleado
+[2025-08-04 16:35:18] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-08-04 16:35:18] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-08-04 16:35:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:35:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 16:35:22] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-08-04 16:35:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Intento de login fallido: usuario no encontrado (DNI: 11111111)
+[2025-08-04 16:38:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:38:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:38:31] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:39:45] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:39:49] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:39:52] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:40:04] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 22222222 actualizado.
+[2025-08-04 16:40:05] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:40:05] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 16:40:07] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-08-04 16:40:13] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Intento de login fallido: usuario no encontrado (DNI: 22222222)
+[2025-08-04 16:43:09] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:43:12] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:43:19] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:43:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-08-04 16:43:44] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:54:07] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:54:09] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:54:12] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:54:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 22222222 actualizado.
+[2025-08-04 16:54:21] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:54:25] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:54:25] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 16:54:29] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-08-04 16:54:36] Usuario: jULIAN ALVAREZ (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:54:42] Usuario: jULIAN ALVAREZ (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-08-04 16:54:50] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 16:54:52] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 16:54:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 16:54:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 16:54:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 16:54:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 16:54:55] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 16:55:01] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 16:55:08] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-08-04 16:55:21] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:01:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:01:18] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 17:01:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:01:27] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 22222222 actualizado.
+[2025-08-04 17:02:05] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:02:09] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario canceló la modificación del empleado.
+[2025-08-04 17:03:22] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:03:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 17:03:25] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:03:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-08-04 17:03:39] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:03:46] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 22222222 actualizado.
+[2025-08-04 17:03:55] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:04:01] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-08-04 17:04:06] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:04:09] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-08-04 17:04:21] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 17:04:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:04:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 17:04:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-04 17:04:37] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:04:39] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 17:04:40] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-08-04 17:04:43] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:04:43] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 17:04:45] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-04 17:04:49] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-04 17:04:51] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:04:52] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-08-04 17:04:54] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2025-08-04 17:05:49] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Proveedor guardado: Proveedor Generico
+[2025-08-04 17:06:06] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: CatalogoInsumo HARINA creado con éxito.
+[2025-08-04 17:06:17] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: CatalogoInsumo CHOCOLATE creado con éxito.
+[2025-08-04 17:06:46] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Proveedor guardado: Lacteos SA
+[2025-08-04 17:06:51] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: CatalogoInsumo LECHE creado con éxito.
+[2025-08-04 17:06:56] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Ingrediente agregado: HARINA, Cantidad: 200 GR
+[2025-08-04 17:07:00] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Ingrediente agregado: CHOCOLATE, Cantidad: 100 GR
+[2025-08-04 17:07:09] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: CatalogoInsumo MANTECA creado con éxito.
+[2025-08-04 17:07:14] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Ingrediente agregado: MANTECA, Cantidad: 50 GR
+[2025-08-04 17:07:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 100 ML
+[2025-08-04 17:07:21] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Receta guardada: Torta de chocolate
+[2025-08-04 17:07:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-08-04 17:07:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:07:24] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 17:07:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Imagen cargada para el producto: Torta de chocolate
+[2025-08-04 17:08:25] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 17:08:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-08-04 17:08:31] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Nuevo sabor guardado: Chocolate
+[2025-08-04 17:08:31] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario seleccionó el sabor: Chocolate
+[2025-08-04 17:08:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 17:08:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Sabores seleccionados para el producto: [Chocolate]
+[2025-08-04 17:08:40] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Producto modificado: Torta de chocolate (ID: null)
+[2025-08-04 17:08:40] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Producto agregado: Torta de chocolate
+[2025-08-04 17:08:46] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:08:46] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-08-04 17:08:47] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-04 17:09:00] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-04 17:09:06] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Pedido creado: Usuario con productos: [Torta de chocolate]
+[2025-08-04 17:09:06] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [model.InsumoFaltante@105808bd, model.InsumoFaltante@1d0e7d47, model.InsumoFaltante@be58df3, model.InsumoFaltante@59315178]
+[2025-08-04 17:09:08] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:09:10] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 17:09:19] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:09:19] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 17:09:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 17:09:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:09:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 17:09:27] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 17:09:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:09:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 17:09:29] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-04 17:09:45] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Pedido entregado: 1
+[2025-08-04 17:09:50] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:10:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 17:10:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:10:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 17:10:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-04 17:10:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-04 17:10:45] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Pedido creado: Usuario con productos: [Torta de chocolate]
+[2025-08-04 17:10:45] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [model.InsumoFaltante@12f9c7c5, model.InsumoFaltante@620cff86, model.InsumoFaltante@17195d10, model.InsumoFaltante@2fac1172]
+[2025-08-04 17:10:47] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:10:49] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-04 17:10:50] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:10:50] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 17:10:51] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:10:51] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 17:10:52] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 17:10:57] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:10:57] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 17:10:58] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-08-04 17:10:59] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:11:13] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 17:11:16] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 17:11:17] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-08-04 17:11:20] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Nuevo sabor guardado: Vainilla
+[2025-08-04 17:11:21] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 17:11:22] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 17:11:22] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Sabores seleccionados para el producto: [Chocolate, Vainilla]
+[2025-08-04 17:11:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Producto modificado: Torta de chocolate (ID: 1)
+[2025-08-04 17:11:23] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Producto modificado: Torta de chocolate
+[2025-08-04 17:11:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 17:11:27] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario deseleccionó el sabor: Vainilla
+[2025-08-04 17:11:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 17:11:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Sabores seleccionados para el producto: [Chocolate]
+[2025-08-04 17:11:29] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Producto modificado: Torta de chocolate (ID: 1)
+[2025-08-04 17:11:29] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Producto modificado: Torta de chocolate
+[2025-08-04 17:11:31] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:11:31] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-08-04 17:11:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 17:11:35] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 17:11:35] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario volvió al menú principal.

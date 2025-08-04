@@ -29,7 +29,8 @@ public class CredencialesDAO {
             em.persist(credencial);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive())
+                tx.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -65,7 +66,9 @@ public class CredencialesDAO {
     public Credencial findByUsername(String dni) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Credencial c WHERE c.dni = :dni", Credencial.class)
+            return em.createQuery(
+                    "SELECT c FROM Credencial c JOIN FETCH c.trabajador t JOIN FETCH t.rol WHERE c.dni = :dni",
+                    Credencial.class)
                     .setParameter("dni", dni)
                     .getSingleResult();
         } catch (NoResultException e) {
@@ -87,7 +90,24 @@ public class CredencialesDAO {
                 tx.commit();
             }
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive())
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void update(Credencial credencial) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(credencial);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive())
+                tx.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -102,7 +122,8 @@ public class CredencialesDAO {
             em.remove(em.contains(credencial) ? credencial : em.merge(credencial));
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive())
+                tx.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -125,4 +146,41 @@ public class CredencialesDAO {
             em.close();
         }
     }
+
+    public void updateDni(String dniOriginal, String nuevoDni) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+
+            Credencial credencial = em.find(Credencial.class, dniOriginal);
+            if (credencial != null) {
+                // Solo actualizar la propiedad del DNI
+                credencial.setDni(nuevoDni);
+                em.merge(credencial); // Hibernate se encarga del UPDATE
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive())
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public boolean existeOtroConDni(String nuevoDni, Long idActual) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(c) FROM Credencial c WHERE c.dni = :dni AND c.id <> :idActual", Long.class);
+            query.setParameter("dni", nuevoDni);
+            query.setParameter("idActual", idActual);
+            return query.getSingleResult() > 0;
+        } finally {
+            em.close();
+        }
+    }
+
 }

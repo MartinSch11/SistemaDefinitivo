@@ -10,6 +10,9 @@ import java.time.LocalDate;
 public class Trabajador {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "dni", nullable = false, length = 15)
     private String dni;
 
@@ -43,8 +46,8 @@ public class Trabajador {
 
     // Constructor con todos los campos
     public Trabajador(String dni, String nombre, String sexo, String direccion, String telefono,
-                      BigDecimal sueldo, LocalDate fechaContratacion,
-                      Timestamp ultimaActividad, Rol rol) {
+            BigDecimal sueldo, LocalDate fechaContratacion,
+            Timestamp ultimaActividad, Rol rol) {
         this.dni = dni;
         this.nombre = nombre;
         this.sexo = sexo;

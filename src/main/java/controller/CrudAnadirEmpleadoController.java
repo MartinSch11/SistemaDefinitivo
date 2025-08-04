@@ -164,6 +164,7 @@ public class CrudAnadirEmpleadoController {
             Credencial credenciales = new Credencial();
             credenciales.setDni(dniEmpleado);
             credenciales.setContraseña(contraseña);
+            credenciales.setTrabajador(nuevoEmpleado); // Asociar trabajador correctamente
             credencialesDAO.save(credenciales);
 
             ActionLogger.log("Empleado guardado: " + nuevoEmpleado);

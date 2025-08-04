@@ -18,13 +18,20 @@ import java.util.List;
 
 public class LoginController {
 
-    @FXML private TextField dniField;
-    @FXML private PasswordField passwordField;
-    @FXML private Button btnLogin;
-    @FXML private Label errorLabel;
-    @FXML private TextField passwordTextField;
-    @FXML private Button togglePasswordBtn;
-    @FXML private ImageView ojoImageView;
+    @FXML
+    private TextField dniField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private TextField passwordTextField;
+    @FXML
+    private Button togglePasswordBtn;
+    @FXML
+    private ImageView ojoImageView;
 
     private final CredencialesDAO credencialesDAO = new CredencialesDAO();
     private boolean passwordVisible = false;
@@ -75,7 +82,7 @@ public class LoginController {
         }
 
         try {
-            model.Credencial credencial = credencialesDAO.findById(dni);
+            model.Credencial credencial = credencialesDAO.findByUsername(dni);
             if (credencial == null) {
                 errorLabel.setText("Usuario no encontrado.");
                 ActionLogger.log("Intento de login fallido: usuario no encontrado (DNI: " + dni + ")");

@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import model.Credencial;
 import model.Rol;
 import persistence.dao.CredencialesDAO;
 import persistence.dao.RolesDAO;
@@ -16,25 +17,39 @@ import java.util.List;
 import java.util.Optional;
 
 public class CrudModificarEmpleadoController {
-    @FXML private Button btnCancelar;
-    @FXML private Button btnGuardar;
-    @FXML private ComboBox<String> cmbModifEmpExistente;
-    @FXML private TextField DNIEmpExistente;
-    @FXML private TextField NombreEmpExistente;
-    @FXML private TextField direccionEmpExistente;
-    @FXML private TextField SueldoEmpExistente;
-    @FXML private TextField TelEmpExistente;
-    @FXML private DatePicker FechaContratoExistente;
-    @FXML private Pane paneModificarEmpleado;
-    @FXML private ComboBox<Rol> cmbRolExistente;
-    @FXML private TextField txtContraseñaExistente;
-    @FXML private ComboBox<String> cmbSexoExistente;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private ComboBox<String> cmbModifEmpExistente;
+    @FXML
+    private TextField DNIEmpExistente;
+    @FXML
+    private TextField NombreEmpExistente;
+    @FXML
+    private TextField direccionEmpExistente;
+    @FXML
+    private TextField SueldoEmpExistente;
+    @FXML
+    private TextField TelEmpExistente;
+    @FXML
+    private DatePicker FechaContratoExistente;
+    @FXML
+    private Pane paneModificarEmpleado;
+    @FXML
+    private ComboBox<Rol> cmbRolExistente;
+    @FXML
+    private TextField txtContraseñaExistente;
+    @FXML
+    private ComboBox<String> cmbSexoExistente;
 
     @FXML
     public void initialize() {
         NombreEmpExistente.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("[a-zA-Z ]*")) { // Se añadió el espacio
-                NombreEmpExistente.setText(newValue.replaceAll("[^a-zA-Z ]", "")); // Se añadió el espacio a la expresión regular
+                NombreEmpExistente.setText(newValue.replaceAll("[^a-zA-Z ]", "")); // Se añadió el espacio a la
+                                                                                   // expresión regular
             }
         });
         TelEmpExistente.textProperty().addListener((_, _, newValue) -> {
@@ -76,7 +91,7 @@ public class CrudModificarEmpleadoController {
         cmbRolExistente.getItems().addAll(listaRoles);
     }
 
-    private boolean camposObligatorios(){
+    private boolean camposObligatorios() {
         if (cmbModifEmpExistente.getValue() == null || cmbModifEmpExistente.getValue().isEmpty()) {
             return false;
         }
@@ -88,18 +103,18 @@ public class CrudModificarEmpleadoController {
         }
         // Permitir que el sueldo esté vacío (puede ser null)
         // if (SueldoEmpExistente.getText().isEmpty()) {
-        //     return false;
+        // return false;
         // }
         if (TelEmpExistente.getText().isEmpty()) {
             return false;
         }
-        if (FechaContratoExistente.getValue() == null){
+        if (FechaContratoExistente.getValue() == null) {
             return false;
         }
         return true;
     }
 
-    void vaciarCampos(){
+    void vaciarCampos() {
         cmbModifEmpExistente.setValue(null);
     }
 
@@ -116,7 +131,8 @@ public class CrudModificarEmpleadoController {
             cmbModifEmpExistente.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
         }
     }
 
@@ -132,7 +148,11 @@ public class CrudModificarEmpleadoController {
         }
         FechaContratoExistente.setValue(trabajador.getFechaContratacion());
         cmbRolExistente.setValue(trabajador.getRol());
-        txtContraseñaExistente.setText(trabajador.getCredencial().getContraseña());
+        if (trabajador.getCredencial() != null) {
+            txtContraseñaExistente.setText(trabajador.getCredencial().getContraseña());
+        } else {
+            txtContraseñaExistente.setText(""); // Si no tiene credencial, dejar vacío
+        }
         // Cargar sexo en el ComboBox
         cmbSexoExistente.getItems().setAll("Femenino", "Masculino", "Otro");
         String sexoTrabajador = trabajador.getSexo();
@@ -165,7 +185,8 @@ public class CrudModificarEmpleadoController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos del empleado: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se pudieron cargar los datos del empleado: " + e.getMessage());
         }
     }
 
@@ -178,45 +199,68 @@ public class CrudModificarEmpleadoController {
     private void guardarDatos() {
         try {
             if (trabajador != null) {
-                // Actualizar los datos del trabajador seleccionado con los nuevos datos del formulario
-                trabajador.setDni(DNIEmpExistente.getText());
+                String dniOriginal = trabajador.getDni(); // DNI antes de modificar
+                String nuevoDni = DNIEmpExistente.getText().trim();
+                String nuevaContraseña = txtContraseñaExistente.getText();
+
+                // Actualizar datos del trabajador con los nuevos del formulario
+                trabajador.setDni(nuevoDni);
                 trabajador.setNombre(NombreEmpExistente.getText());
                 trabajador.setDireccion(direccionEmpExistente.getText());
                 trabajador.setTelefono(TelEmpExistente.getText());
-                // Permitir guardar sueldo vacío como null
+
                 String sueldoText = SueldoEmpExistente.getText();
                 if (sueldoText == null || sueldoText.trim().isEmpty()) {
                     trabajador.setSueldo(null);
                 } else {
                     trabajador.setSueldo(new BigDecimal(sueldoText));
                 }
+
                 trabajador.setFechaContratacion(FechaContratoExistente.getValue());
                 trabajador.setSexo(cmbSexoExistente.getValue());
                 trabajador.setRol(cmbRolExistente.getValue());
-                String contraseña = txtContraseñaExistente.getText();
 
-                // Guardar los cambios en la base de datos del trabajador
+                // Actualizar en BD
                 trabajadorDAO.update(trabajador);
 
-                // Si la contraseña no está vacía, actualizar las credenciales
-                if (contraseña != null && !contraseña.trim().isEmpty()) {
-                    // Actualizar las credenciales usando el DNI y la nueva contraseña
-                    credencialesDAO.update(trabajador.getDni(), contraseña);
+                // Obtener credencial por el DNI original (antes del cambio)
+                Credencial credencial = credencialesDAO.findByUsername(dniOriginal);
+
+                if (credencial != null) {
+                    // Si el DNI cambió, validar que no esté duplicado
+                    if (!dniOriginal.equals(nuevoDni)) {
+                        if (credencialesDAO.existeOtroConDni(nuevoDni, credencial.getId())) {
+                            showAlert(Alert.AlertType.ERROR, "Error",
+                                    "Ya existe otra credencial con el DNI " + nuevoDni);
+                            return; // 🚫 Evitar el update
+                        }
+                        credencial.setDni(nuevoDni);
+                    }
+
+                    credencial.setContraseña(nuevaContraseña);
+                    credencial.setTrabajador(trabajador);
+
+                    credencialesDAO.update(credencial);
+                } else {
+                    // No existía ninguna credencial antes → creamos nueva
+                    credencial = new Credencial();
+                    credencial.setDni(nuevoDni);
+                    credencial.setContraseña(nuevaContraseña);
+                    credencial.setTrabajador(trabajador);
+                    credencialesDAO.save(credencial);
                 }
 
-                // Actualizar ComboBox en SettingsController
+                // Actualizar interfaz
                 SettingsController.getInstance().cargarNombresEnComboBox();
-
                 showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado actualizado exitosamente.");
-
-                // Registrar la acción de guardar en el log
-                ActionLogger.log("Empleado con DNI " + trabajador.getDni() + " actualizado.");
+                ActionLogger.log("Empleado con DNI " + nuevoDni + " actualizado.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un empleado con ese DNI.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Error al actualizar al empleado o las credenciales: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "Error al actualizar al empleado o las credenciales: " + e.getMessage());
         }
     }
 
@@ -250,7 +294,7 @@ public class CrudModificarEmpleadoController {
 
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
-        if (camposObligatorios()){
+        if (camposObligatorios()) {
             guardarDatos();
             vaciarCampos();
             visibilidadButtons();
@@ -259,7 +303,7 @@ public class CrudModificarEmpleadoController {
                 settingsController.cerrarCrudModificarEmpleado();
             }
 
-        }else{
+        } else {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pueden guardar los cambios debido a campos vacíos.");
         }
     }

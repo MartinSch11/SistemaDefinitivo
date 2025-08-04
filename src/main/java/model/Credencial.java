@@ -9,26 +9,33 @@ import lombok.Data;
 public class Credencial {
 
     @Id
-    @Column(name = "dni")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "dni", unique = true, nullable = false)
     private String dni;
 
     @Column(name = "contraseña", nullable = false)
     private String contraseña;
 
-    // Definiendo la relación con Trabajador como One-to-One
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dni", referencedColumnName = "dni")
+    @JoinColumn(name = "id_trabajador", referencedColumnName = "id", unique = true)
     private Trabajador trabajador;
 
-    // Constructor con todos los campos
+    public Credencial() {}
+
     public Credencial(String dni, String contraseña, Trabajador trabajador) {
         this.dni = dni;
         this.contraseña = contraseña;
         this.trabajador = trabajador;
     }
 
-    public Credencial() {}
-
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getDni() {
         return dni;
     }

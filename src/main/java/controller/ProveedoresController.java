@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.text.Text;
 import model.Proveedor;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
@@ -45,24 +44,7 @@ public class ProveedoresController {
         // Configuración de las columnas
         colCuit.setCellValueFactory(new PropertyValueFactory<>("cuit"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        // Celda personalizada para insumos: wrap text y tooltip
-        colInsumo.setCellFactory(_ -> new TableCell<Proveedor, String>() {
-            private final Text text = new Text();
-            {
-                text.wrappingWidthProperty().bind(colInsumo.widthProperty().subtract(10)); // Ajusta el ancho al de la columna
-            }
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setGraphic(null);
-                } else {
-                    text.setText(item);
-                    setGraphic(text);
-                    setTooltip(new Tooltip(item));
-                }
-            }
-        });
+        // Mostrar insumos de catalogo_insumo usando el DAO
         colInsumo.setCellValueFactory(cellData -> {
             Proveedor proveedor = cellData.getValue();
             java.util.List<String> insumos = proveedorDAO.findInsumosByProveedor(proveedor.getNombre());
@@ -85,6 +67,7 @@ public class ProveedoresController {
         btnAgregar.setDisable(!puedeCrear);
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
+        // btnAgregar puede que no exista, si existe agregar lógica similar
 
         // Listener para habilitar los botones solo si hay selección y permiso
         tableViewProveedores.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
@@ -154,6 +137,10 @@ public class ProveedoresController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Modificar Proveedor");
+
+                // 🔁 Recargar la tabla al cerrar la ventana de modificación
+                stage.setOnHidden(_ -> cargarDatos());
+
                 stage.show();
 
                 ActionLogger.log("El usuario accedió al formulario para modificar el proveedor: " + proveedorSeleccionado.getNombre());
@@ -165,6 +152,7 @@ public class ProveedoresController {
         }
     }
 
+
     @FXML
     void handleAgregar(ActionEvent event) {
         try {
@@ -174,6 +162,10 @@ public class ProveedoresController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Agregar Proveedor");
+
+            // Al cerrar la ventana, recargar la tabla
+            stage.setOnHidden(_ -> cargarDatos());
+
             stage.show();
 
             ActionLogger.log("El usuario accedió al formulario para crear un proveedor.");
@@ -182,6 +174,7 @@ public class ProveedoresController {
             ActionLogger.log("Error al intentar abrir el formulario de agregado.");
         }
     }
+
 
     @FXML
     void handleVolver(ActionEvent event) {
