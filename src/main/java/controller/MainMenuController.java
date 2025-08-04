@@ -46,7 +46,6 @@ public class MainMenuController {
     @FXML private Button btnSettings;
 
     private boolean toastVisible = false;
-    private final int TOAST_DURATION_MS = 5000;
     private static boolean notificacionMostradaAlInicio = false;
     private static Timeline notificacionTimer;
 
@@ -72,7 +71,6 @@ public class MainMenuController {
         // Cargar configuración de notificaciones desde la base de datos usando el método uniforme
         configNotificaciones = configDAO.findOrDefault();
         int minutos = configNotificaciones.getMinutos();
-        int diasAnticipo = configNotificaciones.getDiasAnticipacion();
         boolean notificacionesActivas = configNotificaciones.isNotificacionesActivas();
         // Mostrar notificación solo una vez al inicio de sesión
         if (notificacionesActivas && !notificacionMostradaAlInicio) {
@@ -85,7 +83,7 @@ public class MainMenuController {
         // Iniciar timer para mostrar notificaciones según configuración
         if (notificacionTimer == null) {
             notificacionTimer = new Timeline(
-                    new KeyFrame(Duration.minutes(minutos), e -> {
+                    new KeyFrame(Duration.minutes(minutos), _ -> {
                         // Recargar la configuración por si fue modificada
                         configNotificaciones = configDAO.findOrDefault();
                         if (configNotificaciones.isNotificacionesActivas()) {
@@ -121,12 +119,6 @@ public class MainMenuController {
                 eventoDAO.update(evento);
             }
         }
-    }
-
-    private void mostrarNotificacionesEventos() {
-        int diasEventos = configNotificaciones != null ? configNotificaciones.getDiasAnticipacion() : 3;
-        int diasCaducidad = configNotificaciones != null ? configNotificaciones.getDiasAnticipacionCaducidad() : 3;
-        mostrarNotificacionesEventos(diasEventos, diasCaducidad);
     }
 
     private int getToastDurationMs() {
@@ -208,7 +200,7 @@ public class MainMenuController {
                 new KeyFrame(Duration.ZERO, new KeyValue(toastProgressBar.prefWidthProperty(), 300)),
                 new KeyFrame(Duration.millis(duracionMs), new KeyValue(toastProgressBar.prefWidthProperty(), 0))
         );
-        timeline.setOnFinished(e -> {
+        timeline.setOnFinished(_ -> {
             toastNotification.setVisible(false);
             toastVisible = false;
         });
@@ -329,10 +321,10 @@ public class MainMenuController {
         hbox.setPrefWidth(180);
         CustomMenuItem item = new CustomMenuItem(hbox);
         item.setOnAction(handler);
-        hbox.setOnMouseEntered(e -> {
+        hbox.setOnMouseEntered(_ -> {
             iconView.setImage(new Image(getClass().getResource(iconoHover).toExternalForm(), 18, 18, true, true));
         });
-        hbox.setOnMouseExited(e -> {
+        hbox.setOnMouseExited(_ -> {
             iconView.setImage(new Image(getClass().getResource(iconoNormal).toExternalForm(), 18, 18, true, true));
         });
         return item;
@@ -349,7 +341,7 @@ public class MainMenuController {
         configNotificaciones = configDAO.findOrDefault();
         int minutos = configNotificaciones.getMinutos();
         notificacionTimer = new Timeline(
-                new KeyFrame(Duration.minutes(minutos), e -> {
+                new KeyFrame(Duration.minutes(minutos), _ -> {
                     configNotificaciones = configDAO.findOrDefault();
                     if (configNotificaciones.isNotificacionesActivas()) {
                         mostrarNotificacionesEventos(

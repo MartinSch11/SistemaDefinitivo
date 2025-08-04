@@ -1,0 +1,21 @@
+.btn{
+    -fx-background: transparent;
+    -fx-border-radius: 4px;
+    -fx-border-color: #B70505;
+    -fx-text-fill: black;
+}
+
+.btn:hover{
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}
+
+.paneLogin{
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.texto{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 20px;
+}

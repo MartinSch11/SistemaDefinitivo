@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="520" prefWidth="400" stylesheets="@../../../css/login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="controller.PrimerAdminController">
+<AnchorPane prefHeight="385.0" prefWidth="400" stylesheets="@../../../css/components.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrimerAdminController">
     <styleClass>login-background</styleClass>
     <children>
         <VBox alignment="CENTER" spacing="12" style="-fx-background-color: f7ede3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
@@ -18,15 +17,13 @@
             <font>
                <Font name="Inter Regular" size="16.0" />
             </font></Label>
-            <TextField fx:id="txtDni" maxWidth="250" promptText="DNI" styleClass="input-login" />
-            <TextField fx:id="txtNombre" maxWidth="250" promptText="Nombre" styleClass="input-login" />
-            <TextField fx:id="txtDireccion" maxWidth="250" promptText="Dirección" styleClass="input-login" />
-            <TextField fx:id="txtTelefono" maxWidth="250" promptText="Teléfono" styleClass="input-login" />
-            <TextField fx:id="txtSueldo" maxWidth="250" promptText="Sueldo" styleClass="input-login" />
-            <DatePicker fx:id="dpFechaContratacion" maxWidth="250" promptText="Fecha de Contratación" styleClass="input-login" />
-            <ComboBox fx:id="cmbSexo" maxWidth="250" promptText="Sexo" styleClass="input-login" />
-            <PasswordField fx:id="txtContrasena" maxWidth="250" promptText="Contraseña" styleClass="input-login" />
-            <TextField fx:id="txtRol" editable="false" maxWidth="250" promptText="Rol" styleClass="input-login" text="Administrador" />
+            <TextField fx:id="txtDni" maxWidth="250" promptText="DNI" styleClass="texto-textfield" />
+            <TextField fx:id="txtNombre" maxWidth="250" promptText="Nombre completo" styleClass="texto-textfield" />
+            <TextField fx:id="txtDireccion" maxWidth="250" promptText="Dirección" styleClass="texto-textfield" />
+            <TextField fx:id="txtTelefono" maxWidth="250" promptText="Teléfono" styleClass="texto-textfield" />
+            <ComboBox fx:id="cmbSexo" maxWidth="250" promptText="Sexo" styleClass="texto-textfield" />
+            <TextField fx:id="txtContrasena" maxWidth="250" promptText="Contraseña" styleClass="texto-textfield" />
+            <TextField fx:id="txtRol" editable="false" maxWidth="250" promptText="Rol" styleClass="texto-textfield" text="Administrador" />
             <Button fx:id="btnRegistrar" maxWidth="250" prefHeight="25.0" prefWidth="180.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Registrar" />
         </VBox>
     </children>

@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Insumo;
 import persistence.dao.InsumoDAO;
-import persistence.dao.InsumoFaltanteDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
 import utilities.ActionLogger;
@@ -33,7 +32,6 @@ public class StockController {
     @FXML private TextField txtBuscar;
 
     private final InsumoDAO insumoDAO = new InsumoDAO();
-    private final InsumoFaltanteDAO insumoFaltanteDAO = new InsumoFaltanteDAO();
     private final javafx.collections.ObservableList<InsumoViewModel> insumosObservable =
             javafx.collections.FXCollections.observableArrayList();
 
@@ -47,7 +45,7 @@ public class StockController {
         tableInsumos.setItems(insumosObservable);
         cargarInsumos();
 
-        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+        txtBuscar.textProperty().addListener((_, _, newValue) -> {
             filtrarInsumos(newValue);
         });
     }

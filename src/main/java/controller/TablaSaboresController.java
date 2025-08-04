@@ -26,13 +26,6 @@ public class TablaSaboresController {
     @FXML private TableColumn<Sabor, String> colSabores;
 
     private ObservableList<Sabor> listaSabores;
-    private SaborDAO saborDAO;
-
-    private SettingsController settingsController;
-
-    public void setSettingsController(SettingsController settingsController) {
-        this.settingsController = settingsController;
-    }
 
     @FXML
     public void initialize() {
@@ -58,7 +51,7 @@ public class TablaSaboresController {
         btnEliminar.setDisable(true);
 
         // Agregar el listener para el cambio de selección en la tabla
-        tableSabores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableSabores.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             btnModificar.setDisable(!(puedeModificar && newSelection != null));
             btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });

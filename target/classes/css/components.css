@@ -1,0 +1,251 @@
+/*----------------componentes reutilizables----------------*/
+
+/*----pane principal----*/
+.pane-principal{
+    -fx-background-color: #f7ede3;
+    -fx-pref-width: 1360;
+    -fx-pref-height: 720;
+}
+
+/*---------container-login----------*/
+.container-login{
+    -fx-background-color: #f7ede3;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 8, 0.2, 0, 1);
+
+}
+
+/*---------Opciones en Settings-----------*/
+/*.buttons-Settings{
+    -fx-background-color: transparent;
+    -fx-border-radius: 2px;
+    -fx-border-color: none;
+    -fx-text-fill: black;
+}
+
+.buttons-Settings:hover{
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}*/
+
+.buttons-Settings{
+    -fx-background-color: #B70505;
+    -fx-border-radius: 2px;
+    -fx-border-color: none;
+    -fx-text-fill: white;
+    -fx-pref-height: 45px;
+}
+
+.buttons-Settings:hover{
+    -fx-background-color: #E02020;
+    -fx-text-fill: white;
+}
+
+/*---pane header-----*/
+.pane-Header{
+    -fx-background-color: #B70505;
+    -fx-alignment: center;
+    -fx-pref-width: 1360px;
+    -fx-pref-height: 55px;
+    -fx-padding: 15px 0 0 0;
+}
+.pane-Header2{
+    -fx-background-color: #B70505;
+    -fx-alignment: center;
+    -fx-pref-height: 55px;
+    -fx-padding: 15px 0 0 0;
+}
+/*----------*/
+.texto{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 16px;
+}
+
+.button-Volver{
+    -fx-background-color: transparent;
+    -fx-text-fill: #B70505;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 95px;
+    -fx-pref-height: 40px;
+    -fx-border-radius: 4px;
+    -fx-transition: transform 0.2s ease-in-out;
+}
+
+.button-Volver:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-background-color: #8a0404;
+    -fx-text-fill: white;
+}
+
+/*-----buttons en general--------*/
+.buttons{
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 14px;
+    -fx-padding: 6px 18px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08), 2, 0, 0, 1);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-transition: background-color 0.2s;
+}
+.buttons:hover{
+    -fx-background-color: #E02020;
+}
+
+/*-----títulos--------*/
+.title{
+    -fx-text-fill: white;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 24px;
+    -fx-alignment: center;
+}
+
+.title-red{
+    -fx-text-fill: #B70505;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+}
+
+/*--------tabla proveedores---------------------------------------------------*/
+
+.tablaProveedores {
+    -fx-background-color: #FFFDFC;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.tablaProveedores .column-header{
+    -fx-background-color: #F6BBBB;
+    -fx-text-fill: #FFF;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.table{
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+}
+
+/* Estilo para el ScrollPane */
+.scroll-pane {
+    -fx-background: #f7ede3; /* Fondo del ScrollPane */
+    -fx-background-color: #f7ede3; /* Fondo interno del ScrollPane */
+}
+
+/* Fondo del área de contenido dentro del ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: #f7ede3;
+}
+
+#paneDetallesReceta{
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
+}
+
+/* Aplica la fuente Inter a todo el VBox */
+#vboxIngredientes {
+    -fx-font-family: 'Inter';
+    -fx-spacing: 10px; /* Espaciado entre los elementos */
+    -fx-padding: 10px; /* Espaciado interno en el VBox */
+    -fx-background-color: #f7ede3; /* Fondo claro */
+}
+
+/* Estilo para cada Label dentro del VBox */
+#vboxIngredientes Label {
+    -fx-font-size: 14px; /* Tamaño de letra */
+    -fx-text-fill: #333333; /* Color del texto */
+    -fx-padding: 8px 12px; /* Espaciado interno */
+    -fx-background-color: #f7ede3; /* Fondo del Label */
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
+}
+
+.texto-login {
+    -fx-font-family: 'Inter';
+    -fx-font-weight: bold;
+    -fx-font-size: 50px;
+}
+
+.paneLogin{
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.TextField{
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
+}
+
+.texto-textfield{
+    -fx-font-family: 'Arial';
+    -fx-font-size: 14px;
+}
+
+/* Estilo para el ToggleButton */
+.toggle-button {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 15;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 8px; /* Un poco más alto para mejor presencia */
+}
+
+.toggle-button:selected {
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #b3b3b3;
+}
+
+/* --- Botón de ojo para login mimetizado con el TextField --- */
+.ojo-btn {
+    -fx-background-color: white;
+
+    -fx-background-radius: 0 4 4 0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 0 0 0;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 0, 0, 0, 2); /* Sombra */
+}
+.ojo-btn:hover {
+    -fx-background-color: #f3f3f3;
+}
+.tile-pane {
+    -fx-background-color: transparent !important;
+}
+
+.toggle-noti-personal {
+    -fx-background-color: #e0e0e0;
+    -fx-pref-width: 200px;
+    -fx-background-radius: 15;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #757ccd;
+    -fx-border-color: #b3b3b3;
+    -fx-border-radius: 15;
+}
+
+.toggle-noti-personal:selected {
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+}
+
+.toggle-noti-personal:hover {
+    -fx-background-color: #b3b3b3;
+}

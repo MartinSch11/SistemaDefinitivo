@@ -37,7 +37,30 @@ public class InsumosFaltantesController {
         colUnidad.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUnidad()));
         tableInsumosFaltantes.setItems(insumosFaltantesFiltrados);
         cargarInsumosFaltantes();
-        txtBuscar.textProperty().addListener((obs, oldVal, newVal) -> filtrarInsumosFaltantes(newVal));
+        txtBuscar.textProperty().addListener((_, _, newVal) -> filtrarInsumosFaltantes(newVal));
+        // Permitir cerrar con ESC
+        btnCerrar.sceneProperty().addListener((_, _, newScene) -> {
+            if (newScene != null) {
+                newScene.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                    if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
+                        Stage stage = (Stage) newScene.getWindow();
+                        if (stage != null) {
+                            stage.close();
+                        }
+                    }
+                });
+            }
+        });
+        if (btnCerrar.getScene() != null) {
+            btnCerrar.getScene().addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
+                    Stage stage = (Stage) btnCerrar.getScene().getWindow();
+                    if (stage != null) {
+                        stage.close();
+                    }
+                }
+            });
+        }
     }
 
     private void cargarInsumosFaltantes() {

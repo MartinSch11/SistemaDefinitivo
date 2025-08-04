@@ -37,13 +37,14 @@ public class ControlRoleController implements Initializable {
     // Lista de recursos y acciones
     private final String[] recursos = {"Estadísticas", "Eventos", "Pedidos", "Recetas", "Productos", "Insumos", "Clientes", "Sabores", "Proveedores", "Stock", "Agenda", "Config. Empleados", "Settings", "Notificaciones"};
     private final String[] acciones = {"ver", "crear", "modificar", "eliminar", "todos"};
+    private boolean cargandoPermisos = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ActionLogger.log("El usuario accedió a la pantalla de gestión de roles.");
         mapearToggles();
         cargarRoles();
-        cmbRoles.setOnAction(event -> cargarPermisos());
+        cmbRoles.setOnAction(_-> cargarPermisos());
         cargarPermisos();
     }
 
@@ -112,7 +113,8 @@ public class ControlRoleController implements Initializable {
             for (String accion : acciones) {
                 ToggleButton toggle = toggleMap.get(recurso + "-" + accion);
                 if (toggle != null) {
-                    toggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+                    toggle.selectedProperty().addListener((_, _, newVal) -> {
+                        if (cargandoPermisos) return; // Evita modificar la BDD al cargar permisos
                         Rol rol = cmbRoles.getValue();
                         if (rol != null && !rol.getNombre().equals("Administrador")) {
                             // Si se activa "todos", activa los otros
@@ -169,6 +171,7 @@ public class ControlRoleController implements Initializable {
 
     private void cargarPermisos() {
         Rol rolSeleccionado = cmbRoles.getValue();
+        cargandoPermisos = true;
         if (rolSeleccionado != null) {
             if (rolSeleccionado.getNombre().equals("Administrador")) {
                 // Todos los permisos activados y deshabilitados
@@ -185,19 +188,20 @@ public class ControlRoleController implements Initializable {
                 } catch (Exception ignored) {}
                 ActionLogger.log("Se activaron todos los permisos para el rol Administrador.");
             } else {
-                // Habilitar toggles y cargar permisos
+                // 1. Habilitar todos los toggles y ponerlos en falso
                 toggleMap.values().forEach(t -> {
                     if (t != null) {
                         t.setDisable(false);
                         t.setSelected(false);
                     }
                 });
+                // 2. Cargar permisos del rol
                 List<String> permisosRol = rolesDAO.obtenerPermisosPorRol(rolSeleccionado.getIdRol());
                 for (String permiso : permisosRol) {
                     ToggleButton t = toggleMap.get(permiso);
                     if (t != null) t.setSelected(true);
                 }
-                // Habilitar/deshabilitar btnGenerarReportes según permiso Estadística-crear
+                // 3. Habilitar/deshabilitar btnGenerarReportes según permiso Estadísticas-crear
                 try {
                     javafx.scene.control.Button btnGenerarReportes = (javafx.scene.control.Button) cmbRoles.getScene().lookup("#btnGenerarReportes");
                     boolean puedeCrearEstadistica = permisosRol.contains("Estadísticas-crear");
@@ -220,5 +224,6 @@ public class ControlRoleController implements Initializable {
             } catch (Exception ignored) {}
             ActionLogger.log("No se seleccionó ningún rol. Los permisos han sido deshabilitados.");
         }
+        cargandoPermisos = false;
     }
 }

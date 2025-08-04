@@ -52,7 +52,7 @@ public class TablaClientesController {
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
 
-        tableClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableClientes.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             btnModificar.setDisable(!(puedeModificar && newSelection != null));
             btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
@@ -67,7 +67,7 @@ public class TablaClientesController {
         colCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
 
         // Listener para habilitar/deshabilitar botones de modificar y eliminar al seleccionar un cliente
-        tableClientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        tableClientes.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             btnModificar.setDisable(newValue == null);
             btnEliminar.setDisable(newValue == null);
         });

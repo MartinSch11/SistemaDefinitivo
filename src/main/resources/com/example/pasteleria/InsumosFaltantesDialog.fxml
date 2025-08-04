@@ -23,6 +23,6 @@
                 <TableColumn fx:id="colUnidad" prefWidth="183.0" text="Unidad" />
             </columns>
         </TableView>
-        <Button layoutX="361.0" layoutY="463.0" onAction="#handleCerrar" styleClass="form-producto-btn" stylesheets="@../../../css/productos_form.css" text="Cerrar" />
+        <Button fx:id="btnCerrar" layoutX="361.0" layoutY="463.0" onAction="#handleCerrar" styleClass="form-producto-btn" stylesheets="@../../../css/productos_form.css" text="Cerrar" />
     </children>
 </AnchorPane>

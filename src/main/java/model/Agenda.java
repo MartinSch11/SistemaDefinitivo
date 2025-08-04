@@ -25,9 +25,9 @@ public class Agenda {
     @Column(name = "estado")
     private String estado;
     @Column(name = "idEmpleado")
-    private Integer idEmpleado;
+    private String idEmpleado;
 
-    public Agenda(String pendiente, LocalDate fecha_pendiente, Time hora, String estado, Integer idEmpleado) {
+    public Agenda(String pendiente, LocalDate fecha_pendiente, Time hora, String estado, String idEmpleado) {
         this.pendiente = pendiente;
         this.fecha_pendiente = fecha_pendiente;
         this.hora = hora;
@@ -37,7 +37,7 @@ public class Agenda {
 
     public Agenda() {}
 
-    public Integer getIdTrabajador() {
+    public String getIdTrabajador() {
         return idEmpleado;
     }
 
@@ -70,14 +70,9 @@ public class Agenda {
     public void setHora(Time hora) {
         this.hora = hora;
     }
-    public void setIdEmpleado(Integer idEmpleado) {
+    public void setIdEmpleado(String idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
-
-    /*@Override
-    public String toString() {
-        return nombre_evento;
-    }*/
 
 }
 

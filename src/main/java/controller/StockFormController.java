@@ -17,7 +17,6 @@ import model.Proveedor;
 import persistence.dao.CatalogoInsumoDAO;
 import persistence.dao.HistorialCompraDAO;
 import persistence.dao.InsumoDAO;
-import persistence.dao.InsumoFaltanteDAO;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 import utilities.RecetaProcessor;
@@ -41,7 +40,6 @@ public class StockFormController {
 
     private InsumoDAO insumoDAO;
     private ProveedorDAO proveedorDAO;
-    private InsumoFaltanteDAO insumoFaltanteDAO;
     private CatalogoInsumoDAO catalogoInsumoDAO;
     private HistorialCompraDAO historialCompraDAO = new HistorialCompraDAO();
     private final RecetaProcessor recetaProcessor = new RecetaProcessor();
@@ -53,7 +51,6 @@ public class StockFormController {
     public StockFormController() {
         this.insumoDAO = new InsumoDAO();
         this.proveedorDAO = new ProveedorDAO();
-        this.insumoFaltanteDAO = new InsumoFaltanteDAO();
         this.catalogoInsumoDAO = new CatalogoInsumoDAO();
     }
 
@@ -71,7 +68,7 @@ public class StockFormController {
         cargarProveedores();
 
         // Listener para filtrar unidades según el estado del insumo seleccionado
-        cmbInsumos.valueProperty().addListener((obs, oldVal, newVal) -> {
+        cmbInsumos.valueProperty().addListener((_, _, newVal) -> {
             filtrarUnidadesPorEstado(newVal);
         });
 
@@ -92,8 +89,8 @@ public class StockFormController {
 
         // Validación: la fecha de caducidad no puede ser inferior a la de compra, y se
         // muestra en rojo
-        fechaCompraData.valueProperty().addListener((obs, oldVal, newVal) -> {
-            fechaCaducidadData.setDayCellFactory(picker -> new DateCell() {
+        fechaCompraData.valueProperty().addListener((_, _, newVal) -> {
+            fechaCaducidadData.setDayCellFactory(_ -> new DateCell() {
                 @Override
                 public void updateItem(LocalDate item, boolean empty) {
                     super.updateItem(item, empty);
@@ -143,29 +140,29 @@ public class StockFormController {
         }
     }
 
-private void cargarProveedores() {
-    List<Proveedor> proveedores = proveedorDAO.findAll();
-    cmbProveedor.getItems().clear();
-    cmbProveedor.getItems().addAll(proveedores);
+    private void cargarProveedores() {
+        List<Proveedor> proveedores = proveedorDAO.findAll();
+        cmbProveedor.getItems().clear();
+        cmbProveedor.getItems().addAll(proveedores);
 
-    // Configura la celda y el botón con la misma lógica
-    Callback<ListView<Proveedor>, ListCell<Proveedor>> cellFactory = lv -> new ListCell<Proveedor>() {
-        @Override
-        protected void updateItem(Proveedor item, boolean empty) {
-            super.updateItem(item, empty);
-            setText(empty || item == null ? null : item.getNombre());
-        }
-    };
-    cmbProveedor.setCellFactory(cellFactory);
-    cmbProveedor.setButtonCell(cellFactory.call(null));
-}
+        // Configura la celda y el botón con la misma lógica
+        Callback<ListView<Proveedor>, ListCell<Proveedor>> cellFactory = _ -> new ListCell<Proveedor>() {
+            @Override
+            protected void updateItem(Proveedor item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getNombre());
+            }
+        };
+        cmbProveedor.setCellFactory(cellFactory);
+        cmbProveedor.setButtonCell(cellFactory.call(null));
+    }
 
     private void cargarInsumos() {
         List<CatalogoInsumo> catalogo = catalogoInsumoDAO.findAll();
         cmbInsumos.getItems().clear();
         cmbInsumos.getItems().addAll(catalogo);
 
-        cmbInsumos.setCellFactory(param -> new ListCell<CatalogoInsumo>() {
+        cmbInsumos.setCellFactory(_ -> new ListCell<CatalogoInsumo>() {
             @Override
             protected void updateItem(CatalogoInsumo item, boolean empty) {
                 super.updateItem(item, empty);

@@ -20,6 +20,7 @@ import model.Combo;
 import model.ComboProducto;
 import model.PedidoCombo;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,9 @@ public class PedidosTableroController {
     private final boolean puedeEliminar = permisos != null && permisos.contains("Pedidos-eliminar");
     private final boolean puedeCrear = permisos != null && permisos.contains("Pedidos-crear");
 
+    // Referencia al menú contextual actual
+    private javafx.scene.control.ContextMenu contextMenuActual;
+
     @FXML
     public void initialize() {
         vboxPorHacer.setPrefColumns(2);
@@ -64,14 +68,7 @@ public class PedidosTableroController {
         List<Pedido> pedidos = pedidoDAO.findAll();
         pedidos = pedidos.stream()
                 .filter(p -> p.getEstadoPedido() == null || !p.getEstadoPedido().equalsIgnoreCase("Entregado"))
-                .sorted((p1, p2) -> {
-                    LocalDate f1 = p1.getFechaEntrega();
-                    LocalDate f2 = p2.getFechaEntrega();
-                    if (f1 == null && f2 == null) return 0;
-                    if (f1 == null) return 1;
-                    if (f2 == null) return -1;
-                    return f1.compareTo(f2);
-                })
+                .sorted(Comparator.comparing(Pedido::getFechaEntrega, Comparator.nullsLast(Comparator.naturalOrder())))
                 .toList();
         for (Pedido pedido : pedidos) {
             StackPane tarjeta = crearTarjetaPedidoKanban(pedido);
@@ -143,28 +140,33 @@ public class PedidosTableroController {
         });
         // Menú contextual dinámico
         tarjeta.setOnContextMenuRequested(e -> {
+            // Cerrar el menú anterior si existe
+            if (contextMenuActual != null && contextMenuActual.isShowing()) {
+                contextMenuActual.hide();
+            }
             javafx.scene.control.ContextMenu contextMenu = new javafx.scene.control.ContextMenu();
             javafx.scene.control.MenuItem verDetalles = new javafx.scene.control.MenuItem("Ver detalles del pedido");
-            verDetalles.setOnAction(ev -> mostrarDetallesPedido(pedido));
+            verDetalles.setOnAction(_ -> mostrarDetallesPedido(pedido));
             contextMenu.getItems().add(verDetalles);
             // Modificar y eliminar: mostrar siempre si el estado es Sin empezar, pero deshabilitar si no hay permiso
             if ("Sin empezar".equalsIgnoreCase(pedido.getEstadoPedido())) {
                 javafx.scene.control.MenuItem modificarPedido = new javafx.scene.control.MenuItem("Modificar pedido");
-                modificarPedido.setOnAction(ev -> modificarPedido(pedido));
+                modificarPedido.setOnAction(_ -> modificarPedido(pedido));
                 modificarPedido.setDisable(!puedeModificar);
                 contextMenu.getItems().add(modificarPedido);
                 javafx.scene.control.MenuItem eliminarPedido = new javafx.scene.control.MenuItem("Eliminar pedido");
-                eliminarPedido.setOnAction(ev -> eliminarPedidoConConfirmacion(pedido));
+                eliminarPedido.setOnAction(_ -> eliminarPedidoConConfirmacion(pedido));
                 eliminarPedido.setDisable(!puedeEliminar);
                 contextMenu.getItems().add(eliminarPedido);
             }
             // Agregar opción "Entregar pedido" si el estado es "Hecho"
             if ("Hecho".equalsIgnoreCase(pedido.getEstadoPedido() != null ? pedido.getEstadoPedido().trim() : "")) {
                 javafx.scene.control.MenuItem entregarPedido = new javafx.scene.control.MenuItem("Entregar pedido");
-                entregarPedido.setOnAction(ev -> entregarPedido(pedido));
+                entregarPedido.setOnAction(_ -> entregarPedido(pedido));
                 contextMenu.getItems().add(entregarPedido);
             }
             contextMenu.show(tarjeta, e.getScreenX(), e.getScreenY());
+            contextMenuActual = contextMenu;
             e.consume();
         });
     }
@@ -366,12 +368,7 @@ public class PedidosTableroController {
             }
 
             if (validarStockInsumos(nuevoPedido)) {
-                // Solo aquí, después de la validación, se descuenta el stock realmente
-                Map<Producto, Integer> productosMap = obtenerMapaProductosTotales(nuevoPedido);
-                recetaProcessor.procesarRecetas(productosMap);
-                agregarPedido(nuevoPedido); // SOLO este método agrega la tarjeta visualmente
-                ActionLogger.log("Pedido creado: " + nuevoPedido.getCliente().getNombre() +
-                        " con productos: " + nuevoPedido.getProductos());
+                agregarPedido(nuevoPedido, true); // Descontar insumos al crear
             }
 
         } catch (Exception e) {
@@ -379,8 +376,23 @@ public class PedidosTableroController {
         }
     }
 
-    public void agregarPedido(Pedido pedido) {
-        pedidoDAO.save(pedido);
+    public void agregarPedido(Pedido pedido, boolean descontarStock) {
+        // Verifica si ya existe una tarjeta para este pedido
+        StackPane tarjetaExistente = buscarTarjetaPorId(pedido.getNumeroPedido());
+        if (tarjetaExistente != null) {
+            // Si ya existe, no agregar otra tarjeta ni descontar stock nuevamente
+            ActionLogger.log("Intento de agregar pedido duplicado: " + pedido.getNumeroPedido());
+            return;
+        }
+        // Guardar el pedido SOLO aquí si es nuevo
+        if (pedido.getNumeroPedido() == null || pedidoDAO.findByNumeroPedido(pedido.getNumeroPedido()) == null) {
+            pedidoDAO.save(pedido);
+        }
+        // Descontar insumos SOLO si se indica
+        if (descontarStock) {
+            Map<Producto, Integer> productosMap = obtenerMapaProductosTotales(pedido);
+            recetaProcessor.procesarRecetas(productosMap);
+        }
         StackPane tarjeta = crearTarjetaPedidoKanban(pedido);
         tarjeta.setUserData(pedido.getNumeroPedido());
         agregarTarjetaAColumna(tarjeta, pedido.getEstadoPedido());
@@ -424,17 +436,17 @@ public class PedidosTableroController {
     }
 
     public void agregarNuevoPedido(Pedido pedido) {
+        // Solo actualizar si existe, NO guardar dos veces
+        if (pedido.getNumeroPedido() != null && pedidoDAO.findByNumeroPedido(pedido.getNumeroPedido()) != null) {
+            pedidoDAO.update(pedido);
+        } else {
+            pedidoDAO.save(pedido);
+        }
         try {
             // Elimina cualquier tarjeta existente con el mismo numeroPedido
             StackPane tarjetaExistente = buscarTarjetaPorId(pedido.getNumeroPedido());
             if (tarjetaExistente != null) {
                 ((TilePane) tarjetaExistente.getParent()).getChildren().remove(tarjetaExistente);
-            }
-            // Si el pedido ya existe en la base, actualizar; si no, guardar
-            if (pedido.getNumeroPedido() != null && pedidoDAO.findByNumeroPedido(pedido.getNumeroPedido()) != null) {
-                pedidoDAO.update(pedido);
-            } else {
-                pedidoDAO.save(pedido);
             }
             StackPane tarjeta = crearTarjetaPedidoKanban(pedido);
             tarjeta.setUserData(pedido.getNumeroPedido());

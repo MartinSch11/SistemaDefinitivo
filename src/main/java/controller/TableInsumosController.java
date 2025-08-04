@@ -11,7 +11,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.CatalogoInsumo;
 import persistence.dao.CatalogoInsumoDAO;
-import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 
 import java.io.IOException;
@@ -27,7 +26,6 @@ public class TableInsumosController {
     @FXML private Button btnEliminar;
 
     private CatalogoInsumoDAO catalogoInsumoDAO;
-    private ProveedorDAO proveedorDAO;  // Añadimos proveedorDAO
     private ObservableList<CatalogoInsumo> catalogoList;
 
     public TableInsumosController() {
@@ -50,7 +48,7 @@ public class TableInsumosController {
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
 
-        tableInsumos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableInsumos.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             btnModificar.setDisable(!(puedeModificar && newSelection != null));
             btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
@@ -61,7 +59,7 @@ public class TableInsumosController {
         colProveedor.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProveedor()));
 
         // Listener para habilitar botones de modificar y eliminar al seleccionar un insumo
-        tableInsumos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        tableInsumos.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             btnModificar.setDisable(newValue == null);
             btnEliminar.setDisable(newValue == null);
         });
@@ -126,6 +124,7 @@ public class TableInsumosController {
         List<CatalogoInsumo> catalogo = catalogoInsumoDAO.findAll();
         catalogoList = FXCollections.observableArrayList(catalogo);
         tableInsumos.setItems(catalogoList);
+        tableInsumos.refresh(); // Forzar refresco visual
     }
 
 }

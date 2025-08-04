@@ -1,0 +1,182 @@
+[2025-07-31 00:24:58] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 19:50:35] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:13:28] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:14:01] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:14:04] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:17:06] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido: contraseña incorrecta (DNI: 44280200)
+[2025-07-31 20:17:11] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:17:16] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:17:18] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-31 20:17:35] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-31 20:17:36] Usuario: Martin Schonberger (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-31 20:17:36] Usuario: Martin Schonberger (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-31 20:17:36] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-31 20:17:38] Usuario: Martin Schonberger (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-07-31 20:17:39] Usuario: Martin Schonberger (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Settings-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Stock-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Notificaciones-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-todos al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Productos-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-crear al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Cajera
+[2025-07-31 20:17:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: Se cargaron permisos para el rol: Cajera
+[2025-07-31 20:17:43] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:20:12] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:20:14] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:20:17] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:20:26] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado con DNI 44280200 actualizado exitosamente.
+[2025-07-31 20:23:02] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-31 20:23:02] Usuario: Martin Schonberger (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-31 20:23:02] Usuario: Martin Schonberger (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-31 20:23:02] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-31 20:23:03] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-31 20:23:03] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-31 20:23:04] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 20:23:07] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:24:09] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado guardado: Julian Alvarez
+[2025-07-31 20:24:15] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:27:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:27:45] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:27:48] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:27:55] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado con DNI 2222222222 actualizado.
+[2025-07-31 20:27:57] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:28:08] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:28:57] Usuario: Martin Schonberger (Rol: Administrador) Acción: Advertencia: intento de guardar con campos incompletos.
+[2025-07-31 20:29:15] Usuario: Martin Schonberger (Rol: Administrador) Acción: Advertencia: intento de guardar con campos incompletos.
+[2025-07-31 20:32:03] Usuario: Martin Schonberger (Rol: Administrador) Acción: Advertencia: intento de guardar con campos incompletos.
+[2025-07-31 20:32:27] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:32:29] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:32:36] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:36:06] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:36:10] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:36:12] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:36:46] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado guardado: Julieta Ibanez
+[2025-07-31 20:36:51] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:37:06] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado con DNI 12333333 actualizado.
+[2025-07-31 20:37:08] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:37:32] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:38:11] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado guardado: Maria Rodriguez
+[2025-07-31 20:44:01] Usuario: null (Rol: Sin rol) Acción: Intento de login fallido: contraseña incorrecta (DNI: 44280200)
+[2025-07-31 20:44:24] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:44:31] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:44:34] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:44:46] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:44:50] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:51:06] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 20:51:13] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 20:51:17] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-07-31 20:52:08] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado guardado: Enrique Perez
+[2025-07-31 20:52:10] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-07-31 20:52:21] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado con DNI 312333311 actualizado.
+[2025-07-31 20:53:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-31 20:53:41] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario agregó un nuevo cliente.
+[2025-07-31 20:54:30] Usuario: Martin Schonberger (Rol: Administrador) Acción: Cliente actualizado: Sol Schonberger
+[2025-07-31 20:56:17] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el cliente: 41419160
+[2025-07-31 21:00:41] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 21:00:43] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 21:00:45] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-31 21:00:48] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el cliente: 41419160
+[2025-07-31 21:01:05] Usuario: Martin Schonberger (Rol: Administrador) Acción: Cliente actualizado: Sol Rodriguez
+[2025-07-31 21:01:07] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el cliente: 41419160
+[2025-07-31 21:01:14] Usuario: Martin Schonberger (Rol: Administrador) Acción: Cliente actualizado: Sol Schonberger
+[2025-07-31 21:01:20] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el cliente: 41419160
+[2025-07-31 21:01:28] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-31 21:01:29] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario hizo clic en 'Agregar' para crear un nuevo sabor.
+[2025-07-31 21:01:34] Usuario: Martin Schonberger (Rol: Administrador) Acción: Nuevo sabor guardado: Chocolate
+[2025-07-31 21:01:37] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario hizo clic en 'Modificar' para editar el sabor: Chocolate
+[2025-07-31 21:01:42] Usuario: Martin Schonberger (Rol: Administrador) Acción: Sabor modificado: Frutilla
+[2025-07-31 21:01:44] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:01:45] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-07-31 21:04:12] Usuario: Martin Schonberger (Rol: Administrador) Acción: Operación de insumo cancelada.
+[2025-07-31 21:04:14] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 21:04:15] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-31 21:04:16] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-07-31 21:04:17] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2025-07-31 21:10:20] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 21:10:25] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 21:10:26] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-31 21:10:26] Usuario: Martin Schonberger (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-31 21:10:26] Usuario: Martin Schonberger (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-31 21:10:26] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-31 21:10:27] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-31 21:10:28] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:10:31] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-07-31 21:11:06] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 21:11:21] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 21:11:23] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:11:24] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-07-31 21:12:04] Usuario: Martin Schonberger (Rol: Administrador) Acción: Proveedor guardado: Lacteos de Campo
+[2025-07-31 21:12:12] Usuario: Martin Schonberger (Rol: Administrador) Acción: CatalogoInsumo LECHE creado con éxito.
+[2025-07-31 21:12:16] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-31 21:12:42] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:12:43] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-31 21:12:44] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:12:45] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-31 21:12:48] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-07-31 21:12:49] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-07-31 21:12:49] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:12:50] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-07-31 21:12:50] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
+[2025-07-31 21:12:51] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-07-31 21:12:51] Usuario: Martin Schonberger (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-07-31 21:12:51] Usuario: Martin Schonberger (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-07-31 21:12:51] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-07-31 21:12:53] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-07-31 21:12:53] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-07-31 21:16:52] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-07-31 21:16:53] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-07-31 21:16:56] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el insumo del catálogo: LECHE
+[2025-07-31 21:17:03] Usuario: Martin Schonberger (Rol: Administrador) Acción: CatalogoInsumo MANTECA creado con éxito.
+[2025-07-31 21:17:14] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el insumo del catálogo: MANTECA
+[2025-07-31 21:17:18] Usuario: Martin Schonberger (Rol: Administrador) Acción: CatalogoInsumo MANTEC creado con éxito.
+[2025-07-31 21:17:21] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario eliminó el insumo del catálogo: MANTEC

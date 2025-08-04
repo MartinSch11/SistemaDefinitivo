@@ -1,0 +1,12 @@
+.checkbox {
+    -fx-font-family: "Inter"; /* Cambiar la fuente */
+    -fx-font-size: 12px; /* Cambiar el tamaño de la fuente */
+    -fx-text-fill: #333; /* Cambiar el color del texto */
+    -fx-padding: 5px 10px; /* Ajustar el espacio alrededor del texto */
+}
+
+.btnAgregarSabores{
+    -fx-background-color: transparent;
+    -fx-font-family: "Inter"; /* Cambiar la fuente */
+    -fx-font-fill: #757ccd;
+}

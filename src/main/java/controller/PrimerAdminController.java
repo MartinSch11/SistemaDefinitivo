@@ -8,17 +8,14 @@ import model.Trabajador;
 import persistence.dao.RolesDAO;
 import persistence.dao.TrabajadorDAO;
 import persistence.dao.CredencialesDAO;
-import java.math.BigDecimal;
 
 public class PrimerAdminController {
     @FXML private TextField txtDni;
     @FXML private TextField txtNombre;
     @FXML private TextField txtDireccion;
     @FXML private TextField txtTelefono;
-    @FXML private TextField txtSueldo;
-    @FXML private DatePicker dpFechaContratacion;
     @FXML private ComboBox<String> cmbSexo;
-    @FXML private PasswordField txtContrasena;
+    @FXML private TextField txtContrasena;
     @FXML private TextField txtRol;
     @FXML private Button btnRegistrar;
 
@@ -31,15 +28,14 @@ public class PrimerAdminController {
         cmbSexo.getItems().addAll("Masculino", "Femenino", "Otro");
         txtRol.setText("Administrador");
         txtRol.setEditable(false);
-        btnRegistrar.setOnAction(e -> registrarPrimerAdmin());
+        btnRegistrar.setOnAction(_ -> registrarPrimerAdmin());
     }
 
     private void registrarPrimerAdmin() {
         try {
             // Validación básica
             if (txtDni.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDireccion.getText().isEmpty() ||
-                txtTelefono.getText().isEmpty() || txtSueldo.getText().isEmpty() || dpFechaContratacion.getValue() == null ||
-                cmbSexo.getValue() == null || txtContrasena.getText().isEmpty()) {
+                txtTelefono.getText().isEmpty() || cmbSexo.getValue() == null || txtContrasena.getText().isEmpty()) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Campos obligatorios", "Por favor, complete todos los campos.");
                 return;
             }
@@ -58,8 +54,6 @@ public class PrimerAdminController {
             trabajador.setNombre(txtNombre.getText());
             trabajador.setDireccion(txtDireccion.getText());
             trabajador.setTelefono(txtTelefono.getText());
-            trabajador.setSueldo(new BigDecimal(txtSueldo.getText()));
-            trabajador.setFechaContratacion(dpFechaContratacion.getValue());
             trabajador.setSexo(cmbSexo.getValue());
             trabajador.setRol(rolAdmin);
             trabajadorDAO.save(trabajador);

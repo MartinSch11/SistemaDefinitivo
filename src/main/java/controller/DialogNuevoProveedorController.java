@@ -23,12 +23,12 @@ public class DialogNuevoProveedorController {
     @FXML
     private void initialize() {
 
-        proveedorField.textProperty().addListener((observable, oldValue, newValue) -> {
+        proveedorField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("[a-zA-Z]*")) {
                 proveedorField.setText(newValue.replaceAll("[^a-zA-Z]", ""));
             }
         });
-        telefonoField.textProperty().addListener((observable, oldValue, newValue) -> {
+        telefonoField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 telefonoField.setText(newValue.replaceAll("[^\\d]", ""));
             }

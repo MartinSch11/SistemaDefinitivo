@@ -6,26 +6,22 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import jakarta.persistence .EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import lombok.Getter;
 import utilities.Paths;
 import java.util.Objects;
 import persistence.dao.TrabajadorDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import java.nio.file.Files;
 import java.util.stream.Collectors;
 import persistence.dao.RolesDAO;
+import utilities.JpaUtil;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class App extends Application {
 
-    @Getter
-    private static EntityManagerFactory entityManagerFactory;
-
     public static void main(String[] args) {
-        entityManagerFactory = Persistence.createEntityManagerFactory("pasteleriaPU");
         launch();
     }
 
@@ -40,21 +36,23 @@ public class App extends Application {
             String url = "jdbc:h2:./data/miappdb;MODE=MySQL";
             String user = "sa";
             String password = "";
-            String importPath = "src/main/resources/import.sql";
-            if (Files.exists(java.nio.file.Paths.get(importPath))) {
-                String sql = Files.lines(java.nio.file.Paths.get(importPath))
-                        .filter(line -> !line.trim().startsWith("--") && !line.trim().isEmpty())
-                        .collect(Collectors.joining("\n"));
-                try (Connection conn = DriverManager.getConnection(url, user, password);
-                     Statement stmt = conn.createStatement()) {
-                    for (String query : sql.split(";")) {
-                        if (!query.trim().isEmpty()) {
-                            stmt.execute(query);
+            try (InputStream is = getClass().getClassLoader().getResourceAsStream("import.sql")) {
+                if (is != null) {
+                    String sql = new BufferedReader(new InputStreamReader(is))
+                            .lines()
+                            .filter(line -> !line.trim().startsWith("--") && !line.trim().isEmpty())
+                            .collect(Collectors.joining("\n"));
+                    try (Connection conn = DriverManager.getConnection(url, user, password);
+                         Statement stmt = conn.createStatement()) {
+                        for (String query : sql.split(";")) {
+                            if (!query.trim().isEmpty()) {
+                                stmt.execute(query);
+                            }
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -92,13 +90,10 @@ public class App extends Application {
         stage.show();
     }
 
-
     @Override
     public void stop() throws Exception {
         // Cierra el EntityManagerFactory cuando la aplicación se detenga
-        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
-            entityManagerFactory.close();
-        }
+        JpaUtil.close();
         super.stop();
     }
 }

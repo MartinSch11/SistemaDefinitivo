@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import lombok.Getter;
 import model.Combo;
 import model.Producto;
 import model.Receta;
@@ -47,7 +46,6 @@ public class CrudProductosController {
     @FXML private TableColumn<Combo, String> colComboProductos;
     @FXML private TableColumn<Combo, String> colComboPrecio;
 
-    @Getter
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
     private ObservableList<Combo> listaCombos = FXCollections.observableArrayList();
     private ProductoDAO productoDAO;
@@ -61,7 +59,7 @@ public class CrudProductosController {
         rellenarColumnasCombos();
 
         // Listener para búsqueda en tiempo real
-        txtBuscar.textProperty().addListener((obs, oldText, newText) -> filtrarProductos(newText));
+        txtBuscar.textProperty().addListener((_, _, newText) -> filtrarProductos(newText));
 
         // Obtener permisos del usuario
         List<String> permisos = model.SessionContext.getInstance().getPermisos();
@@ -75,7 +73,7 @@ public class CrudProductosController {
         btnAgregar.setDisable(!puedeCrear); // Solo puede agregar si tiene permiso crear
 
         // Listener para habilitar los botones solo si hay selección y permiso
-        tableProductos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableProductos.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             btnModificar.setDisable(!(puedeModificar && newSelection != null));
             btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
@@ -85,7 +83,7 @@ public class CrudProductosController {
         combos = comboDAO.findAll();
         comboFiltro.getItems().addAll("Productos", "Combos");
         comboFiltro.getSelectionModel().selectFirst();
-        comboFiltro.setOnAction(e -> filtrarTablaPorTipo());
+        comboFiltro.setOnAction(_ -> filtrarTablaPorTipo());
         filtrarTablaPorTipo();
     }
 
@@ -175,7 +173,7 @@ public class CrudProductosController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Agregar Producto");
-                stage.show();
+                stage.showAndWait(); // Esperar a que se cierre la ventana antes de recargar
                 cargarProductos();
                 ActionLogger.log("Producto agregado: " + (controller.getListaProductos().isEmpty() ? "" : controller.getListaProductos().get(controller.getListaProductos().size() - 1).getNombre()));
             } catch (IOException e) {

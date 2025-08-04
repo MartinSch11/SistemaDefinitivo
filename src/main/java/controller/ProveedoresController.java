@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 import model.Proveedor;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
@@ -44,7 +45,24 @@ public class ProveedoresController {
         // Configuración de las columnas
         colCuit.setCellValueFactory(new PropertyValueFactory<>("cuit"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        // Mostrar insumos de catalogo_insumo usando el DAO
+        // Celda personalizada para insumos: wrap text y tooltip
+        colInsumo.setCellFactory(_ -> new TableCell<Proveedor, String>() {
+            private final Text text = new Text();
+            {
+                text.wrappingWidthProperty().bind(colInsumo.widthProperty().subtract(10)); // Ajusta el ancho al de la columna
+            }
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    text.setText(item);
+                    setGraphic(text);
+                    setTooltip(new Tooltip(item));
+                }
+            }
+        });
         colInsumo.setCellValueFactory(cellData -> {
             Proveedor proveedor = cellData.getValue();
             java.util.List<String> insumos = proveedorDAO.findInsumosByProveedor(proveedor.getNombre());
@@ -67,16 +85,15 @@ public class ProveedoresController {
         btnAgregar.setDisable(!puedeCrear);
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
-        // btnAgregar puede que no exista, si existe agregar lógica similar
 
         // Listener para habilitar los botones solo si hay selección y permiso
-        tableViewProveedores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableViewProveedores.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             btnModificar.setDisable(!(puedeModificar && newSelection != null));
             btnEliminar.setDisable(!(puedeEliminar && newSelection != null));
         });
 
         // Búsqueda en tiempo real
-        txtFiltrar.textProperty().addListener((obs, oldText, newText) -> filtrarProveedores(newText));
+        txtFiltrar.textProperty().addListener((_, _, newText) -> filtrarProveedores(newText));
     }
 
     private void cargarDatos() {

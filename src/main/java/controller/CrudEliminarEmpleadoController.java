@@ -41,14 +41,6 @@ public class CrudEliminarEmpleadoController {
         cmbEliminarEmpExistente.setValue(null);
     }
 
-    private void mensajeConfirmacion() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText(null);
-        alert.setContentText("¡El empleado ha sido eliminado con éxito!");
-        alert.showAndWait();
-    }
-
     public void mensajeAdvertenciaCamposVacios() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -100,8 +92,6 @@ public class CrudEliminarEmpleadoController {
             ActionLogger.log("Error al cargar los nombres de empleados: " + e.getMessage());
         }
     }
-
-    private Trabajador trabajador;
 
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
 

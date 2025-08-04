@@ -36,13 +36,13 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="50.0" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" />
+            <RowConstraints fillHeight="false" maxHeight="43.0" minHeight="10.0" prefHeight="50.0" valignment="CENTER" />
          </rowConstraints>
          <Label styleClass="form-producto-label" text="DNI:">
             <font>
@@ -87,7 +87,7 @@
          <DatePicker fx:id="fechaEntregaPedido" editable="false" prefHeight="28.0" prefWidth="200.0" styleClass="form-producto-input" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       </GridPane>
       <!-- Botones de acción -->
-      <GridPane layoutX="153.0" layoutY="420.0" prefHeight="30.0" prefWidth="300.0">
+      <GridPane layoutX="150.0" layoutY="436.0" prefHeight="30.0" prefWidth="300.0">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -126,5 +126,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <!-- Label para mostrar el total del pedido debajo del catálogo -->
+      <Label fx:id="lblTotalPedido" alignment="CENTER" layoutX="259.0" layoutY="400.0" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #B70505;" text="Total: $0.00" />
    </Pane>
 </AnchorPane>

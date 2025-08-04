@@ -119,7 +119,7 @@ public class EventosController {
                 comboEstado.valueProperty().removeListener(estadoListener);
             }
             // Listener solo modifica el evento actualmente seleccionado
-            estadoListener = (obs, oldVal, newVal) -> {
+            estadoListener = (_, _, newVal) -> {
                 if (eventoSeleccionado != null && newVal != null && !newVal.equals(eventoSeleccionado.getEstado())) {
                     eventoSeleccionado.setEstado(newVal);
                     EventoDAO eventoDAO = new EventoDAO();
@@ -345,7 +345,7 @@ public class EventosController {
                 }
             }
 
-            etiquetaDia.setOnMouseClicked(e -> handleDayClick(fechaActual));
+            etiquetaDia.setOnMouseClicked(_ -> handleDayClick(fechaActual));
 
             if (columnaActual == 5 || columnaActual == 6) {
                 etiquetaDia.getStyleClass().add("celda-fin-de-semana");
@@ -388,7 +388,7 @@ public class EventosController {
                 }
             }
 
-            etiquetaDia.setOnMouseClicked(e -> handleDayClick(fechaActual));
+            etiquetaDia.setOnMouseClicked(_ -> handleDayClick(fechaActual));
 
             if (columnaActual == 5 || columnaActual == 6) {
                 etiquetaDia.getStyleClass().add("celda-mes-externo-fin-de-semana");

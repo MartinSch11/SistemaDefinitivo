@@ -58,16 +58,16 @@ public class SaboresController {
             CheckBox checkBox = new CheckBox(sabor.getSabor());
             checkBox.setStyle(
                     "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;");
-            checkBox.setOnMouseEntered(e -> checkBox.setStyle(
+            checkBox.setOnMouseEntered(_ -> checkBox.setStyle(
                     "-fx-background-color: #F6BBBB; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
-            checkBox.setOnMouseExited(e -> checkBox.setStyle(
+            checkBox.setOnMouseExited(_ -> checkBox.setStyle(
                     "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
-            checkBox.setOnMousePressed(e -> checkBox.setStyle(
+            checkBox.setOnMousePressed(_ -> checkBox.setStyle(
                     "-fx-background-color: #B70505; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
-            checkBox.setOnMouseReleased(e -> checkBox.setStyle(checkBox.isSelected()
+            checkBox.setOnMouseReleased(_ -> checkBox.setStyle(checkBox.isSelected()
                     ? "-fx-background-color: #B70505; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"
                     : "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
-            checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+            checkBox.selectedProperty().addListener((_, _, isNowSelected) -> {
                 if (isNowSelected) {
                     checkBox.setStyle(
                             "-fx-background-color: #B70505; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;");
@@ -84,7 +84,7 @@ public class SaboresController {
                 row++;
             }
             // Agregar acción al checkbox
-            checkBox.setOnAction(e -> {
+            checkBox.setOnAction(_ -> {
                 if (checkBox.isSelected()) {
                     ActionLogger.log("El usuario seleccionó el sabor: " + sabor.getSabor());
                     saboresSeleccionados.add(sabor);
@@ -122,7 +122,22 @@ public class SaboresController {
     @FXML
     private void handleGuardar(ActionEvent event) {
         if (parentController != null) {
+            // Reconstruir la lista de sabores seleccionados según los checkboxes
+            ObservableList<Sabor> seleccionados = FXCollections.observableArrayList();
+            for (Node node : gridSabores.getChildren()) {
+                if (node instanceof CheckBox checkBox && checkBox.isSelected()) {
+                    // Buscar el sabor correspondiente por el texto del checkbox
+                    for (Sabor sabor : saborDAO.findAll()) {
+                        if (sabor.getSabor().equals(checkBox.getText())) {
+                            seleccionados.add(sabor);
+                            break;
+                        }
+                    }
+                }
+            }
+            saboresSeleccionados.setAll(seleccionados); // Actualizar la lista interna
             ActionLogger.log("El usuario guardó los sabores seleccionados.");
+            System.out.println("DEBUG SaboresController: saboresSeleccionados=" + saboresSeleccionados);
             parentController.setSaboresSeleccionados(saboresSeleccionados);
             ((Stage) btnGuardar.getScene().getWindow()).close();
         }

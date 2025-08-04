@@ -32,18 +32,18 @@ public class LoginController {
     @FXML
     public void initialize() {
         // Restringir dniField a solo números
-        dniField.textProperty().addListener((observable, oldValue, newValue) -> {
+        dniField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("\\d*")) { // Permitir solo dígitos
                 dniField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
         // Sincronizar ambos campos
-        passwordField.textProperty().addListener((obs, oldText, newText) -> {
+        passwordField.textProperty().addListener((_, _, newText) -> {
             if (!passwordVisible)
                 passwordTextField.setText(newText);
         });
-        passwordTextField.textProperty().addListener((obs, oldText, newText) -> {
+        passwordTextField.textProperty().addListener((_, _, newText) -> {
             if (passwordVisible)
                 passwordField.setText(newText);
         });

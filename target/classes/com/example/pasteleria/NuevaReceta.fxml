@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NuevaRecetaController">
+    <Pane prefHeight="550.0" prefWidth="500.0" styleClass="form-producto-root">
+        <stylesheets>
+            <URL value="@../../../css/productos_form.css" />
+        </stylesheets>
+        <!-- Encabezado -->
+        <Pane layoutX="-1.0" prefHeight="55.0" prefWidth="501.0" styleClass="form-producto-header">
+            <Label fx:id="lblTitulo" layoutX="178.0" layoutY="14.0" styleClass="form-producto-header-label" text="Nueva Receta" textFill="WHITE" />
+        </Pane>
+        <Label layoutX="182.0" layoutY="63.0" styleClass="form-producto-label" text="Nombre de la receta" />
+        <TextField fx:id="txtNomReceta" layoutX="75.0" layoutY="85.0" prefHeight="25.0" prefWidth="350.0" styleClass="form-producto-input" />
+        <Label layoutX="16.0" layoutY="123.0" styleClass="form-producto-label" text="Insumo" />
+        <ComboBox fx:id="cmbIngredientes" layoutX="14.0" layoutY="144.0" prefHeight="25.0" prefWidth="230.0" styleClass="form-producto-combo" />
+        <Label layoutX="250.0" layoutY="123.0" styleClass="form-producto-label" text="Cantidad" />
+        <TextField fx:id="txtCantIngrediente" layoutX="250.0" layoutY="144.0" prefHeight="25.0" prefWidth="75.0" styleClass="form-producto-input" />
+        <ComboBox fx:id="cmbUnidad" layoutX="338.0" layoutY="144.0" prefHeight="28.0" prefWidth="140.0" styleClass="form-producto-combo" />
+        <GridPane fx:id="gridAcciones" layoutX="40.0" layoutY="185.0" prefHeight="30.0" prefWidth="419.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#handleAgregar" styleClass="form-producto-btn" text="Agregar" />
+            <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" onAction="#handleEditar" styleClass="form-producto-btn" text="Editar" GridPane.columnIndex="1" />
+            <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#handleEliminar" styleClass="form-producto-btn" text="Eliminar" GridPane.columnIndex="2" />
+        </GridPane>
+        <!-- Grid de edición, oculto por defecto -->
+        <GridPane fx:id="gridEdicion" layoutX="40.0" layoutY="185.0" prefHeight="30.0" prefWidth="419.0" visible="false">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <Button fx:id="btnGuardarCambios" mnemonicParsing="false" onAction="#handleGuardarCambios" styleClass="form-producto-btn" text="Guardar cambios" />
+            <Button fx:id="btnCancelarEdicion" mnemonicParsing="false" onAction="#handleCancelarEdicion" styleClass="form-producto-btn" text="Cancelar" GridPane.columnIndex="1" />
+        </GridPane>
+        <Separator layoutX="32.0" layoutY="215.0" prefHeight="25.0" prefWidth="436.0" />
+        <ScrollPane layoutX="50.0" layoutY="240.0" prefHeight="250.0" prefWidth="400.0" styleClass="form-producto-area">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="248.0" prefWidth="396.0">
+                    <children>
+                        <TableView fx:id="tableIngredientes" prefHeight="248.0" prefWidth="396.0">
+                            <columns>
+                                <TableColumn fx:id="colIngrediente" editable="false" prefWidth="198.0" resizable="false" sortable="false" text="Insumo" />
+                                <TableColumn fx:id="colCantidad" editable="false" prefWidth="198.0" resizable="false" sortable="false" text="Cantidad" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <GridPane alignment="CENTER" layoutX="100.0" layoutY="506.0" prefHeight="30.0" prefWidth="300.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#handleGuardar" styleClass="form-producto-btn" text="Guardar">
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../../com.example.image/save-blanco.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleCancelar" styleClass="form-producto-btn" text="Cancelar" GridPane.columnIndex="1">
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../../com.example.image/close-white.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </GridPane>
+      <Button fx:id="btnNuevoInsumo" layoutX="146.0" layoutY="122.0" mnemonicParsing="false" onAction="#abrirFormularioInsumo" styleClass="btnAgregarSabores" text="Nuevo Insumo" textAlignment="CENTER" textFill="#757ccd" underline="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="338.0" layoutY="123.0" styleClass="form-producto-label" text="Medida" />
+    </Pane>
+</AnchorPane>

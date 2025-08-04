@@ -124,5 +124,15 @@
                 <Font name="Inter Regular" size="13.0" />
             </font>
         </Label>
+      <Button fx:id="btnNuevaCategoria" layoutX="146.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleNuevaCategoria" styleClass="btnAgregarSabores" text="Nueva Categoría" textAlignment="CENTER" textFill="#757ccd" underline="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnNuevaReceta" layoutX="407.0" layoutY="202.0" mnemonicParsing="false" onAction="#handleNuevaReceta" styleClass="btnAgregarSabores" text="Nueva Receta" textAlignment="CENTER" textFill="#757ccd" underline="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
     </Pane>
 </AnchorPane>

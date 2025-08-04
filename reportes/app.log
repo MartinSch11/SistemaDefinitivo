@@ -1285,3 +1285,1539 @@ java.lang.IllegalStateException: Cannot get a connection as the driver manager i
 	Minimum pool size: 1
 	Maximum pool size: 20
 2025-07-30 19:46:02 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-30 20:44:34 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-30 20:44:34 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-30 20:44:34 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-30 20:44:34 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-30 20:44:34 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-30 20:44:36 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-30 20:44:36 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-30 20:44:36 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-30 20:44:37 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-30 20:44:37 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-30 20:44:37 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 00:24:35 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 00:24:35 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version [WORKING]
+2025-07-31 00:24:35 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 00:24:39 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 00:24:39 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 00:24:41 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 00:24:41 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 00:24:41 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 00:24:44 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 00:24:44 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 00:24:44 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 19:45:16 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 19:45:16 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 19:45:16 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 19:45:20 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 19:45:20 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 19:45:22 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 19:47:40 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 19:47:40 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 19:47:40 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 19:47:40 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 19:47:41 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 19:47:43 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 19:49:52 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 19:49:52 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 19:49:52 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 19:49:52 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 19:49:53 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 19:49:54 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:12:50 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:12:50 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:12:50 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:12:52 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:12:53 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:12:55 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:15:27 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:15:27 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:15:27 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:15:27 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:15:28 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:15:30 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:19:53 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:19:53 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:19:53 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:19:54 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:19:54 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:19:56 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:27:30 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:27:30 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:27:30 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:27:31 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:27:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:27:33 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:32:15 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:32:15 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:32:15 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:32:16 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:32:16 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:32:18 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:35:56 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:35:56 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:35:56 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:35:57 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:35:57 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:35:59 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:43:38 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:43:38 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:43:38 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:43:38 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:43:39 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:43:40 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 20:49:57 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:49:57 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:49:57 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:49:58 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:49:58 [JavaFX Application Thread] WARN  org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - HHH000342: Could not obtain connection to query metadata
+java.lang.IllegalStateException: Cannot get a connection as the driver manager is not properly initialized
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.getConnection(DriverManagerConnectionProviderImpl.java:255) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:467) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:320) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.ServiceRegistry.requireService(ServiceRegistry.java:68) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:52) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:136) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:247) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.convertSqlException(BasicConnectionCreator.java:133) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:43) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:61) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections.addConnections(DriverManagerConnectionProviderImpl.java:507) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections.<init>(DriverManagerConnectionProviderImpl.java:380) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections$Builder.build(DriverManagerConnectionProviderImpl.java:558) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:107) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:87) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:136) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:247) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.ServiceRegistry.requireService(ServiceRegistry.java:68) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:434) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:305) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:226) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:194) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:90) ~[jakarta.persistence-api-3.2.0.jar:3.2.0]
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:66) ~[jakarta.persistence-api-3.2.0.jar:3.2.0]
+	at utilities.JpaUtil.<clinit>(JpaUtil.java:13) ~[classes/:?]
+	at persistence.dao.RolesDAO.findAll(RolesDAO.java:15) ~[classes/:?]
+	at application.App.start(App.java:33) ~[classes/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-23.0.1-win.jar:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-23.0.1-win.jar:?]
+	at java.lang.Thread.run(Thread.java:1575) [?:?]
+2025-07-31 20:50:23 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:50:23 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:50:23 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:50:23 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:50:23 [JavaFX Application Thread] WARN  org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - HHH000342: Could not obtain connection to query metadata
+java.lang.IllegalStateException: Cannot get a connection as the driver manager is not properly initialized
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.getConnection(DriverManagerConnectionProviderImpl.java:255) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:467) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:320) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.ServiceRegistry.requireService(ServiceRegistry.java:68) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:52) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:136) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:247) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.convertSqlException(BasicConnectionCreator.java:133) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:43) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:61) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections.addConnections(DriverManagerConnectionProviderImpl.java:507) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections.<init>(DriverManagerConnectionProviderImpl.java:380) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections$Builder.build(DriverManagerConnectionProviderImpl.java:558) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:107) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:87) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:136) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:247) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.ServiceRegistry.requireService(ServiceRegistry.java:68) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:434) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:305) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:226) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:194) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:90) ~[jakarta.persistence-api-3.2.0.jar:3.2.0]
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:66) ~[jakarta.persistence-api-3.2.0.jar:3.2.0]
+	at utilities.JpaUtil.<clinit>(JpaUtil.java:13) ~[classes/:?]
+	at persistence.dao.RolesDAO.findAll(RolesDAO.java:15) ~[classes/:?]
+	at application.App.start(App.java:33) ~[classes/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-23.0.1-win.jar:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-23.0.1-win.jar:?]
+	at java.lang.Thread.run(Thread.java:1575) [?:?]
+2025-07-31 20:50:55 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 20:50:55 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 20:50:55 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 20:50:55 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 20:50:55 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 20:50:57 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 21:00:07 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 21:00:07 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 21:00:07 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 21:00:07 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 21:00:08 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 21:00:09 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 21:10:03 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 21:10:03 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 21:10:03 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 21:10:04 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 21:10:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 21:10:06 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-31 21:10:49 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-07-31 21:10:49 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-07-31 21:10:49 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-31 21:10:50 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-07-31 21:10:50 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-07-31 21:10:52 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 13:18:09 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 13:18:09 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 13:18:09 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 13:18:14 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 13:18:15 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 13:18:18 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 13:22:00 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 13:22:00 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 13:22:00 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 13:22:01 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 13:22:01 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 13:22:03 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 13:26:29 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 13:26:30 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 13:26:30 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 13:26:30 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 13:26:30 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 13:26:32 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 14:50:58 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 14:50:58 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 14:50:58 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 14:50:59 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 14:51:00 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 14:51:02 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 14:57:56 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 14:57:56 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 14:57:56 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 14:57:57 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 14:57:57 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 14:57:59 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 15:02:05 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 15:02:05 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 15:02:05 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 15:02:06 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 15:02:06 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 15:02:08 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 16:24:44 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 16:24:44 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 16:24:44 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 16:24:49 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 16:24:50 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 16:24:52 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 16:30:18 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 16:30:18 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 16:30:18 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 16:30:19 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 16:30:19 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 16:30:21 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 16:39:30 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 16:39:30 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 16:39:30 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 16:39:30 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 16:39:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 16:39:32 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 16:45:26 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 16:45:26 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 16:45:26 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 16:45:26 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 16:45:27 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 16:45:29 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 16:51:50 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 16:51:50 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 16:51:50 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 16:51:50 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 16:51:51 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 16:51:53 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 16:54:36 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 16:54:36 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 16:54:36 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 16:54:37 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 16:54:37 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 16:54:39 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:01:04 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:01:04 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:01:04 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:01:04 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:01:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:01:06 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:06:45 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:06:45 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:06:45 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:06:45 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:06:45 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:06:47 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:09:04 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:09:04 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:09:04 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:09:04 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:09:04 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:09:06 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:11:21 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:11:21 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:11:22 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:11:22 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:11:22 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:11:24 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:36:35 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:36:36 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:36:36 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:36:36 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:36:36 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:36:38 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:40:04 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:40:04 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:40:04 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:40:04 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:40:05 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:40:06 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:54:30 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:54:30 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:54:30 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:54:30 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:54:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:54:33 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:57:20 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:57:20 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:57:20 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:57:20 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:57:21 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:57:23 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 17:59:26 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 17:59:26 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 17:59:26 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 17:59:27 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 17:59:27 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 17:59:29 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:01:05 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:01:05 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:01:05 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:01:06 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:01:06 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:01:08 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:03:47 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:03:47 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:03:47 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:03:47 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:03:48 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:03:50 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:12:16 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:12:16 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:12:16 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:12:17 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:12:17 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:12:19 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:17:18 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:17:18 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:17:18 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:17:19 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:17:19 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:17:21 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:25:26 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:25:26 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:25:26 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:25:26 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:25:27 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:25:29 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:30:15 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:30:15 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:30:15 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:30:16 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:30:16 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:30:18 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:35:41 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:35:41 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:35:41 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:35:41 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:35:42 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:35:44 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:39:49 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:39:49 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:39:49 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:39:50 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:39:50 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:39:52 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:43:33 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:43:33 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:43:33 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:43:34 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:43:34 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:43:36 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:46:05 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:46:05 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:46:05 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:46:06 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:46:06 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:46:08 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 18:48:23 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 18:48:23 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 18:48:23 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 18:48:24 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 18:48:24 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 18:48:26 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 19:04:25 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:04:25 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:04:25 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:04:26 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:04:26 [JavaFX Application Thread] WARN  org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - HHH000342: Could not obtain connection to query metadata
+java.lang.IllegalStateException: Cannot get a connection as the driver manager is not properly initialized
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.getConnection(DriverManagerConnectionProviderImpl.java:255) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:467) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:320) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.ServiceRegistry.requireService(ServiceRegistry.java:68) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:52) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:136) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:247) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.convertSqlException(BasicConnectionCreator.java:133) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:43) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:61) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections.addConnections(DriverManagerConnectionProviderImpl.java:507) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections.<init>(DriverManagerConnectionProviderImpl.java:380) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections$Builder.build(DriverManagerConnectionProviderImpl.java:558) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:107) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:87) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:136) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:247) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.ServiceRegistry.requireService(ServiceRegistry.java:68) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:434) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:305) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:226) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:194) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55) ~[hibernate-core-6.6.3.Final.jar:6.6.3.Final]
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:90) ~[jakarta.persistence-api-3.2.0.jar:3.2.0]
+	at jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:66) ~[jakarta.persistence-api-3.2.0.jar:3.2.0]
+	at utilities.JpaUtil.<clinit>(JpaUtil.java:13) ~[classes/:?]
+	at persistence.dao.RolesDAO.findAll(RolesDAO.java:15) ~[classes/:?]
+	at application.App.start(App.java:32) ~[classes/:?]
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-23.0.1-win.jar:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-23.0.1-win.jar:?]
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-23.0.1-win.jar:?]
+	at java.lang.Thread.run(Thread.java:1575) [?:?]
+2025-08-01 19:05:04 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:05:04 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:05:04 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:05:05 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:05:05 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 19:05:07 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 19:12:31 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:12:31 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:12:31 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:12:32 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:12:32 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 19:12:34 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 19:14:07 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:14:07 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:14:07 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:14:07 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:14:08 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 19:14:10 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 19:18:47 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:18:48 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:18:48 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:18:49 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:18:49 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 19:18:51 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 19:20:43 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:20:44 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:20:44 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:20:44 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:20:44 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 19:20:46 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 19:26:57 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 19:26:57 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 19:26:57 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 19:26:57 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 19:26:57 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 19:26:59 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 20:20:55 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 20:20:55 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 20:20:55 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 20:20:55 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 20:20:56 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 20:20:57 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 20:42:01 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 20:42:01 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 20:42:01 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 20:42:02 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 20:42:02 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 20:42:04 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01 20:47:45 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-01 20:47:45 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-01 20:47:45 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-01 20:47:45 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-01 20:47:45 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-01 20:47:47 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:23:25 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:23:25 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:23:26 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:23:26 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:23:27 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:23:29 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:24:13 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:24:13 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:24:13 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:24:13 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:24:14 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:24:16 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:28:01 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:28:01 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:28:01 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:28:01 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:28:02 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:28:03 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:32:25 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:32:25 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:32:25 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:32:25 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:32:26 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:32:28 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:38:12 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:38:12 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:38:12 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:38:13 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:38:13 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:38:15 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:46:30 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:46:30 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:46:30 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:46:30 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:46:31 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:46:32 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 18:48:11 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 18:48:11 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 18:48:11 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 18:48:12 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 18:48:12 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 18:48:14 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:05:24 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:05:25 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:05:25 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:05:25 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:05:25 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:05:27 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:08:19 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:08:19 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:08:20 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:08:20 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:08:20 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:08:22 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:13:08 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:13:08 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:13:08 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:13:09 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:13:09 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:13:11 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:15:40 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:15:40 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:15:40 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:15:41 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:15:41 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:15:43 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:19:11 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:19:11 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:19:11 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:19:11 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:19:12 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:19:14 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:23:27 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:23:27 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:23:27 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:23:27 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:23:27 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:23:29 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 19:24:48 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 19:24:48 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 19:24:48 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 19:24:48 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 19:24:49 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 19:24:50 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 20:18:24 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 20:18:24 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 20:18:24 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 20:18:25 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 20:18:25 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 20:18:27 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 20:20:19 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 20:20:19 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 20:20:19 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 20:20:19 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 20:20:19 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 20:20:21 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 20:23:54 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 20:23:54 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 20:23:54 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 20:23:54 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 20:23:55 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 20:23:56 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 20:34:37 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 20:34:37 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 20:34:37 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 20:34:37 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 20:34:38 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 20:34:40 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 20:47:52 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 20:47:52 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 20:47:52 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 20:47:53 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 20:47:53 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 20:47:55 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 20:56:09 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 20:56:09 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 20:56:09 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 20:56:10 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 20:56:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 20:56:12 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:11:21 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:11:21 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:11:21 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:11:21 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:11:22 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:11:24 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:16:58 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:16:58 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:16:58 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:16:58 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:16:58 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:17:00 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:21:39 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:21:39 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:21:39 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:21:40 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:21:41 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:21:43 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:27:21 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:27:21 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:27:21 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:27:22 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:27:22 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:27:24 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:32:32 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:32:32 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:32:32 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:32:33 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:32:33 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:32:35 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:38:50 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:38:50 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:38:50 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:38:50 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:38:50 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:38:52 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 21:57:52 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 21:57:52 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 21:57:52 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 21:57:53 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 21:57:53 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 21:57:55 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 22:57:59 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 22:58:00 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 22:58:00 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 22:58:00 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 22:58:00 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 22:58:02 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 23:03:11 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 23:03:11 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 23:03:11 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 23:03:11 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 23:03:12 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 23:03:14 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 23:08:09 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 23:08:09 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 23:08:09 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 23:08:10 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 23:08:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 23:08:13 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 23:30:37 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 23:30:37 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 23:30:37 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 23:30:37 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 23:30:38 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 23:30:40 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 23:47:56 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 23:47:56 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 23:47:56 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 23:47:56 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 23:47:57 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 23:47:59 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-03 23:48:47 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-03 23:48:47 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-03 23:48:47 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-03 23:48:47 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-03 23:48:48 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-03 23:48:50 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:02:20 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:02:21 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:02:21 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:02:21 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:02:21 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:02:23 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:22:57 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:22:57 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:22:57 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:22:57 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:22:58 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:23:00 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:38:16 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:38:16 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:38:16 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:38:17 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:38:17 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:38:19 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:49:48 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:49:48 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:49:49 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:49:49 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:49:49 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:49:51 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:53:09 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:53:09 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:53:09 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:53:09 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:53:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:53:11 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:56:10 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:56:10 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:56:10 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:56:10 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:56:11 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:56:13 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 00:59:24 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 00:59:24 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 00:59:24 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 00:59:24 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 00:59:25 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 00:59:26 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 01:00:51 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 01:00:51 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 01:00:51 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 01:00:52 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 01:00:52 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 01:00:54 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 01:06:49 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 01:06:50 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 01:06:50 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 01:06:50 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 01:06:50 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 01:06:52 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 01:10:47 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 01:10:47 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 01:10:47 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 01:10:47 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 01:10:48 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 01:10:49 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 01:13:09 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 01:13:09 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 01:13:09 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 01:13:10 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 01:13:10 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 01:13:12 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-04 01:16:19 [JavaFX Application Thread] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: pasteleriaPU]
+2025-08-04 01:16:20 [JavaFX Application Thread] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.3.Final
+2025-08-04 01:16:20 [JavaFX Application Thread] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-08-04 01:16:20 [JavaFX Application Thread] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-08-04 01:16:20 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:./data/miappdb;MODE=MySQL]
+	Database driver: org.h2.Driver
+	Database version: 2.3.232
+	Autocommit mode: true
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+2025-08-04 01:16:22 [JavaFX Application Thread] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)

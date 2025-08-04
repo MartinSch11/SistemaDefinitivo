@@ -45,7 +45,7 @@ public class RecetaProcessor {
 
                 List<Insumo> lotes = insumoDAO.findAll().stream()
                         .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad))
+                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad, Comparator.nullsLast(Comparator.naturalOrder())))
                         .collect(Collectors.toList());
 
                 double restante = totalNecesario;
@@ -213,7 +213,7 @@ public class RecetaProcessor {
 
     /**
      * Simula el procesamiento de recetas: calcula insumos faltantes sin descontar stock ni modificar la base.
-     * @param productos productos seleccionados con su cantidad
+     * @param productos productos seleccionados with su cantidad
      * @return lista de insumos faltantes simulados
      */
     public List<InsumoFaltante> simularFaltantes(Map<Producto, Integer> productos) {
@@ -232,7 +232,7 @@ public class RecetaProcessor {
                 double totalNecesario = insumoReceta.getCantidadUtilizada() * cantidadProducto;
                 List<Insumo> lotes = insumoDAO.findAll().stream()
                         .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad))
+                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad, Comparator.nullsLast(Comparator.naturalOrder())))
                         .collect(Collectors.toList());
                 double restante = totalNecesario;
                 for (Insumo lote : lotes) {
@@ -308,24 +308,52 @@ public class RecetaProcessor {
                 String nombreInsumo = insumoReceta.getInsumo().getNombre();
                 String unidadRequerida = insumoReceta.getUnidad();
                 double totalADevolver = insumoReceta.getCantidadUtilizada() * cantidadADevolver;
-                // Buscar lotes del insumo, ordenados por fecha de caducidad inversa (LIFO para devolución)
+                // Buscar lotes del insumo, ordenados por fecha de compra descendente (más reciente primero)
                 List<Insumo> lotes = insumoDAO.findAll().stream()
-                        .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad).reversed())
-                        .collect(Collectors.toList());
+                    .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
+                    .sorted(Comparator.comparing(Insumo::getFechaCompra, Comparator.nullsLast(Comparator.reverseOrder())))
+                    .collect(Collectors.toList());
                 double restante = totalADevolver;
                 for (Insumo lote : lotes) {
                     if (restante <= 0.0001) break;
-                    double capacidadLote = lote.convertirUnidad(lote.getCapacidadOriginal(), lote.getMedida(), unidadRequerida);
-                    double cantidadActual = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), unidadRequerida);
-                    double maxADevolver = capacidadLote - cantidadActual;
-                    if (maxADevolver <= 0) continue; // Lote lleno
-                    double aDevolver = Math.min(maxADevolver, restante);
-                    lote.aumentarCantidad(aDevolver, unidadRequerida);
+                    double capacidadLote = lote.getCapacidadOriginal(); // en unidad del lote
+                    double cantidadActual = lote.getCantidad(); // en unidad del lote
+                    // Convertir la cantidad a devolver a la unidad del lote
+                    double maxADevolverEnLote = capacidadLote - cantidadActual;
+                    double restanteEnLote = lote.convertirUnidad(restante, unidadRequerida, lote.getMedida());
+                    double aDevolverEnLote = Math.min(maxADevolverEnLote, restanteEnLote);
+                    if (aDevolverEnLote <= 0) continue; // Lote lleno o no compatible
+                    lote.aumentarCantidad(aDevolverEnLote, lote.getMedida());
+                    // --- Conversión automática de unidad del lote si supera 1000 GR/ML ---
+                    if ((lote.getMedida().equalsIgnoreCase("GR") || lote.getMedida().equalsIgnoreCase("ML")) && lote.getCantidad() >= 1000) {
+                        if (lote.getMedida().equalsIgnoreCase("GR")) {
+                            lote.setCantidad(lote.getCantidad() / 1000.0);
+                            lote.setMedida("KG");
+                        } else if (lote.getMedida().equalsIgnoreCase("ML")) {
+                            lote.setCantidad(lote.getCantidad() / 1000.0);
+                            lote.setMedida("L");
+                        }
+                    }
+                    // --- Conversión automática inversa: KG->GR, L->ML, UNIDADES->UNIDAD si baja de 1 ---
+                    if (lote.getMedida().equalsIgnoreCase("KG") && lote.getCantidad() < 1) {
+                        lote.setCantidad(lote.getCantidad() * 1000.0);
+                        lote.setMedida("GR");
+                    } else if (lote.getMedida().equalsIgnoreCase("L") && lote.getCantidad() < 1) {
+                        lote.setCantidad(lote.getCantidad() * 1000.0);
+                        lote.setMedida("ML");
+                    } else if ((lote.getMedida().equalsIgnoreCase("UNIDADES") || lote.getMedida().equalsIgnoreCase("UNIDAD"))) {
+                        if (lote.getCantidad() == 1) {
+                            lote.setMedida("UNIDAD");
+                        } else {
+                            lote.setMedida("UNIDADES");
+                        }
+                    }
                     insumoDAO.update(lote);
-                    logger.info("  Se devuelve " + aDevolver + " " + unidadRequerida + " al lote: " + lote);
-                    restante -= aDevolver;
+                    logger.info("  Se devuelve " + aDevolverEnLote + " " + lote.getMedida() + " al lote: " + lote);
+                    double devueltoEnUnidadRequerida = lote.convertirUnidad(aDevolverEnLote, lote.getMedida(), unidadRequerida);
+                    restante -= devueltoEnUnidadRequerida;
                 }
+                // Si no hay lotes, o todos están llenos, NO crear lote nuevo, solo ignorar el sobrante
                 if (restante > 0.0001) {
                     logger.warning("No se pudo devolver toda la cantidad de insumo " + nombreInsumo + ". Restante: " + restante + " " + unidadRequerida);
                 }
@@ -334,10 +362,9 @@ public class RecetaProcessor {
     }
 
     /**
-     * Devuelve insumos al stock y retorna un resumen por nombre de insumo, cantidad devuelta y unidad (en unidad base).
-     * Si la cantidad es entera, no muestra decimales.
+     * Devuelve al stock los insumos utilizados por los productos indicados y genera un resumen profesional.
      * @param productos productos y cantidades a devolver
-     * @return Map<String, String> nombre insumo -> "cantidad unidad"
+     * @return resumen de insumos devueltos y no devueltos
      */
     public Map<String, String> devolverStockPorProductosConResumen(Map<Producto, Integer> productos) {
         Map<String, Double> resumenCantidad = new LinkedHashMap<>();
@@ -352,10 +379,9 @@ public class RecetaProcessor {
                 String nombreInsumo = insumoReceta.getInsumo().getNombre();
                 String unidadRequerida = insumoReceta.getUnidad();
                 double totalADevolver = insumoReceta.getCantidadUtilizada() * cantidadADevolver;
-                // Buscar lotes del insumo, ordenados por fecha de caducidad inversa (LIFO para devolución)
                 List<Insumo> lotes = insumoDAO.findAll().stream()
                         .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad).reversed())
+                        .sorted(Comparator.comparing(Insumo::getFechaCompra, Comparator.nullsLast(Comparator.reverseOrder())))
                         .collect(Collectors.toList());
                 double restante = totalADevolver;
                 double devuelto = 0.0;
@@ -386,9 +412,6 @@ public class RecetaProcessor {
                 }
                 resumenCantidad.put(nombreInsumo, resumenCantidad.getOrDefault(nombreInsumo, 0.0) + cantidadMostrar);
                 resumenUnidad.put(nombreInsumo, unidadMostrar);
-                if (restante > 0.0001) {
-                    logger.warning("No se pudo devolver toda la cantidad de insumo " + nombreInsumo + ". Restante: " + restante + " " + unidadRequerida);
-                }
             }
         }
         // Unir cantidad y unidad para mostrar
@@ -418,7 +441,7 @@ public class RecetaProcessor {
             // Buscar lotes disponibles de ese insumo
             List<Insumo> lotes = insumoDAO.findAll().stream()
                     .filter(i -> i.getCatalogoInsumo() != null && i.getCatalogoInsumo().getId().equals(catalogo.getId()))
-                    .sorted(Comparator.comparing(Insumo::getFechaCaducidad))
+                    .sorted(Comparator.comparing(Insumo::getFechaCaducidad, Comparator.nullsLast(Comparator.naturalOrder())))
                     .collect(Collectors.toList());
             double restante = cantidad;
             for (Insumo lote : lotes) {

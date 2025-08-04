@@ -25,6 +25,7 @@ public class NuevoPedidoController {
     @FXML private TextField contactoCliente, dniClienteField, nombreCliente;
     @FXML private ComboBox<String> empleadoAsignado, cmbFormaEntrega;
     @FXML private DatePicker fechaEntregaPedido;
+    @FXML private Label lblTotalPedido;
 
     private Pedido pedidoCreado;
     private CatalogoPedidosController catalogoPedidosController;
@@ -45,28 +46,60 @@ public class NuevoPedidoController {
         cargarNombresEmpleadosEnComboBox();
         configurarCamposTexto();
         configurarFechaEntrega();
-
         dniClienteField.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 buscarYActualizarCliente(dniClienteField.getText());
             }
         });
-
         cmbFormaEntrega.setValue("Retira del local");
+        actualizarTotalPedido(); // Inicializa el total en 0
+    }
+
+    private void actualizarTotalPedido() {
+        double total = 0.0;
+        boolean tieneProductos = false;
+        if (catalogoPedidosController != null) {
+            Map<Producto, Integer> productos = catalogoPedidosController.getProductosGuardados();
+            Map<Combo, Integer> combos = catalogoPedidosController.getCombosGuardados();
+            if (productos != null && !productos.isEmpty()) {
+                tieneProductos = true;
+                for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
+                    if (entry.getKey() != null && entry.getKey().getPrecio() != null) {
+                        total += entry.getKey().getPrecio().doubleValue() * entry.getValue();
+                    }
+                }
+            }
+            if (combos != null && !combos.isEmpty()) {
+                tieneProductos = true;
+                for (Map.Entry<Combo, Integer> entry : combos.entrySet()) {
+                    if (entry.getKey() != null && entry.getKey().getPrecio() != null) {
+                        total += entry.getKey().getPrecio().doubleValue() * entry.getValue();
+                    }
+                }
+            }
+        }
+        // Si no hay productos ni combos cargados, mostrar el total del pedido si existe
+        if (lblTotalPedido != null) {
+            if (!tieneProductos && pedidoCreado != null && pedidoCreado.getTotalPedido() != null) {
+                lblTotalPedido.setText("Total: $" + String.format("%.2f", pedidoCreado.getTotalPedido()));
+            } else {
+                lblTotalPedido.setText("Total: $" + String.format("%.2f", total));
+            }
+        }
     }
 
     private void configurarCamposTexto() {
-        nombreCliente.textProperty().addListener((obs, oldVal, newVal) -> {
+        nombreCliente.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñÜü\\s]*"))
                 nombreCliente.setText(oldVal);
         });
 
-        contactoCliente.textProperty().addListener((obs, oldVal, newVal) -> {
+        contactoCliente.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("\\d*"))
                 contactoCliente.setText(oldVal);
         });
 
-        dniClienteField.textProperty().addListener((obs, oldVal, newVal) -> {
+        dniClienteField.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("\\d*"))
                 dniClienteField.setText(oldVal);
         });
@@ -75,7 +108,7 @@ public class NuevoPedidoController {
     }
 
     private void configurarFechaEntrega() {
-        fechaEntregaPedido.setDayCellFactory(picker -> new DateCell() {
+        fechaEntregaPedido.setDayCellFactory(_ -> new DateCell() {
             @Override
             public void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
@@ -93,7 +126,7 @@ public class NuevoPedidoController {
             empleadoAsignado.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los empleados.");
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los empleados.", "Error de empleados");
         }
     }
 
@@ -106,7 +139,8 @@ public class NuevoPedidoController {
             catalogoPedidosController = loader.getController();
             catalogoPedidosController.setDialogNuevoPedidoController(this);
 
-            // Si estamos editando un pedido y tiene productos o combos, cargar SOLO una vez los productos y combos originales
+            // Si estamos editando un pedido y tiene productos o combos, cargar SOLO una vez
+            // los productos y combos originales
             if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null) {
                 // Consolidar cantidades por producto
                 if (pedidoCreado.getPedidoProductos() != null) {
@@ -133,13 +167,14 @@ public class NuevoPedidoController {
             stage.showAndWait();
 
             ActionLogger.log("Catálogo abierto correctamente.");
+            actualizarTotalPedido(); // Actualiza el total al cerrar el catálogo
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo abrir el catálogo.");
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo abrir el catálogo.", "Error de catálogo");
         }
     }
 
-// --- NUEVO: Obtener combos guardados del catálogo ---
+    // --- NUEVO: Obtener combos guardados del catálogo ---
     private Map<Combo, Integer> obtenerCombosDelCatalogo() {
         if (catalogoPedidosController == null)
             return new HashMap<>();
@@ -156,8 +191,8 @@ public class NuevoPedidoController {
             Map<Combo, Integer> combos = obtenerCombosDelCatalogo();
 
             PedidoService.PedidoConFaltantes resultado;
-            // Si estamos editando un pedido existente, actualizarlo
-            if (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null) {
+            boolean esEdicion = (pedidoCreado != null && pedidoCreado.getNumeroPedido() != null);
+            if (esEdicion) {
                 resultado = pedidoService.actualizarPedido(
                         pedidoCreado,
                         dniClienteField.getText(),
@@ -167,7 +202,6 @@ public class NuevoPedidoController {
                         productos,
                         combos);
             } else {
-                // Si es un pedido nuevo, crearlo
                 resultado = pedidoService.crearPedido(
                         dniClienteField.getText(),
                         empleadoAsignado.getValue(),
@@ -178,9 +212,8 @@ public class NuevoPedidoController {
             }
 
             Pedido pedidoCreado = resultado.getPedido();
-            this.pedidoCreado = pedidoCreado; // Para el controlador principal
+            this.pedidoCreado = pedidoCreado;
 
-            // Mostrar mensaje si hubo insumos devueltos al modificar el pedido
             if (resultado.getMensajeDevolucion() != null && !resultado.getMensajeDevolucion().isBlank()) {
                 Alert devueltosAlert = new Alert(Alert.AlertType.INFORMATION);
                 devueltosAlert.setTitle("Stock actualizado");
@@ -189,7 +222,6 @@ public class NuevoPedidoController {
                 devueltosAlert.showAndWait();
             }
 
-            // Mostrar mensaje si hubo insumos faltantes
             if (resultado.getMensajeFaltantes() != null && !resultado.getMensajeFaltantes().isBlank()) {
                 Alert faltantesAlert = new Alert(Alert.AlertType.WARNING);
                 faltantesAlert.setTitle("Insumos faltantes");
@@ -198,16 +230,22 @@ public class NuevoPedidoController {
                 faltantesAlert.showAndWait();
             }
 
-            // Elimina la lógica de PedidosController, solo usa PedidosTableroController
+            // SOLO llamar al método correcto según si es nuevo o edición
             if (pedidosTableroController != null) {
-                pedidosTableroController.agregarNuevoPedido(pedidoCreado);
+                if (esEdicion) {
+                    pedidosTableroController.agregarNuevoPedido(pedidoCreado);
+                } else {
+                    pedidosTableroController.agregarPedido(pedidoCreado, true);
+                }
             }
 
             cerrarVentana(event);
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error al guardar", e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error al guardar",
+                    "Ha ocurrido un error al guardar el pedido. Por favor, revise los datos ingresados o intente nuevamente. Si el problema persiste, contacte al administrador.",
+                    "Error de guardado");
         }
     }
 
@@ -227,7 +265,6 @@ public class NuevoPedidoController {
         // Simplemente clonar el mapa como está, sin sumar cantidades
         return new HashMap<>(catalogoPedidosController.getProductosGuardados());
     }
-
 
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -250,9 +287,10 @@ public class NuevoPedidoController {
         return alert.showAndWait().filter(b -> b == ButtonType.OK).isPresent();
     }
 
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    private void showAlert(Alert.AlertType type, String title, String content, String header) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
     }
@@ -265,7 +303,7 @@ public class NuevoPedidoController {
 
     private void buscarYActualizarCliente(String dni) {
         if (dni == null || dni.trim().isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Advertencia", "Debe ingresar un DNI válido.");
+            showAlert(Alert.AlertType.WARNING, "Advertencia", "Debe ingresar un DNI válido.", "DNI inválido");
             return;
         }
 
@@ -276,11 +314,12 @@ public class NuevoPedidoController {
                 nombreCliente.setText(cliente.getNombre() + " " + cliente.getApellido());
                 contactoCliente.setText(cliente.getTelefono());
             } else {
-                showAlert(Alert.AlertType.INFORMATION, "Información", "Cliente no encontrado.");
+                showAlert(Alert.AlertType.ERROR, "Error", "No se encontró ningún cliente con ese DNI.",
+                        "Cliente no encontrado");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Error al buscar cliente: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al buscar cliente", "Error de búsqueda");
         }
     }
 
@@ -296,12 +335,14 @@ public class NuevoPedidoController {
      * Carga los datos de un pedido existente en el formulario para edición.
      */
     public void cargarPedidoParaEdicion(Pedido pedido) {
-        if (pedido == null) return;
+        if (pedido == null)
+            return;
         this.pedidoCreado = pedido;
         // Cliente
         if (pedido.getCliente() != null) {
             dniClienteField.setText(pedido.getCliente().getDni());
-            nombreCliente.setText(pedido.getCliente().getNombre() + (pedido.getCliente().getApellido() != null ? " " + pedido.getCliente().getApellido() : ""));
+            nombreCliente.setText(pedido.getCliente().getNombre()
+                    + (pedido.getCliente().getApellido() != null ? " " + pedido.getCliente().getApellido() : ""));
             contactoCliente.setText(pedido.getCliente().getTelefono());
         }
         // Empleado
@@ -312,6 +353,10 @@ public class NuevoPedidoController {
         cmbFormaEntrega.setValue(pedido.getFormaEntrega());
         // Fecha de entrega
         fechaEntregaPedido.setValue(pedido.getFechaEntrega());
+        // Mostrar el total del pedido desde la base de datos
+        if (lblTotalPedido != null && pedido.getTotalPedido() != null) {
+            lblTotalPedido.setText("Total: $" + String.format("%.2f", pedido.getTotalPedido()));
+        }
         // Consolidar productos antes de cargar en el catálogo
         if (catalogoPedidosController != null && pedido.getPedidoProductos() != null) {
             Map<Producto, Integer> productos = new HashMap<>();
@@ -328,6 +373,8 @@ public class NuevoPedidoController {
             }
             catalogoPedidosController.cargarCombosGuardados(combos);
         }
+        // --- Actualizar el total después de cargar productos y combos ---
+        actualizarTotalPedido();
     }
 
     /**
@@ -337,5 +384,10 @@ public class NuevoPedidoController {
         if (btnCatalogo != null) {
             btnCatalogo.setDisable(!habilitar);
         }
+    }
+
+    // --- NUEVO: Permite que el catálogo notifique el total actualizado ---
+    public void notificarTotalActualizado() {
+        actualizarTotalPedido();
     }
 }

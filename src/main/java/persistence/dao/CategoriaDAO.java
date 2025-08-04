@@ -33,4 +33,18 @@ public class CategoriaDAO {
         }
         return categoria;
     }
+
+    public void save(Categoria categoria) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(categoria);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
 }

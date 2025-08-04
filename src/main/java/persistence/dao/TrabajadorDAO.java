@@ -117,4 +117,30 @@ public class TrabajadorDAO {
             em.close();
         }
     }
+
+    public String findDniByNombre(String nombre) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT t.dni FROM Trabajador t WHERE t.nombre = :nombre", String.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public String findNombreByDni(String dni) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT t.nombre FROM Trabajador t WHERE t.dni = :dni", String.class)
+                    .setParameter("dni", dni)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return "";
+        } finally {
+            em.close();
+        }
+    }
 }

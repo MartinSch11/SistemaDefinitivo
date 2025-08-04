@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720" prefWidth="1360" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProveedoresController">
+    <stylesheets>
+        <URL value="@../../../css/components.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane-principal" stylesheets="@../../../css/components.css">
+         <children>
+            <ScrollPane layoutX="30.0" layoutY="118.0" prefHeight="530.0" prefWidth="1300.0">
+                     <content>
+                        <TableView fx:id="tableViewProveedores" layoutX="8.0" layoutY="1.0" prefHeight="528.0" prefWidth="1298.0" styleClass="table">
+                           <columns>
+                              <TableColumn fx:id="colCuit" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="CUIT">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="cuit" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn fx:id="colNombre" editable="false" prefWidth="193.0" resizable="false" sortable="false" text="Nombre">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="nombre" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn fx:id="colInsumo" editable="false" prefWidth="241.0" resizable="false" sortable="false" text="Insumo" />
+                              <TableColumn fx:id="colTelefono" editable="false" prefWidth="216.0" resizable="false" sortable="false" text="Teléfono">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="telefono" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn fx:id="colUbicacion" editable="false" prefWidth="259.0" resizable="false" sortable="false" text="Ubicación">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="ubicacion" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn fx:id="colCorreo" editable="false" minWidth="0.0" prefWidth="240.0" resizable="false" sortable="false" text="Correo">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="correo" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                           </columns>
+                        </TableView>
+                     </content>
+            </ScrollPane>
+            <Pane layoutX="-2.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane-Header" stylesheets="@../../../css/components.css">
+               <children>
+                  <Label contentDisplay="CENTER" layoutX="607.0" layoutY="13.0" styleClass="title" stylesheets="@../../../css/components.css" text="Proveedores" textAlignment="CENTER" />
+               </children>
+            </Pane>
+            <Button fx:id="btnVolver" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="38.0" prefWidth="88.0" styleClass="button-Volver" stylesheets="@../../../css/components.css" text="Volver">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.example.image/arrow_left.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="txtFiltrar" layoutX="530.0" layoutY="71.0" prefHeight="30.0" prefWidth="300.0" promptText="Buscar por nombre o insumo..." />
+            <GridPane alignment="CENTER" layoutX="272.0" layoutY="676.0" prefHeight="30.0" prefWidth="800.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="btnAgregar" alignment="CENTER" mnemonicParsing="false" onAction="#handleAgregar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Agregar">
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnModificar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleModificar" prefHeight="36.0" styleClass="buttons" stylesheets="@../../../css/components.css" text="Modificar" textAlignment="CENTER" GridPane.columnIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnEliminar" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#handleEliminar" styleClass="buttons" stylesheets="@../../../css/components.css" text="Eliminar" GridPane.columnIndex="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Inter Regular" size="13.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.example.image/delete.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+   </children>
+
+
+</AnchorPane>

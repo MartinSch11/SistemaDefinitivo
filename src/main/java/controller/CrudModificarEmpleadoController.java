@@ -32,29 +32,29 @@ public class CrudModificarEmpleadoController {
 
     @FXML
     public void initialize() {
-        NombreEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
+        NombreEmpExistente.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("[a-zA-Z ]*")) { // Se añadió el espacio
                 NombreEmpExistente.setText(newValue.replaceAll("[^a-zA-Z ]", "")); // Se añadió el espacio a la expresión regular
             }
         });
-        TelEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
+        TelEmpExistente.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 TelEmpExistente.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        DNIEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
+        DNIEmpExistente.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 DNIEmpExistente.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        SueldoEmpExistente.textProperty().addListener((observable, oldValue, newValue) -> {
+        SueldoEmpExistente.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("[\\d,.]*")) {
                 SueldoEmpExistente.setText(newValue.replaceAll("[^\\d,.]", ""));
             }
         });
 
         cargarNombresEnComboBox();
-        cmbModifEmpExistente.setOnAction(e -> cargarDatosTrabajador());
+        cmbModifEmpExistente.setOnAction(_ -> cargarDatosTrabajador());
         cargarRoles();
     }
 
@@ -86,9 +86,10 @@ public class CrudModificarEmpleadoController {
         if (NombreEmpExistente.getText().isEmpty()) {
             return false;
         }
-        if (SueldoEmpExistente.getText().isEmpty()) {
-            return false;
-        }
+        // Permitir que el sueldo esté vacío (puede ser null)
+        // if (SueldoEmpExistente.getText().isEmpty()) {
+        //     return false;
+        // }
         if (TelEmpExistente.getText().isEmpty()) {
             return false;
         }
@@ -100,14 +101,6 @@ public class CrudModificarEmpleadoController {
 
     void vaciarCampos(){
         cmbModifEmpExistente.setValue(null);
-    }
-
-    private void mensajeConfirmacion() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText(null);
-        alert.setContentText("¡Los cambios se han realizado con éxito!");
-        alert.showAndWait();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -132,13 +125,30 @@ public class CrudModificarEmpleadoController {
         NombreEmpExistente.setText(trabajador.getNombre());
         direccionEmpExistente.setText(trabajador.getDireccion());
         TelEmpExistente.setText(trabajador.getTelefono());
-        SueldoEmpExistente.setText(trabajador.getSueldo().toPlainString());
+        if (trabajador.getSueldo() != null) {
+            SueldoEmpExistente.setText(trabajador.getSueldo().toPlainString());
+        } else {
+            SueldoEmpExistente.setText(""); // Permitir campo vacío si es null
+        }
         FechaContratoExistente.setValue(trabajador.getFechaContratacion());
         cmbRolExistente.setValue(trabajador.getRol());
         txtContraseñaExistente.setText(trabajador.getCredencial().getContraseña());
         // Cargar sexo en el ComboBox
         cmbSexoExistente.getItems().setAll("Femenino", "Masculino", "Otro");
-        cmbSexoExistente.setValue(trabajador.getSexo());
+        String sexoTrabajador = trabajador.getSexo();
+        if (sexoTrabajador != null && !sexoTrabajador.isEmpty()) {
+            // Buscar coincidencia ignorando mayúsculas/minúsculas y espacios
+            for (String sexo : cmbSexoExistente.getItems()) {
+                if (sexo.equalsIgnoreCase(sexoTrabajador.trim())) {
+                    cmbSexoExistente.setValue(sexo);
+                    return;
+                }
+            }
+            // Si no hay coincidencia exacta, dejarlo vacío
+            cmbSexoExistente.setValue(null);
+        } else {
+            cmbSexoExistente.setValue(null);
+        }
     }
 
     private void cargarDatosTrabajador() {
@@ -173,7 +183,13 @@ public class CrudModificarEmpleadoController {
                 trabajador.setNombre(NombreEmpExistente.getText());
                 trabajador.setDireccion(direccionEmpExistente.getText());
                 trabajador.setTelefono(TelEmpExistente.getText());
-                trabajador.setSueldo(new BigDecimal(SueldoEmpExistente.getText()));
+                // Permitir guardar sueldo vacío como null
+                String sueldoText = SueldoEmpExistente.getText();
+                if (sueldoText == null || sueldoText.trim().isEmpty()) {
+                    trabajador.setSueldo(null);
+                } else {
+                    trabajador.setSueldo(new BigDecimal(sueldoText));
+                }
                 trabajador.setFechaContratacion(FechaContratoExistente.getValue());
                 trabajador.setSexo(cmbSexoExistente.getValue());
                 trabajador.setRol(cmbRolExistente.getValue());
@@ -191,10 +207,10 @@ public class CrudModificarEmpleadoController {
                 // Actualizar ComboBox en SettingsController
                 SettingsController.getInstance().cargarNombresEnComboBox();
 
-                showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado y credenciales actualizados exitosamente.");
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado actualizado exitosamente.");
 
                 // Registrar la acción de guardar en el log
-                ActionLogger.log("Empleado con DNI " + trabajador.getDni() + " actualizado exitosamente.");
+                ActionLogger.log("Empleado con DNI " + trabajador.getDni() + " actualizado.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un empleado con ese DNI.");
             }
@@ -244,7 +260,7 @@ public class CrudModificarEmpleadoController {
             }
 
         }else{
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pueden save los cambios debido a campos vacíos.");
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pueden guardar los cambios debido a campos vacíos.");
         }
     }
 }

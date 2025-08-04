@@ -41,9 +41,32 @@ public class HistorialComprasDialogController {
         colFechaCompra.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(
                 cellData.getValue().getFechaCompra() != null ? cellData.getValue().getFechaCompra().format(dateFormatter) : "-"));
         cargarCompras();
-        txtBuscar.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtBuscar.textProperty().addListener((_, _, newVal) -> {
             filtrarCompras(newVal);
         });
+        // Permitir cerrar con ESC
+        cerrarDialogo.sceneProperty().addListener((_, _, newScene) -> {
+            if (newScene != null) {
+                newScene.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                    if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
+                        Stage stage = (Stage) newScene.getWindow();
+                        if (stage != null) {
+                            stage.close();
+                        }
+                    }
+                });
+            }
+        });
+        if (cerrarDialogo.getScene() != null) {
+            cerrarDialogo.getScene().addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
+                    Stage stage = (Stage) cerrarDialogo.getScene().getWindow();
+                    if (stage != null) {
+                        stage.close();
+                    }
+                }
+            });
+        }
     }
 
     public void cargarCompras() {

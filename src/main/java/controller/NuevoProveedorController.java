@@ -39,7 +39,7 @@ public class NuevoProveedorController {
                 (change.getControlNewText().matches("\\d{0,15}")) ? change : null)); // Se permiten hasta 15 dígitos
         txtNombre.setTextFormatter(new TextFormatter<>(change ->
                 (change.getControlNewText().matches("[a-zA-ZáéíóúÁÉÍÓÚ\\s]{0,50}")) ? change : null)); // Solo letras y espacios, hasta 50 caracteres
-        btnCancelar.setOnAction(event -> cerrarVentana());
+        btnCancelar.setOnAction(_ -> cerrarVentana());
     }
 
     // Método para cargar los datos del proveedor en el formulario

@@ -209,9 +209,6 @@ public class SettingsController {
             Parent visualizarView = loader.load();
             mostrarEnContenedor(contenedorDinamico2, visualizarView);
 
-            TablaSaboresController controller = loader.getController();
-            controller.setSettingsController(this);
-
             ActionLogger.log(
                     "El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.");
         } catch (Exception e) {

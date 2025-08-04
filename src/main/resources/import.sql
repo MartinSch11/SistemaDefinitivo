@@ -124,3 +124,5 @@ INSERT INTO rol_permiso (id_rol, id_permiso) VALUES (1, 58);
 INSERT INTO rol_permiso (id_rol, id_permiso) VALUES (1, 59);
 INSERT INTO rol_permiso (id_rol, id_permiso) VALUES (1, 60);
 INSERT INTO rol_permiso (id_rol, id_permiso) VALUES (1, 61);
+-- Cliente de prueba para demostración y testing
+INSERT INTO clientes (dni, nombre, apellido, telefono, direccion, correo) VALUES ('99', 'Usuario', 'Generico', '123456789', 'Tucumán 123', 'usuario.generico@email.com');

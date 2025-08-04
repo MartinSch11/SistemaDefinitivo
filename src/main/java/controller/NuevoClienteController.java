@@ -3,7 +3,6 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import lombok.Setter;
 import model.Cliente;
 import persistence.dao.ClienteDAO;
 import utilities.ActionLogger;
@@ -19,35 +18,34 @@ public class NuevoClienteController {
     @FXML private Button btnAceptar;
     @FXML private Button btnCancelar;
 
+    private TablaClientesController tableClientesController;
     private ClienteDAO clienteDAO = new ClienteDAO();
     private Cliente cliente; // Cliente a modificar o crear
     // Método para recibir el controlador de la tabla
-    @Setter
-    private TablaClientesController tableClientesController; // Referencia al controlador de la tabla
 
     @FXML
     private void initialize() {
         // Validar que solo permita números
-        txtDNI.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtDNI.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 txtDNI.setText(oldVal);
             }
         });
 
-        txtTelefono.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtTelefono.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 txtTelefono.setText(oldVal);
             }
         });
 
         // Validar que solo permita letras
-        txtNombre.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtNombre.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]*")) {
                 txtNombre.setText(oldVal);
             }
         });
 
-        txtApellido.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtApellido.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]*")) {
                 txtApellido.setText(oldVal);
             }
@@ -62,18 +60,24 @@ public class NuevoClienteController {
             return; // Salir si hay campos inválidos
         }
 
-        // Verificar si ya existe un cliente con el mismo DNI
-        if (existeClienteConDni(txtDNI.getText().trim())) {
-            showAlert(Alert.AlertType.WARNING, "Validación", "Ya existe un cliente con ese DNI.");
-            return; // Salir si ya existe un cliente con ese DNI
+        String nuevoDni = txtDNI.getText().trim();
+        boolean esNuevo = (cliente == null);
+        String dniOriginal = esNuevo ? null : cliente.getDni();
+
+        // Si es nuevo, o si el usuario cambió el DNI, verificar si ya existe otro cliente con ese DNI
+        if (esNuevo || (!nuevoDni.equals(dniOriginal))) {
+            if (existeClienteConDni(nuevoDni)) {
+                showAlert(Alert.AlertType.WARNING, "Validación", "Ya existe un cliente con ese DNI.");
+                return;
+            }
         }
 
-        if (cliente == null) {
+        if (esNuevo) {
             cliente = new Cliente();
         }
 
         // Asignar los valores de los campos al cliente
-        cliente.setDni(txtDNI.getText().trim());
+        cliente.setDni(nuevoDni);
         cliente.setNombre(txtNombre.getText().trim());
         cliente.setApellido(txtApellido.getText().trim());
         cliente.setTelefono(txtTelefono.getText().trim());
@@ -81,7 +85,7 @@ public class NuevoClienteController {
         cliente.setCorreo(txtCorreo.getText().trim().isEmpty() ? null : txtCorreo.getText().trim());
 
         try {
-            if (cliente.getDni() == null) {
+            if (esNuevo) {
                 clienteDAO.save(cliente);  // Crear nuevo cliente
                 ActionLogger.log("Cliente creado: " + cliente.getNombre() + " " + cliente.getApellido());
             } else {
@@ -94,7 +98,7 @@ public class NuevoClienteController {
             }
             cerrarVentana();
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo guardar el cliente: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo guardar el cliente.");
         }
     }
 

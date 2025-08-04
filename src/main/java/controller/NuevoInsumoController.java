@@ -3,7 +3,11 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.CatalogoInsumo;
 import model.Proveedor;
@@ -15,15 +19,23 @@ import java.util.List;
 
 public class NuevoInsumoController {
 
-    @FXML private TextField txtNomInsumo;
-    @FXML private ComboBox<Proveedor> cmbProveedor;
-    @FXML private ComboBox<String> cmbEstado;
-    @FXML private Button btnCancelar;
-    @FXML private Button btnAceptar;
+    @FXML
+    private TextField txtNomInsumo;
+    @FXML
+    private ComboBox<Proveedor> cmbProveedor;
+    @FXML
+    private ComboBox<String> cmbEstado;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private Button btnAceptar;
+    @FXML
+    private Button btnNuevoProveedor;
 
     private ProveedorDAO proveedorDAO;
     private CatalogoInsumoDAO catalogoInsumoDAO;
     private TableInsumosController tableInsumosController; // Referencia al controlador de la tabla
+    private CatalogoInsumo insumoEditando = null;
 
     public NuevoInsumoController() {
         proveedorDAO = new ProveedorDAO();
@@ -69,17 +81,28 @@ public class NuevoInsumoController {
         if (nombreInsumo.isEmpty() || proveedorSeleccionado == null || estadoSeleccionado == null) {
             mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.", Alert.AlertType.WARNING);
         } else {
-            // Guardar solo en catalogo_insumo si no existe
-            if (catalogoInsumoDAO.findByNombre(nombreInsumo) == null) {
-                CatalogoInsumo cat = new CatalogoInsumo(nombreInsumo, estadoSeleccionado, proveedorSeleccionado.getNombre());
-                catalogoInsumoDAO.save(cat);
-                ActionLogger.log("CatalogoInsumo " + nombreInsumo + " creado con éxito.");
+            if (insumoEditando == null) {
+                // Alta: solo guardar si no existe
+                if (catalogoInsumoDAO.findByNombre(nombreInsumo) == null) {
+                    CatalogoInsumo cat = new CatalogoInsumo(nombreInsumo, estadoSeleccionado,
+                            proveedorSeleccionado.getNombre());
+                    catalogoInsumoDAO.save(cat);
+                    ActionLogger.log("CatalogoInsumo " + nombreInsumo + " creado con éxito.");
+                } else {
+                    mostrarAlerta("Duplicado", "Ya existe un insumo con ese nombre en el catálogo.",
+                            Alert.AlertType.WARNING);
+                    return;
+                }
             } else {
-                mostrarAlerta("Duplicado", "Ya existe un insumo con ese nombre en el catálogo.", Alert.AlertType.WARNING);
-                return;
+                // Modificación: actualizar el insumo existente
+                insumoEditando.setNombre(nombreInsumo);
+                insumoEditando.setEstado(estadoSeleccionado);
+                insumoEditando.setProveedor(proveedorSeleccionado.getNombre());
+                catalogoInsumoDAO.update(insumoEditando);
+                ActionLogger.log("CatalogoInsumo " + nombreInsumo + " modificado con éxito.");
             }
             if (tableInsumosController != null) {
-                tableInsumosController.cargarInsumos(); // Recargar la tabla si corresponde
+                tableInsumosController.cargarInsumos();
             }
             cerrarVentana();
         }
@@ -106,6 +129,7 @@ public class NuevoInsumoController {
 
     // Método para recibir un insumo para editarlo
     public void setInsumo(CatalogoInsumo insumo) {
+        this.insumoEditando = insumo;
         txtNomInsumo.setText(insumo.getNombre());
         // Buscar el proveedor por nombre y seleccionarlo en el ComboBox
         Proveedor proveedor = proveedorDAO.findAll().stream()
@@ -119,5 +143,23 @@ public class NuevoInsumoController {
     // Método para recibir el controlador de la tabla
     public void setTableInsumosController(TableInsumosController controller) {
         this.tableInsumosController = controller;
+    }
+
+    @FXML
+    private void abrirFormularioProveedor() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoProveedor.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Nuevo Proveedor");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            cargarProveedores();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo abrir el formulario de proveedor: " + e.getMessage(),
+                    Alert.AlertType.ERROR);
+        }
     }
 }

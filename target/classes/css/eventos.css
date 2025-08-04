@@ -1,0 +1,151 @@
+/* Modernización visual del calendario */
+
+.calendarGrid {
+    -fx-border-color: transparent;
+    -fx-background-color: #fff;
+    -fx-background-radius: 0 0 16px 16px; /* Solo esquinas inferiores redondeadas */
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 16px;
+}
+
+.calendarGrid .label {
+    -fx-font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+}
+
+.celda-dia-semana, .celda-fin-de-semana {
+    -fx-alignment: center;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 8px;
+    -fx-padding: 18px;
+    -fx-pref-width: 90px;
+    -fx-pref-height: 48px;
+    -fx-font-size: 15px;
+    -fx-transition: background-color 0.2s;
+}
+.celda-dia-semana:hover, .celda-fin-de-semana:hover {
+    -fx-background-color: #e3e4e5;
+    -fx-cursor: hand;
+}
+.celda-fin-de-semana {
+    -fx-text-fill: #3F88C5;
+    -fx-background-color: #f0f6fa;
+}
+
+.eventoButton{
+    -fx-font-size: 15px;
+    -fx-font-family: 'Inter';
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+    -fx-border-width: 0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 18px;
+    -fx-effect: dropshadow(one-pass-box, rgba(183,5,5,0.08), 2, 0, 0, 1);
+    -fx-transition: background-color 0.2s;
+}
+.eventoButton:hover{
+    -fx-background-color: #d7263d;
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
+}
+
+.monthPane{
+    -fx-font-family: 'Inter';
+    -fx-background-color: #B70505;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-text-alignment: center;
+    -fx-font-size: 18px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08), 4, 0, 0, 1);
+}
+
+.monthLabel{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+.daysGrid{
+    -fx-font-family: 'Inter';
+    -fx-background-color: #f3f3f3;
+    -fx-background-radius: 0; /* Sin esquinas redondeadas */
+}
+
+.dia-con-evento {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #EE6352 60%, #B70505 100%);
+    -fx-text-fill: #FFD700; /* Dorado para el número */
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(183,5,5,0.12), 2, 0, 0, 1);
+}
+
+.eventDayTitle{
+    -fx-font-family: 'Inter';
+    -fx-font-size: 16px;
+    -fx-text-fill: #B70505;
+}
+.eventDayText {
+    -fx-font-family: 'Inter';
+    -fx-font-size: 13px;
+}
+
+.celda-mes-externo {
+    -fx-text-fill: #A0A0A0;
+    -fx-alignment: center;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-background-color: #f3f3f3;
+    -fx-background-radius: 8px;
+    -fx-padding: 18px;
+    -fx-pref-width: 90px;
+    -fx-pref-height: 48px;
+}
+.celda-mes-externo-fin-de-semana {
+    -fx-text-fill: #3F88C5;
+    -fx-alignment: center;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-background-color: #eaf4fb;
+    -fx-background-radius: 8px;
+    -fx-padding: 18px;
+    -fx-pref-width: 90px;
+    -fx-pref-height: 48px;
+}
+
+#btnClose{
+    -fx-background-color: transparent;
+}
+
+.detalleEventos{
+    -fx-background-color: #fff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.10), 8, 0, 0, 2);
+}
+
+.celda-dia-semana.dia-con-evento, .celda-fin-de-semana.dia-con-evento {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #EE6352 60%, #B70505 100%);
+    -fx-text-fill: #FFD700; /* Dorado para el número */
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(183,5,5,0.18), 4, 0, 0, 2);
+    -fx-border-color: #B70505;
+    -fx-border-width: 2px;
+}
+
+.dia-evento-realizado {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #52EE7B 60%, #059B05 100%);
+    -fx-text-fill: #FFD700; /* Dorado para el número */
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(5,155,5,0.12), 2, 0, 0, 1);
+}
+.celda-dia-semana.dia-evento-realizado, .celda-fin-de-semana.dia-evento-realizado {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #52EE7B 60%, #059B05 100%);
+    -fx-text-fill: #FFD700;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(5,155,5,0.18), 4, 0, 0, 2);
+    -fx-border-color: #059B05;
+    -fx-border-width: 2px;
+}

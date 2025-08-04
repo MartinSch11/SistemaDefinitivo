@@ -36,7 +36,7 @@ public class AccionesUsuariosController {
         colAccion.setCellValueFactory(new PropertyValueFactory<>("accion"));
 
         // Filtrar fechas futuras en el DatePicker
-        datePicker.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
+        datePicker.setDayCellFactory(_ -> new javafx.scene.control.DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
@@ -45,7 +45,7 @@ public class AccionesUsuariosController {
         });
 
         // Listener para cargar logs según la fecha seleccionada
-        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+        datePicker.valueProperty().addListener((_, _, newValue) -> {
             if (newValue != null) {
                 cargarLogsPorFecha(newValue);
             }
@@ -72,7 +72,6 @@ public class AccionesUsuariosController {
 
         // Verificamos si el archivo existe y si la carpeta 'logs' existe
         if (!logFile.exists()) {
-            mostrarAlerta("Archivo no encontrado", "No existe un archivo de logs para la fecha seleccionada.");
             return logs;
         }
 

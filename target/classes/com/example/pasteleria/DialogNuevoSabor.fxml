@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="220.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NuevoSaborController">
+    <Pane prefHeight="220.0" prefWidth="400.0" styleClass="form-producto-root">
+        <stylesheets>
+            <URL value="@../../../css/productos_form.css" />
+        </stylesheets>
+        <!-- Encabezado -->
+        <Pane layoutX="-1.0" prefHeight="55.0" prefWidth="401.0" styleClass="form-producto-header">
+            <Label layoutX="133.0" layoutY="14.0" styleClass="form-producto-header-label" text="Nuevo Sabor" textFill="WHITE">
+                <font>
+                    <Font name="Inter Regular" size="20.0" />
+                </font>
+            </Label>
+        </Pane>
+        <!-- Campo de entrada -->
+        <Label layoutX="50.0" layoutY="80.0" styleClass="form-producto-label" text="Nombre del sabor">
+            <font>
+                <Font name="Inter Regular" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtNuevoSabor" layoutX="50.0" layoutY="105.0" prefHeight="24.0" prefWidth="300.0" promptText="Ej: Chocolate" styleClass="form-producto-input">
+            <font>
+                <Font name="Inter Regular" size="13.0" />
+            </font>
+        </TextField>
+        <!-- Botones de acción -->
+        <GridPane layoutX="50.0" layoutY="168.0" prefHeight="30.0" prefWidth="300.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <Button fx:id="btnGuardar" alignment="CENTER" mnemonicParsing="false" onAction="#handleGuardar" styleClass="form-producto-btn" text="Guardar">
+                <font>
+                    <Font name="Inter Regular" size="13.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../../com.example.image/save-blanco.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleCancelar" styleClass="form-producto-btn" text="Cancelar" GridPane.columnIndex="1">
+                <font>
+                    <Font name="Inter Regular" size="13.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../../com.example.image/close-white.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </GridPane>
+    </Pane>
+</AnchorPane>

@@ -1,7 +1,5 @@
 package controller;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -9,13 +7,11 @@ import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import model.Agenda;
 import persistence.dao.TrabajadorDAO;
 import persistence.dao.AgendaDAO;
-import javafx.scene.control.TextArea;
+
 import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -25,28 +21,39 @@ import java.util.Optional;
 import javafx.scene.text.Text;
 import utilities.Paths;
 import utilities.SceneLoader;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 public class AgendaController {
     // =================== ATRIBUTOS PRINCIPALES ===================
-    @FXML private Pane paneAgregarTareaPendiente;
-    @FXML private Spinner<Integer> Hora;
-    @FXML private Spinner<Integer> Minutos;
-    @FXML private RadioButton radioNo;
-    @FXML private RadioButton radioSi;
-    @FXML private ComboBox<String> cmbEmpleadoTarea;
-    @FXML private DatePicker dateDiaTarea;
-    @FXML private TextArea tareaPendiente;
-    @FXML private GridPane gridDias;
-    @FXML private GridPane gridTareas;
-    @FXML private Label txtFechaSemanal;
-    @FXML private LocalDate today = LocalDate.now();
-    @FXML private GridPane gridPlanillaSemanal;
-    @FXML private Button btnNuevaTarea;
+    @FXML
+    private Pane paneAgregarTareaPendiente;
+    @FXML
+    private Spinner<Integer> Hora;
+    @FXML
+    private Spinner<Integer> Minutos;
+    @FXML
+    private RadioButton radioNo;
+    @FXML
+    private RadioButton radioSi;
+    @FXML
+    private ComboBox<String> cmbEmpleadoTarea;
+    @FXML
+    private DatePicker dateDiaTarea;
+    @FXML
+    private TextArea tareaPendiente;
+    @FXML
+    private GridPane gridDias;
+    @FXML
+    private GridPane gridTareas;
+    @FXML
+    private Label txtFechaSemanal;
+    @FXML
+    private LocalDate today = LocalDate.now();
+    @FXML
+    private GridPane gridPlanillaSemanal;
+    @FXML
+    private Button btnNuevaTarea;
 
     // =================== DAOs Y SERVICIOS ===================
     private final AgendaDAO agendaDAO = new AgendaDAO();
@@ -74,7 +81,7 @@ public class AgendaController {
         ToggleGroup toggleGroup = new ToggleGroup();
         radioSi.setToggleGroup(toggleGroup);
         radioNo.setToggleGroup(toggleGroup);
-        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> actualizarEstadoSpinner());
+        toggleGroup.selectedToggleProperty().addListener((_, _, _) -> actualizarEstadoSpinner());
         SpinnerValueFactory<Integer> valueFactoryHora = new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 20);
         Hora.setValueFactory(valueFactoryHora);
         valueFactoryHora.setValue(8);
@@ -109,23 +116,27 @@ public class AgendaController {
     void handleVolver(ActionEvent event) {
         SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/components.css", false);
     }
+
     @FXML
     void anteriorSemana(ActionEvent event) {
         today = today.minusWeeks(1).with(DayOfWeek.MONDAY);
         setDaysInWeek(today);
         cargarTareasSemana(today);
     }
+
     @FXML
     void siguienteSemana(ActionEvent event) {
         today = today.plusWeeks(1).with(DayOfWeek.MONDAY);
         setDaysInWeek(today);
         cargarTareasSemana(today);
     }
+
     @FXML
     void NuevaTarea(ActionEvent event) {
         paneAgregarTareaPendiente.setVisible(true);
         btnNuevaTarea.setDisable(true);
     }
+
     @FXML
     void cancelarTarea(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -140,6 +151,7 @@ public class AgendaController {
             tareaPaneEnEdicion = null;
         }
     }
+
     @FXML
     void guardarTarea(ActionEvent event) {
         if (validarCamposObligatorios()) {
@@ -150,7 +162,9 @@ public class AgendaController {
             int horaPendiente = radioSi.isSelected() ? Hora.getValue() : 0;
             int minutoPendiente = radioSi.isSelected() ? Minutos.getValue() : 0;
             String duranteElDia = radioNo.isSelected() ? "Durante el dia" : null;
-            Time hora = (duranteElDia == null) ? Time.valueOf(String.format("%02d:%02d:00", horaPendiente, minutoPendiente)) : Time.valueOf("23:59:59");
+            Time hora = (duranteElDia == null)
+                    ? Time.valueOf(String.format("%02d:%02d:00", horaPendiente, minutoPendiente))
+                    : Time.valueOf("23:59:59");
             if (tareaEnEdicion != null) {
                 // Actualizar tarea existente
                 tareaEnEdicion.setEstado("Pendiente");
@@ -167,7 +181,8 @@ public class AgendaController {
                 tareaPaneEnEdicion = null;
             } else {
                 // Crear nueva tarea
-                Agenda nuevaTarea = new Agenda(pendiente, fechaPendiente, hora, "Pendiente", obtenerIdEmpleadoPorNombre(empleadoTarea));
+                Agenda nuevaTarea = new Agenda(pendiente, fechaPendiente, hora, "Pendiente",
+                        obtenerIdEmpleadoPorNombre(empleadoTarea));
                 agendaDAO.save(nuevaTarea);
             }
             // Solo agregar visualmente si la fecha está en la semana actual
@@ -183,7 +198,8 @@ public class AgendaController {
                         Integer colIndex = GridPane.getColumnIndex(node);
                         Integer rowIndex = GridPane.getRowIndex(node);
                         // Solo considerar ocupado si el StackPane NO es un placeholder
-                        if (colIndex != null && rowIndex != null && colIndex == columna && rowIndex == f && node instanceof StackPane) {
+                        if (colIndex != null && rowIndex != null && colIndex == columna && rowIndex == f
+                                && node instanceof StackPane) {
                             Object userData = node.getUserData();
                             if (userData == null || !"placeholder".equals(userData)) {
                                 ocupado = true;
@@ -197,7 +213,8 @@ public class AgendaController {
                     }
                 }
                 if (fila != -1) {
-                    agregarTareaADia(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente, duranteElDia, "Pendiente", columna, fila);
+                    agregarTareaADia(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente,
+                            duranteElDia, "Pendiente", columna, fila, tareaEnEdicion != null ? tareaEnEdicion : null);
                 }
             }
             vaciarCamposNuevaTarea();
@@ -205,7 +222,8 @@ public class AgendaController {
             tareaEnEdicion = null;
             tareaPaneEnEdicion = null;
         } else {
-            showAlert(Alert.AlertType.WARNING, "Advertencia", "Campos obligatorios sin completar.\nSolución: completar los campos vacíos.");
+            showAlert(Alert.AlertType.WARNING, "Advertencia",
+                    "Campos obligatorios sin completar.\nSolución: completar los campos vacíos.");
         }
     }
 
@@ -249,7 +267,8 @@ public class AgendaController {
         // Mapear tareas por día
         @SuppressWarnings("unchecked")
         List<Agenda>[] tareasPorDia = (List<Agenda>[]) new List[7];
-        for (int i = 0; i < 7; i++) tareasPorDia[i] = new java.util.ArrayList<>();
+        for (int i = 0; i < 7; i++)
+            tareasPorDia[i] = new java.util.ArrayList<>();
         for (Agenda tarea : tareasSemana) {
             if (!tarea.getFecha().isBefore(semanaInicio) && !tarea.getFecha().isAfter(semanaFin)) {
                 int columna = (tarea.getFecha().getDayOfWeek().getValue() + 6) % 7;
@@ -265,7 +284,8 @@ public class AgendaController {
                     int hora = tarea.getHora().toLocalTime().getHour();
                     int minuto = tarea.getHora().toLocalTime().getMinute();
                     String duranteElDia = (hora == 23 && minuto == 59) ? "Durante el dia" : null;
-                    agregarTareaADia(empleado, tarea.getFecha(), hora, minuto, tarea.getDescripcion(), duranteElDia, tarea.getEstado(), col, fila);
+                    agregarTareaADia(empleado, tarea.getFecha(), hora, minuto, tarea.getDescripcion(), duranteElDia,
+                            tarea.getEstado(), col, fila, tarea);
                 } else {
                     // Placeholder invisible para mantener estructura
                     StackPane placeholder = new StackPane();
@@ -277,8 +297,10 @@ public class AgendaController {
         }
     }
 
-    private void agregarTareaADia(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente, int minutoPendiente, String pendiente, String duranteElDia, String estado, int columna, int fila) {
-        StackPane tareaPane = crearTarjetaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente, duranteElDia, estado);
+    private void agregarTareaADia(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente,
+            int minutoPendiente, String pendiente, String duranteElDia, String estado, int columna, int fila, Agenda tareaActual) {
+        StackPane tareaPane = crearTarjetaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente,
+                pendiente, duranteElDia, estado, tareaActual);
         gridTareas.add(tareaPane, columna, fila);
         tareaPane.setMaxWidth(Double.MAX_VALUE);
         tareaPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -286,14 +308,17 @@ public class AgendaController {
         tareaPane.setStyle(tareaPane.getStyle() + "; -fx-padding: 15px 0 15px 12px;"); // Espacio interior entre tareas
         GridPane.setMargin(tareaPane, new Insets(5, 0, 5, 0)); // Margen inferior entre tarjetas
     }
+
     /**
      * Genera una tarjeta visual para una tarea de la agenda.
      */
-    private StackPane crearTarjetaTarea(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente, int minutoPendiente, String pendiente, String duranteElDia, String estado) {
+    private StackPane crearTarjetaTarea(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente,
+            int minutoPendiente, String pendiente, String duranteElDia, String estado, Agenda tareaActual) {
         VBox contenido = new VBox(4);
         contenido.setAlignment(Pos.CENTER);
         boolean realizado = "Realizado".equalsIgnoreCase(estado);
-        String eventIconPath = realizado ? "/com.example.image/event_list-white.png" : "/com.example.image/event_list.png";
+        String eventIconPath = realizado ? "/com.example.image/event_list-white.png"
+                : "/com.example.image/event_list.png";
         String empleadoIconPath = realizado ? "/com.example.image/man-white.png" : "/com.example.image/man-black.png";
         String clockIconPath = realizado ? "/com.example.image/clock-white.png" : "/com.example.image/clock.png";
         String textColor = realizado ? "white" : "black";
@@ -301,7 +326,8 @@ public class AgendaController {
         Label tareaLabel = new Label(pendiente);
         tareaLabel.setWrapText(true);
         tareaLabel.setMaxWidth(200);
-        tareaLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: " + textColor + "; -fx-text-alignment: left;");
+        tareaLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: " + textColor
+                + "; -fx-text-alignment: left;");
         HBox tareaBox = new HBox(6);
         tareaBox.setAlignment(Pos.CENTER_LEFT);
         ImageView eventIcon = new ImageView();
@@ -316,7 +342,8 @@ public class AgendaController {
         Label empleadoLabel = new Label(empleadoTarea);
         empleadoLabel.setWrapText(true);
         empleadoLabel.setMaxWidth(200);
-        empleadoLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: " + subTextColor + "; -fx-text-alignment: left;");
+        empleadoLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: " + subTextColor
+                + "; -fx-text-alignment: left;");
         HBox trabajadorBox = new HBox(6);
         trabajadorBox.setAlignment(Pos.CENTER_LEFT);
         ImageView empleadoIcon = new ImageView();
@@ -334,7 +361,8 @@ public class AgendaController {
         } else {
             horarioLabel = new Label(String.format("%02d:%02d hs", horaPendiente, minutoPendiente));
         }
-        horarioLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: " + subTextColor + "; -fx-text-alignment: left;");
+        horarioLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: " + subTextColor
+                + "; -fx-text-alignment: left;");
         HBox horarioBox = new HBox(6);
         horarioBox.setAlignment(Pos.CENTER_LEFT);
         ImageView clockIcon = new ImageView();
@@ -349,57 +377,50 @@ public class AgendaController {
         StackPane tareaPane = new StackPane(contenido);
 
         if (realizado) {
-            tareaPane.setStyle("-fx-background-color: #4E703F; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
+            tareaPane.setStyle(
+                    "-fx-background-color: #4E703F; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
         } else {
-            tareaPane.setStyle("-fx-background-color: #FFF4F4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
+            tareaPane.setStyle(
+                    "-fx-background-color: #FFF4F4; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px;");
         }
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem marcarHecho = new MenuItem("Finalizar tarea");
-        marcarHecho.setDisable(realizado);
-        marcarHecho.setOnAction(ev -> {
-            tareaPane.setStyle("-fx-background-color: #4E703F; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px; -fx-padding: 15px 0 15px 12px;");
-            java.io.InputStream eventStream2 = getClass().getResourceAsStream("/com.example.image/event_list-white.png");
-            if (eventStream2 != null) eventIcon.setImage(new Image(eventStream2));
-            java.io.InputStream empleadoStream2 = getClass().getResourceAsStream("/com.example.image/man-white.png");
-            if (empleadoStream2 != null) empleadoIcon.setImage(new Image(empleadoStream2));
-            java.io.InputStream clockStream2 = getClass().getResourceAsStream("/com.example.image/clock-white.png");
-            if (clockStream2 != null) clockIcon.setImage(new Image(clockStream2));
-            tareaLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: white; -fx-text-alignment: left;");
-            tareaLabel.setWrapText(true);
-            tareaLabel.setMaxWidth(200);
-            empleadoLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: white; -fx-text-alignment: left;");
-            empleadoLabel.setWrapText(true);
-            empleadoLabel.setMaxWidth(200);
-            horarioLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: white; -fx-text-alignment: left;");
-            Agenda tarea = agendaDAO.findByCampos(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente);
-            if (tarea != null) {
-                tarea.setEstado("Realizado");
-                agendaDAO.update(tarea);
-            }
-        });
-        // --- Botón Eliminar tarea ---
-        MenuItem eliminarTarea = new MenuItem("Eliminar tarea");
-        eliminarTarea.setDisable(realizado || !puedeEliminar); // No permitir eliminar si está realizada o no tiene permiso
-        eliminarTarea.setOnAction(ev -> {
-            if (realizado || !puedeEliminar) return; // Protección extra
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Eliminar tarea");
-            alert.setHeaderText("¿Está seguro que desea eliminar esta tarea?");
-            alert.setContentText(pendiente);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                Agenda tarea = agendaDAO.findByCampos(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente);
-                if (tarea != null) {
-                    agendaDAO.delete(tarea);
-                    // Eliminar visualmente
-                    ((Pane)tareaPane.getParent()).getChildren().remove(tareaPane);
+        if (!realizado) {
+            MenuItem marcarHecho = new MenuItem("Finalizar tarea");
+            marcarHecho.setOnAction(_ -> {
+                tareaPane.setStyle(
+                        "-fx-background-color: #4E703F; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.0, 2, 2); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-margin-top: 5px; -fx-padding: 15px 0 15px 12px;");
+                java.io.InputStream eventStream2 = getClass()
+                        .getResourceAsStream("/com.example.image/event_list-white.png");
+                if (eventStream2 != null)
+                    eventIcon.setImage(new Image(eventStream2));
+                java.io.InputStream empleadoStream2 = getClass().getResourceAsStream("/com.example.image/man-white.png");
+                if (empleadoStream2 != null)
+                    empleadoIcon.setImage(new Image(empleadoStream2));
+                java.io.InputStream clockStream2 = getClass().getResourceAsStream("/com.example.image/clock-white.png");
+                if (clockStream2 != null)
+                    clockIcon.setImage(new Image(clockStream2));
+                tareaLabel.setStyle(
+                        "-fx-font-size: 12px; -fx-font-weight: 600; -fx-text-fill: white; -fx-text-alignment: left;");
+                tareaLabel.setWrapText(true);
+                tareaLabel.setMaxWidth(200);
+                empleadoLabel.setStyle(
+                        "-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: white; -fx-text-alignment: left;");
+                empleadoLabel.setWrapText(true);
+                empleadoLabel.setMaxWidth(200);
+                horarioLabel.setStyle(
+                        "-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: white; -fx-text-alignment: left;");
+                if (tareaActual != null) {
+                    tareaActual.setEstado("Realizado");
+                    agendaDAO.update(tareaActual);
+                    cargarTareasSemana(today.with(DayOfWeek.MONDAY));
                 }
-            }
-        });
+            });
+            contextMenu.getItems().add(marcarHecho);
+        }
         // --- Botón Editar tarea ---
         MenuItem editarTarea = new MenuItem("Editar tarea");
         editarTarea.setDisable(realizado || !puedeEditar); // No permitir editar si está realizada o no tiene permiso
-        editarTarea.setOnAction(ev -> {
+        editarTarea.setOnAction(_ -> {
             if (realizado) {
                 showAlert(Alert.AlertType.INFORMATION, "No editable", "No se puede editar una tarea ya finalizada.");
                 return;
@@ -426,20 +447,42 @@ public class AgendaController {
                 Minutos.getValueFactory().setValue(minutoPendiente);
             }
             // Guardar referencia a la tarea original para actualizarla al guardar
-            tareaEnEdicion = agendaDAO.findByCampos(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente, pendiente);
+            tareaEnEdicion = tareaActual;
             tareaPaneEnEdicion = tareaPane;
         });
-        contextMenu.getItems().addAll(marcarHecho, editarTarea, eliminarTarea);
-        tareaPane.setOnContextMenuRequested(event -> contextMenu.show(tareaPane, event.getScreenX(), event.getScreenY()));
+        // --- Botón Eliminar tarea ---
+        MenuItem eliminarTarea = new MenuItem("Eliminar tarea");
+        eliminarTarea.setDisable(realizado || !puedeEliminar); // No permitir eliminar si está realizada o no tiene permiso
+        eliminarTarea.setOnAction(_ -> {
+            if (realizado || !puedeEliminar)
+                return; // Protección extra
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar tarea");
+            alert.setHeaderText("¿Está seguro que desea eliminar esta tarea?");
+            alert.setContentText(pendiente);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                if (tareaActual != null) {
+                    agendaDAO.delete(tareaActual);
+                    gridTareas.getChildren().remove(tareaPane);
+                    cargarTareasSemana(today.with(DayOfWeek.MONDAY));
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudo encontrar la instancia de la tarea para eliminar.");
+                }
+            }
+        });
+        contextMenu.getItems().addAll(editarTarea, eliminarTarea);
+        tareaPane.setOnContextMenuRequested(
+                event -> contextMenu.show(tareaPane, event.getScreenX(), event.getScreenY()));
         // --- Ajustes visuales para estirar la tarjeta ---
         tareaPane.setMaxWidth(Double.MAX_VALUE);
         tareaPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
         VBox.setVgrow(tareaPane, Priority.NEVER);
         StackPane.setAlignment(contenido, Pos.CENTER_LEFT);
-        tareaPane.widthProperty().addListener((_, __, newVal) -> {
+        tareaPane.widthProperty().addListener((_, _, newVal) -> {
             contenido.setPrefWidth(newVal.doubleValue());
         });
-        tareaPane.parentProperty().addListener((_, __, newParent) -> {
+        tareaPane.parentProperty().addListener((_, _, newParent) -> {
             if (newParent instanceof VBox contenedorVBox) {
                 tareaPane.prefWidthProperty().bind(contenedorVBox.widthProperty());
             }
@@ -454,15 +497,18 @@ public class AgendaController {
             cmbEmpleadoTarea.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
         }
     }
+
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     private void vaciarCamposNuevaTarea() {
         Hora.getValueFactory().setValue(Hora.getValueFactory().getConverter().fromString("8"));
         Minutos.getValueFactory().setValue(Minutos.getValueFactory().getConverter().fromString("0"));
@@ -472,34 +518,33 @@ public class AgendaController {
         cmbEmpleadoTarea.setValue(null);
         dateDiaTarea.setValue(null);
     }
+
     private boolean validarCamposObligatorios() {
-        if (dateDiaTarea.getValue() == null) return false;
-        if (tareaPendiente.getText() == null || tareaPendiente.getText().trim().isEmpty()) return false;
-        if (radioSi.isSelected() && (Hora.getValue() == null || Hora.getValue() == 0) && (Minutos.getValue() == null || Minutos.getValue() == 0)) return false;
-        if (cmbEmpleadoTarea.getValue() == null || cmbEmpleadoTarea.getValue().toString().trim().isEmpty()) return false;
+        if (dateDiaTarea.getValue() == null)
+            return false;
+        if (tareaPendiente.getText() == null || tareaPendiente.getText().trim().isEmpty())
+            return false;
+        if (radioSi.isSelected() && (Hora.getValue() == null || Hora.getValue() == 0)
+                && (Minutos.getValue() == null || Minutos.getValue() == 0))
+            return false;
+        if (cmbEmpleadoTarea.getValue() == null || cmbEmpleadoTarea.getValue().toString().trim().isEmpty())
+            return false;
         return radioNo.isSelected() || true;
     }
+
     private void actualizarEstadoSpinner() {
         Hora.setDisable(!radioSi.isSelected());
         Minutos.setDisable(!radioSi.isSelected());
         radioNo.setDisable(false);
         radioSi.setDisable(false);
     }
-    private Integer obtenerIdEmpleadoPorNombre(String nombreEmpleado) {
-        // Usar un EntityManager temporal, ya que AgendaDAO ya no expone getEntityManager()
-        EntityManager em = utilities.JpaUtil.getEntityManagerFactory().createEntityManager();
-        try {
-            return em.createQuery("SELECT e.id FROM Trabajador e WHERE e.nombre = :nombre", Integer.class)
-                    .setParameter("nombre", nombreEmpleado)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        } finally {
-            em.close();
-        }
+
+    private String obtenerIdEmpleadoPorNombre(String nombreEmpleado) {
+        return trabajadorDAO.findDniByNombre(nombreEmpleado);
     }
-    private String obtenerNombreEmpleadoPorId(Integer idTrabajador) {
-        return trabajadorDAO.findNombreById(idTrabajador);
+
+    private String obtenerNombreEmpleadoPorId(String dniEmpleado) {
+        return trabajadorDAO.findNombreByDni(dniEmpleado);
     }
 
     private void sincronizarColumnasGrid() {

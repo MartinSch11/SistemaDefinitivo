@@ -15,10 +15,15 @@ public class Categoria {
     private String nombre;
 
     // Constructor por defecto
-    public Categoria() {}
+    public Categoria() {
+    }
 
     // Constructor con nombre
     public Categoria(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 

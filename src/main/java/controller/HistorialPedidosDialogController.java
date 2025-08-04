@@ -14,20 +14,13 @@ import java.util.List;
 import javafx.scene.control.TextField;
 
 public class HistorialPedidosDialogController {
-    @FXML
-    private TableView<Pedido> tablaPedidos;
-    @FXML
-    private TableColumn<Pedido, Long> colNumero;
-    @FXML
-    private TableColumn<Pedido, String> colCliente;
-    @FXML
-    private TableColumn<Pedido, String> colProductos;
-    @FXML
-    private TableColumn<Pedido, String> colFechaEntrega;
-    @FXML
-    private TableColumn<Pedido, String> colEmpleado;
-    @FXML
-    private Button cerrarDialogo;
+    @FXML private TableView<Pedido> tablaPedidos;
+    @FXML private TableColumn<Pedido, Long> colNumero;
+    @FXML private TableColumn<Pedido, String> colCliente;
+    @FXML private TableColumn<Pedido, String> colProductos;
+    @FXML private TableColumn<Pedido, String> colFechaEntrega;
+    @FXML private TableColumn<Pedido, String> colEmpleado;
+    @FXML private Button cerrarDialogo;
     @FXML private TextField txtBuscar;
 
     private final PedidoDAO pedidoDAO = new PedidoDAO();
@@ -64,9 +57,32 @@ public class HistorialPedidosDialogController {
         }));
         cargarPedidosEntregados();
         // Listener para búsqueda en tiempo real
-        txtBuscar.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtBuscar.textProperty().addListener((_, _, newVal) -> {
             filtrarPedidos(newVal);
         });
+        // Permitir cerrar con ESC
+        cerrarDialogo.sceneProperty().addListener((_, _, newScene) -> {
+            if (newScene != null) {
+                newScene.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                    if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
+                        Stage stage = (Stage) newScene.getWindow();
+                        if (stage != null) {
+                            stage.close();
+                        }
+                    }
+                });
+            }
+        });
+        if (cerrarDialogo.getScene() != null) {
+            cerrarDialogo.getScene().addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
+                    Stage stage = (Stage) cerrarDialogo.getScene().getWindow();
+                    if (stage != null) {
+                        stage.close();
+                    }
+                }
+            });
+        }
     }
 
     public void cargarPedidosEntregados() {

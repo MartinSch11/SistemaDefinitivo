@@ -52,7 +52,7 @@ public class RecetasController {
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
 
-        tableRecetas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableRecetas.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             if (newSelection != null) {
                 mostrarDetallesReceta(newSelection);
                 btnModificar.setDisable(!puedeModificar);
@@ -77,6 +77,24 @@ public class RecetasController {
 
     private void configurarColumnas() {
         colNomReceta.setCellValueFactory(cellData -> cellData.getValue().nombreRecetaProperty());
+        // Celda personalizada para ingredientes: wrap text y tooltip
+        colIngReceta.setCellFactory(_ -> new TableCell<Receta, String>() {
+            private final javafx.scene.text.Text text = new javafx.scene.text.Text();
+            {
+                text.wrappingWidthProperty().bind(colIngReceta.widthProperty().subtract(10));
+            }
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    text.setText(item);
+                    setGraphic(text);
+                    setTooltip(new Tooltip(item));
+                }
+            }
+        });
         colIngReceta.setCellValueFactory(cellData -> {
             Receta receta = cellData.getValue();
             List<String> nombresInsumos = receta.getInsumos().stream()
@@ -108,70 +126,25 @@ public class RecetasController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevaReceta.fxml"));
             Parent root = loader.load();
-
             NuevaRecetaController dialogController = loader.getController();
-
             if (receta != null) {
-                // Carga los datos de la receta en el controlador de diálogo
                 dialogController.cargarRecetaParaModificar(receta);
                 dialogController.setTitulo("Editar Receta");
             } else {
                 dialogController.setTitulo("Nueva Receta");
             }
-
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(receta == null ? "Agregar Receta" : "Modificar Receta");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-
-            Receta recetaModificada = dialogController.getRecetaModificada();
-
-            if (recetaModificada != null) {
-                guardarRecetaModificada(receta, recetaModificada);
-            }
+            // Solo recargar recetas, la lógica de guardado está en NuevaRecetaController
+            cargarRecetas();
         } catch (IOException e) {
             e.printStackTrace();
             mostrarError("No se pudo cargar el diálogo de la receta. Intenta nuevamente.");
         }
     }
-
-    private void guardarRecetaModificada(Receta recetaOriginal, Receta recetaModificada) {
-        RecetaDAO recetaDAO = new RecetaDAO();
-
-        try {
-            if (recetaOriginal == null) {
-                // Caso de nueva receta
-                recetaDAO.save(recetaModificada);
-                listaRecetas.add(recetaModificada);
-            } else {
-                // Caso de receta existente: evitar duplicados
-                List<InsumoReceta> insumosOriginales = recetaOriginal.getInsumosReceta();
-
-                // Eliminar insumos eliminados
-                for (InsumoReceta insumoOriginal : insumosOriginales) {
-                    if (!recetaModificada.getInsumosReceta().contains(insumoOriginal)) {
-                        recetaDAO.eliminarInsumoDeReceta(insumoOriginal.getId());
-                    }
-                }
-
-                // Actualizar receta y sus insumos
-                recetaDAO.update(recetaModificada);
-
-                // Refrescar la lista observable
-                int index = listaRecetas.indexOf(recetaOriginal);
-                if (index != -1) {
-                    listaRecetas.set(index, recetaModificada);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarError("Error al guardar o modificar la receta. Intenta nuevamente.");
-        } finally {
-        }
-    }
-
 
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

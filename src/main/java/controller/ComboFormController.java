@@ -36,10 +36,10 @@ public class ComboFormController {
             .filter(p -> p.getReceta() != null && p.getReceta().getId() != null)
             .toList());
         actualizarListaProductos();
-        btnAgregarProducto.setOnAction(e -> agregarProductoAlCombo());
-        btnQuitarProducto.setOnAction(e -> quitarProductoDelCombo());
-        btnGuardar.setOnAction(e -> guardarCombo());
-        btnCancelar.setOnAction(e -> cerrarVentana());
+        btnAgregarProducto.setOnAction(_ -> agregarProductoAlCombo());
+        btnQuitarProducto.setOnAction(_ -> quitarProductoDelCombo());
+        btnGuardar.setOnAction(_ -> guardarCombo());
+        btnCancelar.setOnAction(_ -> cerrarVentana());
     }
 
     private void actualizarListaProductos() {

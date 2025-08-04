@@ -73,7 +73,7 @@ public class estadisticaController {
         comboFiltro.setValue(ESTADISTICA_INGRESOS_EGRESOS);
 
         // Listener para cambios en el ComboBox de filtro
-        comboFiltro.valueProperty().addListener((observable, oldValue, newValue) -> {
+        comboFiltro.valueProperty().addListener((_, _, newValue) -> {
             filtrarDatos(null);
             if (newValue.equals(ESTADISTICA_INGRESOS_EGRESOS)) {
                 if (!tabPane.getTabs().contains(tabCompararMeses)) {
@@ -99,12 +99,12 @@ public class estadisticaController {
         pieChart.setLegendVisible(true);
 
         // Opcional: inicializar los botones de rango rápido si están en el FXML
-        if (btnHoy != null) btnHoy.setOnAction(e -> setRangoHoy());
-        if (btnEsteMes != null) btnEsteMes.setOnAction(e -> setRangoMes());
-        if (btnEsteAnio != null) btnEsteAnio.setOnAction(e -> setRangoAnio());
+        if (btnHoy != null) btnHoy.setOnAction(_ -> setRangoHoy());
+        if (btnEsteMes != null) btnEsteMes.setOnAction(_ -> setRangoMes());
+        if (btnEsteAnio != null) btnEsteAnio.setOnAction(_ -> setRangoAnio());
 
         // Listener para limpiar gráficos y cargar PieChart de productos al cambiar de tab
-        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+        tabPane.getSelectionModel().selectedItemProperty().addListener((_, _, newTab) -> {
             if (newTab == tabPieChart) {
                 barChart.getData().clear();
             } else if (newTab == tabIngresosEgresos) {
@@ -129,11 +129,11 @@ public class estadisticaController {
         }
         comboMes1.setValue(comboMes1.getItems().get(0));
         comboMes2.setValue(comboMes2.getItems().get(1));
-        btnCompararMeses.setOnAction(e -> compararMeses());
+        btnCompararMeses.setOnAction(_ -> compararMeses());
 
         // Deshabilitar el botón de exportar si no hay fechas seleccionadas
         btnFiltrar.setDisable(true);
-        javafx.beans.value.ChangeListener<Object> fechasListener = (obs, oldVal, newVal) -> {
+        javafx.beans.value.ChangeListener<Object> fechasListener = (_, _, _) -> {
             boolean fechasOk = datePickerDesde.getValue() != null && datePickerHasta.getValue() != null;
             btnFiltrar.setDisable(!fechasOk);
         };
@@ -142,13 +142,13 @@ public class estadisticaController {
 
         // Deshabilitar el botón de generar reportes si no hay fechas seleccionadas o no tiene permiso
         btnGenerarReportes.setDisable(!puedeCrear);
-        javafx.beans.value.ChangeListener<Object> fechasListenerReporte = (obs, oldVal, newVal) -> {
+        javafx.beans.value.ChangeListener<Object> fechasListenerReporte = (_, _, _) -> {
             boolean fechasOk = datePickerDesde.getValue() != null && datePickerHasta.getValue() != null;
             btnGenerarReportes.setDisable(!fechasOk || !puedeCrear);
         };
         datePickerDesde.valueProperty().addListener(fechasListenerReporte);
         datePickerHasta.valueProperty().addListener(fechasListenerReporte);
-        btnGenerarReportes.sceneProperty().addListener((obs, oldScene, newScene) -> {
+        btnGenerarReportes.sceneProperty().addListener((_, _, newScene) -> {
             if (newScene != null) {
                 boolean fechasOk = datePickerDesde.getValue() != null && datePickerHasta.getValue() != null;
                 btnGenerarReportes.setDisable(!fechasOk || !puedeCrear);
@@ -352,11 +352,6 @@ public class estadisticaController {
         alert.setHeaderText(header); // Mensaje principal como encabezado
         alert.setContentText(content); // Mensaje secundario abajo
         alert.showAndWait();
-    }
-
-    // Sobrecarga para mantener compatibilidad con llamadas antiguas
-    private void showAlert(Alert.AlertType type, String title, String header) {
-        showAlert(type, title, header, "");
     }
 
     private void agregarTooltips(BarChart<String, Number> barChart, boolean esMoneda) {

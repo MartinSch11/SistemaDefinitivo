@@ -7,12 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.Setter;
 import model.Categoria;
 import model.Producto;
 import model.Receta;
@@ -21,7 +22,6 @@ import persistence.dao.CategoriaDAO;
 import persistence.dao.ProductoDAO;
 import persistence.dao.RecetaDAO;
 import utilities.ActionLogger;
-
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifIFD0Directory;
@@ -47,28 +46,25 @@ public class ProductoFormController {
     @FXML private TextField nombreProductoField;
     @FXML private TextArea descripcionProductoField;
     @FXML private ChoiceBox<Categoria> categoriaChoiceBox;
-    @FXML private ComboBox<Receta> cmbReceta;  // El ComboBox de Recetas
+    @FXML private ComboBox<Receta> cmbReceta;
     @FXML private TextField precioField;
     @FXML private ImageView imagenProductoView;
 
-    @Setter
     private ObservableList<Producto> listaProductos;
     private ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
     private Producto productoActual;
-    @Setter
     private CrudProductosController parentController;
 
     private final ProductoDAO productoDAO = new ProductoDAO();
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
-    private final RecetaDAO recetaDAO = new RecetaDAO();  // DAO para Recetas
+    private final RecetaDAO recetaDAO = new RecetaDAO();
 
-    private byte[] imagen; //variable para almacenar la imagen por el usuario
-    private boolean imagenCargada = false; // Variable de control para verificar si la imagen es cargada por el usuario
+    private byte[] imagen; // variable para almacenar la imagen por el usuario
 
     @FXML
     public void initialize() {
         cargarCategorias();
-        cargarRecetas();  // Cargar las recetas en el ComboBox
+        cargarRecetas(); // Cargar las recetas en el ComboBox
         if (productoActual != null) {
             cargarDatosProducto(productoActual);
         }
@@ -89,7 +85,11 @@ public class ProductoFormController {
     }
 
     public void setSaboresSeleccionados(ObservableList<Sabor> saboresSeleccionados) {
-        this.saboresSeleccionados = saboresSeleccionados;
+        this.saboresSeleccionados.setAll(saboresSeleccionados);
+        // Si se está editando un producto, actualizar sus sabores
+        if (productoActual != null) {
+            productoActual.setSabores(new ArrayList<>(saboresSeleccionados));
+        }
     }
 
     public void setProducto(Producto producto) {
@@ -108,7 +108,8 @@ public class ProductoFormController {
         cmbReceta.setValue(producto.getReceta());
         // Mostrar imagen si existe
         if (producto.getImagen() != null && producto.getImagen().length > 0) {
-            javafx.scene.image.Image img = new javafx.scene.image.Image(new java.io.ByteArrayInputStream(producto.getImagen()));
+            javafx.scene.image.Image img = new javafx.scene.image.Image(
+                    new java.io.ByteArrayInputStream(producto.getImagen()));
             imagenProductoView.setImage(img);
             imagenProductoView.setRotate(0); // No rotar, ya está bien
             // --- CROP CUADRADO centrado para cualquier orientación ---
@@ -126,20 +127,9 @@ public class ProductoFormController {
         }
     }
 
-    private CatalogoPedidosController catalogoController;
-    public void setCatalogoController(CatalogoPedidosController catalogoController) {
-        this.catalogoController = catalogoController;
-    }
-
     @FXML
     private void handleGuardar(ActionEvent event) {
         try {
-            // Inicializar el CatalogoPedidosController si es nulo
-            if (catalogoController == null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/CatalogoPedidos.fxml"));
-                Parent root = loader.load();
-                catalogoController = loader.getController();
-            }
 
             Producto producto = crearOActualizarProducto();
 
@@ -163,7 +153,8 @@ public class ProductoFormController {
             cerrarVentana(event);
 
         } catch (NumberFormatException e) {
-            mostrarMensaje(Alert.AlertType.ERROR, "Error de Validación", "El precio debe ser un valor numérico válido.");
+            mostrarMensaje(Alert.AlertType.ERROR, "Error de Validación",
+                    "El precio debe ser un valor numérico válido.");
             // Registro de la acción
             ActionLogger.log("Error al guardar producto: El precio no es válido.");
         } catch (Exception e) {
@@ -174,21 +165,11 @@ public class ProductoFormController {
 
     private void actualizarProductoExistente(Producto producto) {
         productoDAO.update(producto);
-        if (catalogoController != null) {
-            catalogoController.modificarProducto(producto);
-        } else {
-            mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
-        }
     }
 
     private void agregarNuevoProducto(Producto producto) {
         producto.setImagen(imagen);
         productoDAO.save(producto);
-        if (catalogoController != null) {
-            catalogoController.agregarProducto(producto);
-        } else {
-            mostrarMensaje(Alert.AlertType.ERROR, "Error", "catalogoController es null.");
-        }
     }
 
     private Producto crearOActualizarProducto() {
@@ -196,8 +177,8 @@ public class ProductoFormController {
         String descripcion = descripcionProductoField.getText();
         Categoria categoria = categoriaChoiceBox.getValue();
         BigDecimal precio = new BigDecimal(precioField.getText());
-        Receta receta = cmbReceta.getValue();  // Obtener la receta seleccionada
-        try{
+        Receta receta = cmbReceta.getValue(); // Obtener la receta seleccionada
+        try {
             if (!validarCampos(nombre, descripcion, categoria, precio)) {
                 throw new IllegalArgumentException("Todos los campos deben estar completos y ser válidos.");
             }
@@ -221,7 +202,6 @@ public class ProductoFormController {
             // Asignar la receta seleccionada al producto
             productoActual.setReceta(receta);
 
-
             return productoActual;
         } catch (Exception e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error", "Error al crear/actualizar el producto: " + e.getMessage());
@@ -241,7 +221,6 @@ public class ProductoFormController {
         File archivo = seleccionarArchivo();
         if (archivo != null) {
             cargarImagen(archivo);
-            imagenCargada = true; // Marcar que la imagen ha sido cargada por el usuario
             // Registro de la acción
             ActionLogger.log("Imagen cargada para el producto: " + nombreProductoField.getText());
         } else {
@@ -253,14 +232,16 @@ public class ProductoFormController {
     private File seleccionarArchivo() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imagen de Producto");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de Imagen (*.png, *.jpg)", "*.png", "*.jpg"));
+        fileChooser.getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter("Archivos de Imagen (*.png, *.jpg)", "*.png", "*.jpg"));
         return fileChooser.showOpenDialog(nombreProductoField.getScene().getWindow());
     }
 
     private void cargarImagen(File archivo) {
         try {
             BufferedImage original = ImageIO.read(archivo);
-            if (original == null) throw new IOException("Formato de imagen no soportado");
+            if (original == null)
+                throw new IOException("Formato de imagen no soportado");
 
             // Leer orientación EXIF
             int orientation = 1;
@@ -282,17 +263,20 @@ public class ProductoFormController {
                     case 6: // 90°
                         tx.translate(original.getHeight(), 0);
                         tx.rotate(Math.toRadians(90));
-                        rotated = new BufferedImage(original.getHeight(), original.getWidth(), BufferedImage.TYPE_INT_RGB);
+                        rotated = new BufferedImage(original.getHeight(), original.getWidth(),
+                                BufferedImage.TYPE_INT_RGB);
                         break;
                     case 3: // 180°
                         tx.translate(original.getWidth(), original.getHeight());
                         tx.rotate(Math.toRadians(180));
-                        rotated = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
+                        rotated = new BufferedImage(original.getWidth(), original.getHeight(),
+                                BufferedImage.TYPE_INT_RGB);
                         break;
                     case 8: // 270°
                         tx.translate(0, original.getWidth());
                         tx.rotate(Math.toRadians(270));
-                        rotated = new BufferedImage(original.getHeight(), original.getWidth(), BufferedImage.TYPE_INT_RGB);
+                        rotated = new BufferedImage(original.getHeight(), original.getWidth(),
+                                BufferedImage.TYPE_INT_RGB);
                         break;
                     default:
                         break;
@@ -309,7 +293,7 @@ public class ProductoFormController {
             int width = rotated.getWidth();
             int height = rotated.getHeight();
             if (width > maxDim || height > maxDim) {
-                float scale = Math.min((float)maxDim / width, (float)maxDim / height);
+                float scale = Math.min((float) maxDim / width, (float) maxDim / height);
                 width = Math.round(width * scale);
                 height = Math.round(height * scale);
                 Image tmp = rotated.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -345,7 +329,6 @@ public class ProductoFormController {
             imagenProductoView.setViewport(new javafx.geometry.Rectangle2D(x, y, side, side));
             imagenProductoView.setFitWidth(100);
             imagenProductoView.setFitHeight(100);
-            mostrarMensaje(Alert.AlertType.INFORMATION, "Imagen Cargada", "La imagen ha sido cargada exitosamente.");
         } catch (IOException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error al cargar la imagen", e.getMessage());
         }
@@ -368,8 +351,20 @@ public class ProductoFormController {
             stage.showAndWait();
 
             // Al cerrar la ventana, actualiza los sabores seleccionados
-            this.saboresSeleccionados.setAll(saboresController.getSaboresSeleccionados());
-            ActionLogger.log("Sabores seleccionados para el producto: " + nombreProductoField.getText());
+            List<Sabor> seleccionados = saboresController.getSaboresSeleccionados();
+            if (seleccionados != null && !seleccionados.isEmpty()) {
+                this.saboresSeleccionados.setAll(seleccionados);
+                ActionLogger.log("Sabores seleccionados para el producto: " + seleccionados);
+                System.out.println("DEBUG: Sabores seleccionados: " + seleccionados);
+            } else {
+                this.saboresSeleccionados.clear();
+                ActionLogger.log("No se seleccionaron sabores para el producto.");
+                System.out.println("DEBUG: No se seleccionaron sabores.");
+            }
+            // Forzar refresco visual del ChoiceBox si tienes uno para sabores
+            // Si usas un campo visual para mostrar los sabores, actualízalo aquí
+            // Ejemplo:
+            // saboresChoiceBox.setItems(FXCollections.observableArrayList(this.saboresSeleccionados));
         } catch (IOException e) {
             mostrarMensaje(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de selección de sabores.");
         }
@@ -410,13 +405,52 @@ public class ProductoFormController {
     public CrudProductosController getParentController() {
         return parentController;
     }
+
     public void setParentController(CrudProductosController parentController) {
         this.parentController = parentController;
     }
+
     public ObservableList<Producto> getListaProductos() {
         return listaProductos;
     }
+
     public void setListaProductos(ObservableList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
+    }
+
+    @FXML
+    private void handleNuevaCategoria() {
+        abrirVentanaModal("/com/example/pasteleria/Categoria.fxml", "Nueva Categoría");
+        cargarCategorias(); // Refresca el ChoiceBox después de cerrar la ventana
+    }
+
+    @FXML
+    private void handleNuevaReceta() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevaReceta.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Nueva Receta");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            cargarRecetas();
+
+        } catch (Exception e) {
+            mostrarMensaje(Alert.AlertType.ERROR,"Error", "No se pudo abrir el formulario de receta.");
+        }
+    }
+
+    private void abrirVentanaModal(String fxmlPath, String titulo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Stage stage = new Stage(); 
+            stage.setTitle(titulo);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new javafx.scene.Scene(loader.load())); // Usar loader.load() directamente
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

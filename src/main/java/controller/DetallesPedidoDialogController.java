@@ -70,16 +70,29 @@ public class DetallesPedidoDialogController {
     @FXML
     public void initialize() {
         // Permitir cerrar con ESC
-        btnCerrar.sceneProperty().addListener((unused1, unused2, newScene) -> {
+        btnCerrar.sceneProperty().addListener((_, _, newScene) -> {
             if (newScene != null) {
-                Stage stage = (Stage) newScene.getWindow();
                 newScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
                     if (event.getCode() == KeyCode.ESCAPE) {
-                        stage.close();
+                        Stage stage = (Stage) newScene.getWindow();
+                        if (stage != null) {
+                            stage.close();
+                        }
                     }
                 });
             }
         });
+        // Si el Scene ya está disponible al inicializar, agregar el filtro directamente
+        if (btnCerrar.getScene() != null) {
+            btnCerrar.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    Stage stage = (Stage) btnCerrar.getScene().getWindow();
+                    if (stage != null) {
+                        stage.close();
+                    }
+                }
+            });
+        }
     }
 
     @FXML

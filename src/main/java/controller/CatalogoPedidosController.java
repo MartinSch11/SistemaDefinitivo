@@ -17,7 +17,6 @@ import model.Combo;
 import model.Producto;
 import persistence.dao.ProductoDAO;
 import persistence.dao.ComboDAO;
-
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.util.*;
@@ -31,7 +30,10 @@ public class CatalogoPedidosController {
     @FXML private GridPane gridPane;
     @FXML private ComboBox<String> comboFiltro;
     @FXML private Pane catalogoContentPane;
-    
+    @FXML private VBox vboxAcciones;
+    @FXML private Label lblPrecio;
+    @FXML private Button btnGuardar;
+
     private final String imagenProductoPorDefecto = "/productosImag/imagenProductoPorDefecto.png";
     private Map<Producto, Integer> contadoresProductos = new HashMap<>();
     private List<Producto> productos = new ArrayList<>(); // Lista de productos a mostrar
@@ -63,7 +65,7 @@ public class CatalogoPedidosController {
         // Configurar ComboBox de filtro
         comboFiltro.getItems().addAll("Todos", "Productos", "Combos");
         comboFiltro.getSelectionModel().selectFirst(); // 'Todos' por defecto
-        comboFiltro.setOnAction(e -> filtrarCatalogo());
+        comboFiltro.setOnAction(_ -> filtrarCatalogo());
         filtrarCatalogo();
         // Limpiar estado al abrir el catálogo
         contadoresProductos.clear();
@@ -96,21 +98,37 @@ public class CatalogoPedidosController {
     private int tarjetaWidth = 230; // Ancho fijo
     private int tarjetaHeight = 280; // Alto fijo, suficientemente grande para combos largos
 
+    private void actualizarTotal() {
+        double total = 0.0;
+        for (Map.Entry<Producto, Integer> entry : contadoresProductos.entrySet()) {
+            if (entry.getKey() != null && entry.getKey().getPrecio() != null) {
+                total += entry.getKey().getPrecio().doubleValue() * entry.getValue();
+            }
+        }
+        for (Map.Entry<Combo, Integer> entry : contadoresCombos.entrySet()) {
+            if (entry.getKey() != null && entry.getKey().getPrecio() != null) {
+                total += entry.getKey().getPrecio().doubleValue() * entry.getValue();
+            }
+        }
+        lblPrecio.setText("Total: $" + String.format("%.2f", total));
+        // --- Notificar al controlador principal si está presente ---
+        if (nuevoPedidoController != null) {
+            nuevoPedidoController.notificarTotalActualizado();
+        }
+    }
+
     private void agregarProductosAlGrid() {
         gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setAlignment(Pos.TOP_CENTER);
         gridPane.setPrefWidth(scrollPaneCatalogo.getPrefWidth());
-        gridPane.setPrefHeight(scrollPaneCatalogo.getPrefHeight());
-
         int column = 0;
         int row = 0;
         String filtro = comboFiltro.getValue();
         boolean mostrarProductos = filtro == null || filtro.equals("Todos") || filtro.equals("Productos");
         boolean mostrarCombos = filtro == null || filtro.equals("Todos") || filtro.equals("Combos");
-
-        if (mostrarProductos && (!filtro.equals("Combos"))) {
+        if (mostrarProductos && (!"Combos".equals(filtro))) {
             for (Producto producto : productos) {
                 StackPane stackPane = crearStackPaneProducto(producto);
                 stackPane.setPrefWidth(tarjetaWidth);
@@ -124,7 +142,7 @@ public class CatalogoPedidosController {
                 }
             }
         }
-        if (mostrarCombos && (!filtro.equals("Productos"))) {
+        if (mostrarCombos && (!"Productos".equals(filtro))) {
             for (Combo combo : combos) {
                 StackPane stackPane = crearStackPaneCombo(combo);
                 stackPane.setPrefWidth(tarjetaWidth);
@@ -138,21 +156,11 @@ public class CatalogoPedidosController {
                 }
             }
         }
-        // --- Agregar el botón Guardar Pedido al final, centrado ---
-        Button guardarPedidoButton = new Button("Guardar Pedido");
-        guardarPedidoButton.getStyleClass().add("buttons");
-        guardarPedidoButton.setOnAction(this::guardarPedido);
-        VBox vbox = new VBox(guardarPedidoButton);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(10);
-        vbox.setPadding(new javafx.geometry.Insets(0, 0, 10, 0)); // Padding abajo de 10px
-        int totalRows = row + (column > 0 ? 1 : 0);
-        gridPane.add(vbox, 0, totalRows, 3, 1); // Ocupa las 3 columnas
-
-        VBox wrapper = new VBox(gridPane);
+        lblPrecio.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #B70505; -fx-alignment: center;");
+        actualizarTotal();
+        // --- Centrar el gridPane usando StackPane ---
+        StackPane wrapper = new StackPane(gridPane);
         wrapper.setAlignment(Pos.CENTER);
-        wrapper.setPrefWidth(scrollPaneCatalogo.getPrefWidth());
-        wrapper.setPrefHeight(scrollPaneCatalogo.getPrefHeight());
         catalogoContentPane.getChildren().setAll(wrapper);
         scrollPaneCatalogo.setContent(catalogoContentPane);
     }
@@ -164,7 +172,8 @@ public class CatalogoPedidosController {
         stackPane.getStyleClass().add("stack-pane");
 
         VBox vbox = new VBox(10);
-        vbox.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.BOTTOM_CENTER); // Alinea todo abajo
+        vbox.setPrefHeight(tarjetaHeight); // Para que ocupe todo el alto de la tarjeta
 
         ImageView imageView = new ImageView();
         Image img = null;
@@ -178,10 +187,17 @@ public class CatalogoPedidosController {
                 if (directory != null && directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)) {
                     int orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
                     switch (orientation) {
-                        case 6: rotation = 90; break;
-                        case 3: rotation = 180; break;
-                        case 8: rotation = 270; break;
-                        default: rotation = 0;
+                        case 6:
+                            rotation = 90;
+                            break;
+                        case 3:
+                            rotation = 180;
+                            break;
+                        case 8:
+                            rotation = 270;
+                            break;
+                        default:
+                            rotation = 0;
                     }
                 }
                 bais.reset();
@@ -212,8 +228,9 @@ public class CatalogoPedidosController {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setStyle("-fx-alignment: center; -fx-effect: dropshadow(gaussian, #00000022, 4, 0, 0, 2);");
-        VBox.setMargin(imageView, new javafx.geometry.Insets(5,0,5,0));
-        vbox.getChildren().add(imageView);
+        VBox.setMargin(imageView, new javafx.geometry.Insets(5, 0, 5, 0));
+        VBox.setVgrow(imageView, javafx.scene.layout.Priority.NEVER); // Imagen fija arriba
+        vbox.getChildren().add(imageView); // Imagen primero
 
         Label nombreProducto = new Label(producto.getNombre());
         nombreProducto.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
@@ -221,6 +238,12 @@ public class CatalogoPedidosController {
         nombreProducto.setWrapText(true);
         nombreProducto.setAlignment(Pos.CENTER);
         vbox.getChildren().add(nombreProducto);
+        // --- Etiqueta de precio debajo del nombre ---
+        Label precioProducto = new Label("$" + String.format("%.2f", producto.getPrecio()));
+        precioProducto.setStyle("-fx-font-size: 12px; -fx-text-fill: #2E7D32; -fx-font-weight: bold;");
+        precioProducto.setAlignment(Pos.CENTER);
+        precioProducto.setMaxWidth(180);
+        vbox.getChildren().add(precioProducto);
 
         HBox hBox = new HBox(10);
         hBox.setAlignment(Pos.CENTER);
@@ -243,7 +266,7 @@ public class CatalogoPedidosController {
                 "-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
 
         hBox.getChildren().addAll(menosButton, contadorLabel, masButton);
-        vbox.getChildren().add(hBox);
+        vbox.getChildren().add(hBox); // El HBox del contador va al final
         stackPane.getChildren().add(vbox);
 
         // 🔥 Cargar cantidad si ya fue seleccionada
@@ -252,41 +275,39 @@ public class CatalogoPedidosController {
         menosButton.setDisable(cantidadActual == 0);
 
         // ➖ Acción del botón menos
-        menosButton.setOnAction(event -> {
+        menosButton.setOnAction(_ -> {
             int count = Integer.parseInt(contadorLabel.getText());
             if (count > 0) {
                 count--;
                 contadorLabel.setText(String.valueOf(count));
                 menosButton.setDisable(count == 0);
-
                 if (count == 0) {
                     contadoresProductos.remove(producto);
                 } else {
                     contadoresProductos.put(producto, count);
                 }
-
                 // LOG
                 System.out.println("[DEBUG Catalogo] contadoresProductos tras -:");
                 for (Map.Entry<Producto, Integer> entry : contadoresProductos.entrySet()) {
                     System.out.println("  - " + entry.getKey().getId() + " | " + entry.getKey().getNombre()
                             + " | cantidad: " + entry.getValue());
                 }
+                actualizarTotal();
             }
         });
-
         // ➕ Acción del botón más
-        masButton.setOnAction(event -> {
+        masButton.setOnAction(_ -> {
             int count = Integer.parseInt(contadorLabel.getText());
             count++;
             contadorLabel.setText(String.valueOf(count));
             menosButton.setDisable(false);
             contadoresProductos.put(producto, count);
-
             System.out.println("[DEBUG Catalogo] contadoresProductos tras +:");
             for (Map.Entry<Producto, Integer> entry : contadoresProductos.entrySet()) {
                 System.out.println("  - " + entry.getKey().getId() + " | " + entry.getKey().getNombre()
                         + " | cantidad: " + entry.getValue());
             }
+            actualizarTotal();
         });
 
         return stackPane;
@@ -299,7 +320,8 @@ public class CatalogoPedidosController {
         stackPane.getStyleClass().add("stack-pane");
 
         VBox vbox = new VBox(10);
-        vbox.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.BOTTOM_CENTER); // Igual que productos: todo abajo
+        vbox.setPrefHeight(tarjetaHeight); // Para que ocupe todo el alto de la tarjeta
 
         ImageView imageView = new ImageView();
         Image img = null;
@@ -326,23 +348,32 @@ public class CatalogoPedidosController {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setStyle("-fx-alignment: center; -fx-effect: dropshadow(gaussian, #00000022, 4, 0, 0, 2);");
-        VBox.setMargin(imageView, new javafx.geometry.Insets(5,0,5,0));
-        vbox.getChildren().add(imageView);
+        VBox.setMargin(imageView, new javafx.geometry.Insets(5, 0, 5, 0));
+        VBox.setVgrow(imageView, javafx.scene.layout.Priority.NEVER); // Imagen fija arriba
+        vbox.getChildren().add(imageView); // Imagen primero
 
         Label nombreCombo = new Label(combo.getNombre());
         nombreCombo.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
-        nombreCombo.setMaxWidth(200); // Más ancho para evitar corte
+        nombreCombo.setMaxWidth(180); // Igual que producto
         nombreCombo.setWrapText(true);
         nombreCombo.setAlignment(Pos.CENTER);
         vbox.getChildren().add(nombreCombo);
+        // --- Etiqueta de precio debajo del nombre del combo ---
+        Label precioCombo = new Label("$" + String.format("%.2f", combo.getPrecio()));
+        precioCombo.setStyle("-fx-font-size: 12px; -fx-text-fill: #2E7D32; -fx-font-weight: bold;");
+        precioCombo.setAlignment(Pos.CENTER);
+        precioCombo.setMaxWidth(180); // Igual que producto
+        vbox.getChildren().add(precioCombo);
 
         // Mostrar productos incluidos en el combo
         StringBuilder productosIncluidos = new StringBuilder("Incluye: ");
-        combo.getProductos().forEach(cp -> productosIncluidos.append(cp.getProducto().getNombre()).append(" x").append(cp.getCantidad()).append(", "));
-        if (productosIncluidos.length() > 9) productosIncluidos.setLength(productosIncluidos.length() - 2);
+        combo.getProductos().forEach(cp -> productosIncluidos.append(cp.getProducto().getNombre()).append(" x")
+                .append(cp.getCantidad()).append(", "));
+        if (productosIncluidos.length() > 9)
+            productosIncluidos.setLength(productosIncluidos.length() - 2);
         Label productosLabel = new Label(productosIncluidos.toString());
         productosLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #666;");
-        productosLabel.setMaxWidth(200); // Más ancho
+        productosLabel.setMaxWidth(180); // Igual que producto
         productosLabel.setWrapText(true);
         productosLabel.setAlignment(Pos.CENTER);
         vbox.getChildren().add(productosLabel);
@@ -354,16 +385,18 @@ public class CatalogoPedidosController {
         menosButton.getStyleClass().add("buttons");
         menosButton.setPrefWidth(24);
         menosButton.setPrefHeight(24);
-        menosButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
+        menosButton.setStyle(
+                "-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
         Label contadorLabel = new Label("0");
         contadorLabel.setStyle("-fx-font-size: 14px; -fx-min-width: 24px; -fx-alignment: center;");
         Button masButton = new Button("+");
         masButton.getStyleClass().add("buttons");
         masButton.setPrefWidth(24);
         masButton.setPrefHeight(24);
-        masButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
+        masButton.setStyle(
+                "-fx-font-size: 14px; -fx-background-radius: 12px; -fx-background-color: #B70505; -fx-border-radius: 12px;");
         hBox.getChildren().addAll(menosButton, contadorLabel, masButton);
-        vbox.getChildren().add(hBox);
+        vbox.getChildren().add(hBox); // El HBox del contador va al final
         stackPane.getChildren().add(vbox);
 
         // --- Lógica de contador para combos ---
@@ -371,7 +404,7 @@ public class CatalogoPedidosController {
         contadorLabel.setText(String.valueOf(cantidadActual));
         menosButton.setDisable(cantidadActual == 0);
 
-        menosButton.setOnAction(event -> {
+        menosButton.setOnAction(_ -> {
             int count = Integer.parseInt(contadorLabel.getText());
             if (count > 0) {
                 count--;
@@ -388,9 +421,10 @@ public class CatalogoPedidosController {
                     System.out.println("  - " + entry.getKey().getId() + " | " + entry.getKey().getNombre()
                             + " | cantidad: " + entry.getValue());
                 }
+                actualizarTotal();
             }
         });
-        masButton.setOnAction(event -> {
+        masButton.setOnAction(_ -> {
             int count = Integer.parseInt(contadorLabel.getText());
             count++;
             contadorLabel.setText(String.valueOf(count));
@@ -401,11 +435,13 @@ public class CatalogoPedidosController {
                 System.out.println("  - " + entry.getKey().getId() + " | " + entry.getKey().getNombre()
                         + " | cantidad: " + entry.getValue());
             }
+            actualizarTotal();
         });
         return stackPane;
     }
 
-    private void guardarPedido(ActionEvent actionEvent) {
+    @FXML
+    private void handleGuardar(ActionEvent event) {
         productosGuardados.clear();
         combosGuardados.clear();
         // Elimina todos los productos con cantidad <= 0 de contadoresProductos
@@ -419,9 +455,12 @@ public class CatalogoPedidosController {
             combosGuardados.put(entry.getKey(), entry.getValue());
         }
         if (productosGuardados.isEmpty() && combosGuardados.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Sin selección", "No se seleccionó ningún producto ni combo para el pedido.");
+            showAlert(Alert.AlertType.WARNING, "Sin selección",
+                    "No se seleccionó ningún producto ni combo para el pedido.");
+            return;
         }
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        // Cerrar la ventana
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
@@ -503,7 +542,6 @@ public class CatalogoPedidosController {
                             int cantidad = contadoresProductos.getOrDefault(producto, 0);
                             contadorLabel.setText(String.valueOf(cantidad));
                             if (menosButton != null) {
-                                // Cambiar: solo deshabilitar el botón menos si la cantidad es 0
                                 menosButton.setDisable(cantidad == 0);
                             }
                         }
@@ -511,6 +549,8 @@ public class CatalogoPedidosController {
                 }
             }
         }
+        // --- Actualizar el total visual en el catálogo ---
+        actualizarTotal();
     }
 
     /**
@@ -579,6 +619,8 @@ public class CatalogoPedidosController {
                 }
             }
         }
+        // --- Actualizar el total visual en el catálogo ---
+        actualizarTotal();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {

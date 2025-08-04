@@ -62,7 +62,7 @@ public class NuevaRecetaController {
         cmbUnidad.setItems(FXCollections.observableArrayList("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES"));
 
         // Mostrar solo el nombre en el ComboBox de ingredientes
-        cmbIngredientes.setCellFactory(listView -> new ListCell<>() {
+        cmbIngredientes.setCellFactory(_ -> new ListCell<>() {
             @Override
             protected void updateItem(CatalogoInsumo item, boolean empty) {
                 super.updateItem(item, empty);
@@ -78,14 +78,14 @@ public class NuevaRecetaController {
         });
 
         // Listener para filtrar unidades según el estado del insumo seleccionado
-        cmbIngredientes.valueProperty().addListener((obs, oldCatalogo, newCatalogo) -> {
+        cmbIngredientes.valueProperty().addListener((_, _, newCatalogo) -> {
             filtrarUnidadesPorEstado(newCatalogo);
         });
 
         tableIngredientes.setItems(listaInsumosReceta);
         btnEliminar.setDisable(true);
 
-        tableIngredientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableIngredientes.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
             btnEliminar.setDisable(newSelection == null);
             btnEditar.setDisable(newSelection == null);
         });
@@ -211,22 +211,25 @@ public class NuevaRecetaController {
             showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos.");
             return;
         }
-
+        RecetaDAO recetaDAO = new RecetaDAO();
         if (recetaModificada == null) {
             recetaModificada = new Receta(txtNomReceta.getText());
+            for (InsumoReceta insumoReceta : listaInsumosReceta) {
+                insumoReceta.setReceta(recetaModificada);
+                recetaModificada.addInsumo(insumoReceta);
+            }
+            recetaDAO.save(recetaModificada);
+            ActionLogger.log("Receta guardada: " + recetaModificada.getNombreReceta());
         } else {
             recetaModificada.setNombreReceta(txtNomReceta.getText());
             recetaModificada.getInsumosReceta().clear();
+            for (InsumoReceta insumoReceta : listaInsumosReceta) {
+                insumoReceta.setReceta(recetaModificada);
+                recetaModificada.addInsumo(insumoReceta);
+            }
+            recetaDAO.update(recetaModificada);
+            ActionLogger.log("Receta modificada: " + recetaModificada.getNombreReceta());
         }
-
-        for (InsumoReceta insumoReceta : listaInsumosReceta) {
-            insumoReceta.setReceta(recetaModificada);
-            recetaModificada.addInsumo(insumoReceta);
-        }
-
-        // Log de la acción de guardar receta
-        ActionLogger.log("Receta guardada: " + recetaModificada.getNombreReceta());
-
         // Cerrar ventana
         ((Stage) btnGuardar.getScene().getWindow()).close();
     }

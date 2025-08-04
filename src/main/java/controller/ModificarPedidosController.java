@@ -32,7 +32,6 @@ public class ModificarPedidosController {
     private ClienteDAO clienteDAO = new ClienteDAO();
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
     private PedidoDAO pedidoDAO = new PedidoDAO();
-    private Pedido pedido;
 
     private ObservableList<Pedido> pedidos = FXCollections.observableArrayList();
     private Pedido pedidoSeleccionado;

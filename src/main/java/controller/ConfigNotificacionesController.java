@@ -37,7 +37,7 @@ public class ConfigNotificacionesController {
         // Inicializar el ToggleButton según la configuración guardada
         toggleNotificaciones.setSelected(configActual.isNotificacionesActivas());
         toggleNotificaciones.setText(toggleNotificaciones.isSelected() ? "Notificaciones activas" : "Notificaciones desactivadas");
-        toggleNotificaciones.selectedProperty().addListener((_, __, newVal) -> {
+        toggleNotificaciones.selectedProperty().addListener((_, _, newVal) -> {
             toggleNotificaciones.setText(newVal ? "Notificaciones activas" : "Notificaciones desactivadas");
         });
     }

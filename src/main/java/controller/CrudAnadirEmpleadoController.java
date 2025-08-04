@@ -2,8 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javafx.scene.control.*;
@@ -42,27 +41,27 @@ public class CrudAnadirEmpleadoController {
 
     @FXML
     public void initialize() {
-        nombreTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+        nombreTxtField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("[a-zA-Z ]*")) {
                 nombreTxtField.setText(newValue.replaceAll("[^a-zA-Z ]", ""));
             }
         });
-        telTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+        telTxtField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 telTxtField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        DNITxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+        DNITxtField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 DNITxtField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        sueldoTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+        sueldoTxtField.textProperty().addListener((_, _, newValue) -> {
             if (!newValue.matches("[\\d,.]*")) {
                 sueldoTxtField.setText(newValue.replaceAll("[^\\d,.]", ""));
             }
         });
-        dateFechaContratacion.setDayCellFactory(picker -> new DateCell() {
+        dateFechaContratacion.setDayCellFactory(_ -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
@@ -98,7 +97,8 @@ public class CrudAnadirEmpleadoController {
     private boolean camposObligatorios() {
         return DNITxtField != null && !DNITxtField.getText().isEmpty()
                 && nombreTxtField != null && !nombreTxtField.getText().isEmpty()
-                && sueldoTxtField != null && !sueldoTxtField.getText().isEmpty()
+                // Permitir que el sueldo esté vacío (puede ser null)
+                // && sueldoTxtField != null && !sueldoTxtField.getText().isEmpty()
                 && telTxtField != null && !telTxtField.getText().isEmpty()
                 && direccionTxtField != null && !direccionTxtField.getText().isEmpty()
                 && dateFechaContratacion.getValue() != null
@@ -125,7 +125,16 @@ public class CrudAnadirEmpleadoController {
         String nombreEmpleado = nombreTxtField.getText();
         String direccionEmpleado = direccionTxtField.getText();
         String telefonoEmpleado = telTxtField.getText();
-        BigDecimal sueldoEmpleado = new BigDecimal(sueldoTxtField.getText());
+        String sueldoStr = sueldoTxtField.getText();
+        BigDecimal sueldoEmpleado = null;
+        if (sueldoStr != null && !sueldoStr.trim().isEmpty()) {
+            try {
+                sueldoEmpleado = new BigDecimal(sueldoStr.replace(",", "."));
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Error de Validación", "El sueldo ingresado no es válido.");
+                return;
+            }
+        }
         LocalDate fechaContratoEmpleado = dateFechaContratacion.getValue();
         Rol rolSeleccionado = cmbRol.getValue();
         String contraseña = txtContraseña.getText();
@@ -148,6 +157,7 @@ public class CrudAnadirEmpleadoController {
             nuevoEmpleado.setSueldo(sueldoEmpleado);
             nuevoEmpleado.setFechaContratacion(fechaContratoEmpleado);
             nuevoEmpleado.setRol(rolSeleccionado);
+            nuevoEmpleado.setSexo(cmbSexo.getValue()); // <--- Guardar sexo
 
             trabajadorDAO.save(nuevoEmpleado);
 
