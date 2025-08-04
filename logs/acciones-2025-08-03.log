@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-08-03 18:24:29] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
 [2025-08-03 18:24:37] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Pedidos
 [2025-08-03 18:24:45] Usuario: Martin Schonberger (Rol: Administrador) Acción: Catálogo abierto correctamente.
@@ -252,3 +253,62 @@
 [2025-08-03 23:49:45] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Recetas
 [2025-08-03 23:49:46] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
 [2025-08-03 23:49:46] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+=======
+[2025-08-03 18:20:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 18:21:01] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-03 18:23:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 18:23:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 18:26:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 18:26:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 18:37:06] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 18:37:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 18:37:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 18:37:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 18:37:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 18:37:34] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:23:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:23:42] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:31:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:31:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:31:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:31:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:32:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:32:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:32:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:32:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:35:05] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:35:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-03 23:35:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-03 23:35:30] Usuario: Juan Lopez (Rol: Administrador) Acción: Empleado con DNI 39393939 actualizado exitosamente.
+[2025-08-03 23:35:32] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-03 23:35:49] Usuario: Juan Lopez (Rol: Administrador) Acción: Empleado con DNI 40168921 actualizado exitosamente.
+[2025-08-03 23:35:50] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-03 23:36:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Empleado con DNI 40215591 actualizado exitosamente.
+[2025-08-03 23:37:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:37:30] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-03 23:46:46] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:47:02] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Eventos
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-15
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-10
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-12-20
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-10-27
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2024-11-30
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2025-07-05
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Evento agregado para la fecha: 2025-07-18
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-08-03 23:47:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario inicializado para el mes: 2025-08
+[2025-08-03 23:47:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Calendario para el mes: 2025-07 generado correctamente.
+[2025-08-03 23:47:08] Usuario: Juan Lopez (Rol: Administrador) Acción: Cambiado al mes anterior: 2025-07
+[2025-08-03 23:47:09] Usuario: Juan Lopez (Rol: Administrador) Acción: Detalles del evento cargados para la fecha: 2025-07-18
+[2025-08-03 23:47:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:47:45] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-03 23:51:31] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:53:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:53:15] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:53:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:53:23] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-03 23:58:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-03 23:58:03] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+>>>>>>> 711c064f3b778ac082c6ac9b00c2fbdf48cf6183

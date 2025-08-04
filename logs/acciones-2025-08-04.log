@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-08-04 00:02:08] Usuario: Martin Schonberger (Rol: Administrador) Acción: Producto agregado: tarta de frutilla
 [2025-08-04 00:02:56] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
 [2025-08-04 00:02:59] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Recetas
@@ -376,3 +377,531 @@
 [2025-08-04 17:11:32] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Proveedores
 [2025-08-04 17:11:35] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
 [2025-08-04 17:11:35] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario volvió al menú principal.
+=======
+[2025-08-04 00:03:10] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:08:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:10:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 00:10:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-08-04 00:12:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario modificó el insumo del catálogo: FRUTILLAS
+[2025-08-04 00:13:17] Usuario: Juan Lopez (Rol: Administrador) Acción: Operación de insumo cancelada.
+[2025-08-04 00:13:29] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-08-04 00:13:54] Usuario: Juan Lopez (Rol: Administrador) Acción: CatalogoInsumo HUEVO creado con éxito.
+[2025-08-04 00:13:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario eliminó el insumo del catálogo: HUEVO
+[2025-08-04 00:17:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:17:04] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 00:17:05] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 00:22:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:22:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 00:22:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 00:23:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: El campo
+[2025-08-04 00:24:48] Usuario: Juan Lopez (Rol: Administrador) Acción: Proveedor guardado: El campo
+[2025-08-04 00:24:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:24:52] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 00:24:54] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 00:24:57] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: El campo
+[2025-08-04 00:25:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: El campo
+[2025-08-04 00:25:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Proveedor guardado: El campo
+[2025-08-04 00:28:28] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-08-04 00:29:51] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-08-04 00:30:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:30:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 00:30:47] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 00:47:08] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-08-04 00:47:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:47:11] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 00:47:12] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 00:47:14] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo insumo.
+[2025-08-04 00:56:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 00:56:00] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 00:58:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 00:58:23] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-08-04 00:59:25] Usuario: Juan Lopez (Rol: Administrador) Acción: Empleado guardado: Sofia Lopez
+[2025-08-04 01:00:33] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 01:00:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 01:00:35] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 01:00:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-08-04 01:02:41] Usuario: Juan Lopez (Rol: Administrador) Acción: Proveedor guardado: Keps
+[2025-08-04 01:02:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 01:02:44] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 01:02:45] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 01:03:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 01:03:56] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 01:04:01] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 01:04:07] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-08-04 01:04:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-08-04 01:04:45] Usuario: Juan Lopez (Rol: Administrador) Acción: CatalogoInsumo AZUCAR NEGRA creado con éxito.
+[2025-08-04 01:04:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 01:04:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 01:04:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Stock
+[2025-08-04 01:05:15] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para agregar un nuevo insumo.
+[2025-08-04 01:06:46] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó correctamente un insumo: AZUCAR NEGRA
+[2025-08-04 01:06:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 01:06:48] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 01:06:59] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-08-04 01:07:09] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Receta Galletas de Vainilla
+[2025-08-04 01:07:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Muffins
+[2025-08-04 01:09:11] Usuario: Juan Lopez (Rol: Administrador) Acción: Ingrediente agregado: AZUCAR NEGRA, Cantidad: 1 UNIDAD
+[2025-08-04 01:09:13] Usuario: Juan Lopez (Rol: Administrador) Acción: Receta guardada: Muffins
+[2025-08-04 01:10:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-08-04 01:10:18] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 01:10:20] Usuario: Juan Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 01:10:29] Usuario: Juan Lopez (Rol: Administrador) Acción: Producto agregado: Trufas de Chocolate
+[2025-08-04 01:11:53] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 01:12:20] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Frutilla
+[2025-08-04 01:12:22] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Fresa
+[2025-08-04 01:12:24] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 01:12:24] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Cheescake
+[2025-08-04 01:12:34] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 01:12:36] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Fresa
+[2025-08-04 01:12:38] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 01:12:38] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Cheescake
+[2025-08-04 01:12:43] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 01:13:39] Usuario: Juan Lopez (Rol: Administrador) Acción: El usuario canceló la selección de sabores.
+[2025-08-04 01:13:39] Usuario: Juan Lopez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Cheescake
+[2025-08-04 11:59:15] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 11:59:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 11:59:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 11:59:34] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-08-04 12:00:48] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Empleado guardado: Camila Gomez
+[2025-08-04 12:00:50] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 12:01:10] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado exitosamente.
+[2025-08-04 12:06:39] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-08-04 12:07:39] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Empleado guardado: Pablo Perez
+[2025-08-04 12:07:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 12:07:45] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-08-04 12:07:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Empleado eliminado: Pablo Perez
+[2025-08-04 12:15:42] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:15:42] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 12:15:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:15:45] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-08-04 12:18:40] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor guardado: Insumos SA
+[2025-08-04 12:18:42] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:18:42] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:18:43] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:21:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:21:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:21:33] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 12:21:38] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 12:21:53] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado exitosamente.
+[2025-08-04 12:21:57] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:21:57] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 12:28:45] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:28:53] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:28:53] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:31:09] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:31:11] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: Insumos SA
+[2025-08-04 12:31:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor guardado: Insumos SRL
+[2025-08-04 12:31:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:31:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:31:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:32:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:32:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:34:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 12:34:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 12:41:50] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:41:54] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:41:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para crear un proveedor.
+[2025-08-04 12:45:16] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor guardado: Keps SRL
+[2025-08-04 12:45:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: Keps SRL
+[2025-08-04 12:45:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor guardado: Keps SA
+[2025-08-04 12:45:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:45:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:45:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:46:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:46:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:46:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:52:45] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:53:45] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:53:48] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: Keps SRL
+[2025-08-04 12:53:54] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor guardado: Keps SA
+[2025-08-04 12:53:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:53:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 12:53:57] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:58:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:58:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Proveedores
+[2025-08-04 12:58:04] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: Keps SRL
+[2025-08-04 12:58:09] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor actualizado: Keps SA
+[2025-08-04 12:58:15] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió al formulario para modificar el proveedor: Keps SA
+[2025-08-04 12:58:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Proveedor actualizado: Keps SA
+[2025-08-04 12:58:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 12:58:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 13:03:51] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:04:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 13:04:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-08-04 13:04:07] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-08-04 13:04:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: CatalogoInsumo HARINA creado con éxito.
+[2025-08-04 13:04:50] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-08-04 13:04:59] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: CatalogoInsumo LECHE creado con éxito.
+[2025-08-04 13:05:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-08-04 13:05:09] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: CatalogoInsumo HUEVOS creado con éxito.
+[2025-08-04 13:05:11] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:05:11] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 13:05:16] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 13:05:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:05:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 13:05:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Recetas
+[2025-08-04 13:05:49] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2025-08-04 13:06:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Ingrediente agregado: HARINA, Cantidad: 350 GR
+[2025-08-04 13:06:09] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Ingrediente agregado: HUEVOS, Cantidad: 4 UNIDAD
+[2025-08-04 13:06:15] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 200 ML
+[2025-08-04 13:06:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Receta guardada: Bizcochuelo
+[2025-08-04 13:06:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere modificar la receta: Bizcochuelo
+[2025-08-04 13:06:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Insumo de receta seleccionado para editar: HUEVOS
+[2025-08-04 13:06:36] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Receta guardada: Bizcochuelo
+[2025-08-04 13:06:43] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere agregar una nueva receta.
+[2025-08-04 13:06:55] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Ingrediente agregado: HARINA, Cantidad: 300 GR
+[2025-08-04 13:07:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Ingrediente agregado: LECHE, Cantidad: 250 ML
+[2025-08-04 13:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Ingrediente agregado: HUEVOS, Cantidad: 2 UNIDAD
+[2025-08-04 13:07:07] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Receta guardada: Vainillas
+[2025-08-04 13:07:12] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere eliminar la receta: Vainillas
+[2025-08-04 13:07:33] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de gestión de recetas.
+[2025-08-04 13:07:34] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:10:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:10:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:10:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-08-04 13:10:38] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:10:40] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:11:06] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:11:08] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-08-04 13:11:12] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Nuevo sabor guardado: Vainilla
+[2025-08-04 13:11:13] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:11:15] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-08-04 13:11:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Nuevo sabor guardado: Dulce de leche
+[2025-08-04 13:11:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:11:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:11:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta
+[2025-08-04 13:28:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:28:14] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:28:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:28:59] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:29:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:29:02] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:29:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:29:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta de vainilla
+[2025-08-04 13:29:10] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:29:12] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:29:13] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:29:14] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:29:14] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta de vainilla
+[2025-08-04 13:36:36] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:36:38] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:36:39] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:37:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:37:32] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:37:33] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:37:33] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta de vainilla
+[2025-08-04 13:37:34] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:37:37] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:37:38] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:37:38] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta de vainilla
+[2025-08-04 13:37:42] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:37:43] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario quiere agregar un nuevo sabor.
+[2025-08-04 13:37:49] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Nuevo sabor guardado: Frutilla
+[2025-08-04 13:37:51] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Frutilla
+[2025-08-04 13:37:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:37:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta de vainilla
+[2025-08-04 13:37:54] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:37:55] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Frutilla
+[2025-08-04 13:37:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:37:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta de vainilla
+[2025-08-04 13:43:09] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:43:13] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:43:16] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:43:17] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:43:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:43:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:43:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:43:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:43:27] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Vainilla
+[2025-08-04 13:43:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:43:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:43:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:44:04] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:54:50] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:54:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:54:54] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:54:58] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:55:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:55:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:55:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:55:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:55:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:56:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:56:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:56:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:56:27] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:56:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:56:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:56:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:56:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:56:32] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario canceló la selección de sabores.
+[2025-08-04 13:56:32] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:56:50] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:56:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:56:53] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:56:53] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: Torta vainilla
+[2025-08-04 13:58:56] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 13:58:58] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-08-04 13:59:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Producto agregado: 
+[2025-08-04 13:59:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:59:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario seleccionó el sabor: Dulce de leche
+[2025-08-04 13:59:04] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario guardó los sabores seleccionados.
+[2025-08-04 13:59:04] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 13:59:04] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores.
+[2025-08-04 13:59:06] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario canceló la selección de sabores.
+[2025-08-04 13:59:06] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Sabores seleccionados para el producto: 
+[2025-08-04 14:06:55] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:06:58] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:07:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 14:07:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 14:07:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 14:07:00] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 14:07:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Se activaron todos los permisos para el rol Administrador.
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Settings-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Notificaciones-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Stock-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-todos al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Pedidos-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Productos-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Agenda-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Clientes-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Sabores-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Insumos-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Config. Empleados-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-crear al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Eventos-eliminar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Recetas-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Proveedores-modificar al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario revocó el permiso Estadísticas-ver al rol: Empleado
+[2025-08-04 14:07:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 14:07:14] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 14:07:17] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 14:07:17] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 14:07:17] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 14:07:17] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 14:07:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:07:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 14:07:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:07:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 14:07:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 14:07:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 14:07:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 14:07:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 14:07:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 14:07:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:07:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 14:07:40] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:07:41] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 14:07:41] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 14:07:41] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 14:07:41] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 14:07:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 14:07:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 14:07:49] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-04 14:08:14] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:08:16] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: Accedió a la sección de Eventos
+[2025-08-04 14:08:16] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-08-04 14:08:16] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-08-04 14:08:16] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: Calendario inicializado para el mes: 2025-08
+[2025-08-04 14:08:20] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: Calendario para el mes: 2025-09 generado correctamente.
+[2025-08-04 14:08:20] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: Cambiado al siguiente mes: 2025-09
+[2025-08-04 14:08:23] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:08:23] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: El usuario volvió al menú principal.
+[2025-08-04 14:08:27] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-08-04 14:08:35] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:08:37] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Eventos
+[2025-08-04 14:08:37] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-08-04 14:08:37] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Calendario para el mes: 2025-08 generado correctamente.
+[2025-08-04 14:08:37] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Calendario inicializado para el mes: 2025-08
+[2025-08-04 14:08:39] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:08:39] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario volvió al menú principal.
+[2025-08-04 14:09:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-04 14:10:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:10:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Accedió a la sección de Agenda
+[2025-08-04 14:23:17] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:23:20] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:23:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-08-04 14:23:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:23:52] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 14:23:55] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-08-04 14:24:02] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:24:10] Usuario: Camila Luciana Gomez Velazquez (Rol: Empleado) Acción: El usuario cerró sesión
+[2025-08-04 14:34:58] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:35:01] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:35:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-08-04 14:35:10] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-08-04 14:35:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:35:19] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 14:35:45] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:36:10] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-08-04 14:36:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 14:36:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 14:36:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 14:36:18] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 14:36:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 14:36:21] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 14:36:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-crear al rol: Empleado
+[2025-08-04 14:36:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-08-04 14:36:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-eliminar al rol: Empleado
+[2025-08-04 14:36:22] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-todos al rol: Empleado
+[2025-08-04 14:36:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Empleado
+[2025-08-04 14:36:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-crear al rol: Empleado
+[2025-08-04 14:36:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-08-04 14:36:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-eliminar al rol: Empleado
+[2025-08-04 14:36:23] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-todos al rol: Empleado
+[2025-08-04 14:36:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Empleado
+[2025-08-04 14:36:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-crear al rol: Empleado
+[2025-08-04 14:36:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-08-04 14:36:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-eliminar al rol: Empleado
+[2025-08-04 14:36:24] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-todos al rol: Empleado
+[2025-08-04 14:36:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-08-04 14:36:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-crear al rol: Empleado
+[2025-08-04 14:36:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-08-04 14:36:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-eliminar al rol: Empleado
+[2025-08-04 14:36:25] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-todos al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-crear al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-eliminar al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-todos al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-crear al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-08-04 14:36:26] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-08-04 14:36:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-ver al rol: Empleado
+[2025-08-04 14:36:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-crear al rol: Empleado
+[2025-08-04 14:36:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-modificar al rol: Empleado
+[2025-08-04 14:36:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-eliminar al rol: Empleado
+[2025-08-04 14:36:28] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-todos al rol: Empleado
+[2025-08-04 14:36:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-ver al rol: Empleado
+[2025-08-04 14:36:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-crear al rol: Empleado
+[2025-08-04 14:36:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-modificar al rol: Empleado
+[2025-08-04 14:36:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-eliminar al rol: Empleado
+[2025-08-04 14:36:29] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-todos al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-ver al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-crear al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-modificar al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-eliminar al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-todos al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-ver al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-crear al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-modificar al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-eliminar al rol: Empleado
+[2025-08-04 14:36:30] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-todos al rol: Empleado
+[2025-08-04 14:36:31] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-crear al rol: Empleado
+[2025-08-04 14:36:32] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-crear al rol: Empleado
+[2025-08-04 14:36:33] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Empleado
+[2025-08-04 14:36:34] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Empleado
+[2025-08-04 14:36:35] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Settings-ver al rol: Empleado
+[2025-08-04 14:36:37] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Notificaciones-ver al rol: Empleado
+[2025-08-04 14:36:40] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:36:40] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-04 14:36:42] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-04 14:36:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-04 14:36:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-04 14:36:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-04 14:36:44] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Eventos-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Pedidos-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Recetas-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Productos-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Proveedores-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Agenda-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Clientes-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Insumos-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Sabores-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-modificar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-todos al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Config. Empleados-eliminar al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-crear al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Stock-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Estadísticas-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Settings-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario asignó el permiso Notificaciones-ver al rol: Empleado
+[2025-08-04 14:36:47] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Se cargaron permisos para el rol: Empleado
+[2025-08-04 14:36:53] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-08-04 14:37:03] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: Intento de eliminación de un administrador bloqueado: Lucas Gonzalez
+[2025-08-04 14:37:05] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-08-04 14:37:32] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-04 14:37:32] Usuario: Lucas Gonzalez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+>>>>>>> 711c064f3b778ac082c6ac9b00c2fbdf48cf6183

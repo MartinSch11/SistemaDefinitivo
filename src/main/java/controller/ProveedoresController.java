@@ -153,6 +153,7 @@ public class ProveedoresController {
     }
 
 
+
     @FXML
     void handleAgregar(ActionEvent event) {
         try {
@@ -174,6 +175,7 @@ public class ProveedoresController {
             ActionLogger.log("Error al intentar abrir el formulario de agregado.");
         }
     }
+
 
 
     @FXML
