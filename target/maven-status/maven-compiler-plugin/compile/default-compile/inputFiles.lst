@@ -2,6 +2,7 @@ C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\application\App.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\AccionesUsuariosController.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\AgendaController.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\AyudaController.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\CatalogoEventoController.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\CatalogoPedidosController.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\ComboFormController.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\controller\ConfigNotificacionesController.java
@@ -51,6 +52,7 @@ C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\ComboProducto.j
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\Credencial.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\EgresoDetallado.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\Evento.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\EventoProducto.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\HistorialCompra.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\IngresoDetallado.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\Insumo.java
@@ -59,6 +61,7 @@ C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\InsumoReceta.ja
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\InsumoViewModel.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\Notificacion.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\NotificacionConfig.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\NotificacionEntity.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\Pedido.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\PedidoCombo.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\model\PedidoProducto.java
@@ -79,10 +82,12 @@ C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\Clien
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\ComboDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\CredencialesDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\EventoDAO.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\EventoProductoDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\HistorialCompraDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\InsumoDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\InsumoFaltanteDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\NotificacionConfigDAO.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\NotificacionEntityDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\PedidoDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\ProductoDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\ProveedorDAO.java
@@ -91,6 +96,8 @@ C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\Roles
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\SaborDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\persistence\dao\TrabajadorDAO.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\service\EstadisticasService.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\service\NotificacionCenter.java
+C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\service\NotificacionScheduler.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\service\NotificacionService.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\service\PedidoService.java
 C:\Users\Martín\Documents\SistemaDefinitivo\src\main\java\utilities\ActionLogger.java

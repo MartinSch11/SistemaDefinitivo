@@ -37,8 +37,9 @@
                         <TableColumn fx:id="colNombre" editable="false" prefWidth="152.0" sortable="false" text="Producto" />
                         <TableColumn fx:id="colDescripcion" editable="false" prefWidth="265.0" sortable="false" text="Descripción" />
                         <TableColumn fx:id="colReceta" editable="false" prefWidth="236.0" sortable="false" text="Receta" />
-                        <TableColumn fx:id="colCategoria" editable="false" prefWidth="261.0" sortable="false" text="Categoría" />
-                        <TableColumn fx:id="colPrecio" editable="false" prefWidth="124.0" sortable="false" text="Precio" />
+                        <TableColumn fx:id="colCategoria" editable="false" prefWidth="140.0" sortable="false" text="Categoría" />
+                        <TableColumn fx:id="colUso" prefWidth="95.0" text="Uso" />
+                        <TableColumn fx:id="colPrecio" editable="false" prefWidth="181.0" sortable="false" text="Precio" />
                         <TableColumn fx:id="colSabor" editable="false" prefWidth="266.0" sortable="false" text="Sabor" />
                      </columns>
                      <columnResizePolicy>

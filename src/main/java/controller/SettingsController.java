@@ -372,7 +372,7 @@ public class SettingsController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
         ActionLogger.log("El usuario regresó al menú principal.");
     }
 }

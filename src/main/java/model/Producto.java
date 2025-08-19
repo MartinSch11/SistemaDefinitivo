@@ -44,6 +44,9 @@ public class Producto {
     @JoinColumn(name = "id_receta")
     private Receta receta;
 
+    @Column(name = "tipo_uso")
+    private String tipoUso;
+
     public Producto(String nombre, String descripcion, Categoria categoria, BigDecimal precio, byte[] imagen) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -122,6 +125,14 @@ public class Producto {
 
     public void setReceta(Receta receta) {
         this.receta = receta;
+    }
+
+    public String getTipoUso() {
+        return tipoUso;
+    }
+
+    public void setTipoUso(String tipoUso) {
+        this.tipoUso = tipoUso;
     }
 
     @Override

@@ -343,7 +343,7 @@ public class estadisticaController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
     }
 
     private void showAlert(Alert.AlertType type, String title, String header, String content) {

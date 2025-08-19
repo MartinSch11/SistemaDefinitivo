@@ -6,6 +6,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,31 +18,58 @@ public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
+
     @Column(name = "nombre_evento")
     private String nombre_evento;
+
     @Lob
     @Column(name = "descripcion_evento", columnDefinition = "TEXT")
     private String descripcion_evento;
+
     @Column(name = "nombre_cliente")
     private String nombre_cliente;
+
     @Column(name = "telefono_cliente")
     private String telefono_cliente;
+
     @Column(name = "direccion_evento")
     private String direccion_evento;
+
     @Column(name = "cant_personas")
     private int cant_personas;
+
     @Column(name = "presupuesto", precision = 10, scale = 2)
     private BigDecimal presupuesto;
+
     @Column(name = "fecha_evento")
     private LocalDate fecha_evento;
+
     @Column(name = "estado", nullable = false, length = 20)
     private String estado = "Agendado";
+
     @Column(name = "horario_evento")
     private LocalTime horario_evento;
 
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<EventoProducto> items = new ArrayList<>();
+
+    public List<EventoProducto> getItems() {
+        return items;
+    }
+
+    public void addItem(EventoProducto item) {
+        item.setEvento(this);
+        this.items.add(item);
+    }
+
+    public void removeItem(EventoProducto item) {
+        item.setEvento(null);
+        this.items.remove(item);
+    }
+
     public Evento(String nombre_evento, String descripcion_evento, String nombre_cliente, String telefono_cliente,
-                  String direccion_evento, LocalDate fecha_evento, int cant_personas, BigDecimal presupuesto) {
+            String direccion_evento, LocalDate fecha_evento, int cant_personas, BigDecimal presupuesto) {
         this.nombre_evento = nombre_evento;
         this.descripcion_evento = descripcion_evento;
         this.nombre_cliente = nombre_cliente;
@@ -52,76 +81,98 @@ public class Evento {
         this.estado = "Agendado";
     }
 
-    public Evento() {}
+    public Evento() {
+    }
 
     @Override
     public String toString() {
         return nombre_evento;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(int id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre_evento() {
         return nombre_evento;
     }
+
     public void setNombre_evento(String nombre_evento) {
         this.nombre_evento = nombre_evento;
     }
+
     public String getDescripcion_evento() {
         return descripcion_evento;
     }
+
     public void setDescripcion_evento(String descripcion_evento) {
         this.descripcion_evento = descripcion_evento;
     }
+
     public String getNombre_cliente() {
         return nombre_cliente;
     }
+
     public void setNombre_cliente(String nombre_cliente) {
         this.nombre_cliente = nombre_cliente;
     }
+
     public String getTelefono_cliente() {
         return telefono_cliente;
     }
+
     public void setTelefono_cliente(String telefono_cliente) {
         this.telefono_cliente = telefono_cliente;
     }
+
     public String getDireccion_evento() {
         return direccion_evento;
     }
+
     public void setDireccion_evento(String direccion_evento) {
         this.direccion_evento = direccion_evento;
     }
+
     public int getCant_personas() {
         return cant_personas;
     }
+
     public void setCant_personas(int cant_personas) {
         this.cant_personas = cant_personas;
     }
+
     public BigDecimal getPresupuesto() {
         return presupuesto;
     }
+
     public void setPresupuesto(BigDecimal presupuesto) {
         this.presupuesto = presupuesto;
     }
+
     public LocalDate getFecha_evento() {
         return fecha_evento;
     }
+
     public void setFecha_evento(LocalDate fecha_evento) {
         this.fecha_evento = fecha_evento;
     }
+
     public String getEstado() {
         return estado;
     }
+
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
     public LocalTime getHorario_evento() {
         return horario_evento;
     }
+
     public void setHorario_evento(LocalTime horario_evento) {
         this.horario_evento = horario_evento;
     }

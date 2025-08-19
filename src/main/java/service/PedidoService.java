@@ -58,26 +58,28 @@ public class PedidoService {
                 faltantesAgrupados.put(nombre, faltantesAgrupados.getOrDefault(nombre, 0.0) + cantidad);
                 unidadesAgrupadas.put(nombre, f.getUnidad());
             }
-            mensajeFaltantes = "⚠️ Pedido creado, pero hay insumos faltantes:\n" + faltantesAgrupados.entrySet().stream().map(e -> {
-                double cantidad = e.getValue();
-                String unidad = unidadesAgrupadas.get(e.getKey());
-                String cantidadStr;
-                String unidadStr = unidad;
-                if (unidad != null && unidad.equalsIgnoreCase("GR") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "KG";
-                } else if (unidad != null && unidad.equalsIgnoreCase("ML") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "L";
-                } else if (unidad != null && unidad.equalsIgnoreCase("UNIDAD") && cantidad > 1) {
-                    cantidadStr = String.format(Locale.ROOT, "%.0f", cantidad);
-                    unidadStr = "UNIDADES";
-                } else {
-                    cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format(Locale.ROOT, "%.0f", cantidad)
-                            : String.format(Locale.ROOT, "%.2f", cantidad);
-                }
-                return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
-            }).collect(java.util.stream.Collectors.joining("\n"));
+            mensajeFaltantes = "⚠️ Pedido creado, pero hay insumos faltantes:\n"
+                    + faltantesAgrupados.entrySet().stream().map(e -> {
+                        double cantidad = e.getValue();
+                        String unidad = unidadesAgrupadas.get(e.getKey());
+                        String cantidadStr;
+                        String unidadStr = unidad;
+                        if (unidad != null && unidad.equalsIgnoreCase("GR") && cantidad >= 1000) {
+                            cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
+                            unidadStr = "KG";
+                        } else if (unidad != null && unidad.equalsIgnoreCase("ML") && cantidad >= 1000) {
+                            cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
+                            unidadStr = "L";
+                        } else if (unidad != null && unidad.equalsIgnoreCase("UNIDAD") && cantidad > 1) {
+                            cantidadStr = String.format(Locale.ROOT, "%.0f", cantidad);
+                            unidadStr = "UNIDADES";
+                        } else {
+                            cantidadStr = (cantidad == Math.floor(cantidad))
+                                    ? String.format(Locale.ROOT, "%.0f", cantidad)
+                                    : String.format(Locale.ROOT, "%.2f", cantidad);
+                        }
+                        return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
+                    }).collect(java.util.stream.Collectors.joining("\n"));
         }
 
         BigDecimal totalPedido = calcularTotalPedido(productosSeleccionados, null);
@@ -124,14 +126,9 @@ public class PedidoService {
         return total;
     }
 
-    public PedidoConFaltantes actualizarPedido(
-            Pedido pedidoOriginal,
-            String dniCliente,
-            String nombreEmpleado,
-            String formaEntrega,
-            LocalDate fechaEntrega,
-            Map<Producto, Integer> productosSeleccionados) throws Exception {
-
+    public PedidoConFaltantes actualizarPedido(Pedido pedidoOriginal, String dniCliente, String nombreEmpleado,
+            String formaEntrega, LocalDate fechaEntrega, Map<Producto, Integer> productosSeleccionados)
+            throws Exception {
         if (pedidoOriginal == null || pedidoOriginal.getNumeroPedido() == null)
             throw new Exception("El pedido a actualizar no es válido.");
         if (dniCliente == null || dniCliente.isEmpty())
@@ -145,154 +142,58 @@ public class PedidoService {
         if (productosSeleccionados == null || productosSeleccionados.isEmpty())
             throw new Exception("Debe seleccionar al menos un producto.");
 
+        Pedido managed = pedidoDAO.findByNumeroPedido(pedidoOriginal.getNumeroPedido());
+
+        // Reconstruimos los productos originales del pedido actual
+        Map<Producto, Integer> originales = managed.getPedidoProductos().stream()
+                .collect(Collectors.toMap(
+                        PedidoProducto::getProducto,
+                        PedidoProducto::getCantidad,
+                        Integer::sum));
+
+        // Si no se modificó nada, evitamos el guardado innecesario
+        boolean mismoCliente = managed.getCliente().getDni().equals(dniCliente);
+        boolean mismoEmp = managed.getEmpleadoAsignado().getNombre().equals(nombreEmpleado);
+        boolean mismaForma = managed.getFormaEntrega().equals(formaEntrega);
+        boolean mismaFecha = managed.getFechaEntrega().equals(fechaEntrega);
+        boolean mismosProds = originales.equals(productosSeleccionados);
+
+        if (mismoCliente && mismoEmp && mismaForma && mismaFecha && mismosProds) {
+            return new PedidoConFaltantes(managed, "", "");
+        }
+
         Cliente cliente = clienteDAO.findByDni(dniCliente);
         if (cliente == null)
             throw new Exception("Cliente no encontrado.");
-
         Trabajador empleado = trabajadorDAO.findByNombre(nombreEmpleado);
         if (empleado == null)
             throw new Exception("Empleado no encontrado.");
 
-        // --- NUEVO: Devolver insumos al stock si se reduce cantidad o elimina producto
-        // ---
+        // Devolver al stock productos eliminados o reducidos
         Map<Producto, Integer> productosParaDevolver = new HashMap<>();
-        for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
-            Producto producto = pp.getProducto();
-            int cantidadAntigua = pp.getCantidad();
-            int cantidadNueva = productosSeleccionados.getOrDefault(producto, 0);
-            int diferencia = cantidadAntigua - cantidadNueva;
-            if (diferencia > 0) {
-                productosParaDevolver.put(producto, diferencia);
-            } else if (cantidadNueva == 0 && cantidadAntigua > 0) {
-                productosParaDevolver.put(producto, cantidadAntigua);
+        for (PedidoProducto pp : managed.getPedidoProductos()) {
+            int antigua = pp.getCantidad();
+            int nueva = productosSeleccionados.getOrDefault(pp.getProducto(), 0);
+            if (antigua > nueva) {
+                productosParaDevolver.put(pp.getProducto(), antigua - nueva);
             }
-        }
-        Map<String, String> resumenDevolucion = null;
-        if (!productosParaDevolver.isEmpty()) {
-            resumenDevolucion = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
-        }
-        // --- FIN DEVOLUCIÓN ---
-
-        // 🔍 Preparar para procesar insumos faltantes (solo para aumentos o nuevos
-        // productos)
-        Map<Producto, Integer> productosParaDescontar = new HashMap<>();
-        for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
-            Producto producto = pp.getProducto();
-            int cantidadAntigua = pp.getCantidad();
-            int cantidadNueva = productosSeleccionados.getOrDefault(producto, 0);
-            int diferencia = cantidadNueva - cantidadAntigua;
-            if (diferencia > 0) {
-                productosParaDescontar.put(producto, diferencia);
-            }
-        }
-        Map<Producto, Integer> productosNuevosAgregados = new HashMap<>();
-        for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
-            boolean esNuevo = pedidoOriginal.getPedidoProductos().stream()
-                    .noneMatch(pp -> pp.getProducto().equals(entry.getKey()));
-            if (esNuevo) {
-                productosParaDescontar.put(entry.getKey(), entry.getValue());
-                productosNuevosAgregados.put(entry.getKey(), entry.getValue());
-            }
-        }
-        // 🔥 Filtrar productos con cantidad > 0
-        productosSeleccionados = productosSeleccionados.entrySet().stream()
-                .filter(entry -> entry.getValue() > 0)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        System.out.println("[DEBUG PedidoService] actualizarPedido productosParaDescontar:");
-        productosParaDescontar.forEach(
-                (p, c) -> System.out.println("  - " + p.getId() + " | " + p.getNombre() + " | cantidad: " + c));
-        // 🧪 Procesar faltantes (solo simula)
-        List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(productosParaDescontar);
-        // --- NUEVO: Descontar stock solo de productos realmente nuevos agregados ---
-        if (!productosNuevosAgregados.isEmpty()) {
-            recetaProcessor.procesarRecetas(productosNuevosAgregados);
         }
 
-        // 💬 Mensaje para mostrar al usuario si hay insumos faltantes
-        String mensajeFaltantes = "";
-        if (!faltantes.isEmpty()) {
-            // Agrupar por insumo y sumar cantidades
-            Map<String, Double> faltantesAgrupados = new LinkedHashMap<>();
-            Map<String, String> unidadesAgrupadas = new HashMap<>();
-            for (InsumoFaltante f : faltantes) {
-                String nombre = f.getCatalogoInsumo().getNombre();
-                double cantidad = f.getCantidadFaltante();
-                faltantesAgrupados.put(nombre, faltantesAgrupados.getOrDefault(nombre, 0.0) + cantidad);
-                unidadesAgrupadas.put(nombre, f.getUnidad());
-            }
-            mensajeFaltantes = "⚠️ Pedido actualizado, pero hay insumos faltantes:\n" + faltantesAgrupados.entrySet().stream().map(e -> {
-                double cantidad = e.getValue();
-                String unidad = unidadesAgrupadas.get(e.getKey());
-                String cantidadStr;
-                String unidadStr = unidad;
-                if (unidad != null && unidad.equalsIgnoreCase("GR") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "KG";
-                } else if (unidad != null && unidad.equalsIgnoreCase("ML") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "L";
-                } else if (unidad != null && unidad.equalsIgnoreCase("UNIDAD") && cantidad > 1) {
-                    cantidadStr = String.format(Locale.ROOT, "%.0f", cantidad);
-                    unidadStr = "UNIDADES";
-                } else {
-                    cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format(Locale.ROOT, "%.0f", cantidad)
-                            : String.format(Locale.ROOT, "%.2f", cantidad);
-                }
-                return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
-            }).collect(java.util.stream.Collectors.joining("\n"));
-        }
-
-        // 📝 Actualizar datos básicos
-        // Asegurarse de trabajar sobre el objeto gestionado por la sesión
-        pedidoOriginal = pedidoDAO.findByNumeroPedido(pedidoOriginal.getNumeroPedido());
-
-        pedidoOriginal.setCliente(cliente);
-        pedidoOriginal.setEmpleadoAsignado(empleado);
-        pedidoOriginal.setFormaEntrega(formaEntrega);
-        pedidoOriginal.setFechaEntrega(fechaEntrega);
-        // Solo productos, combos es null aquí
-        pedidoOriginal.setTotalPedido(calcularTotalPedido(productosSeleccionados, null));
-
-        // 🔁 Actualizar lista de productos correctamente
-        Iterator<PedidoProducto> it = pedidoOriginal.getPedidoProductos().iterator();
-        while (it.hasNext()) {
-            PedidoProducto pp = it.next();
-            Integer nuevaCantidad = productosSeleccionados.get(pp.getProducto());
-            if (nuevaCantidad == null || nuevaCantidad <= 0) {
-                it.remove();
-            }
-        }
-        // Ahora actualiza o agrega los que quedan
-        for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
-            if (entry.getValue() > 0) {
-                PedidoProducto nuevoPP = new PedidoProducto(pedidoOriginal, entry.getKey(), entry.getValue());
-                pedidoOriginal.getPedidoProductos().add(nuevoPP);
-            } else {
-                // Si ya existe, actualiza la cantidad
-                for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
-                    if (pp.getProducto().getId().equals(entry.getKey().getId())) {
-                        pp.setCantidad(entry.getValue());
-                    }
-                }
-            }
-        }
-        // --- NUEVO: Componer mensaje profesional de insumos devueltos ---
         String mensajeDevolucion = "";
-        if (resumenDevolucion != null && !resumenDevolucion.isEmpty()) {
+        if (!productosParaDevolver.isEmpty()) {
+            Map<String, String> resumen = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
             mensajeDevolucion = "Insumos devueltos al stock por modificación del pedido:\n" +
-                    resumenDevolucion.entrySet().stream()
+                    resumen.entrySet().stream()
                             .map(e -> {
                                 String valor = e.getValue();
-                                // Buscar si el valor es un número flotante y formatear si es entero
                                 try {
                                     double cantidad = Double
                                             .parseDouble(valor.replaceAll("[^0-9.,]", "").replace(",", "."));
                                     String cantidadStr = (cantidad == Math.floor(cantidad))
                                             ? String.format(Locale.ROOT, "%.0f", cantidad)
                                             : String.format(Locale.ROOT, "%.2f", cantidad);
-                                    // Reemplazar solo el número al inicio del string
-                                    return "- " + e.getKey() + ": "
-                                            + valor.replaceFirst("[0-9]+([.,][0-9]+)?", cantidadStr);
+                                    return "- " + e.getKey() + ": " +
+                                            valor.replaceFirst("[0-9]+([.,][0-9]+)?", cantidadStr);
                                 } catch (Exception ex) {
                                     return "- " + e.getKey() + ": " + valor;
                                 }
@@ -300,7 +201,65 @@ public class PedidoService {
                             .collect(Collectors.joining("\n"));
         }
 
-        return new PedidoConFaltantes(pedidoOriginal, mensajeFaltantes, mensajeDevolucion);
+        // Preparar faltantes: diferencias de productos o nuevos
+        Map<Producto, Integer> paraDescontar = new HashMap<>();
+        for (PedidoProducto pp : managed.getPedidoProductos()) {
+            int antigua = pp.getCantidad();
+            int nueva = productosSeleccionados.getOrDefault(pp.getProducto(), 0);
+            if (nueva > antigua) {
+                paraDescontar.put(pp.getProducto(), nueva - antigua);
+            }
+        }
+        for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
+            if (!originales.containsKey(entry.getKey())) {
+                paraDescontar.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(paraDescontar);
+        String mensajeFaltantes = "";
+        if (!faltantes.isEmpty()) {
+            mensajeFaltantes = "⚠️ Pedido actualizado, pero hay insumos faltantes:\n" +
+                    faltantes.stream()
+                            .collect(Collectors.groupingBy(f -> f.getCatalogoInsumo().getNombre()))
+                            .entrySet().stream()
+                            .map(e -> {
+                                double sum = e.getValue().stream().mapToDouble(InsumoFaltante::getCantidadFaltante)
+                                        .sum();
+                                String unidad = e.getValue().get(0).getUnidad();
+                                String cantidadStr = (sum == Math.floor(sum))
+                                        ? String.format(Locale.ROOT, "%.0f", sum)
+                                        : String.format(Locale.ROOT, "%.2f", sum);
+                                return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidad;
+                            })
+                            .collect(Collectors.joining("\n"));
+        }
+
+        // Actualizar datos del pedido
+        managed.setCliente(cliente);
+        managed.setEmpleadoAsignado(empleado);
+        managed.setFormaEntrega(formaEntrega);
+        managed.setFechaEntrega(fechaEntrega);
+
+        // Reconstruir lista de productos del pedido
+        managed.getPedidoProductos().removeIf(pp -> productosSeleccionados.getOrDefault(pp.getProducto(), 0) == 0);
+        for (PedidoProducto pp : managed.getPedidoProductos()) {
+            pp.setCantidad(productosSeleccionados.get(pp.getProducto()));
+        }
+
+        Set<Long> existentes = managed.getPedidoProductos().stream()
+                .map(pp -> pp.getProducto().getId()).collect(Collectors.toSet());
+        for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
+            if (entry.getValue() > 0 && !existentes.contains(entry.getKey().getId())) {
+                managed.getPedidoProductos().add(new PedidoProducto(managed, entry.getKey(), entry.getValue()));
+            }
+        }
+
+        // Actualizar total y guardar
+        managed.setTotalPedido(calcularTotalPedido(productosSeleccionados, null));
+        pedidoDAO.update(managed);
+
+        return new PedidoConFaltantes(managed, mensajeFaltantes, mensajeDevolucion);
     }
 
     // --- NUEVO: Crear pedido con productos y combos ---
@@ -346,7 +305,8 @@ public class PedidoService {
             }
         }
         // Procesar recetas y obtener faltantes (NO descontar stock aquí)
-        List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(productosTotales); // <-- CORREGIDO: usar productosTotales
+        List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(productosTotales); // <-- CORREGIDO: usar
+                                                                                             // productosTotales
         String mensajeFaltantes = "";
         if (!faltantes.isEmpty()) {
             // Agrupar por insumo y sumar cantidades
@@ -358,26 +318,28 @@ public class PedidoService {
                 faltantesAgrupados.put(nombre, faltantesAgrupados.getOrDefault(nombre, 0.0) + cantidad);
                 unidadesAgrupadas.put(nombre, f.getUnidad());
             }
-            mensajeFaltantes = "⚠️ Pedido creado, pero hay insumos faltantes:\n" + faltantesAgrupados.entrySet().stream().map(e -> {
-                double cantidad = e.getValue();
-                String unidad = unidadesAgrupadas.get(e.getKey());
-                String cantidadStr;
-                String unidadStr = unidad;
-                if (unidad != null && unidad.equalsIgnoreCase("GR") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "KG";
-                } else if (unidad != null && unidad.equalsIgnoreCase("ML") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "L";
-                } else if (unidad != null && unidad.equalsIgnoreCase("UNIDAD") && cantidad > 1) {
-                    cantidadStr = String.format(Locale.ROOT, "%.0f", cantidad);
-                    unidadStr = "UNIDADES";
-                } else {
-                    cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format(Locale.ROOT, "%.0f", cantidad)
-                            : String.format(Locale.ROOT, "%.2f", cantidad);
-                }
-                return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
-            }).collect(java.util.stream.Collectors.joining("\n"));
+            mensajeFaltantes = "⚠️ Pedido creado, pero hay insumos faltantes:\n"
+                    + faltantesAgrupados.entrySet().stream().map(e -> {
+                        double cantidad = e.getValue();
+                        String unidad = unidadesAgrupadas.get(e.getKey());
+                        String cantidadStr;
+                        String unidadStr = unidad;
+                        if (unidad != null && unidad.equalsIgnoreCase("GR") && cantidad >= 1000) {
+                            cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
+                            unidadStr = "KG";
+                        } else if (unidad != null && unidad.equalsIgnoreCase("ML") && cantidad >= 1000) {
+                            cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
+                            unidadStr = "L";
+                        } else if (unidad != null && unidad.equalsIgnoreCase("UNIDAD") && cantidad > 1) {
+                            cantidadStr = String.format(Locale.ROOT, "%.0f", cantidad);
+                            unidadStr = "UNIDADES";
+                        } else {
+                            cantidadStr = (cantidad == Math.floor(cantidad))
+                                    ? String.format(Locale.ROOT, "%.0f", cantidad)
+                                    : String.format(Locale.ROOT, "%.2f", cantidad);
+                        }
+                        return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
+                    }).collect(java.util.stream.Collectors.joining("\n"));
         }
         // Calcular total sumando productos y combos
         java.math.BigDecimal totalPedido = java.math.BigDecimal.ZERO;
@@ -414,15 +376,14 @@ public class PedidoService {
     }
 
     // --- NUEVO: Actualizar pedido con productos y combos ---
-    public PedidoConFaltantes actualizarPedido(Pedido pedidoOriginal, String dniCliente, String nombreEmpleado,
-            String formaEntrega, LocalDate fechaEntrega, Map<Producto, Integer> productosSeleccionados,
+    public PedidoConFaltantes actualizarPedido(
+            Pedido pedidoOriginal,
+            String dniCliente,
+            String nombreEmpleado,
+            String formaEntrega,
+            LocalDate fechaEntrega,
+            Map<Producto, Integer> productosSeleccionados,
             Map<Combo, Integer> combosSeleccionados) throws Exception {
-        // Si no hay combos, usar el método original
-        if (combosSeleccionados == null || combosSeleccionados.isEmpty()) {
-            return actualizarPedido(pedidoOriginal, dniCliente, nombreEmpleado, formaEntrega, fechaEntrega,
-                    productosSeleccionados);
-        }
-        // Validaciones básicas (igual que el método original)
         if (pedidoOriginal == null || pedidoOriginal.getNumeroPedido() == null)
             throw new Exception("El pedido a actualizar no es válido.");
         if (dniCliente == null || dniCliente.isEmpty())
@@ -436,187 +397,151 @@ public class PedidoService {
         if ((productosSeleccionados == null || productosSeleccionados.isEmpty())
                 && (combosSeleccionados == null || combosSeleccionados.isEmpty()))
             throw new Exception("Debe seleccionar al menos un producto o combo.");
+
+        Pedido managed = pedidoDAO.findByNumeroPedido(pedidoOriginal.getNumeroPedido());
+
+        // --- Reconstruir productos y combos originales
+        Map<Producto, Integer> productosOriginales = managed.getPedidoProductos().stream()
+                .collect(Collectors.toMap(PedidoProducto::getProducto, PedidoProducto::getCantidad, Integer::sum));
+
+        Map<Combo, Integer> combosOriginales = managed.getPedidoCombos().stream()
+                .collect(Collectors.toMap(PedidoCombo::getCombo, PedidoCombo::getCantidad, Integer::sum));
+
+        boolean mismoCliente = managed.getCliente().getDni().equals(dniCliente);
+        boolean mismoEmp = managed.getEmpleadoAsignado().getNombre().equals(nombreEmpleado);
+        boolean mismaForma = managed.getFormaEntrega().equals(formaEntrega);
+        boolean mismaFecha = managed.getFechaEntrega().equals(fechaEntrega);
+        boolean mismosProds = productosOriginales.equals(productosSeleccionados);
+        boolean mismosCombos = combosOriginales.equals(combosSeleccionados);
+
+        if (mismoCliente && mismoEmp && mismaForma && mismaFecha && mismosProds && mismosCombos) {
+            return new PedidoConFaltantes(managed, "", "");
+        }
+
         Cliente cliente = clienteDAO.findByDni(dniCliente);
         if (cliente == null)
             throw new Exception("Cliente no encontrado.");
+
         Trabajador empleado = trabajadorDAO.findByNombre(nombreEmpleado);
         if (empleado == null)
             throw new Exception("Empleado no encontrado.");
-        // --- Devolver insumos al stock si se reduce cantidad o elimina producto/combo
-        // ---
+
+        // --- Devolver insumos al stock (productos y combos)
         Map<Producto, Integer> productosParaDevolver = new HashMap<>();
-        // De productos
-        for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
-            Producto producto = pp.getProducto();
-            int cantidadAntigua = pp.getCantidad();
-            int cantidadNueva = productosSeleccionados.getOrDefault(producto, 0);
-            int diferencia = cantidadAntigua - cantidadNueva;
-            if (diferencia > 0) {
-                productosParaDevolver.put(producto, diferencia);
-            } else if (cantidadNueva == 0 && cantidadAntigua > 0) {
-                productosParaDevolver.put(producto, cantidadAntigua);
-            }
+
+        for (PedidoProducto pp : managed.getPedidoProductos()) {
+            Producto p = pp.getProducto();
+            int diff = pp.getCantidad() - productosSeleccionados.getOrDefault(p, 0);
+            if (diff > 0)
+                productosParaDevolver.put(p, diff);
         }
-        // De combos
-        for (PedidoCombo pc : pedidoOriginal.getPedidoCombos()) {
+
+        for (PedidoCombo pc : managed.getPedidoCombos()) {
             Combo combo = pc.getCombo();
-            int cantidadAntigua = pc.getCantidad();
-            int cantidadNueva = combosSeleccionados.getOrDefault(combo, 0);
-            int diferencia = cantidadAntigua - cantidadNueva;
-            if (diferencia > 0) {
+            int diff = pc.getCantidad() - combosSeleccionados.getOrDefault(combo, 0);
+            if (diff > 0) {
                 for (ComboProducto cp : combo.getProductos()) {
-                    productosParaDevolver.merge(cp.getProducto(), cp.getCantidad() * diferencia, Integer::sum);
-                }
-            } else if (cantidadNueva == 0 && cantidadAntigua > 0) {
-                for (ComboProducto cp : combo.getProductos()) {
-                    productosParaDevolver.merge(cp.getProducto(), cp.getCantidad() * cantidadAntigua, Integer::sum);
+                    productosParaDevolver.merge(cp.getProducto(), cp.getCantidad() * diff, Integer::sum);
                 }
             }
         }
-        Map<String, String> resumenDevolucion = null;
+
+        String mensajeDevolucion = "";
         if (!productosParaDevolver.isEmpty()) {
-            resumenDevolucion = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
+            Map<String, String> resumen = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
+            mensajeDevolucion = "Insumos devueltos:\n" + resumen.entrySet().stream()
+                    .map(e -> "- " + e.getKey() + ": " + e.getValue())
+                    .collect(Collectors.joining("\n"));
         }
-        // --- FIN DEVOLUCIÓN ---
-        // --- Preparar para procesar insumos faltantes (solo para aumentos o nuevos
-        // productos/combos) ---
+
+        // --- Faltantes: preparar solo diferencia a descontar
         Map<Producto, Integer> productosParaDescontar = new HashMap<>();
-        // Productos
-        for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
-            Producto producto = pp.getProducto();
-            int cantidadAntigua = pp.getCantidad();
-            int cantidadNueva = productosSeleccionados.getOrDefault(producto, 0);
-            int diferencia = cantidadNueva - cantidadAntigua;
-            if (diferencia > 0) {
-                productosParaDescontar.put(producto, diferencia);
-            }
+
+        for (PedidoProducto pp : managed.getPedidoProductos()) {
+            Producto p = pp.getProducto();
+            int nueva = productosSeleccionados.getOrDefault(p, 0);
+            int diff = nueva - pp.getCantidad();
+            if (diff > 0)
+                productosParaDescontar.put(p, diff);
         }
+
         for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
-            boolean esNuevo = pedidoOriginal.getPedidoProductos().stream()
-                    .noneMatch(pp -> pp.getProducto().equals(entry.getKey()));
-            if (esNuevo) {
+            if (!productosOriginales.containsKey(entry.getKey())) {
                 productosParaDescontar.put(entry.getKey(), entry.getValue());
             }
         }
-        // Combos
-        for (PedidoCombo pc : pedidoOriginal.getPedidoCombos()) {
+
+        for (PedidoCombo pc : managed.getPedidoCombos()) {
             Combo combo = pc.getCombo();
-            int cantidadAntigua = pc.getCantidad();
-            int cantidadNueva = combosSeleccionados.getOrDefault(combo, 0);
-            int diferencia = cantidadNueva - cantidadAntigua;
-            if (diferencia > 0) {
+            int nueva = combosSeleccionados.getOrDefault(combo, 0);
+            int diff = nueva - pc.getCantidad();
+            if (diff > 0) {
                 for (ComboProducto cp : combo.getProductos()) {
-                    productosParaDescontar.merge(cp.getProducto(), cp.getCantidad() * diferencia, Integer::sum);
+                    productosParaDescontar.merge(cp.getProducto(), cp.getCantidad() * diff, Integer::sum);
                 }
             }
         }
+
         for (Map.Entry<Combo, Integer> entry : combosSeleccionados.entrySet()) {
-            boolean esNuevo = pedidoOriginal.getPedidoCombos().stream()
-                    .noneMatch(pc -> pc.getCombo().equals(entry.getKey()));
-            if (esNuevo) {
+            if (!combosOriginales.containsKey(entry.getKey())) {
                 for (ComboProducto cp : entry.getKey().getProductos()) {
                     productosParaDescontar.merge(cp.getProducto(), cp.getCantidad() * entry.getValue(), Integer::sum);
                 }
             }
         }
-        // 🔥 Filtrar productos con cantidad > 0
-        productosSeleccionados = productosSeleccionados.entrySet().stream()
-                .filter(entry -> entry.getValue() > 0)
-                .collect(java.util.stream.Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        combosSeleccionados = combosSeleccionados.entrySet().stream()
-                .filter(entry -> entry.getValue() > 0)
-                .collect(java.util.stream.Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        // 🧪 Procesar faltantes
+
         List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(productosParaDescontar);
         String mensajeFaltantes = "";
         if (!faltantes.isEmpty()) {
-            // Agrupar por insumo y sumar cantidades
-            Map<String, Double> faltantesAgrupados = new LinkedHashMap<>();
-            Map<String, String> unidadesAgrupadas = new HashMap<>();
-            for (InsumoFaltante f : faltantes) {
-                String nombre = f.getCatalogoInsumo().getNombre();
-                double cantidad = f.getCantidadFaltante();
-                faltantesAgrupados.put(nombre, faltantesAgrupados.getOrDefault(nombre, 0.0) + cantidad);
-                unidadesAgrupadas.put(nombre, f.getUnidad());
-            }
-            mensajeFaltantes = "⚠️ Pedido actualizado, pero hay insumos faltantes:\n" + faltantesAgrupados.entrySet().stream().map(e -> {
-                double cantidad = e.getValue();
-                String unidad = unidadesAgrupadas.get(e.getKey());
-                String cantidadStr;
-                String unidadStr = unidad;
-                if (unidad != null && unidad.equalsIgnoreCase("GR") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "KG";
-                } else if (unidad != null && unidad.equalsIgnoreCase("ML") && cantidad >= 1000) {
-                    cantidadStr = String.format(Locale.ROOT, "%.2f", cantidad / 1000);
-                    unidadStr = "L";
-                } else if (unidad != null && unidad.equalsIgnoreCase("UNIDAD") && cantidad > 1) {
-                    cantidadStr = String.format(Locale.ROOT, "%.0f", cantidad);
-                    unidadStr = "UNIDADES";
-                } else {
-                    cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format(Locale.ROOT, "%.0f", cantidad)
-                            : String.format(Locale.ROOT, "%.2f", cantidad);
-                }
-                return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
-            }).collect(java.util.stream.Collectors.joining("\n"));
+            mensajeFaltantes = faltantes.stream()
+                    .collect(Collectors.groupingBy(f -> f.getCatalogoInsumo().getNombre()))
+                    .entrySet().stream()
+                    .map(e -> {
+                        double sum = e.getValue().stream().mapToDouble(InsumoFaltante::getCantidadFaltante).sum();
+                        String unidad = e.getValue().get(0).getUnidad();
+                        return "- " + e.getKey() + ": faltan " + sum + " " + unidad;
+                    })
+                    .collect(Collectors.joining("\n", "⚠️ Faltantes:\n", ""));
         }
-        // 📝 Actualizar datos básicos
-        pedidoOriginal = pedidoDAO.findByNumeroPedido(pedidoOriginal.getNumeroPedido());
-        pedidoOriginal.setCliente(cliente);
-        pedidoOriginal.setEmpleadoAsignado(empleado);
-        pedidoOriginal.setFormaEntrega(formaEntrega);
-        pedidoOriginal.setFechaEntrega(fechaEntrega);
-        pedidoOriginal.setTotalPedido(calcularTotalPedido(productosSeleccionados, null));
-        // 🔁 Actualizar lista de productos correctamente
-        java.util.Iterator<PedidoProducto> it = pedidoOriginal.getPedidoProductos().iterator();
-        while (it.hasNext()) {
-            PedidoProducto pp = it.next();
-            Integer nuevaCantidad = productosSeleccionados.get(pp.getProducto());
-            if (nuevaCantidad == null || nuevaCantidad <= 0) {
-                it.remove();
-            }
+
+        // --- Actualizar datos
+        managed.setCliente(cliente);
+        managed.setEmpleadoAsignado(empleado);
+        managed.setFormaEntrega(formaEntrega);
+        managed.setFechaEntrega(fechaEntrega);
+
+        // --- Actualizar productos
+        managed.getPedidoProductos().removeIf(pp -> productosSeleccionados.getOrDefault(pp.getProducto(), 0) == 0);
+        for (PedidoProducto pp : managed.getPedidoProductos()) {
+            pp.setCantidad(productosSeleccionados.get(pp.getProducto()));
         }
-        // Ahora actualiza o agrega los que quedan
-        java.util.Set<Long> idsExistentes = pedidoOriginal.getPedidoProductos().stream()
+        Set<Long> idsExistentes = managed.getPedidoProductos().stream()
                 .map(pp -> pp.getProducto().getId())
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(Collectors.toSet());
         for (Map.Entry<Producto, Integer> entry : productosSeleccionados.entrySet()) {
             if (entry.getValue() > 0 && !idsExistentes.contains(entry.getKey().getId())) {
-                PedidoProducto nuevoPP = new PedidoProducto(pedidoOriginal, entry.getKey(), entry.getValue());
-                pedidoOriginal.getPedidoProductos().add(nuevoPP);
-            } else {
-                // Si ya existe, actualiza la cantidad
-                for (PedidoProducto pp : pedidoOriginal.getPedidoProductos()) {
-                    if (pp.getProducto().getId().equals(entry.getKey().getId())) {
-                        pp.setCantidad(entry.getValue());
-                    }
-                }
+                managed.getPedidoProductos().add(new PedidoProducto(managed, entry.getKey(), entry.getValue()));
             }
         }
-        // --- NUEVO: Componer mensaje profesional de insumos devueltos ---
-        String mensajeDevolucion = "";
-        if (resumenDevolucion != null && !resumenDevolucion.isEmpty()) {
-            mensajeDevolucion = "Insumos devueltos al stock por modificación del pedido:\n" +
-                    resumenDevolucion.entrySet().stream()
-                            .map(e -> {
-                                String valor = e.getValue();
-                                // Buscar si el valor es un número flotante y formatear si es entero
-                                try {
-                                    double cantidad = Double
-                                            .parseDouble(valor.replaceAll("[^0-9.,]", "").replace(",", "."));
-                                    String cantidadStr = (cantidad == Math.floor(cantidad))
-                                            ? String.format(Locale.ROOT, "%.0f", cantidad)
-                                            : String.format(Locale.ROOT, "%.2f", cantidad);
-                                    // Reemplazar solo el número al inicio del string
-                                    return "- " + e.getKey() + ": "
-                                            + valor.replaceFirst("[0-9]+([.,][0-9]+)?", cantidadStr);
-                                } catch (Exception ex) {
-                                    return "- " + e.getKey() + ": " + valor;
-                                }
-                            })
-                            .collect(Collectors.joining("\n"));
+
+        // --- Actualizar combos
+        managed.getPedidoCombos().removeIf(pc -> combosSeleccionados.getOrDefault(pc.getCombo(), 0) == 0);
+        for (PedidoCombo pc : managed.getPedidoCombos()) {
+            pc.setCantidad(combosSeleccionados.get(pc.getCombo()));
         }
-        return new PedidoConFaltantes(pedidoOriginal, mensajeFaltantes, mensajeDevolucion);
+        Set<Long> combosExistentes = managed.getPedidoCombos().stream()
+                .map(pc -> pc.getCombo().getId())
+                .collect(Collectors.toSet());
+        for (Map.Entry<Combo, Integer> entry : combosSeleccionados.entrySet()) {
+            if (entry.getValue() > 0 && !combosExistentes.contains(entry.getKey().getId())) {
+                managed.getPedidoCombos().add(new PedidoCombo(managed, entry.getKey(), entry.getValue()));
+            }
+        }
+
+        managed.setTotalPedido(calcularTotalPedido(productosSeleccionados, combosSeleccionados));
+        pedidoDAO.update(managed);
+
+        return new PedidoConFaltantes(managed, mensajeFaltantes, mensajeDevolucion);
     }
 
     /**

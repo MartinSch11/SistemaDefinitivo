@@ -5,7 +5,7 @@ import model.NotificacionConfig;
 import utilities.JpaUtil;
 
 public class NotificacionConfigDAO {
-    
+
     public void save(NotificacionConfig config) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -41,11 +41,20 @@ public class NotificacionConfigDAO {
      * Devuelve la configuración global (id=1) o valores por defecto si no existe.
      */
     public NotificacionConfig findOrDefault() {
-        NotificacionConfig config = findById(1);
-        if (config != null) {
-            return config;
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            // Trae la primera config que exista
+            var list = em.createQuery("SELECT c FROM NotificacionConfig c ORDER BY c.id ASC", NotificacionConfig.class)
+                    .setMaxResults(1)
+                    .getResultList();
+            if (!list.isEmpty()) {
+                return list.get(0);
+            }
+            // Si no hay registro, devolvés defaults (compatibles con tu UI actual)
+            return new NotificacionConfig(30, 3, 0); // eventos, caducidad, pedidos
+        } finally {
+            em.close();
         }
-        return new NotificacionConfig(30, 3);
     }
 
     /**

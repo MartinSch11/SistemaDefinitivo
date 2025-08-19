@@ -146,19 +146,26 @@ public class LoginController {
             if (idRol != null) {
                 List<String> permisos = rolesDAO.obtenerPermisosPorRol(idRol);
                 session.setPermisos(permisos);
-
-                // Configurar permisos en el menú principal
                 mainMenuController.configurarPermisos(permisos);
             }
 
-            // Configurar el nombre del usuario y el rol en la interfaz
             mainMenuController.setUserNameAndRole(userName, roleName, sexo);
 
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/mainMenu.css").toExternalForm());
+
             Stage stage = (Stage) btnLogin.getScene().getWindow();
             stage.setScene(scene);
+
+            // Solo minimizar y cerrar (sin maximizar)
+            stage.setResizable(false);
+
             stage.centerOnScreen();
             stage.show();
+
+            // 🔁 Iniciar el scheduler global de notificaciones/eventos (queda activo todo el día)
+            service.NotificacionScheduler.getInstance().start();
+
         } catch (Exception e) {
             errorLabel.setText("Hubo un error al cargar la vista.");
             e.printStackTrace();

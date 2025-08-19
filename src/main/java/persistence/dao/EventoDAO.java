@@ -15,7 +15,8 @@ public class EventoDAO {
             em.persist(evento);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
+            if (transaction.isActive())
+                transaction.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -48,7 +49,8 @@ public class EventoDAO {
             em.merge(evento);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
+            if (transaction.isActive())
+                transaction.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -63,7 +65,8 @@ public class EventoDAO {
             em.remove(em.contains(evento) ? evento : em.merge(evento));
             transaction.commit();
         } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
+            if (transaction.isActive())
+                transaction.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -95,4 +98,23 @@ public class EventoDAO {
             em.close();
         }
     }
+
+    public Evento findByIdWithItems(Long id) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT e FROM Evento e " +
+                            "LEFT JOIN FETCH e.items i " +
+                            "LEFT JOIN FETCH i.producto p " +
+                            "WHERE e.id = :id",
+                    Evento.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
 }

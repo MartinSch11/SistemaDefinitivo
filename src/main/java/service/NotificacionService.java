@@ -2,83 +2,167 @@ package service;
 
 import model.Evento;
 import model.Notificacion;
+import model.NotificacionEntity;
 import model.Pedido;
-import persistence.dao.EventoDAO;
-import persistence.dao.PedidoDAO;
-import persistence.dao.InsumoDAO;
-import persistence.dao.AgendaDAO;
 import model.Insumo;
 import model.Agenda;
-import java.time.LocalDate;
+import persistence.dao.*;
+
 import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class NotificacionService {
-    /**
-     * Busca eventos próximos y genera notificaciones.
-     * También agrega notificación de pedidos pendientes para hoy y de insumos próximos a vencer.
-     * @param diasAnticipoEventos cantidad de días a futuro para buscar eventos
-     * @param diasAnticipoCaducidad cantidad de días a futuro para notificar insumos por caducar
-     * @return lista de notificaciones
-     */
-    public List<Notificacion> obtenerNotificacionesEventosYCaducidad(int diasAnticipoEventos, int diasAnticipoCaducidad) {
+
+    private final NotificacionEntityDAO entityDAO = new NotificacionEntityDAO();
+
+    /** Nuevo: con anticipación para PEDIDOS */
+    public List<Notificacion> obtenerTodasLasNotificaciones(
+            int diasAnticipoEventos,
+            int diasAnticipoCaducidad,
+            int diasAnticipoPedidos
+    ) {
         List<Notificacion> notificaciones = new ArrayList<>();
         LocalDate hoy = LocalDate.now();
-        // --- Notificación de pedidos pendientes para hoy ---
+
+        // --- PEDIDOS (hoy y próximos dentro de la ventana) ---
         PedidoDAO pedidoDAO = new PedidoDAO();
         List<Pedido> pedidos = pedidoDAO.findAll();
-        long pedidosPendientesHoy = pedidos.stream()
-                .filter(p -> hoy.equals(p.getFechaEntrega()) && !"Hecho".equalsIgnoreCase(p.getEstadoPedido()))
-                .count();
-        if (pedidosPendientesHoy > 0) {
-            String mensajePedidos = pedidosPendientesHoy == 1
-                    ? "Hay 1 pedido pendiente para hoy"
-                    : String.format("Hay %d pedidos pendientes para hoy", pedidosPendientesHoy);
-            notificaciones.add(new Notificacion(mensajePedidos, "Pedidos", hoy));
+
+        LocalDate limitePedidos = hoy.plusDays(diasAnticipoPedidos);
+
+        Map<LocalDate, Long> pendientesPorDia = pedidos.stream()
+                .filter(p -> {
+                    LocalDate f = p.getFechaEntrega();
+                    if (f == null) return false;
+                    if (f.isBefore(hoy) || f.isAfter(limitePedidos)) return false;
+                    String estado = p.getEstadoPedido();
+                    return !(estado != null && (estado.equalsIgnoreCase("Hecho") || estado.equalsIgnoreCase("Entregado")));
+                })
+                .collect(Collectors.groupingBy(Pedido::getFechaEntrega, Collectors.counting()));
+
+        for (Map.Entry<LocalDate, Long> e : pendientesPorDia.entrySet()) {
+            LocalDate fecha = e.getKey();
+            long cant = e.getValue();
+            long diasRestantes = ChronoUnit.DAYS.between(hoy, fecha);
+            String cuando = humanizaDias(diasRestantes);
+            String textoPedidos = cant == 1 ? "1 pedido" : (cant + " pedidos");
+            String mensaje = String.format("%s hay %s pendiente%s de entrega",
+                    cuando,
+                    textoPedidos,
+                    cant == 1 ? "" : "s");
+
+            guardarNotificacionSiNoExiste(mensaje, "Pedidos", hoy);
+            notificaciones.add(new Notificacion(mensaje, "Pedidos", hoy));
         }
-        // --- Notificaciones de insumos próximos a vencer ---
+
+        // --- INSUMOS por caducar ---
         InsumoDAO insumoDAO = new InsumoDAO();
         List<Insumo> insumos = insumoDAO.findAll();
         LocalDate limiteCaducidad = hoy.plusDays(diasAnticipoCaducidad);
+
         for (Insumo insumo : insumos) {
             if (insumo.getFechaCaducidad() != null && insumo.getCantidad() > 0) {
                 LocalDate caducidad = insumo.getFechaCaducidad();
                 if (!caducidad.isBefore(hoy) && !caducidad.isAfter(limiteCaducidad)) {
-                    long diasRestantes = caducidad.toEpochDay() - hoy.toEpochDay();
-                    String nombre = insumo.getCatalogoInsumo() != null ? insumo.getCatalogoInsumo().getNombre() : "Insumo";
-                    String diasTexto = diasRestantes == 1 ? "día" : "días";
-                    String mensaje = diasRestantes == 0
-                            ? String.format("El insumo '%s' vence hoy", nombre)
-                            : String.format("El insumo '%s' vence en %d %s (%s)", nombre, diasRestantes, diasTexto, caducidad);
-                    notificaciones.add(new Notificacion(mensaje, nombre, caducidad));
+                    long diasRestantes = ChronoUnit.DAYS.between(hoy, caducidad);
+                    String nombre = insumo.getCatalogoInsumo() != null
+                            ? insumo.getCatalogoInsumo().getNombre()
+                            : "Insumo";
+                    String mensaje = String.format(
+                            "El insumo '%s' vence %s (%s)",
+                            nombre,
+                            humanizaDias(diasRestantes).toLowerCase(),
+                            caducidad
+                    );
+
+                    guardarNotificacionSiNoExiste(mensaje, "Insumos", hoy);
+                    notificaciones.add(new Notificacion(mensaje, nombre, hoy));
                 }
             }
         }
-        // --- Notificaciones de eventos próximos ---
+
+        // --- EVENTOS próximos (con productos sin terminar) ---
         EventoDAO eventoDAO = new EventoDAO();
-        LocalDate hasta = hoy.plusDays(diasAnticipoEventos);
+        LocalDate hastaEventos = hoy.plusDays(diasAnticipoEventos);
         List<Evento> eventos = eventoDAO.findAll();
+
         for (Evento evento : eventos) {
             LocalDate fecha = evento.getFecha_evento();
-            if (fecha != null && !fecha.isBefore(hoy) && !fecha.isAfter(hasta)) {
-                long diasRestantes = fecha.toEpochDay() - hoy.toEpochDay();
-                String diasTexto = diasRestantes == 1 ? "día" : "días";
-                String mensaje = String.format("En %d %s tienes un evento: '%s'",
-                        diasRestantes, diasTexto, evento.getNombre_evento());
-                notificaciones.add(new Notificacion(mensaje, evento.getNombre_evento(), fecha));
-            }
+            if (fecha == null || fecha.isBefore(hoy) || fecha.isAfter(hastaEventos)) continue;
+
+            Evento eventoConItems = eventoDAO.findByIdWithItems(evento.getId());
+            if (eventoConItems == null) continue;
+
+            long sinTerminar = eventoConItems.getItems() == null ? 0
+                    : eventoConItems.getItems().stream().filter(it -> !it.isHecho()).count();
+
+            long diasRestantes = ChronoUnit.DAYS.between(hoy, fecha);
+            String cuando = humanizaDias(diasRestantes);
+
+            String msg = (sinTerminar > 0)
+                    ? String.format("%s hay evento: '%s' y hay %d %s por terminar",
+                                    cuando,
+                                    eventoConItems.getNombre_evento(),
+                                    sinTerminar,
+                                    plural(sinTerminar, "producto", "productos"))
+                    : String.format("%s hay evento: '%s'",
+                                    cuando,
+                                    eventoConItems.getNombre_evento());
+
+            guardarNotificacionSiNoExiste(msg, "Eventos", hoy);
+            notificaciones.add(new Notificacion(msg, eventoConItems.getNombre_evento(), hoy));
         }
-        // --- Notificación de tareas pendientes en la agenda para la semana en curso ---
-        // Calcular inicio (lunes) y fin (domingo) de la semana actual
+
+        // --- AGENDA: tareas pendientes esta semana ---
+        AgendaDAO agendaDAO = new AgendaDAO();
         LocalDate inicioSemana = hoy.with(DayOfWeek.MONDAY);
         LocalDate finSemana = hoy.with(DayOfWeek.SUNDAY);
-        AgendaDAO agendaDAO = new AgendaDAO();
         List<Agenda> tareasSemana = agendaDAO.findByWeek(inicioSemana, finSemana);
-        boolean hayPendientes = tareasSemana.stream().anyMatch(a -> a.getEstado() == null || a.getEstado().equalsIgnoreCase("Pendiente"));
-        if (hayPendientes) {
-            notificaciones.add(new Notificacion("Hay tareas pendientes para esta semana", "Agenda", hoy));
+
+        for (Agenda tarea : tareasSemana) {
+            if (tarea.getEstado() == null || tarea.getEstado().equalsIgnoreCase("Pendiente")) {
+                LocalDate fechaTarea = tarea.getFecha();
+                if (fechaTarea == null) continue;
+                long diasRestantes = ChronoUnit.DAYS.between(hoy, fechaTarea);
+                if (diasRestantes < 0) continue;
+
+                String cuando = humanizaDias(diasRestantes);
+                String mensaje = String.format("%s tienes una tarea pendiente: '%s'",
+                        cuando, tarea.getDescripcion());
+
+                guardarNotificacionSiNoExiste(mensaje, "Agenda", hoy);
+                notificaciones.add(new Notificacion(mensaje, "Agenda", hoy));
+            }
         }
+
         return notificaciones;
+    }
+
+    /** Compatibilidad hacia atrás: delega a la versión con 3 parámetros (pedidos=1 día por defecto). */
+    public List<Notificacion> obtenerTodasLasNotificaciones(int diasAnticipoEventos, int diasAnticipoCaducidad) {
+        return obtenerTodasLasNotificaciones(diasAnticipoEventos, diasAnticipoCaducidad, 1);
+    }
+
+    // =================== Helpers ===================
+
+    private void guardarNotificacionSiNoExiste(String mensaje, String tipo, LocalDate fecha) {
+        boolean existe = entityDAO.existePorContenidoYFecha(mensaje, fecha);
+        if (!existe) {
+            NotificacionEntity entity = new NotificacionEntity(mensaje, tipo, fecha, false);
+            entityDAO.save(entity);
+        }
+    }
+
+    private static String plural(long n, String uno, String muchos) {
+        return n == 1 ? uno : muchos;
+    }
+
+    private static String humanizaDias(long dias) {
+        if (dias == 0) return "Hoy";
+        if (dias == 1) return "Mañana";
+        return "En " + dias + " " + plural(dias, "día", "días");
     }
 }

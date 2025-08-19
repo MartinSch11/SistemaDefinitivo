@@ -4,57 +4,54 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.ToggleButton;
 import model.NotificacionConfig;
 import persistence.dao.NotificacionConfigDAO;
 
 public class ConfigNotificacionesController {
-    @FXML private Spinner<Integer> spinnerMinutosNoti;
-    @FXML private Spinner<Integer> spinnerDiasAnticipo;
-    @FXML private Button btnGuardarNoti;
-    @FXML private ToggleButton toggleNotificaciones;
-    @FXML private Spinner<Integer> spinnerDuracionNoti;
-    @FXML private Spinner<Integer> spinnerDiasAnticipoCaducidad;
+    @FXML
+    private Spinner<Integer> spinnerDiasAnticipo; // Eventos
+    @FXML
+    private Spinner<Integer> spinnerDiasAnticipoCaducidad; // Insumos
+    @FXML
+    private Spinner<Integer> spinnerDiasAnticipoPedidos; // NUEVO: Pedidos
+    @FXML
+    private Button btnGuardarNoti;
 
-    private NotificacionConfigDAO configDAO = new NotificacionConfigDAO();
+    private final NotificacionConfigDAO configDAO = new NotificacionConfigDAO();
     private NotificacionConfig configActual;
 
     @FXML
     private void initialize() {
         configActual = configDAO.findOrDefault();
-        spinnerMinutosNoti.setValueFactory(
-                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, 120, configActual.getMinutos())
-        );
+
+        // Eventos
         spinnerDiasAnticipo.setValueFactory(
-                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, 30, configActual.getDiasAnticipacion())
-        );
+                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        1, 30, configActual.getDiasAnticipacion()));
+
+        // Caducidad de insumos
         spinnerDiasAnticipoCaducidad.setValueFactory(
-                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, 120, configActual.getDiasAnticipacionCaducidad())
-        );
-        spinnerDuracionNoti.setValueFactory(
-                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(1, 30, configActual.getDuracionSegundos())
-        );
-        // Inicializar el ToggleButton según la configuración guardada
-        toggleNotificaciones.setSelected(configActual.isNotificacionesActivas());
-        toggleNotificaciones.setText(toggleNotificaciones.isSelected() ? "Notificaciones activas" : "Notificaciones desactivadas");
-        toggleNotificaciones.selectedProperty().addListener((_, _, newVal) -> {
-            toggleNotificaciones.setText(newVal ? "Notificaciones activas" : "Notificaciones desactivadas");
-        });
+                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        1, 120, configActual.getDiasAnticipacionCaducidad()));
+
+        // Pedidos (permitimos 0 = solo hoy)
+        spinnerDiasAnticipoPedidos.setValueFactory(
+                new javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        0, 30, configActual.getDiasAnticipacionPedidos()));
     }
 
     @FXML
     private void guardarConfigNotificaciones() {
-        int minutos = spinnerMinutosNoti.getValue();
-        int dias = spinnerDiasAnticipo.getValue();
+        int diasEventos = spinnerDiasAnticipo.getValue();
         int diasCaducidad = spinnerDiasAnticipoCaducidad.getValue();
-        int duracion = spinnerDuracionNoti.getValue();
-        boolean notificacionesActivas = toggleNotificaciones.isSelected();
-        configActual.setMinutos(minutos);
-        configActual.setDiasAnticipacion(dias);
+        int diasPedidos = spinnerDiasAnticipoPedidos.getValue();
+
+        configActual.setDiasAnticipacion(diasEventos);
         configActual.setDiasAnticipacionCaducidad(diasCaducidad);
-        configActual.setDuracionSegundos(duracion);
-        configActual.setNotificacionesActivas(notificacionesActivas);
+        configActual.setDiasAnticipacionPedidos(diasPedidos);
+
         configDAO.saveOrUpdateGlobal(configActual);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Configuración guardada");
         alert.setHeaderText(null);

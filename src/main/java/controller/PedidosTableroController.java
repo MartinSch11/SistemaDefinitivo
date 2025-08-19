@@ -33,13 +33,20 @@ import utilities.SceneLoader;
 import model.SessionContext;
 
 public class PedidosTableroController {
-    @FXML private TilePane vboxPorHacer;
-    @FXML private TilePane vboxEnProceso;
-    @FXML private TilePane vboxHecho;
-    @FXML private VBox colPorHacer;
-    @FXML private VBox colEnProceso;
-    @FXML private VBox colHecho;
-    @FXML private javafx.scene.control.Button btnNuevoPedido;
+    @FXML
+    private TilePane vboxPorHacer;
+    @FXML
+    private TilePane vboxEnProceso;
+    @FXML
+    private TilePane vboxHecho;
+    @FXML
+    private VBox colPorHacer;
+    @FXML
+    private VBox colEnProceso;
+    @FXML
+    private VBox colHecho;
+    @FXML
+    private javafx.scene.control.Button btnNuevoPedido;
 
     private PedidoDAO pedidoDAO = new PedidoDAO();
     private final RecetaProcessor recetaProcessor = new RecetaProcessor();
@@ -64,7 +71,8 @@ public class PedidosTableroController {
         vboxHecho.setPrefColumns(2);
         vboxHecho.setPrefRows(2);
         vboxHecho.setTileAlignment(javafx.geometry.Pos.TOP_CENTER);
-        // Cargar pedidos desde la base de datos, excluyendo los entregados y ordenando por fecha de entrega
+        // Cargar pedidos desde la base de datos, excluyendo los entregados y ordenando
+        // por fecha de entrega
         List<Pedido> pedidos = pedidoDAO.findAll();
         pedidos = pedidos.stream()
                 .filter(p -> p.getEstadoPedido() == null || !p.getEstadoPedido().equalsIgnoreCase("Entregado"))
@@ -148,7 +156,8 @@ public class PedidosTableroController {
             javafx.scene.control.MenuItem verDetalles = new javafx.scene.control.MenuItem("Ver detalles del pedido");
             verDetalles.setOnAction(_ -> mostrarDetallesPedido(pedido));
             contextMenu.getItems().add(verDetalles);
-            // Modificar y eliminar: mostrar siempre si el estado es Sin empezar, pero deshabilitar si no hay permiso
+            // Modificar y eliminar: mostrar siempre si el estado es Sin empezar, pero
+            // deshabilitar si no hay permiso
             if ("Sin empezar".equalsIgnoreCase(pedido.getEstadoPedido())) {
                 javafx.scene.control.MenuItem modificarPedido = new javafx.scene.control.MenuItem("Modificar pedido");
                 modificarPedido.setOnAction(_ -> modificarPedido(pedido));
@@ -173,7 +182,8 @@ public class PedidosTableroController {
 
     private void mostrarDetallesPedido(Pedido pedido) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/DialogDetallesPedido.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/DialogDetallesPedido.fxml"));
             Parent root = loader.load();
             DetallesPedidoDialogController controller = loader.getController();
             controller.setPedido(pedido);
@@ -190,7 +200,8 @@ public class PedidosTableroController {
 
     private void modificarPedido(Pedido pedido) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/DialogNuevoPedido.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/DialogNuevoPedido.fxml"));
             Parent root = loader.load();
             NuevoPedidoController controller = loader.getController();
             controller.setPedidosTableroController(this);
@@ -243,7 +254,8 @@ public class PedidosTableroController {
                 }
                 StringBuilder resumenDevueltos = new StringBuilder();
                 if (!productosParaDevolver.isEmpty()) {
-                    Map<String, String> insumosDevueltos = recetaProcessor.devolverStockPorProductosConResumen(productosParaDevolver);
+                    Map<String, String> insumosDevueltos = recetaProcessor
+                            .devolverStockPorProductosConResumen(productosParaDevolver);
                     if (!insumosDevueltos.isEmpty()) {
                         resumenDevueltos.append("Insumos devueltos al stock:\n");
                         for (Map.Entry<String, String> entry : insumosDevueltos.entrySet()) {
@@ -255,7 +267,8 @@ public class PedidosTableroController {
                     Map<String, String> faltantesResueltos = recetaProcessor.resolverFaltantesPorCatalogoInsumo();
                     if (faltantesResueltos != null && !faltantesResueltos.isEmpty()) {
                         resumenDevueltos.append("\nSe utilizaron estos insumos devueltos para resolver faltantes:\n");
-                        faltantesResueltos.forEach((nombre, cantidad) -> resumenDevueltos.append("- ").append(nombre).append(": ").append(cantidad).append("\n"));
+                        faltantesResueltos.forEach((nombre, cantidad) -> resumenDevueltos.append("- ").append(nombre)
+                                .append(": ").append(cantidad).append("\n"));
                     }
                 }
                 // --- Eliminar pedido ---
@@ -277,36 +290,54 @@ public class PedidosTableroController {
         columnaVBox.setOnDragOver(event -> {
             if (event.getGestureSource() != columnaVBox && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
-                columnaVBox.setStyle(columnaVBox.getStyle() + ";-fx-effect: dropshadow(gaussian, #888, 10, 0.2, 2, 2);");
+                columnaVBox
+                        .setStyle(columnaVBox.getStyle() + ";-fx-effect: dropshadow(gaussian, #888, 10, 0.2, 2, 2);");
             }
             event.consume();
         });
+
         columnaVBox.setOnDragExited(event -> {
             columnaVBox.setStyle(columnaVBox.getStyle().replaceAll(";?-fx-effect: dropshadow\\([^)]*\\);?", ""));
             event.consume();
         });
+
         columnaVBox.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
+
             if (db.hasString()) {
                 Long pedidoId = Long.parseLong(db.getString());
-                StackPane tarjeta = buscarTarjetaPorId(pedidoId);
-                if (tarjeta != null) {
-                    ((TilePane) tarjeta.getParent()).getChildren().remove(tarjeta);
-                    tilePane.getChildren().add(tarjeta);
-                    // Actualizar estado en la base de datos y en el objeto
-                    Pedido pedido = pedidoDAO.findByNumeroPedido(pedidoId);
-                    if (pedido != null) {
-                        pedido.setEstadoPedido(nuevoEstado);
-                        pedidoDAO.update(pedido);
-                        // Refrescar el objeto en memoria
-                        tarjeta.setUserData(pedido.getNumeroPedido());
-                        // Regenerar el menú contextual para reflejar el nuevo estado
-                        agregarDragAndDrop(tarjeta, pedido);
+                Pedido pedido = pedidoDAO.findByNumeroPedido(pedidoId);
+                if (pedido != null) {
+                    String estadoActual = pedido.getEstadoPedido() != null ? pedido.getEstadoPedido() : "Sin empezar";
+
+                    Map<String, Integer> ordenEstados = Map.of(
+                            "Sin empezar", 0,
+                            "En proceso", 1,
+                            "Hecho", 2);
+
+                    int actual = ordenEstados.getOrDefault(estadoActual, 0);
+                    int nuevo = ordenEstados.getOrDefault(nuevoEstado, 0);
+
+                    if (nuevo < actual) {
+                        mostrarAlerta("Movimiento inválido", "No puedes retroceder el estado del pedido.");
+                    } else if (nuevo == actual) {
+                        mostrarAlerta("Estado sin cambio", "El pedido ya está en este estado.");
+                    } else {
+                        StackPane tarjeta = buscarTarjetaPorId(pedidoId);
+                        if (tarjeta != null) {
+                            ((TilePane) tarjeta.getParent()).getChildren().remove(tarjeta);
+                            tilePane.getChildren().add(tarjeta);
+                            pedido.setEstadoPedido(nuevoEstado);
+                            pedidoDAO.update(pedido);
+                            tarjeta.setUserData(pedido.getNumeroPedido());
+                            agregarDragAndDrop(tarjeta, pedido);
+                            success = true;
+                        }
                     }
                 }
-                success = true;
             }
+
             columnaVBox.setStyle(columnaVBox.getStyle().replaceAll(";?-fx-effect: dropshadow\\([^)]*\\);?", ""));
             event.setDropCompleted(success);
             event.consume();
@@ -326,7 +357,7 @@ public class PedidosTableroController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
     }
 
     @FXML
@@ -357,12 +388,17 @@ public class PedidosTableroController {
             }
 
             // Validación extra para mostrar en alert si hay datos nulos
-            if (nuevoPedido.getCliente() == null || nuevoPedido.getEmpleadoAsignado() == null || nuevoPedido.getPedidoProductos() == null || nuevoPedido.getPedidoCombos() == null) {
+            if (nuevoPedido.getCliente() == null || nuevoPedido.getEmpleadoAsignado() == null
+                    || nuevoPedido.getPedidoProductos() == null || nuevoPedido.getPedidoCombos() == null) {
                 StringBuilder sb = new StringBuilder("Datos faltantes al crear el pedido:\n");
-                if (nuevoPedido.getCliente() == null) sb.append("- Cliente nulo\n");
-                if (nuevoPedido.getEmpleadoAsignado() == null) sb.append("- Empleado nulo\n");
-                if (nuevoPedido.getPedidoProductos() == null) sb.append("- Lista de productos nula\n");
-                if (nuevoPedido.getPedidoCombos() == null) sb.append("- Lista de combos nula\n");
+                if (nuevoPedido.getCliente() == null)
+                    sb.append("- Cliente nulo\n");
+                if (nuevoPedido.getEmpleadoAsignado() == null)
+                    sb.append("- Empleado nulo\n");
+                if (nuevoPedido.getPedidoProductos() == null)
+                    sb.append("- Lista de productos nula\n");
+                if (nuevoPedido.getPedidoCombos() == null)
+                    sb.append("- Lista de combos nula\n");
                 mostrarAlerta("Error de datos", sb.toString());
                 return;
             }
@@ -402,7 +438,8 @@ public class PedidosTableroController {
     }
 
     /**
-     * Devuelve un mapa Producto -> cantidad total, desglosando combos en sus productos.
+     * Devuelve un mapa Producto -> cantidad total, desglosando combos en sus
+     * productos.
      */
     private Map<Producto, Integer> obtenerMapaProductosTotales(Pedido pedido) {
         Map<Producto, Integer> productosMap = new java.util.HashMap<>();
@@ -481,7 +518,8 @@ public class PedidosTableroController {
     @FXML
     void abrirHistorialPedidos(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/HistorialPedidosDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/HistorialPedidosDialog.fxml"));
             Parent root = loader.load();
             // Si tienes un controlador específico para el historial:
             // HistorialPedidosDialogController controller = loader.getController();

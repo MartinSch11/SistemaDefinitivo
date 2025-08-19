@@ -23,28 +23,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.scene.text.Text;
+
 public class CrudProductosController {
 
-    @FXML private Button btnAgregar;
-    @FXML private Button btnModificar;
-    @FXML private Button btnEliminar;
-    @FXML private Button btnVolver;
-    @FXML private TableView<Producto> tableProductos;
-    @FXML private TableColumn<Producto, String> colNombre;
-    @FXML private TableColumn<Producto, String> colDescripcion;
-    @FXML private TableColumn<Producto, String> colReceta;
-    @FXML private TableColumn<Producto, String> colCategoria;
-    @FXML private TableColumn<Producto, Float> colPrecio;
-    @FXML private TableColumn<Producto, String> colSabor;
-    @FXML private TextField txtBuscar;
-    @FXML private ComboBox<String> comboFiltro;
-    @FXML private ScrollPane scrollPaneCombos;
-    @FXML private ScrollPane scrollPaneProductos;
-    @FXML private TableView<Combo> tableCombos;
-    @FXML private TableColumn<Combo, String> colComboNombre;
-    @FXML private TableColumn<Combo, String> colComboDescripcion;
-    @FXML private TableColumn<Combo, String> colComboProductos;
-    @FXML private TableColumn<Combo, String> colComboPrecio;
+    @FXML
+    private Button btnAgregar;
+    @FXML
+    private Button btnModificar;
+    @FXML
+    private Button btnEliminar;
+    @FXML
+    private Button btnVolver;
+    @FXML
+    private TableView<Producto> tableProductos;
+    @FXML
+    private TableColumn<Producto, String> colNombre;
+    @FXML
+    private TableColumn<Producto, String> colDescripcion;
+    @FXML
+    private TableColumn<Producto, String> colReceta;
+    @FXML
+    private TableColumn<Producto, String> colCategoria;
+    @FXML
+    private TableColumn<Producto, String> colUso;
+    @FXML
+    private TableColumn<Producto, Float> colPrecio;
+    @FXML
+    private TableColumn<Producto, String> colSabor;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private ComboBox<String> comboFiltro;
+    @FXML
+    private ScrollPane scrollPaneCombos;
+    @FXML
+    private ScrollPane scrollPaneProductos;
+    @FXML
+    private TableView<Combo> tableCombos;
+    @FXML
+    private TableColumn<Combo, String> colComboNombre;
+    @FXML
+    private TableColumn<Combo, String> colComboDescripcion;
+    @FXML
+    private TableColumn<Combo, String> colComboProductos;
+    @FXML
+    private TableColumn<Combo, String> colComboPrecio;
 
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
     private ObservableList<Combo> listaCombos = FXCollections.observableArrayList();
@@ -88,28 +112,46 @@ public class CrudProductosController {
     }
 
     private void rellenarColumnas() {
-        // Configuración de las otras columnas
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colUso.setCellValueFactory(new PropertyValueFactory<>("tipoUso"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         colSabor.setCellValueFactory(cellData -> {
-            // Convierte la lista de sabores a un string separado por coma
             var sabores = cellData.getValue().getSabores();
-            String textoSabores = sabores == null || sabores.isEmpty() ? ""
+            String textoSabores = (sabores == null || sabores.isEmpty()) ? ""
                     : sabores.stream().map(Object::toString).reduce((a, b) -> a + ", " + b).orElse("");
             return new SimpleStringProperty(textoSabores);
         });
 
-        // Para la columna colReceta, usamos un CellFactory para obtener el nombre de la
-        // receta
+        // nombre de receta
         colReceta.setCellValueFactory(cellData -> {
-            // Obtener la receta del producto y, si existe, su nombre
             Receta receta = cellData.getValue().getReceta();
-            return receta != null ? new SimpleStringProperty(receta.getNombreReceta()) : new SimpleStringProperty("");
+            return new SimpleStringProperty(receta != null ? receta.getNombreReceta() : "");
         });
 
-        // Rellenamos la tabla con los productos
+        // ⬇️ wrap + tooltip para la descripción
+        colDescripcion.setCellFactory(_ -> new TableCell<Producto, String>() {
+            private final Text text = new Text();
+            {
+                text.wrappingWidthProperty().bind(colDescripcion.widthProperty().subtract(10));
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null || item.isBlank()) {
+                    setGraphic(null);
+                    setTooltip(null);
+                } else {
+                    text.setText(item);
+                    setGraphic(text);
+                    setTooltip(new Tooltip(item));
+                }
+            }
+        });
+
         cargarProductos();
     }
 
@@ -122,12 +164,35 @@ public class CrudProductosController {
         });
         colComboProductos.setCellValueFactory(cellData -> {
             var productos = cellData.getValue().getProductos();
-            String texto = productos == null || productos.isEmpty() ? ""
+            String texto = (productos == null || productos.isEmpty()) ? ""
                     : productos.stream()
                             .map(cp -> cp.getProducto().getNombre() + " x" + cp.getCantidad())
                             .reduce((a, b) -> a + ", " + b).orElse("");
             return new SimpleStringProperty(texto);
         });
+
+        // ⬇️ wrap + tooltip para descripción de combos también
+        colComboDescripcion.setCellFactory(_ -> new TableCell<Combo, String>() {
+            private final Text text = new Text();
+            {
+                text.wrappingWidthProperty().bind(colComboDescripcion.widthProperty().subtract(10));
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null || item.isBlank()) {
+                    setGraphic(null);
+                    setTooltip(null);
+                } else {
+                    text.setText(item);
+                    setGraphic(text);
+                    setTooltip(new Tooltip(item));
+                }
+            }
+        });
+
         cargarCombos();
     }
 
@@ -175,7 +240,8 @@ public class CrudProductosController {
                 stage.setTitle("Agregar Producto");
                 stage.showAndWait(); // Esperar a que se cierre la ventana antes de recargar
                 cargarProductos();
-                ActionLogger.log("Producto agregado: " + (controller.getListaProductos().isEmpty() ? "" : controller.getListaProductos().get(controller.getListaProductos().size() - 1).getNombre()));
+                ActionLogger.log("Producto agregado: " + (controller.getListaProductos().isEmpty() ? ""
+                        : controller.getListaProductos().get(controller.getListaProductos().size() - 1).getNombre()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -187,7 +253,8 @@ public class CrudProductosController {
         Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/example/pasteleria/productos_form.fxml"));
                 Parent root = loader.load();
 
                 // Crear un nuevo Stage (ventana)
@@ -245,13 +312,8 @@ public class CrudProductosController {
     }
 
     @FXML
-    void handleBuscar(ActionEvent event) {
-        // Lógica para buscar productos (no implementada aquí)
-    }
-
-    @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
 
         // Log de la acción
         ActionLogger.log("El usuario regresó al menú principal desde la pantalla de Productos.");

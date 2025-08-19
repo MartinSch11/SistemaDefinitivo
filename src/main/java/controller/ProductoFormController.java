@@ -43,12 +43,20 @@ import com.drew.metadata.exif.ExifIFD0Directory;
 
 public class ProductoFormController {
 
-    @FXML private TextField nombreProductoField;
-    @FXML private TextArea descripcionProductoField;
-    @FXML private ChoiceBox<Categoria> categoriaChoiceBox;
-    @FXML private ComboBox<Receta> cmbReceta;
-    @FXML private TextField precioField;
-    @FXML private ImageView imagenProductoView;
+    @FXML
+    private TextField nombreProductoField;
+    @FXML
+    private TextArea descripcionProductoField;
+    @FXML
+    private ChoiceBox<Categoria> categoriaChoiceBox;
+    @FXML
+    private ComboBox<Receta> cmbReceta;
+    @FXML
+    private TextField precioField;
+    @FXML
+    private ImageView imagenProductoView;
+    @FXML
+    private ComboBox<String> cmbTipoUso;
 
     private ObservableList<Producto> listaProductos;
     private ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
@@ -64,10 +72,16 @@ public class ProductoFormController {
     @FXML
     public void initialize() {
         cargarCategorias();
-        cargarRecetas(); // Cargar las recetas en el ComboBox
+        cargarRecetas();
+        cargarOpcionesTipoUso(); // <-- nuevo
         if (productoActual != null) {
             cargarDatosProducto(productoActual);
         }
+    }
+
+    private void cargarOpcionesTipoUso() {
+        cmbTipoUso.setItems(FXCollections.observableArrayList("Pedidos", "Eventos", "Ambos"));
+        cmbTipoUso.getSelectionModel().select("Ambos"); // valor por defecto
     }
 
     private void cargarCategorias() {
@@ -125,6 +139,12 @@ public class ProductoFormController {
         } else {
             imagenProductoView.setImage(null);
         }
+        // Cargar tipo de uso
+        if (producto.getTipoUso() != null) {
+            cmbTipoUso.setValue(producto.getTipoUso());
+        } else {
+            cmbTipoUso.getSelectionModel().clearSelection(); // sin selección = "Ambos"
+        }
     }
 
     @FXML
@@ -177,7 +197,9 @@ public class ProductoFormController {
         String descripcion = descripcionProductoField.getText();
         Categoria categoria = categoriaChoiceBox.getValue();
         BigDecimal precio = new BigDecimal(precioField.getText());
-        Receta receta = cmbReceta.getValue(); // Obtener la receta seleccionada
+        Receta receta = cmbReceta.getValue();
+        String tipoUso = cmbTipoUso.getValue(); // puede ser null
+
         try {
             if (!validarCampos(nombre, descripcion, categoria, precio)) {
                 throw new IllegalArgumentException("Todos los campos deben estar completos y ser válidos.");
@@ -199,8 +221,8 @@ public class ProductoFormController {
             }
 
             productoActual.setSabores(saboresSeleccionados);
-            // Asignar la receta seleccionada al producto
             productoActual.setReceta(receta);
+            productoActual.setTipoUso(tipoUso == null ? "Ambos" : tipoUso); // <- Aquí se guarda el uso
 
             return productoActual;
         } catch (Exception e) {
@@ -437,14 +459,14 @@ public class ProductoFormController {
             cargarRecetas();
 
         } catch (Exception e) {
-            mostrarMensaje(Alert.AlertType.ERROR,"Error", "No se pudo abrir el formulario de receta.");
+            mostrarMensaje(Alert.AlertType.ERROR, "Error", "No se pudo abrir el formulario de receta.");
         }
     }
 
     private void abrirVentanaModal(String fxmlPath, String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Stage stage = new Stage(); 
+            Stage stage = new Stage();
             stage.setTitle(titulo);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new javafx.scene.Scene(loader.load())); // Usar loader.load() directamente

@@ -17,49 +17,56 @@ public class NotificacionConfig {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "minutos", nullable = false)
-    private int minutos;
+    // Días de anticipación para eventos
+    @Column(name = "dias_anticipacion_eventos", nullable = false, columnDefinition = "integer default 30")
+    private int diasAnticipacion = 30;
 
-    @Column(name = "dias_anticipacion", nullable = false)
-    private int diasAnticipacion;
-
-    @Column(name = "notificaciones_activas", nullable = false)
-    private boolean notificacionesActivas = true;
-
-    @Column(name = "duracion_segundos", nullable = false)
-    private int duracionSegundos = 5;
-
-    @Column(name = "dias_anticipacion_caducidad", nullable = false)
+    // Días de anticipación para caducidad de insumos
+    @Column(name = "dias_anticipacion_caducidad", nullable = false, columnDefinition = "integer default 3")
     private int diasAnticipacionCaducidad = 3;
 
+    // Días de anticipación para pedidos
+    @Column(name = "dias_anticipacion_pedidos", nullable = false, columnDefinition = "integer default 1")
+    private int diasAnticipacionPedidos = 1;
+
     public NotificacionConfig() {
-        // Constructor vacío requerido por JPA
     }
 
-    public NotificacionConfig(int minutos, int diasAnticipacion) {
-        this.minutos = minutos;
+    public NotificacionConfig(int diasAnticipacion, int diasAnticipacionCaducidad, int diasAnticipacionPedidos) {
         this.diasAnticipacion = diasAnticipacion;
+        this.diasAnticipacionCaducidad = diasAnticipacionCaducidad;
+        this.diasAnticipacionPedidos = diasAnticipacionPedidos;
     }
 
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getMinutos() { return minutos; }
-    public void setMinutos(int minutos) { this.minutos = minutos; }
+    public int getDiasAnticipacion() {
+        return diasAnticipacion;
+    }
 
-    public int getDiasAnticipacion() { return diasAnticipacion; }
-    public void setDiasAnticipacion(int diasAnticipacion) { this.diasAnticipacion = diasAnticipacion; }
+    public void setDiasAnticipacion(int diasAnticipacion) {
+        this.diasAnticipacion = diasAnticipacion;
+    }
 
-    public boolean isNotificacionesActivas() { return notificacionesActivas; }
-    public void setNotificacionesActivas(boolean notificacionesActivas) { this.notificacionesActivas = notificacionesActivas; }
+    public int getDiasAnticipacionCaducidad() {
+        return diasAnticipacionCaducidad;
+    }
 
-    public int getDuracionSegundos() { return duracionSegundos; }
-    public void setDuracionSegundos(int duracionSegundos) { this.duracionSegundos = duracionSegundos; }
+    public void setDiasAnticipacionCaducidad(int diasAnticipacionCaducidad) {
+        this.diasAnticipacionCaducidad = diasAnticipacionCaducidad;
+    }
 
-    public int getDiasAnticipacionCaducidad() { return diasAnticipacionCaducidad; }
-    public void setDiasAnticipacionCaducidad(int diasAnticipacionCaducidad) { this.diasAnticipacionCaducidad = diasAnticipacionCaducidad; }
+    public int getDiasAnticipacionPedidos() {
+        return diasAnticipacionPedidos;
+    }
+
+    public void setDiasAnticipacionPedidos(int diasAnticipacionPedidos) {
+        this.diasAnticipacionPedidos = diasAnticipacionPedidos;
+    }
 }

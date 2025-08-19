@@ -114,7 +114,7 @@ public class AgendaController {
     // =================== EVENTOS DE UI ===================
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/components.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
     }
 
     @FXML
@@ -298,7 +298,8 @@ public class AgendaController {
     }
 
     private void agregarTareaADia(String empleadoTarea, LocalDate fechaPendiente, int horaPendiente,
-            int minutoPendiente, String pendiente, String duranteElDia, String estado, int columna, int fila, Agenda tareaActual) {
+            int minutoPendiente, String pendiente, String duranteElDia, String estado, int columna, int fila,
+            Agenda tareaActual) {
         StackPane tareaPane = crearTarjetaTarea(empleadoTarea, fechaPendiente, horaPendiente, minutoPendiente,
                 pendiente, duranteElDia, estado, tareaActual);
         gridTareas.add(tareaPane, columna, fila);
@@ -393,7 +394,8 @@ public class AgendaController {
                         .getResourceAsStream("/com.example.image/event_list-white.png");
                 if (eventStream2 != null)
                     eventIcon.setImage(new Image(eventStream2));
-                java.io.InputStream empleadoStream2 = getClass().getResourceAsStream("/com.example.image/man-white.png");
+                java.io.InputStream empleadoStream2 = getClass()
+                        .getResourceAsStream("/com.example.image/man-white.png");
                 if (empleadoStream2 != null)
                     empleadoIcon.setImage(new Image(empleadoStream2));
                 java.io.InputStream clockStream2 = getClass().getResourceAsStream("/com.example.image/clock-white.png");
@@ -452,7 +454,8 @@ public class AgendaController {
         });
         // --- Botón Eliminar tarea ---
         MenuItem eliminarTarea = new MenuItem("Eliminar tarea");
-        eliminarTarea.setDisable(realizado || !puedeEliminar); // No permitir eliminar si está realizada o no tiene permiso
+        eliminarTarea.setDisable(realizado || !puedeEliminar); // No permitir eliminar si está realizada o no tiene
+                                                               // permiso
         eliminarTarea.setOnAction(_ -> {
             if (realizado || !puedeEliminar)
                 return; // Protección extra
@@ -467,7 +470,8 @@ public class AgendaController {
                     gridTareas.getChildren().remove(tareaPane);
                     cargarTareasSemana(today.with(DayOfWeek.MONDAY));
                 } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudo encontrar la instancia de la tarea para eliminar.");
+                    showAlert(Alert.AlertType.ERROR, "Error",
+                            "No se pudo encontrar la instancia de la tarea para eliminar.");
                 }
             }
         });

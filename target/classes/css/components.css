@@ -138,15 +138,9 @@
 }
 
 /* Estilo para el ScrollPane */
-.scroll-pane {
-    -fx-background: #f7ede3; /* Fondo del ScrollPane */
-    -fx-background-color: #f7ede3; /* Fondo interno del ScrollPane */
-}
 
 /* Fondo del área de contenido dentro del ScrollPane */
-.scroll-pane .viewport {
-    -fx-background-color: #f7ede3;
-}
+
 
 #paneDetallesReceta{
     -fx-border-color: #cccccc;
@@ -156,24 +150,7 @@
 }
 
 /* Aplica la fuente Inter a todo el VBox */
-#vboxIngredientes {
-    -fx-font-family: 'Inter';
-    -fx-spacing: 10px; /* Espaciado entre los elementos */
-    -fx-padding: 10px; /* Espaciado interno en el VBox */
-    -fx-background-color: #f7ede3; /* Fondo claro */
-}
 
-/* Estilo para cada Label dentro del VBox */
-#vboxIngredientes Label {
-    -fx-font-size: 14px; /* Tamaño de letra */
-    -fx-text-fill: #333333; /* Color del texto */
-    -fx-padding: 8px 12px; /* Espaciado interno */
-    -fx-background-color: #f7ede3; /* Fondo del Label */
-    -fx-border-color: #e0e0e0;
-    -fx-border-radius: 6px;
-    -fx-background-radius: 6px;
-    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2); /* Sombra */
-}
 
 .texto-login {
     -fx-font-family: 'Inter';
@@ -248,4 +225,15 @@
 
 .toggle-noti-personal:hover {
     -fx-background-color: #b3b3b3;
+}
+
+.chip {
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+    -fx-padding: 8px 12px;
+    -fx-background-color: #B70505;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);
 }

@@ -2,7 +2,8 @@
 .login {
     -fx-background-color: transparent;
     -fx-font-family: "Inter";
-    -fx-font-size: 12px; /* Tamaño de fuente ajustado */
+    -fx-font-size: 12px;
+    /* Tamaño de fuente ajustado */
     -fx-transition: transform 0.2s ease-in-out;
 }
 
@@ -20,19 +21,24 @@
 
 /* Estilos específicos para las imágenes dentro de los MenuItem */
 .login .menu-item .image-view {
-    -fx-fit-width: 20px;  /* Ajusta el ancho */
-    -fx-fit-height: 20px; /* Ajusta la altura */
+    -fx-fit-width: 20px;
+    /* Ajusta el ancho */
+    -fx-fit-height: 20px;
+    /* Ajusta la altura */
 }
 
 /* Efecto hover para cada MenuItem */
 .login .menu-item:hover {
-    -fx-background-color: #E0E0E0; /* Cambia el color de fondo en hover */
+    -fx-background-color: #E0E0E0;
+    /* Cambia el color de fondo en hover */
 }
 
 /* Estilo adicional para imagen principal dentro del MenuButton */
 .login .image-view-main {
-    -fx-fit-width: 32px; /* Tamaño ajustado */
-    -fx-fit-height: 32px; /* Tamaño ajustado */
+    -fx-fit-width: 32px;
+    /* Tamaño ajustado */
+    -fx-fit-height: 32px;
+    /* Tamaño ajustado */
 }
 
 .buttonsMainMenu {
@@ -51,7 +57,8 @@
 }
 
 .buttonsMainMenuImage {
-    -fx-effect: null; /* Sin sombra para las imágenes */
+    -fx-effect: null;
+    /* Sin sombra para las imágenes */
 }
 
 .buttonsMainMenu:hover {
@@ -59,21 +66,21 @@
     -fx-border-color: #B70505;
     -fx-background-radius: 14px;
     -fx-border-radius: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(183,5,5,0.10), 8, 0.2, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(183, 5, 5, 0.10), 8, 0.2, 0, 2);
     -fx-translate-y: -4px;
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
     -fx-transition: all 0.7s ease;
 }
 
-.txtButtonsMainMenu{
+.txtButtonsMainMenu {
     -fx-font-family: "Inter";
     -fx-font-size: 17px;
     -fx-fill: #3E2723;
     -fx-font-weight: 500;
 }
 
-.button-Ayuda-MainMenu{
+.button-Ayuda-MainMenu {
     -fx-background-color: transparent;
     -fx-pref-width: 55px;
     -fx-pref-height: 55px;
@@ -85,12 +92,12 @@
     -fx-fit-height: 40px;
 }
 
-.button-Ayuda-MainMenu:hover{
+.button-Ayuda-MainMenu:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
 
-.lblRol{
+.lblRol {
     -fx-font-family: "Inter";
     -fx-font-size: 11px;
     -fx-text-fill: white;
@@ -100,28 +107,117 @@
 .context-menu-ajustes {
     -fx-background-color: #fff;
     -fx-background-radius: 8px;
-    -fx-effect: dropshadow(one-pass-box, rgba(183,5,5,0.12), 8, 0, 0, 2);
+    -fx-effect: dropshadow(one-pass-box, rgba(183, 5, 5, 0.12), 8, 0, 0, 2);
     -fx-border-radius: 8px;
-    -fx-padding: 0; /* Elimina el padding vertical extra */
+    -fx-padding: 0;
+    /* Elimina el padding vertical extra */
 }
+
 .context-menu-ajustes .menu-item {
     -fx-background-color: transparent;
     -fx-text-fill: #B70505;
     -fx-font-family: 'Inter';
     -fx-font-size: 14px;
-    -fx-padding: 6px 16px 6px 16px; /* Solo padding, sin margin, para que el hover llegue al borde */
+    -fx-padding: 6px 16px 6px 16px;
+    /* Solo padding, sin margin, para que el hover llegue al borde */
     -fx-background-radius: 6px;
     -fx-cursor: hand;
-    -fx-min-width: 120px; /* Opcional: ancho mínimo para consistencia visual */
-    -fx-pref-width: 180px; /* Opcional: ancho preferido para que el HBox ocupe todo el área */
+    -fx-min-width: 120px;
+    /* Opcional: ancho mínimo para consistencia visual */
+    -fx-pref-width: 180px;
+    /* Opcional: ancho preferido para que el HBox ocupe todo el área */
 }
+
 .context-menu-ajustes .menu-item:focused,
 .context-menu-ajustes .menu-item:hover {
     -fx-background-color: #B70505;
     -fx-text-fill: #fff;
 }
-.context-menu-ajustes .menu-item .image-view {
-    -fx-fit-width: 18px;
-    -fx-fit-height: 18px;
-    -fx-padding: 0 8px 0 0;
+
+/* --- Estilos generales para el popup de notificaciones --- */
+.popup-notificaciones {
+    -fx-background-color: white;
+    -fx-font-family: "Inter";
+    -fx-text-fill: #333;
 }
+
+.popup-notificaciones .titulo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222;
+}
+
+.popup-notificaciones .boton-filtro {
+    -fx-background-color: transparent;
+    -fx-text-fill: #888;
+    -fx-font-weight: normal;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+    -fx-padding: 4px 10px;
+}
+
+.popup-notificaciones .boton-filtro-activo {
+    -fx-background-color: #B70505;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.popup-notificaciones .mensaje {
+    -fx-text-fill: #333;
+}
+
+.popup-notificaciones .fecha {
+    -fx-font-size: 10px;
+    -fx-text-fill: gray;
+}
+
+.btn-ver-mas-notis {
+    -fx-background-color: #f0eae4; /* un poco más oscuro que el fondo del popup */
+    -fx-text-fill: #333;
+    -fx-font-family: "Inter";
+    -fx-font-size: 12px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+    -fx-alignment: center;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 6px;
+}
+
+.btn-ver-mas-notis:hover {
+    -fx-background-color: #d5d1cb;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .track {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 4px;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #B70505;
+    -fx-background-radius: 4px;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #8a0404;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+
+

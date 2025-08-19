@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.InsumoReceta;
@@ -25,15 +25,29 @@ import java.util.List;
 
 public class RecetasController {
 
-    @FXML private TableView<Receta> tableRecetas;
-    @FXML private TableColumn<Receta, String> colNomReceta;
-    @FXML private TableColumn<Receta, String> colIngReceta;
-    @FXML private Button btnAgregar;
-    @FXML private Button btnModificar;
-    @FXML private Button btnEliminar;
-    @FXML private Pane paneDetallesReceta;
-    @FXML private Label labelNombreReceta;
-    @FXML private VBox vboxIngredientes;
+    @FXML
+    private TableView<Receta> tableRecetas;
+    @FXML
+    private TableColumn<Receta, String> colNomReceta;
+    @FXML
+    private TableColumn<Receta, String> colIngReceta;
+    @FXML
+    private Button btnAgregar;
+    @FXML
+    private Button btnModificar;
+    @FXML
+    private Button btnEliminar;
+    @FXML
+    private Pane paneDetallesReceta;
+    @FXML
+    private Label labelNombreReceta;
+    @FXML
+    private FlowPane flowIngredientes;
+
+    // (Opcional pero recomendado para wrap responsivo)
+    @FXML
+    private ScrollPane scrollIngredientes;
+
     private ObservableList<Receta> listaRecetas = FXCollections.observableArrayList();
 
     public void initialize() {
@@ -41,14 +55,21 @@ public class RecetasController {
         configurarColumnas();
         tableRecetas.setItems(listaRecetas);
 
+        // 👉 Ajustar el wrap del FlowPane al ancho visible del ScrollPane
+        if (flowIngredientes != null && scrollIngredientes != null) {
+            flowIngredientes.prefWrapLengthProperty().bind(
+                    scrollIngredientes.viewportBoundsProperty().map(b -> b.getWidth() - 20) // margen visual
+            );
+        }
+
         // Permisos del usuario
         java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
         boolean puedeCrear = permisos != null && permisos.contains("Recetas-crear");
         boolean puedeModificar = permisos != null && permisos.contains("Recetas-modificar");
         boolean puedeEliminar = permisos != null && permisos.contains("Recetas-eliminar");
 
-        // Botón agregar (si existe)
-        if (btnAgregar != null) btnAgregar.setDisable(!puedeCrear);
+        if (btnAgregar != null)
+            btnAgregar.setDisable(!puedeCrear);
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
 
@@ -67,22 +88,21 @@ public class RecetasController {
 
     private void cargarRecetas() {
         RecetaDAO recetaDAO = new RecetaDAO();
-
         listaRecetas.clear();
-        listaRecetas.setAll(recetaDAO.findAll()); // Recarga las recetas desde la base de datos
-
+        listaRecetas.setAll(recetaDAO.findAll());
         tableRecetas.setItems(listaRecetas);
-
     }
 
     private void configurarColumnas() {
         colNomReceta.setCellValueFactory(cellData -> cellData.getValue().nombreRecetaProperty());
-        // Celda personalizada para ingredientes: wrap text y tooltip
+
+        // Celda con wrap + tooltip para ingredientes concatenados
         colIngReceta.setCellFactory(_ -> new TableCell<Receta, String>() {
             private final javafx.scene.text.Text text = new javafx.scene.text.Text();
             {
                 text.wrappingWidthProperty().bind(colIngReceta.widthProperty().subtract(10));
             }
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -95,6 +115,7 @@ public class RecetasController {
                 }
             }
         });
+
         colIngReceta.setCellValueFactory(cellData -> {
             Receta receta = cellData.getValue();
             List<String> nombresInsumos = receta.getInsumos().stream()
@@ -105,20 +126,27 @@ public class RecetasController {
         });
     }
 
+    // ✅ MÉTODO ACTUALIZADO: ahora llena "chips" en el FlowPane
     private void mostrarDetallesReceta(Receta receta) {
         paneDetallesReceta.setVisible(true);
         labelNombreReceta.setText(receta.getNombreReceta());
-        vboxIngredientes.getChildren().clear();
+        flowIngredientes.getChildren().clear();
 
         for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
             Insumo insumo = insumoReceta.getInsumo();
-            String textoIngrediente = String.format("%s %d %s",
+
+            String textoIngrediente = String.format(
+                    "%s %d %s",
                     insumo.getNombre(),
-                    (int) insumoReceta.getCantidadUtilizada(), // Casteo a int
+                    (int) insumoReceta.getCantidadUtilizada(), // igual que tu lógica previa
                     insumoReceta.getUnidad());
-            Label labelIngrediente = new Label(textoIngrediente);
-            labelIngrediente.setStyle("-fx-font-size: 14; -fx-text-fill: #333;");
-            vboxIngredientes.getChildren().add(labelIngrediente);
+
+            Label chip = new Label(textoIngrediente);
+            // Estilo chip simple (podés pasarlo a tu CSS global con una clase, ej. .chip)
+            chip.getStyleClass().add("chip");
+
+            chip.setTooltip(new Tooltip(textoIngrediente));
+            flowIngredientes.getChildren().add(chip);
         }
     }
 
@@ -138,7 +166,6 @@ public class RecetasController {
             stage.setTitle(receta == null ? "Agregar Receta" : "Modificar Receta");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            // Solo recargar recetas, la lógica de guardado está en NuevaRecetaController
             cargarRecetas();
         } catch (IOException e) {
             e.printStackTrace();
@@ -157,7 +184,7 @@ public class RecetasController {
     @FXML
     void handleVolver(ActionEvent event) {
         ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de recetas.");
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
     }
 
     @FXML
@@ -190,7 +217,6 @@ public class RecetasController {
                 ActionLogger.log("El usuario quiere eliminar la receta: " + recetaSeleccionada.getNombreReceta());
                 RecetaDAO recetaDAO = new RecetaDAO();
                 recetaDAO.delete(recetaSeleccionada);
-
                 cargarRecetas();
             }
         }

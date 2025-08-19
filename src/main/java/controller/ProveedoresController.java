@@ -20,17 +20,28 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProveedoresController {
-    @FXML private Button btnAgregar;
-    @FXML private Button btnEliminar;
-    @FXML private Button btnModificar;
-    @FXML private TableView<Proveedor> tableViewProveedores;
-    @FXML private TableColumn<Proveedor, String> colCuit;
-    @FXML private TableColumn<Proveedor, String> colNombre;
-    @FXML private TableColumn<Proveedor, String> colInsumo;
-    @FXML private TableColumn<Proveedor, String> colTelefono;
-    @FXML private TableColumn<Proveedor, String> colUbicacion;
-    @FXML private TableColumn<Proveedor, String> colCorreo;
-    @FXML private TextField txtFiltrar;
+    @FXML
+    private Button btnAgregar;
+    @FXML
+    private Button btnEliminar;
+    @FXML
+    private Button btnModificar;
+    @FXML
+    private TableView<Proveedor> tableViewProveedores;
+    @FXML
+    private TableColumn<Proveedor, String> colCuit;
+    @FXML
+    private TableColumn<Proveedor, String> colNombre;
+    @FXML
+    private TableColumn<Proveedor, String> colInsumo;
+    @FXML
+    private TableColumn<Proveedor, String> colTelefono;
+    @FXML
+    private TableColumn<Proveedor, String> colUbicacion;
+    @FXML
+    private TableColumn<Proveedor, String> colCorreo;
+    @FXML
+    private TextField txtFiltrar;
 
     private ObservableList<Proveedor> proveedoresList = FXCollections.observableArrayList();
     private ProveedorDAO proveedorDAO;
@@ -92,7 +103,8 @@ public class ProveedoresController {
             String filtroLower = filtro.toLowerCase();
             ObservableList<Proveedor> filtrados = proveedoresList.filtered(p -> {
                 boolean matchNombre = p.getNombre() != null && p.getNombre().toLowerCase().contains(filtroLower);
-                boolean matchInsumo = p.getInsumosString() != null && p.getInsumosString().toLowerCase().contains(filtroLower);
+                boolean matchInsumo = p.getInsumosString() != null
+                        && p.getInsumosString().toLowerCase().contains(filtroLower);
                 boolean matchTelefono = p.getTelefono() != null && p.getTelefono().toLowerCase().contains(filtroLower);
                 return matchNombre || matchInsumo || matchTelefono;
             });
@@ -113,12 +125,14 @@ public class ProveedoresController {
                 if (response == ButtonType.OK) {
                     proveedorDAO.delete(proveedorSeleccionado);
                     cargarDatos();
-                    mostrarAlerta("Proveedor eliminado", "El proveedor ha sido eliminado exitosamente.", Alert.AlertType.INFORMATION);
+                    mostrarAlerta("Proveedor eliminado", "El proveedor ha sido eliminado exitosamente.",
+                            Alert.AlertType.INFORMATION);
                     ActionLogger.log("El usuario eliminó el proveedor: " + proveedorSeleccionado.getNombre());
                 }
             });
         } else {
-            mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para eliminar.", Alert.AlertType.WARNING);
+            mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para eliminar.",
+                    Alert.AlertType.WARNING);
         }
     }
 
@@ -128,7 +142,8 @@ public class ProveedoresController {
 
         if (proveedorSeleccionado != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoProveedor.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/example/pasteleria/NuevoProveedor.fxml"));
                 AnchorPane root = loader.load();
 
                 NuevoProveedorController nuevoProveedorController = loader.getController();
@@ -143,16 +158,16 @@ public class ProveedoresController {
 
                 stage.show();
 
-                ActionLogger.log("El usuario accedió al formulario para modificar el proveedor: " + proveedorSeleccionado.getNombre());
+                ActionLogger.log("El usuario accedió al formulario para modificar el proveedor: "
+                        + proveedorSeleccionado.getNombre());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para modificar.", Alert.AlertType.WARNING);
+            mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para modificar.",
+                    Alert.AlertType.WARNING);
         }
     }
-
-
 
     @FXML
     void handleAgregar(ActionEvent event) {
@@ -176,11 +191,9 @@ public class ProveedoresController {
         }
     }
 
-
-
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", true);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
         ActionLogger.log("El usuario volvió al menú principal.");
     }
 

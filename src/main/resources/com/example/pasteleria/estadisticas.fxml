@@ -148,7 +148,7 @@
                         <!-- Pestaña para comparar meses -->
                         <Tab fx:id="tabCompararMeses" text="Comparar Meses">
                             <content>
-                                <VBox spacing="10.0">
+                                <VBox prefWidth="1300.0" spacing="10.0">
                                     <HBox alignment="CENTER" spacing="20">
                                         <VBox alignment="CENTER" spacing="5">
                                             <Label style="-fx-font-size: 14; -fx-font-weight: bold;" text="Mes 1" />
@@ -192,7 +192,11 @@
                                             </BarChart>
                                         </VBox>
                                     </HBox>
-                                    <Label fx:id="labelResumenComparacion" alignment="CENTER" style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #B70505;" text="" />
+                           <StackPane prefHeight="35.0" prefWidth="1300.0">
+                              <children>
+                                          <Label fx:id="labelResumenComparacion" alignment="CENTER" style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #B70505;" text="" />
+                              </children>
+                           </StackPane>
                                 </VBox>
                             </content>
                         </Tab>

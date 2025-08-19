@@ -21,15 +21,22 @@ import java.io.IOException;
 
 public class NuevoPedidoController {
 
-    @FXML private Button btnCatalogo, btnCancelar, btnGuardar, btnNuevoCliente;
-    @FXML private TextField contactoCliente, dniClienteField, nombreCliente;
-    @FXML private ComboBox<String> empleadoAsignado, cmbFormaEntrega;
-    @FXML private DatePicker fechaEntregaPedido;
-    @FXML private Label lblTotalPedido;
+    @FXML
+    private Button btnCatalogo, btnCancelar, btnGuardar, btnNuevoCliente;
+    @FXML
+    private TextField contactoCliente, dniClienteField, nombreCliente;
+    @FXML
+    private ComboBox<String> empleadoAsignado, cmbFormaEntrega;
+    @FXML
+    private DatePicker fechaEntregaPedido;
+    @FXML
+    private Label lblTotalPedido;
 
     private Pedido pedidoCreado;
     private CatalogoPedidosController catalogoPedidosController;
     private PedidosTableroController pedidosTableroController;
+    private Map<Producto, Integer> productosOriginales = new HashMap<>();
+    private Map<Combo, Integer> combosOriginales = new HashMap<>();
 
     private final PedidoService pedidoService = new PedidoService();
 
@@ -176,9 +183,11 @@ public class NuevoPedidoController {
 
     // --- NUEVO: Obtener combos guardados del catálogo ---
     private Map<Combo, Integer> obtenerCombosDelCatalogo() {
-        if (catalogoPedidosController == null)
-            return new HashMap<>();
-        return new HashMap<>(catalogoPedidosController.getCombosGuardados());
+        if (catalogoPedidosController != null)
+            return new HashMap<>(catalogoPedidosController.getCombosGuardados());
+
+        // Si no se abrió el catálogo, usar los combos originales (solo en modo edición)
+        return new HashMap<>(combosOriginales);
     }
 
     @FXML
@@ -259,11 +268,12 @@ public class NuevoPedidoController {
     }
 
     private Map<Producto, Integer> obtenerProductosDelCatalogo() {
-        if (catalogoPedidosController == null)
-            return new HashMap<>();
+        if (catalogoPedidosController != null)
+            return new HashMap<>(catalogoPedidosController.getProductosGuardados());
 
-        // Simplemente clonar el mapa como está, sin sumar cantidades
-        return new HashMap<>(catalogoPedidosController.getProductosGuardados());
+        // Si no se abrió el catálogo, usar los productos originales (solo en modo
+        // edición)
+        return new HashMap<>(productosOriginales);
     }
 
     private void cerrarVentana(ActionEvent event) {
@@ -337,7 +347,9 @@ public class NuevoPedidoController {
     public void cargarPedidoParaEdicion(Pedido pedido) {
         if (pedido == null)
             return;
+
         this.pedidoCreado = pedido;
+
         // Cliente
         if (pedido.getCliente() != null) {
             dniClienteField.setText(pedido.getCliente().getDni());
@@ -345,35 +357,39 @@ public class NuevoPedidoController {
                     + (pedido.getCliente().getApellido() != null ? " " + pedido.getCliente().getApellido() : ""));
             contactoCliente.setText(pedido.getCliente().getTelefono());
         }
+
         // Empleado
         if (pedido.getEmpleadoAsignado() != null) {
             empleadoAsignado.setValue(pedido.getEmpleadoAsignado().getNombre());
         }
+
         // Forma de entrega
         cmbFormaEntrega.setValue(pedido.getFormaEntrega());
+
         // Fecha de entrega
         fechaEntregaPedido.setValue(pedido.getFechaEntrega());
+
         // Mostrar el total del pedido desde la base de datos
         if (lblTotalPedido != null && pedido.getTotalPedido() != null) {
             lblTotalPedido.setText("Total: $" + String.format("%.2f", pedido.getTotalPedido()));
         }
-        // Consolidar productos antes de cargar en el catálogo
-        if (catalogoPedidosController != null && pedido.getPedidoProductos() != null) {
-            Map<Producto, Integer> productos = new HashMap<>();
+
+        // Cargar productos originales en memoria (aunque no se abra catálogo)
+        productosOriginales.clear();
+        if (pedido.getPedidoProductos() != null) {
             for (PedidoProducto pp : pedido.getPedidoProductos()) {
-                productos.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
+                productosOriginales.merge(pp.getProducto(), pp.getCantidad(), Integer::sum);
             }
-            catalogoPedidosController.cargarProductosGuardados(productos);
         }
-        // Consolidar combos antes de cargar en el catálogo
-        if (catalogoPedidosController != null && pedido.getPedidoCombos() != null) {
-            Map<Combo, Integer> combos = new HashMap<>();
+
+        combosOriginales.clear();
+        if (pedido.getPedidoCombos() != null) {
             for (PedidoCombo pc : pedido.getPedidoCombos()) {
-                combos.merge(pc.getCombo(), pc.getCantidad(), Integer::sum);
+                combosOriginales.merge(pc.getCombo(), pc.getCantidad(), Integer::sum);
             }
-            catalogoPedidosController.cargarCombosGuardados(combos);
         }
-        // --- Actualizar el total después de cargar productos y combos ---
+
+        // Actualizar total después de precargar
         actualizarTotalPedido();
     }
 

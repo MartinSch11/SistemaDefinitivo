@@ -1,0 +1,35 @@
+[2025-08-05 19:05:16] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:05:25] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-05 19:16:11] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:16:26] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-05 19:16:43] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:16:45] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-05 19:18:37] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:19:14] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-05 19:19:19] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-05 19:19:37] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-05 19:23:35] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:23:39] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-05 19:23:50] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-05 19:23:55] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario a eliminado el pedido N°2
+[2025-08-05 19:24:11] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-08-05 19:24:12] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Pedido creado: Usuario con productos: [Torta de chocolate]
+[2025-08-05 19:24:12] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Intento de agregar pedido duplicado: 3
+[2025-08-05 19:25:09] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:25:46] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-08-05 19:25:49] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-05 19:26:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 44280200 actualizado.
+[2025-08-05 19:26:16] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-08-05 19:26:28] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-08-05 19:26:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la pantalla de gestión de roles.
+[2025-08-05 19:26:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: Roles cargados desde la base de datos: 3 roles disponibles.
+[2025-08-05 19:26:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: No se seleccionó ningún rol. Los permisos han sido deshabilitados.
+[2025-08-05 19:26:53] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario accedió a la ventana de control de roles y permisos para gestionar los privilegios de los usuarios.
+[2025-08-05 19:27:10] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:27:10] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-08-05 19:27:15] Usuario: mARTIN SCHONBERGER (Rol: Administrador) Acción: El usuario cerró sesión
+[2025-08-05 19:27:20] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-08-05 19:29:56] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-08-05 19:30:01] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario a eliminado el pedido N°2
+[2025-08-05 19:30:05] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario a eliminado el pedido N°3
+[2025-08-05 19:30:08] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.

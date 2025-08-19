@@ -27,23 +27,40 @@ import java.util.*;
 
 public class EventosController {
 
-    @FXML private GridPane calendarGrid;
-    @FXML private Pane monthPane;
-    @FXML private Pane PaneDetalleEvento;
-    @FXML private Label lblNEvento;
-    @FXML private Label lblDetalleEvento;
-    @FXML private Label lblNomCliente;
-    @FXML private Label lblTelefono;
-    @FXML private Label lblDirecEvento;
-    @FXML private Label lblCantPersonas;
-    @FXML private Label lblPresupuesto;
-    @FXML private ComboBox<String> comboEstado;
-    @FXML private Label lblHorarioEvento;
-    @FXML private Button eventoButton; // Agregar Evento
-    @FXML private Button btnClose; // Cerrar detalle
-    @FXML private Button btnVolver; // Volver
-    @FXML private Button btnEditar; // Editar evento
-    @FXML private Button btnBorrar; // Borrar evento
+    @FXML
+    private GridPane calendarGrid;
+    @FXML
+    private Pane monthPane;
+    @FXML
+    private Pane PaneDetalleEvento;
+    @FXML
+    private AnchorPane ScrollDetalle;
+    @FXML
+    private Label lblNEvento;
+    @FXML
+    private Label lblNomCliente;
+    @FXML
+    private Label lblTelefono;
+    @FXML
+    private Label lblDirecEvento;
+    @FXML
+    private Label lblCantPersonas;
+    @FXML
+    private Label lblPresupuesto;
+    @FXML
+    private ComboBox<String> comboEstado;
+    @FXML
+    private Label lblHorarioEvento;
+    @FXML
+    private Button eventoButton; // Agregar Evento
+    @FXML
+    private Button btnClose; // Cerrar detalle
+    @FXML
+    private Button btnVolver; // Volver
+    @FXML
+    private Button btnEditar; // Editar evento
+    @FXML
+    private Button btnBorrar; // Borrar evento
 
     private YearMonth currentYearMonth;
     private Map<LocalDate, Evento> events = new HashMap<>();
@@ -67,9 +84,12 @@ public class EventosController {
         llenarCalendario(currentYearMonth);
         ActionLogger.log("Calendario inicializado para el mes: " + currentYearMonth); // Log de acción
 
-        if (eventoButton != null) eventoButton.setDisable(!puedeCrear);
-        if (btnEditar != null) btnEditar.setDisable(!puedeModificar);
-        if (btnBorrar != null) btnBorrar.setDisable(!puedeEliminar);
+        if (eventoButton != null)
+            eventoButton.setDisable(!puedeCrear);
+        if (btnEditar != null)
+            btnEditar.setDisable(!puedeModificar);
+        if (btnBorrar != null)
+            btnBorrar.setDisable(!puedeEliminar);
     }
 
     private void llenarCalendario(YearMonth mesAño) {
@@ -95,12 +115,31 @@ public class EventosController {
     private void handleDayClick(LocalDate date) {
         fechaSeleccionada = date;
         Evento evento = events.get(date);
-        eventoSeleccionado = evento; // Guardar el evento seleccionado
+        eventoSeleccionado = evento;
         LocalDate hoy = LocalDate.now();
 
         if (evento != null) {
+            // 🔥 Re-fetch con items inicializados
+            EventoDAO eventoDAO = new EventoDAO();
+            Evento eventoConItems = eventoDAO.findByIdWithItems(evento.getId());
+            if (eventoConItems == null) {
+                mostrarAlerta("Error", "No se pudo cargar el detalle del evento.");
+                return;
+            }
+            // Actualizo referencias
+            evento = eventoConItems;
+            eventoSeleccionado = eventoConItems;
+            events.put(date, eventoConItems); // opcional, para que el Map quede al día
+
             PaneDetalleEvento.setVisible(true);
-            lblDetalleEvento.setText(evento.getDescripcion_evento());
+
+            // 🔒 flags de bloqueo
+            boolean bloquearEdicion = debeBloquearEdicion(evento);          // editar/borrar/checkboxes
+            boolean deshabilitarComboEstado = yaPasoHorario(evento);        // combo solo por horario (o fecha pasada)
+
+            // Pintar checkboxes con items YA inicializados (y bloqueo)
+            renderProductosEnDetalle(evento, bloquearEdicion);
+
             lblNEvento.setText(evento.getNombre_evento());
             lblNomCliente.setText(evento.getNombre_cliente());
             lblTelefono.setText(evento.getTelefono_cliente());
@@ -109,37 +148,37 @@ public class EventosController {
             lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
             comboEstado.setValue(evento.getEstado());
             lblHorarioEvento.setText(evento.getHorario_evento() != null ? evento.getHorario_evento().toString() : "-");
-            // Deshabilitar edición si el evento ya pasó
-            boolean eventoPasado = evento.getFecha_evento().isBefore(hoy);
-            comboEstado.setDisable(eventoPasado);
-            if (btnEditar != null) btnEditar.setDisable(eventoPasado || !puedeModificar);
-            if (btnBorrar != null) btnBorrar.setDisable(eventoPasado || !puedeEliminar);
-            // Eliminar listener anterior si existe
+
+            // 💡 Reglas de habilitación
+            comboEstado.setDisable(deshabilitarComboEstado);
+            if (btnEditar != null)
+                btnEditar.setDisable(bloquearEdicion || !puedeModificar);
+            if (btnBorrar != null)
+                btnBorrar.setDisable(bloquearEdicion || !puedeEliminar);
+
             if (estadoListener != null) {
                 comboEstado.valueProperty().removeListener(estadoListener);
             }
-            // Listener solo modifica el evento actualmente seleccionado
             estadoListener = (_, _, newVal) -> {
                 if (eventoSeleccionado != null && newVal != null && !newVal.equals(eventoSeleccionado.getEstado())) {
                     eventoSeleccionado.setEstado(newVal);
-                    EventoDAO eventoDAO = new EventoDAO();
-                    eventoDAO.update(eventoSeleccionado);
-                    ActionLogger.log("Estado de evento actualizado a: " + newVal);
-                    // Repintar calendario para actualizar el color
+                    new EventoDAO().update(eventoSeleccionado);
                     llenarCalendario(currentYearMonth);
                 }
             };
             comboEstado.valueProperty().addListener(estadoListener);
-            ActionLogger.log("Detalles del evento cargados para la fecha: " + date); // Log de acción
         } else {
             PaneDetalleEvento.setVisible(false);
+            PaneDetalleEvento.getChildren().clear(); // limpia también los checks
             eventoSeleccionado = null;
             if (estadoListener != null) {
                 comboEstado.valueProperty().removeListener(estadoListener);
                 estadoListener = null;
             }
-            if (btnEditar != null) btnEditar.setDisable(!puedeModificar);
-            if (btnBorrar != null) btnBorrar.setDisable(!puedeEliminar);
+            if (btnEditar != null)
+                btnEditar.setDisable(!puedeModificar);
+            if (btnBorrar != null)
+                btnBorrar.setDisable(!puedeEliminar);
             comboEstado.setDisable(true);
         }
     }
@@ -193,7 +232,8 @@ public class EventosController {
             // Si el controlador tiene setStage, pásalo
             try {
                 controller.getClass().getMethod("setStage", Stage.class).invoke(controller, stage);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
 
             stage.showAndWait();
             // Siempre recarga después de cerrar el formulario
@@ -214,15 +254,14 @@ public class EventosController {
         Evento eventoSeleccionado = obtenerEventoSeleccionado();
         LocalDate hoy = LocalDate.now();
         if (eventoSeleccionado != null) {
-            if (eventoSeleccionado.getFecha_evento().isBefore(hoy)) {
-                mostrarAlerta("No permitido", "No se puede editar un evento que ya pasó.");
+            if (debeBloquearEdicion(eventoSeleccionado)) {
+                mostrarAlerta("No permitido", "No se puede editar un evento que ya pasó (o cuya hora ya venció).");
                 return;
             }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/evento_form.fxml"));
                 AnchorPane anchorPane = loader.load();
 
-                // Crear Stage modal en vez de Dialog
                 Stage stage = new Stage();
                 stage.setTitle("Editar Evento");
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -231,16 +270,30 @@ public class EventosController {
 
                 EventoFormController controller = loader.getController();
                 controller.setEvento(eventoSeleccionado);
-                // Si el controlador tiene setStage, pásalo
-                try {
-                    controller.getClass().getMethod("setStage", Stage.class).invoke(controller, stage);
-                } catch (Exception ignored) {}
 
                 stage.showAndWait();
-                // Al cerrar el modal, recargar eventos y actualizar panel
+
+                // === REFRESCO POST-EDICIÓN ===
+                // 1) Recargar eventos (map y calendario)
                 reloadEvents();
-                actualizarPaneDetalleEvento(eventoSeleccionado);
-                ActionLogger.log("Evento editado correctamente para la fecha: " + eventoSeleccionado.getFecha_evento());
+
+                // 2) Re-fetch del evento con items inicializados (puede haber cambiado de
+                // fecha)
+                EventoDAO dao = new EventoDAO();
+                Evento actualizado = dao.findByIdWithItems(eventoSeleccionado.getId());
+                if (actualizado != null) {
+                    // Si cambió la fecha, actualizamos la selección
+                    fechaSeleccionada = actualizado.getFecha_evento();
+                    // Guardamos en el map para que handleDayClick lo encuentre
+                    events.put(fechaSeleccionada, actualizado);
+                    // 3) Reutilizamos tu lógica para repintar el detalle
+                    handleDayClick(fechaSeleccionada);
+                } else {
+                    // Si por algún motivo no está, ocultamos el panel
+                    PaneDetalleEvento.setVisible(false);
+                }
+
+                ActionLogger.log("Evento editado correctamente para la fecha: " + fechaSeleccionada);
             } catch (IOException e) {
                 ActionLogger.log("Error al intentar editar el evento: " + e.getMessage());
             }
@@ -255,8 +308,8 @@ public class EventosController {
         Evento eventoSeleccionado = obtenerEventoSeleccionado();
         LocalDate hoy = LocalDate.now();
         if (eventoSeleccionado != null) {
-            if (eventoSeleccionado.getFecha_evento().isBefore(hoy)) {
-                mostrarAlerta("No permitido", "No se puede borrar un evento que ya pasó.");
+            if (debeBloquearEdicion(eventoSeleccionado)) {
+                mostrarAlerta("No permitido", "No se puede borrar un evento que ya pasó (o cuya hora ya venció).");
                 return;
             }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -271,7 +324,8 @@ public class EventosController {
 
                 mostrarAlerta("Éxito", "Evento borrado exitosamente.");
                 reloadEvents();
-                ActionLogger.log("Evento borrado para la fecha: " + eventoSeleccionado.getFecha_evento()); // Log de acción
+                ActionLogger.log("Evento borrado para la fecha: " + eventoSeleccionado.getFecha_evento()); // Log de
+                                                                                                           // acción
             }
         } else {
             mostrarAlerta("Sin selección", "No se ha seleccionado ningún evento para borrar.");
@@ -286,13 +340,14 @@ public class EventosController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
         ActionLogger.log("El usuario volvió al menú principal."); // Log de acción
     }
 
     private void actualizarEtiquetaMes(YearMonth mesAño) {
         Label etiquetaMes = (Label) monthPane.lookup("#monthLabel");
-        @SuppressWarnings("deprecation") Locale localEspanol = new Locale("es", "ES");
+        @SuppressWarnings("deprecation")
+        Locale localEspanol = new Locale("es", "ES");
         String nombreMes = mesAño.getMonth().getDisplayName(TextStyle.FULL, localEspanol);
         etiquetaMes.setText(nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1) + " " + mesAño.getYear());
     }
@@ -367,7 +422,8 @@ public class EventosController {
 
     private void rellenarDiasMesSiguiente(int diaDeLaSemana, int diasEnElMes, int filasNecesarias) {
         int columnaActual = (diaDeLaSemana - 1 + diasEnElMes) % 7;
-        // Si columnaActual es 0, significa que el mes terminó en domingo, no hay que agregar días del mes siguiente
+        // Si columnaActual es 0, significa que el mes terminó en domingo, no hay que
+        // agregar días del mes siguiente
         if (columnaActual == 0) {
             return;
         }
@@ -431,18 +487,17 @@ public class EventosController {
         events.clear();
     }
 
-    private void actualizarPaneDetalleEvento(Evento evento) {
-        if (PaneDetalleEvento.isVisible()) {
-            lblNEvento.setText(evento.getNombre_evento());
-            lblDetalleEvento.setText(evento.getDescripcion_evento());
-            lblNomCliente.setText(evento.getNombre_cliente());
-            lblTelefono.setText(evento.getTelefono_cliente());
-            lblDirecEvento.setText(evento.getDireccion_evento());
-            lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
-            lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
-            comboEstado.setValue(evento.getEstado());
-        }
-    }
+    // private void actualizarPaneDetalleEvento(Evento evento) {
+    //     if (PaneDetalleEvento.isVisible()) {
+    //         lblNEvento.setText(evento.getNombre_evento());
+    //         lblNomCliente.setText(evento.getNombre_cliente());
+    //         lblTelefono.setText(evento.getTelefono_cliente());
+    //         lblDirecEvento.setText(evento.getDireccion_evento());
+    //         lblCantPersonas.setText(String.valueOf(evento.getCant_personas()));
+    //         lblPresupuesto.setText(evento.getPresupuesto().setScale(2, RoundingMode.HALF_UP).toString());
+    //         comboEstado.setValue(evento.getEstado());
+    //     }
+    // }
 
     private Evento obtenerEventoSeleccionado() {
         if (fechaSeleccionada != null) {
@@ -458,4 +513,102 @@ public class EventosController {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
+
+    // === Helpers de bloqueo ===
+    // Bloquea si el evento ya pasó (fecha < hoy) o si es hoy y la hora ya pasó,
+    // o si el estado es "Realizado".
+    private boolean debeBloquearEdicion(Evento evento) {
+        if (evento == null) return false;
+        if ("Realizado".equalsIgnoreCase(evento.getEstado())) return true;
+        return yaPasoHorario(evento);
+    }
+
+    // Devuelve true si: fecha < hoy, o (fecha == hoy y hora <= ahora).
+    private boolean yaPasoHorario(Evento evento) {
+        if (evento == null) return false;
+        LocalDate hoy = LocalDate.now();
+        LocalDate fecha = evento.getFecha_evento();
+        if (fecha == null) return false;
+
+        if (fecha.isBefore(hoy)) return true;
+        if (fecha.isEqual(hoy)) {
+            java.time.LocalTime hora = evento.getHorario_evento(); // ajustá el getter si fuera distinto
+            if (hora != null && !hora.isAfter(java.time.LocalTime.now())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void renderProductosEnDetalle(Evento evento, boolean bloquearInteraccion) {
+        // limpiar contenedor del scroll
+        ScrollDetalle.getChildren().clear();
+
+        if (evento == null || evento.getItems() == null || evento.getItems().isEmpty()) {
+            Label lbl = new Label("Sin productos cargados para este evento.");
+            lbl.getStyleClass().add("detalle-evento-vacio");
+            AnchorPane.setTopAnchor(lbl, 0.0);
+            AnchorPane.setLeftAnchor(lbl, 0.0);
+            AnchorPane.setRightAnchor(lbl, 0.0);
+            AnchorPane.setBottomAnchor(lbl, 0.0);
+            ScrollDetalle.getChildren().add(lbl);
+            return;
+        }
+
+        // ---- layout tipo "chips" con wrap ----
+        javafx.scene.layout.FlowPane flow = new javafx.scene.layout.FlowPane();
+        flow.setHgap(10);
+        flow.setVgap(8);
+        flow.setRowValignment(javafx.geometry.VPos.TOP);
+        flow.setColumnHalignment(javafx.geometry.HPos.LEFT);
+        flow.prefWrapLengthProperty().bind(ScrollDetalle.widthProperty().subtract(20));
+        flow.setPadding(new javafx.geometry.Insets(6, 6, 6, 6));
+
+        // DAO para tocar ítems directamente
+        var itemDAO = new persistence.dao.EventoProductoDAO();
+
+        for (var item : evento.getItems()) {
+            String texto = item.getCantidad() + " " + item.getProducto().getNombre();
+
+            CheckBox cb = new CheckBox(texto);
+            cb.getStyleClass().add("evento-item");
+            cb.setWrapText(true);
+
+            // “bloquecitos” para favorecer el wrap dentro de ~350px de viewport
+            cb.setMinWidth(140);
+            cb.setPrefWidth(160);
+            cb.setMaxWidth(160);
+
+            // estado inicial
+            cb.setSelected(item.isHecho());
+
+            if (bloquearInteraccion) {
+                cb.setDisable(true); // bloquea interacción (si querés sin gris: setMouseTransparent(true))
+                // cb.setMouseTransparent(true);
+                // cb.setFocusTraversable(false);
+            } else {
+                // persistencia puntual del flag "hecho"
+                cb.selectedProperty().addListener((_, _, newV) -> {
+                    try {
+                        // 1) Persistir SOLO el ítem
+                        itemDAO.updateHecho(item.getId(), newV);
+
+                    } catch (Exception ex) {
+                        // revertir UI si falló la persistencia
+                        cb.setSelected(!newV);
+                        mostrarAlerta("Error", "No se pudo actualizar el ítem: " + ex.getMessage());
+                    }
+                });
+            }
+
+            flow.getChildren().add(cb);
+        }
+
+        AnchorPane.setTopAnchor(flow, 0.0);
+        AnchorPane.setLeftAnchor(flow, 0.0);
+        AnchorPane.setRightAnchor(flow, 0.0);
+        AnchorPane.setBottomAnchor(flow, 0.0);
+        ScrollDetalle.getChildren().add(flow);
+    }
+
 }

@@ -20,6 +20,28 @@
         <class>model.Medida</class>
         <class>model.Agenda</class>
         <class>model.PedidoCombo</class>
+        <class>model.NotificacionEntity</class>
+        <class>model.Cliente</class>
+        <class>model.Credencial</class>
+        <class>model.PedidoProducto</class>
+        <class>model.Combo</class>
+        <class>model.ComboProducto</class>
+        <class>model.Pago</class>
+        <class>model.EstadoPedido</class>
+        <class>model.Notificacion</class>
+        <class>model.Rol</class>
+        <class>model.RolPermiso</class>
+        <class>model.Permiso</class>
+        <class>model.Transaccion</class>
+        <class>model.SessionContext</class>
+        <class>model.NotificacionConfig</class>
+        <class>model.InsumoViewModel</class>
+        <class>model.InsumoFaltante</class>
+        <class>model.IngresoDetallado</class>
+        <class>model.HistorialCompra</class>
+        <class>model.EgresoDetallado</class>
+        <class>model.CatalogoInsumo</class>
+        <class>model.ActionLog</class>
 
         <!-- Configuración de la conexión a la base de datos H2 embebida -->
         <properties>

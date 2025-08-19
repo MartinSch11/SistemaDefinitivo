@@ -23,17 +23,24 @@ import java.util.stream.Collectors;
 
 public class StockController {
 
-    @FXML private TableView<InsumoViewModel> tableInsumos;
-    @FXML private TableColumn<InsumoViewModel, String> colNombre;
-    @FXML private TableColumn<InsumoViewModel, String> colFechaCompra;
-    @FXML private TableColumn<InsumoViewModel, String> colCaducidad;
-    @FXML private TableColumn<InsumoViewModel, String> colCantidad;
-    @FXML private TableColumn<InsumoViewModel, String> colProveedor;
-    @FXML private TextField txtBuscar;
+    @FXML
+    private TableView<InsumoViewModel> tableInsumos;
+    @FXML
+    private TableColumn<InsumoViewModel, String> colNombre;
+    @FXML
+    private TableColumn<InsumoViewModel, String> colFechaCompra;
+    @FXML
+    private TableColumn<InsumoViewModel, String> colCaducidad;
+    @FXML
+    private TableColumn<InsumoViewModel, String> colCantidad;
+    @FXML
+    private TableColumn<InsumoViewModel, String> colProveedor;
+    @FXML
+    private TextField txtBuscar;
 
     private final InsumoDAO insumoDAO = new InsumoDAO();
-    private final javafx.collections.ObservableList<InsumoViewModel> insumosObservable =
-            javafx.collections.FXCollections.observableArrayList();
+    private final javafx.collections.ObservableList<InsumoViewModel> insumosObservable = javafx.collections.FXCollections
+            .observableArrayList();
 
     public void initialize() {
         colNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
@@ -63,9 +70,11 @@ public class StockController {
                     // Formatear cantidad: sin decimales si es entero, con dos decimales si no
                     double cantidad = insumo.getCantidad();
                     String medida = insumo.getMedida();
-                    String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+                    String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad)
+                            : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
                     // Eliminar ".0" si el número es entero (por si acaso)
-                    if (cantidadStr.endsWith(".00")) cantidadStr = cantidadStr.substring(0, cantidadStr.length() - 3);
+                    if (cantidadStr.endsWith(".00"))
+                        cantidadStr = cantidadStr.substring(0, cantidadStr.length() - 3);
                     vm.setCantidad(cantidadStr + " " + (medida != null ? medida : ""));
                     return vm;
                 })
@@ -83,12 +92,13 @@ public class StockController {
         List<InsumoViewModel> filtrados = insumoDAO.findAll().stream()
                 .filter(i -> i.getNombre().toLowerCase().contains(filtroLower)
                         || (i.getCatalogoInsumo() != null && i.getCatalogoInsumo().getEstado() != null
-                        && i.getCatalogoInsumo().getEstado().toLowerCase().contains(filtroLower)))
+                                && i.getCatalogoInsumo().getEstado().toLowerCase().contains(filtroLower)))
                 .filter(i -> i.getCantidad() > 0.0001)
                 .map(InsumoViewModel::new)
                 .collect(Collectors.toList());
         tableInsumos.setItems(FXCollections.observableArrayList(filtrados));
     }
+
     @FXML
     void handleAgregar(ActionEvent event) {
         try {
@@ -113,14 +123,15 @@ public class StockController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/loginAdmin.css", false);
+        SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
         ActionLogger.log("El usuario regresó al menú principal.");
     }
 
     @FXML
     private void abrirHistorialCompras(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/HistorialComprasDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/HistorialComprasDialog.fxml"));
             AnchorPane root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -136,7 +147,8 @@ public class StockController {
     @FXML
     private void abrirInsumosFaltantes(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/InsumosFaltantesDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/pasteleria/InsumosFaltantesDialog.fxml"));
             AnchorPane root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

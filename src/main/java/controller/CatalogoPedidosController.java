@@ -25,14 +25,22 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifIFD0Directory;
 
 public class CatalogoPedidosController {
-    @FXML private Button guardarPedidoButton;
-    @FXML private ScrollPane scrollPaneCatalogo;
-    @FXML private GridPane gridPane;
-    @FXML private ComboBox<String> comboFiltro;
-    @FXML private Pane catalogoContentPane;
-    @FXML private VBox vboxAcciones;
-    @FXML private Label lblPrecio;
-    @FXML private Button btnGuardar;
+    @FXML
+    private Button guardarPedidoButton;
+    @FXML
+    private ScrollPane scrollPaneCatalogo;
+    @FXML
+    private GridPane gridPane;
+    @FXML
+    private ComboBox<String> comboFiltro;
+    @FXML
+    private Pane catalogoContentPane;
+    @FXML
+    private VBox vboxAcciones;
+    @FXML
+    private Label lblPrecio;
+    @FXML
+    private Button btnGuardar;
 
     private final String imagenProductoPorDefecto = "/productosImag/imagenProductoPorDefecto.png";
     private Map<Producto, Integer> contadoresProductos = new HashMap<>();
@@ -58,8 +66,9 @@ public class CatalogoPedidosController {
     public void initialize() {
         // Inicialmente cargar los productos y combos de la base de datos
         productos = ProductoDAO.findAll();
-        // Filtrar productos que tengan receta distinta de null
-        productos.removeIf(p -> p.getReceta() == null);
+        // Filtrar productos que tengan receta y que no sean solo para eventos
+        productos.removeIf(p -> p.getReceta() == null ||
+                (p.getTipoUso() != null && p.getTipoUso().equalsIgnoreCase("Eventos")));
         ComboDAO comboDAO = new ComboDAO();
         combos = comboDAO.findAll();
         // Configurar ComboBox de filtro
@@ -156,7 +165,8 @@ public class CatalogoPedidosController {
                 }
             }
         }
-        lblPrecio.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #B70505; -fx-alignment: center;");
+        lblPrecio
+                .setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #B70505; -fx-alignment: center;");
         actualizarTotal();
         // --- Centrar el gridPane usando StackPane ---
         StackPane wrapper = new StackPane(gridPane);
