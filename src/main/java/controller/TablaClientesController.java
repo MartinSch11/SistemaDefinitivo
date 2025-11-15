@@ -15,6 +15,7 @@ import utilities.ActionLogger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class TablaClientesController {
 
@@ -94,7 +95,7 @@ public class TablaClientesController {
             abrirFormularioCliente(clienteSeleccionado);
         }
     }
-
+/*
     @FXML
     private void handleEliminar() {
         Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
@@ -104,7 +105,35 @@ public class TablaClientesController {
             clienteDAO.delete(clienteSeleccionado.getDni());  // Usamos el DNI para eliminar
             clientesList.remove(clienteSeleccionado);
         }
+    }*/
+
+    @FXML
+    private void handleEliminar() {
+        Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
+
+        if (clienteSeleccionado != null) {
+
+            // Mostrar mensaje de advertencia antes de eliminar
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar eliminación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea eliminar el cliente? Esta acción no se puede deshacer.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Registro de la acción del usuario
+                ActionLogger.log("El usuario eliminó el cliente: " + clienteSeleccionado.getDni());
+
+                // Eliminación en BD usando DNI
+                clienteDAO.delete(clienteSeleccionado.getDni());
+
+                // Eliminación en la tabla
+                clientesList.remove(clienteSeleccionado);
+            }
+        }
     }
+
 
     private void abrirFormularioCliente(Cliente cliente) {
         try {

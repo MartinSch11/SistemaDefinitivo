@@ -127,6 +127,10 @@ public class LoginController {
     }
 
     private void loadMainMenu(String userName, String roleName, String dni) {
+        loadMainMenu(userName, roleName, dni, null);
+    }
+
+    private void loadMainMenu(String userName, String roleName, String dni, List<String> permisosPersonalizados) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Paths.MAINMENU));
             AnchorPane root = loader.load();
@@ -140,15 +144,19 @@ public class LoginController {
             String sexo = credencialesDAO.obtenerSexoPorDNI(dni);
             session.setSexo(sexo);
 
-            // Obtener el ID del rol y sus permisos
-            RolesDAO rolesDAO = new RolesDAO();
-            Integer idRol = rolesDAO.obtenerIdRolPorNombre(roleName);
-            if (idRol != null) {
-                List<String> permisos = rolesDAO.obtenerPermisosPorRol(idRol);
-                session.setPermisos(permisos);
-                mainMenuController.configurarPermisos(permisos);
+            List<String> permisos;
+            if (permisosPersonalizados != null) {
+                // Si viene una lista de permisos personalizada (modo prueba)
+                permisos = permisosPersonalizados;
+            } else {
+                // Si viene de la base de datos
+                RolesDAO rolesDAO = new RolesDAO();
+                Integer idRol = rolesDAO.obtenerIdRolPorNombre(roleName);
+                permisos = (idRol != null) ? rolesDAO.obtenerPermisosPorRol(idRol) : List.of();
             }
 
+            session.setPermisos(permisos);
+            mainMenuController.configurarPermisos(permisos);
             mainMenuController.setUserNameAndRole(userName, roleName, sexo);
 
             Scene scene = new Scene(root);
@@ -156,10 +164,7 @@ public class LoginController {
 
             Stage stage = (Stage) btnLogin.getScene().getWindow();
             stage.setScene(scene);
-
-            // Solo minimizar y cerrar (sin maximizar)
             stage.setResizable(false);
-
             stage.centerOnScreen();
             stage.show();
 

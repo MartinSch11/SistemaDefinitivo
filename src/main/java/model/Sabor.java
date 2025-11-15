@@ -1,5 +1,5 @@
 package model;
-
+/*
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,4 +32,29 @@ public class Sabor {
     public void setSabor(String sabor) {
         this.sabor = sabor;
     }
+}*/
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "sabores")
+public class Sabor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sabor")
+    @EqualsAndHashCode.Include
+    private int id_sabor;
+
+    @Column(name = "sabor")
+    private String sabor;
+
+    @Override
+    public String toString() {
+        return this.sabor;
+    }
+    // getters y setters
 }

@@ -16,7 +16,11 @@ import persistence.dao.SaborDAO;
 import utilities.ActionLogger;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SaboresController {
 
@@ -30,25 +34,48 @@ public class SaboresController {
     private Button btnAgregarSabor;
 
     private SaborDAO saborDAO = new SaborDAO();
-    private ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
+
+    //private ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
+    private static ObservableList<Sabor> saboresSeleccionados = FXCollections.observableArrayList();
+
+
     private ProductoFormController parentController;
+
+    private Map<String, CheckBox> checkBoxMap = new HashMap<>();
+
 
     public void setParentController(ProductoFormController parentController) {
         this.parentController = parentController;
     }
 
-    public void setSaboresSeleccionados(List<Sabor> sabores) {
-        this.saboresSeleccionados.setAll(sabores); // Almacena los sabores seleccionados
-        cargarSaboresSeleccionados(); // Cargar los sabores seleccionados en los checkboxes
-    }
 
-    @FXML
+
+    /*@FXML
     public void initialize() {
         ActionLogger.log("El usuario abrió la ventana de gestión de sabores.");
         cargarSabores();
         cargarSaboresSeleccionados(); // Asegúrate de que esto se llama después de cargar los sabores
+    }*/
+    @FXML
+    public void initialize() {
+        ActionLogger.log("El usuario abrió la ventana de gestión de sabores.");
+        cargarSabores();
+        cargarSaboresSeleccionados();
     }
 
+
+    public void setSaboresSeleccionados(List<Sabor> sabores) {
+        this.saboresSeleccionados.setAll(sabores);
+
+        for (Sabor sabor : sabores) {
+            CheckBox checkBox = checkBoxMap.get(sabor.getSabor());
+            if (checkBox != null) {
+                checkBox.setSelected(true);
+            }
+        }
+    }
+
+    /*
     private void cargarSabores() {
         List<Sabor> sabores = saborDAO.findAll();
         int column = 0;
@@ -94,7 +121,81 @@ public class SaboresController {
                 }
             });
         }
+    }*/
+
+    private void cargarSabores() {
+        List<Sabor> sabores = saborDAO.findAll();
+
+        // Crear un Set con los nombres de sabores seleccionados para facilitar la comparación
+        Set<String> seleccionados = saboresSeleccionados.stream()
+                .map(Sabor::getSabor)
+                .collect(Collectors.toSet());
+
+
+        gridSabores.getChildren().clear(); // Limpiar grid
+        checkBoxMap.clear();
+
+        //gridSabores.getChildren().clear(); // Limpiar grid antes de agregar
+
+        int column = 0;
+        int row = 0;
+
+        for (Sabor sabor : sabores) {
+            CheckBox checkBox = new CheckBox(sabor.getSabor());
+
+            // Estilos personalizados para el checkbox
+            checkBox.setStyle(
+                    "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;");
+            checkBox.setOnMouseEntered(e -> checkBox.setStyle(
+                    "-fx-background-color: #F6BBBB; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
+            checkBox.setOnMouseExited(e -> checkBox.setStyle(
+                    "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
+            checkBox.setOnMousePressed(e -> checkBox.setStyle(
+                    "-fx-background-color: #B70505; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
+            checkBox.setOnMouseReleased(e -> checkBox.setStyle(checkBox.isSelected()
+                    ? "-fx-background-color: #B70505; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"
+                    : "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;"));
+            checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    checkBox.setStyle(
+                            "-fx-background-color: #B70505; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;");
+                } else {
+                    checkBox.setStyle(
+                            "-fx-background-color: #f7ede3; -fx-font-family: 'Inter'; -fx-font-size: 12px; -fx-text-fill: #B70505; -fx-padding: 4 10 4 10; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #B70505; -fx-border-width: 1.2; -fx-cursor: hand;");
+                }
+            });
+
+            // Seleccionar el checkbox si está en la lista de seleccionados
+            if (seleccionados.contains(sabor.getSabor())) {
+                checkBox.setSelected(true);
+            }
+
+            // Agregar acción para actualizar saboresSeleccionados
+            checkBox.setOnAction(e -> {
+                if (checkBox.isSelected()) {
+                    if (!saboresSeleccionados.contains(sabor)) {
+                        saboresSeleccionados.add(sabor);
+                        ActionLogger.log("El usuario seleccionó el sabor: " + sabor.getSabor());
+                    }
+                } else {
+                    saboresSeleccionados.remove(sabor);
+                    ActionLogger.log("El usuario deseleccionó el sabor: " + sabor.getSabor());
+                }
+            });
+
+            // Agregar el checkbox al GridPane
+            gridSabores.add(checkBox, column, row);
+
+            checkBoxMap.put(sabor.getSabor(), checkBox); // GUARDAR CHECKBOX EN EL MAPA
+
+            column++;
+            if (column == 5) {
+                column = 0;
+                row++;
+            }
+        }
     }
+
 
     private void cargarSaboresSeleccionados() {
         // Limpiar selección previa
@@ -114,6 +215,7 @@ public class SaboresController {
             }
         }
     }
+
 
     public List<Sabor> getSaboresSeleccionados() {
         return saboresSeleccionados;

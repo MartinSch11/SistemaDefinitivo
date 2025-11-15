@@ -546,3 +546,15 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Martín
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 49 more
+2025-11-13 16:21:03.284633-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "DESCRIPCION CHARACTER VARYING(255)": "U&'En un bol, mezcl\\00e1 la crema de leche con el dulce de leche hasta que quede... (563)"
+Value too long for column "DESCRIPCION CHARACTER VARYING(255)": "U&'En un bol, mezcl\\00e1 la crema de leche con el dulce de leche hasta que quede... (563)"; SQL statement:
+insert into productos (id_categoria,descripcion,imagen,nombre,precio,id_receta,tipo_uso,id_producto) values (?,?,?,?,?,?,?,default) [22001-232]
+2025-11-13 16:22:16.450746-03:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "DESCRIPCION CHARACTER VARYING(255)": "U&'En un bol, mezcl\\00e1 la crema de leche con el dulce de leche hasta que quede... (563)"
+Value too long for column "DESCRIPCION CHARACTER VARYING(255)": "U&'En un bol, mezcl\\00e1 la crema de leche con el dulce de leche hasta que quede... (563)"; SQL statement:
+insert into productos (id_categoria,descripcion,imagen,nombre,precio,id_receta,tipo_uso,id_producto) values (?,?,?,?,?,?,?,default) [22001-232]
+2025-11-13 16:26:36.996822-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "DESCRIPCION CHARACTER VARYING(255)": "U&'En un bol, mezcl\\00e1 la crema de leche con el dulce de leche hasta que quede... (341)"
+Value too long for column "DESCRIPCION CHARACTER VARYING(255)": "U&'En un bol, mezcl\\00e1 la crema de leche con el dulce de leche hasta que quede... (341)"; SQL statement:
+insert into productos (id_categoria,descripcion,imagen,nombre,precio,id_receta,tipo_uso,id_producto) values (?,?,?,?,?,?,?,default) [22001-232]

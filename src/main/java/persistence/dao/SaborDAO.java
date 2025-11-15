@@ -15,10 +15,20 @@ public class SaborDAO {
         }
     }
 
-    public Sabor findByName(String nombre) {
+    /*public Sabor findByName(String nombre) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT s FROM Sabor s WHERE s.nombre = :nombre", Sabor.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } finally {
+            em.close();
+        }
+    }*/
+    public Sabor findByName(String nombre) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            return em.createQuery("SELECT s FROM Sabor s WHERE s.sabor = :nombre", Sabor.class)
                     .setParameter("nombre", nombre)
                     .getSingleResult();
         } finally {

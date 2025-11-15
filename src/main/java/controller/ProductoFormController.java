@@ -71,12 +71,29 @@ public class ProductoFormController {
 
     @FXML
     public void initialize() {
+        limitarCaracteresConAlerta(descripcionProductoField, 225);
         cargarCategorias();
         cargarRecetas();
         cargarOpcionesTipoUso(); // <-- nuevo
         if (productoActual != null) {
             cargarDatosProducto(productoActual);
         }
+    }
+// limitar los caracteres de la descripcion del producto
+    private void limitarCaracteresConAlerta(TextArea textArea, int maxChars) {
+        textArea.textProperty().addListener((obs, oldText, newText) -> {
+            if (newText.length() > maxChars) {
+                // Bloquear texto
+                textArea.setText(oldText);
+
+                // Mostrar advertencia
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Límite alcanzado");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Has alcanzado el límite de " + maxChars + " caracteres.");
+                alerta.show();
+            }
+        });
     }
 
     private void cargarOpcionesTipoUso() {
@@ -383,8 +400,8 @@ public class ProductoFormController {
                 ActionLogger.log("No se seleccionaron sabores para el producto.");
                 System.out.println("DEBUG: No se seleccionaron sabores.");
             }
-            // Forzar refresco visual del ChoiceBox si tienes uno para sabores
-            // Si usas un campo visual para mostrar los sabores, actualízalo aquí
+            // Forzar refresco visual del ChoiceBox si tiene uno para sabores
+            //  un campo visual para mostrar los sabores
             // Ejemplo:
             // saboresChoiceBox.setItems(FXCollections.observableArrayList(this.saboresSeleccionados));
         } catch (IOException e) {

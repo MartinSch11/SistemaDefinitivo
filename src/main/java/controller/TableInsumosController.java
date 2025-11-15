@@ -15,6 +15,7 @@ import utilities.ActionLogger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class TableInsumosController {
 
@@ -88,7 +89,7 @@ public class TableInsumosController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void handleEliminar() {
         CatalogoInsumo insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
         if (insumoSeleccionado != null) {
@@ -97,7 +98,36 @@ public class TableInsumosController {
             catalogoInsumoDAO.delete(insumoSeleccionado);
             catalogoList.remove(insumoSeleccionado);
         }
+    }*/
+
+    @FXML
+    private void handleEliminar() {
+        CatalogoInsumo insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
+
+        if (insumoSeleccionado != null) {
+
+            // Mostrar mensaje de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar eliminación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea eliminar el insumo? Esta acción no se puede deshacer.");
+
+            // Esperar respuesta del usuario
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Registro de la acción del usuario
+                ActionLogger.log("El usuario eliminó el insumo del catálogo: " + insumoSeleccionado.getNombre());
+
+                // Eliminación en BD
+                catalogoInsumoDAO.delete(insumoSeleccionado);
+
+                // Eliminación en la tabla
+                catalogoList.remove(insumoSeleccionado);
+            }
+        }
     }
+
 
     private void abrirFormularioInsumo(CatalogoInsumo insumo) {
         try {
