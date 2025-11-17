@@ -2,13 +2,17 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 import model.Trabajador;
+import persistence.dao.PedidoDAO;
 import persistence.dao.TrabajadorDAO;
 import utilities.ActionLogger;
 import java.util.List;
@@ -97,6 +101,7 @@ public class CrudEliminarEmpleadoController {
         }
     }
 
+
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
         try {
@@ -136,18 +141,38 @@ public class CrudEliminarEmpleadoController {
                             return;
                         }
 
-                        // Eliminar trabajador
-                        trabajadorDAO.delete(trabajador);
+                            // Eliminar trabajador
+                        try {
+                            trabajadorDAO.delete(trabajador);
 
-                        // Actualizar ComboBox y UI
-                        if (settingsController != null) {
+                            // Si el empleado no fue eliminado, se ve un mensaje
+                            // Verifica si todavía existe en bd
+
+                            Trabajador aunExiste = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
+
+                            if (aunExiste != null) {
+                                // Caso: tenía pedidos asignados o falló la eliminación
+                                showAlert(Alert.AlertType.ERROR,
+                                        "Empleado no eliminable",
+                                        "El empleado no se puede dar de baja debido a que tiene pedidos asignados.");
+                                ActionLogger.log("Intento fallido de eliminar empleado con pedidos asignados: " + eliminarEmpleadoSeleccionado);
+                                return;
+                            }
+
+                            // Caso normal: se eliminó correctamente
                             settingsController.cargarNombresEnComboBox();
                             settingsController.cerrarCrudEliminarEmpleado();
-                        }
-                        cargarNombresEnComboBox();
+                            cargarNombresEnComboBox();
 
-                        showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
-                        ActionLogger.log("Empleado eliminado: " + eliminarEmpleadoSeleccionado);
+                            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
+                            ActionLogger.log("Empleado eliminado: " + eliminarEmpleadoSeleccionado);
+                            visibilidadButtons();
+
+                        } catch (Exception ex) {
+                            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el empleado.");
+                            ActionLogger.log("Error al intentar eliminar: " + ex.getMessage());
+                        }
+
 
                         visibilidadButtons();
 
@@ -170,5 +195,5 @@ public class CrudEliminarEmpleadoController {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos del empleado: " + e.getMessage());
             ActionLogger.log("Error al guardar los cambios del empleado: " + e.getMessage());
         }
-    }   
+    }
 }

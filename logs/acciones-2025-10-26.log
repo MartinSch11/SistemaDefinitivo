@@ -1,0 +1,26 @@
+[2025-10-26 15:45:20] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-10-26 16:07:12] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-10-26 16:07:20] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para registrar un nuevo empleado en el sistema.
+[2025-10-26 16:08:22] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado guardado: Sofia Lopez
+[2025-10-26 16:13:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-10-26 16:14:28] Usuario: Martin Schonberger (Rol: Administrador) Acción: Empleado con DNI 11111111 actualizado.
+[2025-10-26 16:16:27] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de sabores para administrar los sabores disponibles en la pastelería.
+[2025-10-26 16:16:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario hizo clic en 'Agregar' para crear un nuevo sabor.
+[2025-10-26 16:17:42] Usuario: Martin Schonberger (Rol: Administrador) Acción: Nuevo sabor guardado: Limón
+[2025-10-26 16:17:48] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario hizo clic en 'Modificar' para editar el sabor: Limón
+[2025-10-26 16:18:22] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha cancelado la acción de agregar o modificar sabor.
+[2025-10-26 16:22:10] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de insumos para supervisar y registrar los ingredientes en stock.
+[2025-10-26 16:38:49] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario agregó un nuevo insumo al catálogo.
+[2025-10-26 16:40:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: Operación de insumo cancelada.
+[2025-10-26 16:40:46] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario modificó el insumo del catálogo: FRUTILLA
+[2025-10-26 16:41:47] Usuario: Martin Schonberger (Rol: Administrador) Acción: Operación de insumo cancelada.
+[2025-10-26 16:42:17] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario eliminó el insumo del catálogo: FRUTILLA
+[2025-10-26 16:42:20] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario eliminó el insumo del catálogo: FRUTILLA
+[2025-10-26 16:42:26] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario eliminó el insumo del catálogo: FRUTILLA
+[2025-10-26 16:42:28] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario eliminó el insumo del catálogo: LECHE
+[2025-10-26 16:47:04] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de configuración de notificaciones.
+[2025-10-26 16:51:51] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de acciones de usuario para visualizar las acciones.
+[2025-10-26 16:57:14] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-10-26 16:57:14] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-10-26 16:57:16] Usuario: Martin Schonberger (Rol: Administrador) Acción: Accedió a la sección de Estadísticas
+[2025-10-26 16:59:40] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.

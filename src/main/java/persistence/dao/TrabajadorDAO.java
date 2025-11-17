@@ -84,7 +84,7 @@ public class TrabajadorDAO {
     }
 
     // busca nombres
-    public Trabajador findByNombre(String nombre) {
+   /* public Trabajador findByNombre(String nombre) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery(
@@ -94,7 +94,23 @@ public class TrabajadorDAO {
         } finally {
             em.close();
         }
+    }*/
+
+    public Trabajador findByNombre(String nombre) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            List<Trabajador> lista = em.createQuery(
+                            "SELECT t FROM Trabajador t LEFT JOIN FETCH t.rol WHERE t.nombre = :nombre", Trabajador.class)
+                    .setParameter("nombre", nombre)
+                    .getResultList();
+
+            return lista.isEmpty() ? null : lista.get(0);
+
+        } finally {
+            em.close();
+        }
     }
+
 
     public List<Trabajador> findAll() {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
