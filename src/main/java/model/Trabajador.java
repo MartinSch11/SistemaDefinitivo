@@ -13,7 +13,7 @@ public class Trabajador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dni", nullable = false, length = 15)
+    @Column(name = "dni", nullable = false, length = 15, unique = true)
     private String dni;
 
     @Column(name = "nombre")

@@ -14,7 +14,9 @@ public class RecetaProcessor {
     private final InsumoFaltanteDAO faltanteDAO = new InsumoFaltanteDAO();
 
     /**
-     * Procesa las recetas de productos, descuenta stock y guarda insumos faltantes si no alcanza.
+     * Procesa las recetas de productos, descuenta stock y guarda insumos faltantes
+     * si no alcanza.
+     * 
      * @param productos productos seleccionados con su cantidad
      * @return lista de insumos faltantes
      */
@@ -41,30 +43,35 @@ public class RecetaProcessor {
                 String unidadRequerida = insumoReceta.getUnidad();
                 double totalNecesario = insumoReceta.getCantidadUtilizada() * cantidadProducto;
 
-                logger.info("  Insumo requerido: " + nombreInsumo + ", unidad: " + unidadRequerida + ", total necesario: " + totalNecesario);
+                logger.info("  Insumo requerido: " + nombreInsumo + ", unidad: " + unidadRequerida
+                        + ", total necesario: " + totalNecesario);
 
                 List<Insumo> lotes = insumoDAO.findAll().stream()
                         .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad, Comparator.nullsLast(Comparator.naturalOrder())))
+                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad,
+                                Comparator.nullsLast(Comparator.naturalOrder())))
                         .collect(Collectors.toList());
 
                 double restante = totalNecesario;
 
                 for (Insumo lote : lotes) {
-                    if (restante <= 0.0001) break;
+                    if (restante <= 0.0001)
+                        break;
                     double disponible = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), unidadRequerida);
                     double usado = Math.min(disponible, restante);
                     logger.info("    Lote: " + lote + ", disponible: " + disponible + ", usado: " + usado);
                     if (usado > 0) {
                         lote.reducirCantidad(usado, unidadRequerida);
                         insumoDAO.update(lote);
-                        logger.info("    Se descuenta " + usado + " " + unidadRequerida + " del lote. Restante: " + (restante - usado));
+                        logger.info("    Se descuenta " + usado + " " + unidadRequerida + " del lote. Restante: "
+                                + (restante - usado));
                         restante -= usado;
                     }
                 }
 
                 if (restante > 0.0001) {
-                    logger.warning("  Faltante detectado para insumo: " + nombreInsumo + ", cantidad: " + restante + " " + unidadRequerida);
+                    logger.warning("  Faltante detectado para insumo: " + nombreInsumo + ", cantidad: " + restante + " "
+                            + unidadRequerida);
                     Long idCatalogo = insumoReceta.getInsumo().getCatalogoInsumo().getId();
                     String clave = idCatalogo + "|" + producto.getId();
                     double cantidadBase = restante;
@@ -94,7 +101,8 @@ public class RecetaProcessor {
             double cantidadMLGR = entry.getValue();
             String unidad = unidadPreferida.get(clave);
             InsumoFaltante faltante = faltanteInfo.get(clave);
-            logger.info("Procesando faltante: " + faltante.getCatalogoInsumo().getNombre() + ", cantidad: " + cantidadMLGR + " " + unidad);
+            logger.info("Procesando faltante: " + faltante.getCatalogoInsumo().getNombre() + ", cantidad: "
+                    + cantidadMLGR + " " + unidad);
             // Conversión automática de unidades
             if (unidad.equalsIgnoreCase("ML") && cantidadMLGR >= 1000) {
                 faltante.setUnidad("L");
@@ -116,15 +124,17 @@ public class RecetaProcessor {
             // Buscar si ya existe un faltante pendiente para este insumo (ignorando unidad)
             List<InsumoFaltante> pendientes = faltanteDAO.findPendientesPorInsumo(faltante.getCatalogoInsumo());
             if (!pendientes.isEmpty()) {
-                logger.info("  Ya existe faltante pendiente para insumo: " + faltante.getCatalogoInsumo().getNombre() + ". Se suma cantidad.");
+                logger.info("  Ya existe faltante pendiente para insumo: " + faltante.getCatalogoInsumo().getNombre()
+                        + ". Se suma cantidad.");
                 // Siempre sumamos en la unidad base (ML o GR)
                 InsumoFaltante existente = pendientes.get(0);
-                double existenteBase = existente.getUnidad().equalsIgnoreCase("L") ? existente.getCantidadFaltante() * 1000.0 :
-                        existente.getUnidad().equalsIgnoreCase("KG") ? existente.getCantidadFaltante() * 1000.0 :
-                                existente.getCantidadFaltante();
-                double nuevoBase = faltante.getUnidad().equalsIgnoreCase("L") ? faltante.getCantidadFaltante() * 1000.0 :
-                        faltante.getUnidad().equalsIgnoreCase("KG") ? faltante.getCantidadFaltante() * 1000.0 :
-                                faltante.getCantidadFaltante();
+                double existenteBase = existente.getUnidad().equalsIgnoreCase("L")
+                        ? existente.getCantidadFaltante() * 1000.0
+                        : existente.getUnidad().equalsIgnoreCase("KG") ? existente.getCantidadFaltante() * 1000.0
+                                : existente.getCantidadFaltante();
+                double nuevoBase = faltante.getUnidad().equalsIgnoreCase("L") ? faltante.getCantidadFaltante() * 1000.0
+                        : faltante.getUnidad().equalsIgnoreCase("KG") ? faltante.getCantidadFaltante() * 1000.0
+                                : faltante.getCantidadFaltante();
                 double suma = existenteBase + nuevoBase;
                 // Si supera 1000, mostrar en L/KG, si no en ML/GR
                 if (unidad.equalsIgnoreCase("ML") || unidad.equalsIgnoreCase("L")) {
@@ -168,6 +178,7 @@ public class RecetaProcessor {
 
     /**
      * Simula el stock para validar si alcanza para todos los productos.
+     * 
      * @param productos mapa de productos y sus cantidades
      * @return true si alcanza el stock, false si falta alguno
      */
@@ -194,15 +205,19 @@ public class RecetaProcessor {
                 for (Insumo insumo : insumoDAO.findAll()) {
                     if (insumo.getNombre().equalsIgnoreCase(nombre)) {
                         try {
-                            disponible += insumo.convertirUnidad(insumo.getCantidad(), insumo.getMedida(), unidadReceta);
+                            disponible += insumo.convertirUnidad(insumo.getCantidad(), insumo.getMedida(),
+                                    unidadReceta);
                         } catch (Exception e) {
-                            logger.warning("No se pudo convertir unidad para insumo: " + nombre + ", lote: " + insumo + ". Error: " + e.getMessage());
+                            logger.warning("No se pudo convertir unidad para insumo: " + nombre + ", lote: " + insumo
+                                    + ". Error: " + e.getMessage());
                         }
                     }
                 }
-                logger.info("  Insumo: " + nombre + ", requerido: " + requerido + " " + unidadReceta + ", disponible: " + disponible);
+                logger.info("  Insumo: " + nombre + ", requerido: " + requerido + " " + unidadReceta + ", disponible: "
+                        + disponible);
                 if (disponible < requerido) {
-                    logger.warning("Stock insuficiente para insumo: " + nombre + ". Requerido: " + requerido + ", disponible: " + disponible);
+                    logger.warning("Stock insuficiente para insumo: " + nombre + ". Requerido: " + requerido
+                            + ", disponible: " + disponible);
                     return false;
                 }
             }
@@ -212,7 +227,9 @@ public class RecetaProcessor {
     }
 
     /**
-     * Simula el procesamiento de recetas: calcula insumos faltantes sin descontar stock ni modificar la base.
+     * Simula el procesamiento de recetas: calcula insumos faltantes sin descontar
+     * stock ni modificar la base.
+     * 
      * @param productos productos seleccionados with su cantidad
      * @return lista de insumos faltantes simulados
      */
@@ -225,18 +242,21 @@ public class RecetaProcessor {
             Producto producto = entry.getKey();
             int cantidadProducto = entry.getValue();
             Receta receta = producto.getReceta();
-            if (receta == null) continue;
+            if (receta == null)
+                continue;
             for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
                 String nombreInsumo = insumoReceta.getInsumo().getNombre();
                 String unidadRequerida = insumoReceta.getUnidad();
                 double totalNecesario = insumoReceta.getCantidadUtilizada() * cantidadProducto;
                 List<Insumo> lotes = insumoDAO.findAll().stream()
                         .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad, Comparator.nullsLast(Comparator.naturalOrder())))
+                        .sorted(Comparator.comparing(Insumo::getFechaCaducidad,
+                                Comparator.nullsLast(Comparator.naturalOrder())))
                         .collect(Collectors.toList());
                 double restante = totalNecesario;
                 for (Insumo lote : lotes) {
-                    if (restante <= 0.0001) break;
+                    if (restante <= 0.0001)
+                        break;
                     double disponible = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), unidadRequerida);
                     double usado = Math.min(disponible, restante);
                     restante -= usado;
@@ -294,7 +314,10 @@ public class RecetaProcessor {
     }
 
     /**
-     * Devuelve al stock los insumos utilizados por los productos indicados (por receta y por lote, FEFO).
+     * Devuelve al stock los insumos utilizados por los productos indicados.
+     * CORRECCIÓN: Primero salda deudas en InsumosFaltantes antes de aumentar el
+     * stock físico.
+     * 
      * @param productos productos y cantidades a devolver
      */
     public void devolverStockPorProductos(Map<Producto, Integer> productos) {
@@ -303,130 +326,253 @@ public class RecetaProcessor {
             Producto producto = entry.getKey();
             int cantidadADevolver = entry.getValue();
             Receta receta = producto.getReceta();
-            if (receta == null) continue;
+
+            if (receta == null)
+                continue;
+
             for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
                 String nombreInsumo = insumoReceta.getInsumo().getNombre();
                 String unidadRequerida = insumoReceta.getUnidad();
                 double totalADevolver = insumoReceta.getCantidadUtilizada() * cantidadADevolver;
-                // Buscar lotes del insumo, ordenados por fecha de compra descendente (más reciente primero)
-                List<Insumo> lotes = insumoDAO.findAll().stream()
-                    .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                    .sorted(Comparator.comparing(Insumo::getFechaCompra, Comparator.nullsLast(Comparator.reverseOrder())))
-                    .collect(Collectors.toList());
+
                 double restante = totalADevolver;
-                for (Insumo lote : lotes) {
-                    if (restante <= 0.0001) break;
-                    double capacidadLote = lote.getCapacidadOriginal(); // en unidad del lote
-                    double cantidadActual = lote.getCantidad(); // en unidad del lote
-                    // Convertir la cantidad a devolver a la unidad del lote
-                    double maxADevolverEnLote = capacidadLote - cantidadActual;
-                    double restanteEnLote = lote.convertirUnidad(restante, unidadRequerida, lote.getMedida());
-                    double aDevolverEnLote = Math.min(maxADevolverEnLote, restanteEnLote);
-                    if (aDevolverEnLote <= 0) continue; // Lote lleno o no compatible
-                    lote.aumentarCantidad(aDevolverEnLote, lote.getMedida());
-                    // --- Conversión automática de unidad del lote si supera 1000 GR/ML ---
-                    if ((lote.getMedida().equalsIgnoreCase("GR") || lote.getMedida().equalsIgnoreCase("ML")) && lote.getCantidad() >= 1000) {
-                        if (lote.getMedida().equalsIgnoreCase("GR")) {
-                            lote.setCantidad(lote.getCantidad() / 1000.0);
-                            lote.setMedida("KG");
-                        } else if (lote.getMedida().equalsIgnoreCase("ML")) {
-                            lote.setCantidad(lote.getCantidad() / 1000.0);
-                            lote.setMedida("L");
+
+                // --- PASO 1: Verificar si hay deuda (InsumoFaltante pendiente) ---
+                CatalogoInsumo catalogo = insumoReceta.getInsumo().getCatalogoInsumo();
+                List<InsumoFaltante> deudasPendientes = faltanteDAO.findPendientesPorInsumo(catalogo);
+                Insumo auxiliarConversion = new Insumo();
+
+                for (InsumoFaltante deuda : deudasPendientes) {
+                    if (restante <= 0.0001)
+                        break;
+
+                    double restanteEnUnidadDeuda = auxiliarConversion.convertirUnidad(restante, unidadRequerida,
+                            deuda.getUnidad());
+                    double aSaldar = Math.min(deuda.getCantidadFaltante(), restanteEnUnidadDeuda);
+
+                    if (aSaldar > 0) {
+                        deuda.setCantidadFaltante(deuda.getCantidadFaltante() - aSaldar);
+                        if (deuda.getCantidadFaltante() <= 0.0001) {
+                            deuda.setResuelto(true);
                         }
+                        faltanteDAO.update(deuda);
+
+                        double pagadoEnUnidadReceta = auxiliarConversion.convertirUnidad(aSaldar, deuda.getUnidad(),
+                                unidadRequerida);
+                        restante -= pagadoEnUnidadReceta;
                     }
-                    // --- Conversión automática inversa: KG->GR, L->ML, UNIDADES->UNIDAD si baja de 1 ---
-                    if (lote.getMedida().equalsIgnoreCase("KG") && lote.getCantidad() < 1) {
-                        lote.setCantidad(lote.getCantidad() * 1000.0);
-                        lote.setMedida("GR");
-                    } else if (lote.getMedida().equalsIgnoreCase("L") && lote.getCantidad() < 1) {
-                        lote.setCantidad(lote.getCantidad() * 1000.0);
-                        lote.setMedida("ML");
-                    } else if ((lote.getMedida().equalsIgnoreCase("UNIDADES") || lote.getMedida().equalsIgnoreCase("UNIDAD"))) {
-                        if (lote.getCantidad() == 1) {
-                            lote.setMedida("UNIDAD");
-                        } else {
-                            lote.setMedida("UNIDADES");
-                        }
-                    }
-                    insumoDAO.update(lote);
-                    logger.info("  Se devuelve " + aDevolverEnLote + " " + lote.getMedida() + " al lote: " + lote);
-                    double devueltoEnUnidadRequerida = lote.convertirUnidad(aDevolverEnLote, lote.getMedida(), unidadRequerida);
-                    restante -= devueltoEnUnidadRequerida;
                 }
-                // Si no hay lotes, o todos están llenos, NO crear lote nuevo, solo ignorar el sobrante
+
+                // --- PASO 2: Si sobra algo, va al stock físico ---
                 if (restante > 0.0001) {
-                    logger.warning("No se pudo devolver toda la cantidad de insumo " + nombreInsumo + ". Restante: " + restante + " " + unidadRequerida);
+                    List<Insumo> lotes = insumoDAO.findAll().stream()
+                            .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
+                            .sorted(Comparator.comparing(Insumo::getFechaCompra,
+                                    Comparator.nullsLast(Comparator.reverseOrder())))
+                            .collect(Collectors.toList());
+
+                    for (Insumo lote : lotes) {
+                        if (restante <= 0.0001)
+                            break;
+
+                        double capacidadLote = lote.getCapacidadOriginal();
+                        double cantidadActual = lote.getCantidad();
+                        double maxADevolverEnLote = capacidadLote - cantidadActual;
+                        double restanteEnLote = lote.convertirUnidad(restante, unidadRequerida, lote.getMedida());
+                        double aDevolverEnLote = Math.min(maxADevolverEnLote, restanteEnLote);
+
+                        if (aDevolverEnLote <= 0)
+                            continue;
+
+                        lote.aumentarCantidad(aDevolverEnLote, lote.getMedida());
+
+                        // Normalización de unidades
+                        if ((lote.getMedida().equalsIgnoreCase("GR") || lote.getMedida().equalsIgnoreCase("ML"))
+                                && lote.getCantidad() >= 1000) {
+                            if (lote.getMedida().equalsIgnoreCase("GR")) {
+                                lote.setCantidad(lote.getCantidad() / 1000.0);
+                                lote.setMedida("KG");
+                            } else if (lote.getMedida().equalsIgnoreCase("ML")) {
+                                lote.setCantidad(lote.getCantidad() / 1000.0);
+                                lote.setMedida("L");
+                            }
+                        }
+                        // Conversión inversa (KG -> GR si < 1)
+                        if (lote.getMedida().equalsIgnoreCase("KG") && lote.getCantidad() < 1) {
+                            lote.setCantidad(lote.getCantidad() * 1000.0);
+                            lote.setMedida("GR");
+                        } else if (lote.getMedida().equalsIgnoreCase("L") && lote.getCantidad() < 1) {
+                            lote.setCantidad(lote.getCantidad() * 1000.0);
+                            lote.setMedida("ML");
+                        }
+
+                        insumoDAO.update(lote);
+
+                        double devueltoEnUnidadRequerida = lote.convertirUnidad(aDevolverEnLote, lote.getMedida(),
+                                unidadRequerida);
+                        restante -= devueltoEnUnidadRequerida;
+                    }
+
+                    if (restante > 0.0001) {
+                        logger.warning("No se pudo devolver toda la cantidad de insumo " + nombreInsumo
+                                + ". Sobrante perdido: " + restante);
+                    }
                 }
             }
         }
     }
 
     /**
-     * Devuelve al stock los insumos utilizados por los productos indicados y genera un resumen profesional.
+     * Devuelve al stock los insumos utilizados por los productos indicados y genera
+     * un resumen profesional.
+     * CORRECCIÓN: Primero salda deudas en InsumosFaltantes antes de aumentar el
+     * stock físico.
+     * 
      * @param productos productos y cantidades a devolver
      * @return resumen de insumos devueltos y no devueltos
      */
     public Map<String, String> devolverStockPorProductosConResumen(Map<Producto, Integer> productos) {
         Map<String, Double> resumenCantidad = new LinkedHashMap<>();
         Map<String, String> resumenUnidad = new LinkedHashMap<>();
-        logger.info("Devolviendo stock por productos (con resumen): " + productos);
+        logger.info("Devolviendo stock por productos (con validación de faltantes): " + productos);
+
         for (Map.Entry<Producto, Integer> entry : productos.entrySet()) {
             Producto producto = entry.getKey();
             int cantidadADevolver = entry.getValue();
             Receta receta = producto.getReceta();
-            if (receta == null) continue;
+
+            if (receta == null)
+                continue;
+
             for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
                 String nombreInsumo = insumoReceta.getInsumo().getNombre();
                 String unidadRequerida = insumoReceta.getUnidad();
                 double totalADevolver = insumoReceta.getCantidadUtilizada() * cantidadADevolver;
-                List<Insumo> lotes = insumoDAO.findAll().stream()
-                        .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
-                        .sorted(Comparator.comparing(Insumo::getFechaCompra, Comparator.nullsLast(Comparator.reverseOrder())))
-                        .collect(Collectors.toList());
-                double restante = totalADevolver;
-                double devuelto = 0.0;
-                for (Insumo lote : lotes) {
-                    if (restante <= 0.0001) break;
-                    double capacidadLote = lote.convertirUnidad(lote.getCapacidadOriginal(), lote.getMedida(), unidadRequerida);
-                    double cantidadActual = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), unidadRequerida);
-                    double maxADevolver = capacidadLote - cantidadActual;
-                    if (maxADevolver <= 0) continue; // Lote lleno
-                    double aDevolver = Math.min(maxADevolver, restante);
-                    lote.aumentarCantidad(aDevolver, unidadRequerida);
-                    insumoDAO.update(lote);
-                    logger.info("  Se devuelve " + aDevolver + " " + unidadRequerida + " al lote: " + lote);
-                    devuelto += aDevolver;
-                    restante -= aDevolver;
+
+                double restantePorDevolver = totalADevolver;
+                double realmenteDevueltoAlStock = 0.0; // Solo para el resumen visual
+
+                // --- PASO 1: Verificar si hay deuda (InsumoFaltante pendiente) ---
+                // Necesitamos el CatalogoInsumo para buscar faltantes
+                CatalogoInsumo catalogo = insumoReceta.getInsumo().getCatalogoInsumo();
+                List<InsumoFaltante> deudasPendientes = faltanteDAO.findPendientesPorInsumo(catalogo);
+
+                // Instancia auxiliar para conversiones
+                Insumo auxiliarConversion = new Insumo();
+
+                for (InsumoFaltante deuda : deudasPendientes) {
+                    if (restantePorDevolver <= 0.0001)
+                        break;
+
+                    // Convertimos lo que tenemos (restante) a la unidad de la deuda para comparar
+                    // Ejemplo: Tenemos 1000 GR, deuda es 0.5 KG. Convertimos 1000 GR -> 1 KG.
+                    double restanteEnUnidadDeuda = auxiliarConversion.convertirUnidad(restantePorDevolver,
+                            unidadRequerida, deuda.getUnidad());
+
+                    // Calculamos cuánto podemos pagar
+                    double aSaldar = Math.min(deuda.getCantidadFaltante(), restanteEnUnidadDeuda);
+
+                    if (aSaldar > 0) {
+                        // Descontamos de la deuda
+                        deuda.setCantidadFaltante(deuda.getCantidadFaltante() - aSaldar);
+                        if (deuda.getCantidadFaltante() <= 0.0001) {
+                            deuda.setResuelto(true);
+                        }
+                        faltanteDAO.update(deuda);
+
+                        // Convertimos lo pagado de vuelta a la unidad de la receta para restar del
+                        // total
+                        double pagadoEnUnidadReceta = auxiliarConversion.convertirUnidad(aSaldar, deuda.getUnidad(),
+                                unidadRequerida);
+                        restantePorDevolver -= pagadoEnUnidadReceta;
+
+                        logger.info("   Deuda saldada para " + nombreInsumo + ": " + aSaldar + " " + deuda.getUnidad());
+                    }
                 }
-                // Determinar unidad base para mostrar
-                String unidadMostrar = unidadRequerida;
-                double cantidadMostrar = devuelto;
-                if (unidadRequerida.equalsIgnoreCase("ML") && devuelto >= 1000) {
-                    unidadMostrar = "L";
-                    cantidadMostrar = devuelto / 1000.0;
-                } else if (unidadRequerida.equalsIgnoreCase("GR") && devuelto >= 1000) {
-                    unidadMostrar = "KG";
-                    cantidadMostrar = devuelto / 1000.0;
-                } else if (unidadRequerida.equalsIgnoreCase("UNIDAD") || unidadRequerida.equalsIgnoreCase("UNIDADES")) {
-                    unidadMostrar = (devuelto == 1) ? "UNIDAD" : "UNIDADES";
+
+                // --- PASO 2: Si sobra algo después de pagar deudas, va al stock físico ---
+                if (restantePorDevolver > 0.0001) {
+                    List<Insumo> lotes = insumoDAO.findAll().stream()
+                            .filter(i -> i.getNombre().equalsIgnoreCase(nombreInsumo))
+                            .sorted(Comparator.comparing(Insumo::getFechaCompra,
+                                    Comparator.nullsLast(Comparator.reverseOrder())))
+                            .collect(Collectors.toList());
+
+                    for (Insumo lote : lotes) {
+                        if (restantePorDevolver <= 0.0001)
+                            break;
+
+                        double capacidadLote = lote.convertirUnidad(lote.getCapacidadOriginal(), lote.getMedida(),
+                                unidadRequerida);
+                        double cantidadActual = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(),
+                                unidadRequerida);
+                        double maxADevolver = capacidadLote - cantidadActual;
+
+                        if (maxADevolver <= 0)
+                            continue; // Lote lleno
+
+                        double aDevolver = Math.min(maxADevolver, restantePorDevolver);
+                        lote.aumentarCantidad(aDevolver, unidadRequerida);
+
+                        // Lógica de normalización de unidades (KG/GR, L/ML)
+                        if ((lote.getMedida().equalsIgnoreCase("GR") || lote.getMedida().equalsIgnoreCase("ML"))
+                                && lote.getCantidad() >= 1000) {
+                            if (lote.getMedida().equalsIgnoreCase("GR")) {
+                                lote.setCantidad(lote.getCantidad() / 1000.0);
+                                lote.setMedida("KG");
+                            } else if (lote.getMedida().equalsIgnoreCase("ML")) {
+                                lote.setCantidad(lote.getCantidad() / 1000.0);
+                                lote.setMedida("L");
+                            }
+                        }
+
+                        insumoDAO.update(lote);
+                        logger.info("  Se devuelve " + aDevolver + " " + unidadRequerida + " al lote: " + lote);
+
+                        realmenteDevueltoAlStock += aDevolver;
+                        restantePorDevolver -= aDevolver;
+                    }
                 }
-                resumenCantidad.put(nombreInsumo, resumenCantidad.getOrDefault(nombreInsumo, 0.0) + cantidadMostrar);
-                resumenUnidad.put(nombreInsumo, unidadMostrar);
+
+                // Solo agregamos al resumen lo que FÍSICAMENTE volvió al stock (para que cuadre
+                // con historial)
+                if (realmenteDevueltoAlStock > 0) {
+                    String unidadMostrar = unidadRequerida;
+                    double cantidadMostrar = realmenteDevueltoAlStock;
+
+                    if (unidadRequerida.equalsIgnoreCase("ML") && realmenteDevueltoAlStock >= 1000) {
+                        unidadMostrar = "L";
+                        cantidadMostrar = realmenteDevueltoAlStock / 1000.0;
+                    } else if (unidadRequerida.equalsIgnoreCase("GR") && realmenteDevueltoAlStock >= 1000) {
+                        unidadMostrar = "KG";
+                        cantidadMostrar = realmenteDevueltoAlStock / 1000.0;
+                    } else if (unidadRequerida.equalsIgnoreCase("UNIDAD")
+                            || unidadRequerida.equalsIgnoreCase("UNIDADES")) {
+                        unidadMostrar = (realmenteDevueltoAlStock == 1) ? "UNIDAD" : "UNIDADES";
+                    }
+                    resumenCantidad.put(nombreInsumo,
+                            resumenCantidad.getOrDefault(nombreInsumo, 0.0) + cantidadMostrar);
+                    resumenUnidad.put(nombreInsumo, unidadMostrar);
+                }
             }
         }
+
         // Unir cantidad y unidad para mostrar
         Map<String, String> resumenFinal = new LinkedHashMap<>();
         for (String insumo : resumenCantidad.keySet()) {
             double cantidad = resumenCantidad.get(insumo);
             String unidad = resumenUnidad.get(insumo);
-            String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+            String cantidadStr = (cantidad == Math.floor(cantidad))
+                    ? String.format("%.0f", cantidad)
+                    : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
             resumenFinal.put(insumo, cantidadStr + " " + unidad);
         }
         return resumenFinal;
     }
 
     /**
-     * Intenta resolver automáticamente todos los insumos faltantes pendientes usando el stock actual.
+     * Intenta resolver automáticamente todos los insumos faltantes pendientes
+     * usando el stock actual.
      * Recorre todos los faltantes pendientes y descuenta stock si es posible.
      * Devuelve un resumen de los faltantes resueltos (nombre y cantidad).
      */
@@ -440,12 +586,15 @@ public class RecetaProcessor {
             double cantidad = faltante.getCantidadFaltante();
             // Buscar lotes disponibles de ese insumo
             List<Insumo> lotes = insumoDAO.findAll().stream()
-                    .filter(i -> i.getCatalogoInsumo() != null && i.getCatalogoInsumo().getId().equals(catalogo.getId()))
-                    .sorted(Comparator.comparing(Insumo::getFechaCaducidad, Comparator.nullsLast(Comparator.naturalOrder())))
+                    .filter(i -> i.getCatalogoInsumo() != null
+                            && i.getCatalogoInsumo().getId().equals(catalogo.getId()))
+                    .sorted(Comparator.comparing(Insumo::getFechaCaducidad,
+                            Comparator.nullsLast(Comparator.naturalOrder())))
                     .collect(Collectors.toList());
             double restante = cantidad;
             for (Insumo lote : lotes) {
-                if (restante <= 0.0001) break;
+                if (restante <= 0.0001)
+                    break;
                 double disponible = lote.convertirUnidad(lote.getCantidad(), lote.getMedida(), unidad);
                 double usado = Math.min(disponible, restante);
                 if (usado > 0) {
@@ -458,7 +607,8 @@ public class RecetaProcessor {
                 faltante.setResuelto(true);
                 faltanteDAO.update(faltante);
                 // Formatear cantidad
-                String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad) : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+                String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad)
+                        : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
                 resueltos.put(nombre, cantidadStr + " " + unidad);
             } else {
                 // Si no se pudo resolver completamente, actualiza la cantidad faltante

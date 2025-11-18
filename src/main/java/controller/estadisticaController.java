@@ -10,13 +10,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import service.EstadisticasService;
 import utilities.Paths;
 import utilities.SceneLoader;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
-
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFChart;
@@ -89,9 +87,9 @@ public class estadisticaController {
         tabPane.getTabs().remove(tabPieProductos);
 
         // Mejorar apariencia de los gráficos
-        barChart.setStyle("-fx-background-color: #fffdfc; -fx-border-color: #B70505; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;");
-        barChartProductos.setStyle("-fx-background-color: #fffdfc; -fx-border-color: #B70505; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;");
-        pieChart.setStyle("-fx-background-color: #fffdfc; -fx-border-color: #B70505; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;");
+        barChart.setStyle("-fx-background-color: #fffdfc; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;");
+        barChartProductos.setStyle("-fx-background-color: #fffdfc; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;");
+        pieChart.setStyle("-fx-background-color: #fffdfc; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;");
         xAxis.setTickLabelFont(javafx.scene.text.Font.font("Inter", 14));
         yAxis.setTickLabelFont(javafx.scene.text.Font.font("Inter", 14));
         barChart.setLegendVisible(true);

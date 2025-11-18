@@ -266,11 +266,14 @@ public class PedidoService {
     public PedidoConFaltantes crearPedido(String dniCliente, String nombreEmpleado, String formaEntrega,
             LocalDate fechaEntrega, Map<Producto, Integer> productosSeleccionados,
             Map<Combo, Integer> combosSeleccionados) throws Exception {
-        // Si no hay combos, usar el método original
+
+        // Si no hay combos, usar el método original (asumiendo que lo mantienes, si no,
+        // puedes unir lógica)
         if (combosSeleccionados == null || combosSeleccionados.isEmpty()) {
             return crearPedido(dniCliente, nombreEmpleado, formaEntrega, fechaEntrega, productosSeleccionados);
         }
-        // Validaciones básicas (igual que el método original)
+
+        // Validaciones básicas
         if (dniCliente == null || dniCliente.isEmpty())
             throw new Exception("El DNI del cliente es obligatorio.");
         if (nombreEmpleado == null || nombreEmpleado.isEmpty())
@@ -286,6 +289,7 @@ public class PedidoService {
         Cliente cliente = clienteDAO.findByDni(dniCliente);
         if (cliente == null)
             throw new Exception("Cliente no encontrado.");
+
         Trabajador empleado = trabajadorDAO.findByNombre(nombreEmpleado);
         if (empleado == null)
             throw new Exception("Empleado no encontrado.");
@@ -304,12 +308,15 @@ public class PedidoService {
                 }
             }
         }
-        // Procesar recetas y obtener faltantes (NO descontar stock aquí)
-        List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(productosTotales); // <-- CORREGIDO: usar
-                                                                                             // productosTotales
+
+        // 🔥 CORRECCIÓN APLICADA: Usamos procesarRecetas para descontar stock real 🔥
+        // Antes: List<InsumoFaltante> faltantes =
+        // recetaProcessor.simularFaltantes(productosTotales);
+        List<InsumoFaltante> faltantes = recetaProcessor.procesarRecetas(productosTotales);
+
         String mensajeFaltantes = "";
         if (!faltantes.isEmpty()) {
-            // Agrupar por insumo y sumar cantidades
+            // Agrupar por insumo y sumar cantidades para el mensaje
             Map<String, Double> faltantesAgrupados = new LinkedHashMap<>();
             Map<String, String> unidadesAgrupadas = new HashMap<>();
             for (InsumoFaltante f : faltantes) {
@@ -341,6 +348,7 @@ public class PedidoService {
                         return "- " + e.getKey() + ": faltan " + cantidadStr + " " + unidadStr;
                     }).collect(java.util.stream.Collectors.joining("\n"));
         }
+
         // Calcular total sumando productos y combos
         java.math.BigDecimal totalPedido = java.math.BigDecimal.ZERO;
         if (productosSeleccionados != null) {
@@ -352,7 +360,9 @@ public class PedidoService {
                         .add(entry.getKey().getPrecio().multiply(java.math.BigDecimal.valueOf(entry.getValue())));
             }
         }
+
         Pedido pedido = new Pedido(null, cliente, empleado, formaEntrega, fechaEntrega, "Sin empezar", "", totalPedido);
+
         // --- Asociar productos ---
         java.util.List<PedidoProducto> pedidoProductos = new java.util.ArrayList<>();
         if (productosSeleccionados != null) {
@@ -362,6 +372,7 @@ public class PedidoService {
             }
         }
         pedido.setPedidoProductos(pedidoProductos);
+
         // --- Asociar combos ---
         java.util.List<PedidoCombo> pedidoCombos = new java.util.ArrayList<>();
         if (combosSeleccionados != null) {
@@ -371,7 +382,9 @@ public class PedidoService {
             }
         }
         pedido.setPedidoCombos(pedidoCombos);
+
         pedidoDAO.save(pedido); // Persistimos productos y combos vía cascade
+
         return new PedidoConFaltantes(pedido, mensajeFaltantes);
     }
 
@@ -384,6 +397,7 @@ public class PedidoService {
             LocalDate fechaEntrega,
             Map<Producto, Integer> productosSeleccionados,
             Map<Combo, Integer> combosSeleccionados) throws Exception {
+
         if (pedidoOriginal == null || pedidoOriginal.getNumeroPedido() == null)
             throw new Exception("El pedido a actualizar no es válido.");
         if (dniCliente == null || dniCliente.isEmpty())
@@ -490,7 +504,12 @@ public class PedidoService {
             }
         }
 
-        List<InsumoFaltante> faltantes = recetaProcessor.simularFaltantes(productosParaDescontar);
+        // 🔥 CORRECCIÓN APLICADA: Usamos procesarRecetas para descontar stock real de
+        // lo nuevo agregado 🔥
+        // Antes: List<InsumoFaltante> faltantes =
+        // recetaProcessor.simularFaltantes(productosParaDescontar);
+        List<InsumoFaltante> faltantes = recetaProcessor.procesarRecetas(productosParaDescontar);
+
         String mensajeFaltantes = "";
         if (!faltantes.isEmpty()) {
             mensajeFaltantes = faltantes.stream()

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="610.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogoPedidosController">
+<AnchorPane prefHeight="610.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/22"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogoPedidosController">
    <stylesheets>
       <URL value="@../../../css/pedidos.css" />
    </stylesheets>
@@ -19,19 +20,23 @@
    <children>
       <Pane prefHeight="610.0" prefWidth="750.0" style="-fx-background-color: #f7ede3;">
          <children>
-            <ComboBox fx:id="comboFiltro" layoutX="290.0" layoutY="2.0" prefHeight="25.0" prefWidth="170.0" promptText="Filtrar por..." />
-            <ScrollPane fx:id="scrollPaneCatalogo" hbarPolicy="NEVER" layoutY="39.0" prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #f7ede3;">
+            <ComboBox fx:id="comboFiltro" layoutX="290.0" layoutY="2.0" prefHeight="25.0"
+               prefWidth="170.0" promptText="Filtrar por..." />
+            <ScrollPane fx:id="scrollPaneCatalogo" hbarPolicy="NEVER" layoutY="39.0"
+               prefHeight="500.0" prefWidth="750.0"
+               style="-fx-background: #f7ede3; -fx-background-color: #f7ede3;">
                <content>
-                  <Pane fx:id="catalogoContentPane" />
+                  <Pane fx:id="catalogoContentPane" style="-fx-background-color: #f7ede3;" />
                </content>
-               <style>-fx-background-color: #f7ede3;</style>
                <fitToWidth>true</fitToWidth>
                <fitToHeight>false</fitToHeight>
             </ScrollPane>
-            <VBox fx:id="vboxAcciones" alignment="CENTER" layoutY="546.0" prefHeight="55.0" prefWidth="750.0">
+            <VBox fx:id="vboxAcciones" alignment="CENTER" layoutY="546.0" prefHeight="55.0"
+               prefWidth="750.0">
                <children>
                   <Label fx:id="lblPrecio" text="Label" />
-                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#handleGuardar" styleClass="buttons" text="Guardar pedido" />
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#handleGuardar"
+                     styleClass="buttons" text="Guardar pedido" />
                </children>
             </VBox>
          </children>

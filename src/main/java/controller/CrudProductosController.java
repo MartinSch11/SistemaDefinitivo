@@ -6,19 +6,27 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.Categoria;
 import model.Combo;
 import model.Producto;
 import model.Receta;
 import persistence.dao.ProductoDAO;
 import utilities.SceneLoader;
+import javafx.scene.layout.StackPane;
+import javafx.geometry.Pos;
 import utilities.Paths;
 import utilities.ActionLogger;
+import java.math.RoundingMode;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +77,8 @@ public class CrudProductosController {
     private TableColumn<Combo, String> colComboProductos;
     @FXML
     private TableColumn<Combo, String> colComboPrecio;
+    @FXML
+    private Button btnAjusteMasivo;
 
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
     private ObservableList<Combo> listaCombos = FXCollections.observableArrayList();
@@ -322,6 +332,7 @@ public class CrudProductosController {
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(null); // <--- ESTO ES LA CLAVE
         alert.setContentText(content);
         alert.showAndWait();
     }
@@ -375,5 +386,219 @@ public class CrudProductosController {
 
     public void setListaProductos(ObservableList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
+    }
+
+    @FXML
+    void handleAjusteMasivo(ActionEvent event) {
+        if ("Combos".equals(comboFiltro.getValue())) {
+            showAlert(Alert.AlertType.WARNING, "Atención",
+                    "El ajuste masivo por ahora solo aplica a Productos individuales.");
+            return;
+        }
+
+        if (listaProductos.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Lista vacía", "No hay productos para ajustar.");
+            return;
+        }
+
+        // 1. Crear el Diálogo
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Ajuste Masivo de Precios");
+
+        // --- CABECERA CENTRADA ---
+        Label titleLabel = new Label("Ajuste de Precios");
+        titleLabel.setStyle(
+                "-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px; -fx-font-family: 'Inter';");
+        StackPane headerPane = new StackPane(titleLabel);
+        headerPane.setStyle("-fx-background-color: #B70505; -fx-padding: 15px;");
+        headerPane.setAlignment(Pos.CENTER);
+        headerPane.setPrefWidth(400);
+        dialog.getDialogPane().setHeader(headerPane);
+
+        // --- ESTILOS Y BOTONES ---
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/css/productos_form.css").toExternalForm());
+        dialogPane.getStyleClass().add("my-dialog");
+        dialogPane.setMinWidth(420);
+
+        ButtonType btnAplicarType = new ButtonType("Aplicar", ButtonBar.ButtonData.OK_DONE);
+        dialogPane.getButtonTypes().addAll(btnAplicarType, ButtonType.CANCEL);
+
+        Button btnAplicarNode = (Button) dialogPane.lookupButton(btnAplicarType);
+        btnAplicarNode.getStyleClass().add("form-producto-btn");
+        Button btnCancelarNode = (Button) dialogPane.lookupButton(ButtonType.CANCEL);
+        btnCancelarNode.getStyleClass().add("form-producto-btn-cancelar");
+
+        // 2. Layout
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(15);
+        grid.setPadding(new Insets(20, 20, 10, 20));
+        grid.setStyle("-fx-background-color: #f7ede3;");
+
+        // --- Controles ---
+        ToggleGroup groupOperacion = new ToggleGroup();
+        RadioButton rbAumento = new RadioButton("Aumento (Inflación)");
+        rbAumento.setToggleGroup(groupOperacion);
+        rbAumento.setSelected(true);
+        rbAumento.setStyle("-fx-text-fill: #2E7D32; -fx-font-weight: bold; -fx-font-family: 'Inter';");
+
+        RadioButton rbDescuento = new RadioButton("Disminución / Oferta");
+        rbDescuento.setToggleGroup(groupOperacion);
+        rbDescuento.setStyle("-fx-text-fill: #B70505; -fx-font-weight: bold; -fx-font-family: 'Inter';");
+
+        ToggleGroup groupModo = new ToggleGroup();
+        RadioButton rbPorcentaje = new RadioButton("Porcentaje (%)");
+        rbPorcentaje.setToggleGroup(groupModo);
+        rbPorcentaje.setSelected(true);
+
+        RadioButton rbFijo = new RadioButton("Monto Fijo ($)");
+        rbFijo.setToggleGroup(groupModo);
+
+        TextField txtValor = new TextField();
+        txtValor.setPromptText("Ej: 10.5");
+        txtValor.getStyleClass().add("form-producto-input");
+
+        // --- CAMBIO IMPORTANTE AQUÍ: EL COMBOBOX ---
+        ComboBox<Categoria> comboCategoriaAjuste = new ComboBox<>();
+        comboCategoriaAjuste.getStyleClass().add("form-producto-combo");
+        comboCategoriaAjuste.setMaxWidth(Double.MAX_VALUE); // Que ocupe todo el ancho posible
+
+        // A. Crear opción ficticia "Todas"
+        Categoria catTodas = new Categoria();
+        catTodas.setId(null); // ID nulo será nuestra señal de "Todas"
+        catTodas.setNombre("Todas las categorías");
+
+        // B. Cargar desde BD
+        persistence.dao.CategoriaDAO categoriaDAO = new persistence.dao.CategoriaDAO();
+        List<Categoria> categoriasDB = categoriaDAO.findAll();
+
+        // C. Llenar combo: Primero "Todas", luego las demás
+        comboCategoriaAjuste.getItems().add(catTodas);
+        comboCategoriaAjuste.getItems().addAll(categoriasDB);
+
+        // D. Seleccionar "Todas" por defecto
+        comboCategoriaAjuste.getSelectionModel().selectFirst();
+
+        // Etiquetas
+        Label lblCat = new Label("Categoría:");
+        lblCat.getStyleClass().add("form-producto-label");
+        Label lblTipo = new Label("Tipo:");
+        lblTipo.getStyleClass().add("form-producto-label");
+        Label lblMetodo = new Label("Método:");
+        lblMetodo.getStyleClass().add("form-producto-label");
+        Label lblValor = new Label("Valor:");
+        lblValor.getStyleClass().add("form-producto-label");
+
+        // Armado del Grid (SIN EL BOTÓN X)
+        grid.add(lblCat, 0, 0);
+        grid.add(comboCategoriaAjuste, 1, 0); // Ponemos el combo directo, sin HBox
+
+        grid.add(lblTipo, 0, 1);
+        grid.add(rbAumento, 1, 1);
+        grid.add(rbDescuento, 1, 2);
+
+        grid.add(lblMetodo, 0, 3);
+        grid.add(rbPorcentaje, 1, 3);
+        grid.add(rbFijo, 1, 4);
+
+        grid.add(lblValor, 0, 5);
+        grid.add(txtValor, 1, 5);
+
+        dialogPane.setContent(grid);
+
+        // Validación (Igual)
+        btnAplicarNode.addEventFilter(ActionEvent.ACTION, ae -> {
+            String input = txtValor.getText();
+            if (!input.matches("^\\d*\\.?\\d+$")) {
+                showAlert(Alert.AlertType.ERROR, "Valor inválido", "Por favor ingresa un número válido.");
+                ae.consume();
+            }
+        });
+
+        // 3. Procesar
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == btnAplicarType) {
+            try {
+                BigDecimal valor = new BigDecimal(txtValor.getText());
+                boolean esAumento = rbAumento.isSelected();
+                boolean esPorcentaje = rbPorcentaje.isSelected();
+                Categoria categoriaSeleccionada = comboCategoriaAjuste.getValue();
+
+                aplicarCambiosPrecios(valor, esAumento, esPorcentaje, categoriaSeleccionada);
+
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Error al procesar el valor: " + e.getMessage());
+            }
+        }
+    }
+
+    private void aplicarCambiosPrecios(BigDecimal valor, boolean esAumento, boolean esPorcentaje,
+            Categoria categoriaFiltro) {
+        int contador = 0;
+
+        for (Producto p : listaProductos) {
+            // 1. Filtro de Categoría
+            // MODIFICADO: Ahora verificamos si categoriaFiltro tiene ID. Si es null, es
+            // "Todas".
+            if (categoriaFiltro != null && categoriaFiltro.getId() != null) {
+                // Si el producto no tiene categoría o su ID es distinto al seleccionado, saltar
+                if (p.getCategoria() == null || !p.getCategoria().getId().equals(categoriaFiltro.getId())) {
+                    continue;
+                }
+            }
+
+            // ... (El resto de la lógica matemática SIGUE IGUAL) ...
+            BigDecimal precioActual = p.getPrecio();
+            if (precioActual == null)
+                precioActual = BigDecimal.ZERO;
+
+            BigDecimal nuevoPrecio;
+
+            if (esPorcentaje) {
+                BigDecimal factor = valor.divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP);
+                if (esAumento) {
+                    nuevoPrecio = precioActual.multiply(BigDecimal.ONE.add(factor));
+                } else {
+                    nuevoPrecio = precioActual.multiply(BigDecimal.ONE.subtract(factor));
+                }
+            } else {
+                if (esAumento) {
+                    nuevoPrecio = precioActual.add(valor);
+                } else {
+                    nuevoPrecio = precioActual.subtract(valor);
+                }
+            }
+
+            if (nuevoPrecio.compareTo(BigDecimal.ZERO) < 0) {
+                nuevoPrecio = BigDecimal.ZERO;
+            }
+
+            nuevoPrecio = nuevoPrecio.setScale(2, RoundingMode.HALF_UP);
+
+            if (precioActual.compareTo(nuevoPrecio) != 0) {
+                p.setPrecio(nuevoPrecio);
+                productoDAO.update(p);
+                contador++;
+            }
+        }
+
+        // ... (Refresco de tabla y alertas igual) ...
+        tableProductos.refresh();
+
+        String tipo = esPorcentaje ? "%" : "$";
+        String operacion = esAumento ? "Aumento" : "Descuento";
+
+        // Mensaje personalizado según si se eligió una categoría o todas
+        String catMsg = (categoriaFiltro == null || categoriaFiltro.getId() == null)
+                ? "todas las categorías"
+                : "categoría " + categoriaFiltro.getNombre();
+
+        ActionLogger.log("Ajuste masivo: " + operacion + " de " + valor + tipo + " en " + catMsg);
+
+        showAlert(Alert.AlertType.INFORMATION, "Éxito",
+                "Se actualizaron " + contador + " productos.\n" +
+                        "Operación: " + operacion + " del " + valor + tipo + "\n" +
+                        "Alcance: " + catMsg);
     }
 }

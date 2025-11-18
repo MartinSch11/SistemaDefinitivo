@@ -2,7 +2,7 @@
 
 .form-producto-root {
     -fx-background-color: #f7ede3;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 16, 0.2, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 16, 0.2, 0, 4);
     -fx-padding: 32px 32px 24px 32px;
 }
 
@@ -25,16 +25,21 @@
     -fx-padding: 0 0 4px 0;
 }
 
-.form-producto-input, .form-producto-area, .form-producto-choice, .form-producto-combo {
+.form-producto-input,
+.form-producto-choice,
+.form-producto-combo {
     -fx-background-color: #f7f7f7;
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
     -fx-font-size: 14px;
     -fx-font-family: 'Inter';
-    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 0, 0, 0, 2); /* Sombra */
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 0, 0, 0, 2);
+    /* Sombra */
 }
 
-.form-producto-input:focused, .form-producto-area:focused, .form-producto-choice:focused, .form-producto-combo:focused {
+.form-producto-input:focused,
+.form-producto-choice:focused,
+.form-producto-combo:focused {
     -fx-border-color: #B70505;
     -fx-background-color: #fff;
 }
@@ -47,11 +52,12 @@
     -fx-font-size: 14px;
     -fx-padding: 6px 18px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08), 2, 0, 0, 1);
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.08), 2, 0, 0, 1);
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-transition: background-color 0.2s;
 }
+
 .form-producto-btn:hover {
     -fx-background-color: #E02020;
 }
@@ -60,12 +66,57 @@
     -fx-background-color: #e0e0e0;
     -fx-text-fill: #B70505;
 }
+
 .form-producto-btn-cancelar:hover {
     -fx-background-color: #f7f7f7;
 }
 
-.btnAgregarSabores{
+.btnAgregarSabores {
     -fx-background-color: transparent;
-    -fx-font-family: "Inter"; /* Cambiar la fuente */
+    -fx-font-family: "Inter";
+    /* Cambiar la fuente */
     -fx-font-fill: #757ccd;
+}
+
+/* --- Estilos para Diálogos Personalizados (Ajuste Masivo) --- */
+
+/* El contenedor principal del diálogo */
+.dialog-pane {
+    -fx-background-color: #f7ede3;
+    /* Tu beige */
+}
+
+/* El encabezado del diálogo (donde va el título y el texto de cabecera) */
+.dialog-pane>.header-panel {
+    -fx-background-color: #B70505;
+    /* Tu rojo */
+    -fx-padding: 15px;
+}
+
+.dialog-pane>.header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-family: 'Inter';
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* El cuerpo del diálogo */
+.dialog-pane>.content {
+    -fx-background-color: #f7ede3;
+}
+
+/* Estilo para los RadioButton en el diálogo */
+.radio-button {
+    -fx-text-fill: #B70505;
+    /* Texto rojo por defecto */
+    -fx-font-family: 'Inter';
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #B70505;
+    /* Circulo rojo al seleccionar */
+}
+
+.radio-button:selected .dot {
+    -fx-background-color: white;
 }
