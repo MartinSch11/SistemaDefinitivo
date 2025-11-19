@@ -3,8 +3,6 @@ package service;
 import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import model.Evento;
 import model.NotificacionConfig;
@@ -12,43 +10,32 @@ import persistence.dao.EventoDAO;
 import persistence.dao.NotificacionConfigDAO;
 import persistence.dao.NotificacionEntityDAO;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl; // Para el volumen
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 
 public class NotificacionScheduler {
 
     private static final NotificacionScheduler INSTANCE = new NotificacionScheduler();
 
-    // ✅ Dos servicios
     private final ScheduledService<Void> notificacionesService;
     private final ScheduledService<Void> estadosService;
 
-    // 🔔 sonido y conteo previo
     private final NotificacionEntityDAO notiDAO = new NotificacionEntityDAO();
-    
-    // CAMBIO: Usamos MediaPlayer en lugar de AudioClip
-    private MediaPlayer notificationPlayer; 
-    
+
+    // VARIABLES PARA AUDIO ESTÁNDAR (javax.sound)
+    private Clip notificationClip;
+    private float volumenActual = 0.8f; // Valor entre 0.0 y 1.0 (aproximado)
+
     private volatile int lastUnreadCount = -1;
 
     private NotificacionScheduler() {
-        // === inicializar sonido con MediaPlayer ===
-        try {
-            String url = Objects.requireNonNull(
-                    getClass().getResource("/com/example/sound/notify.mp3"),
-                    "No se encontró /com/example/sound/notify.mp3 en resources"
-            ).toExternalForm();
-            
-            // CAMBIO: Lógica de Media y MediaPlayer
-            Media sound = new Media(url);
-            notificationPlayer = new MediaPlayer(sound);
-            notificationPlayer.setVolume(0.6); 
-            
-        } catch (Exception ex) {
-            System.err.println("No se pudo cargar el sonido de notificación: " + ex.getMessage());
-            notificationPlayer = null;
-        }
+        // === Inicializar sonido con Java Standard Audio (Sin JavaFX Media) ===
+        cargarSonido();
 
         // ---- Servicio de NOTIFICACIONES ----
         notificacionesService = new ScheduledService<>() {
@@ -57,7 +44,7 @@ public class NotificacionScheduler {
                 return new Task<>() {
                     @Override
                     protected Void call() {
-                        // Generar/persistir notificaciones
+                        // Generar notificaciones
                         NotificacionConfig cfg = new NotificacionConfigDAO().findOrDefault();
                         new NotificacionService().obtenerTodasLasNotificaciones(
                                 cfg.getDiasAnticipacion(),
@@ -79,14 +66,8 @@ public class NotificacionScheduler {
                         if (lastUnreadCount < 0) {
                             lastUnreadCount = unread;
                         } else if (unread > lastUnreadCount) {
-                            // CAMBIO: Reproducir con MediaPlayer
-                            if (notificationPlayer != null) {
-                                Platform.runLater(() -> {
-                                    // MediaPlayer necesita detenerse y rebobinarse antes de volver a sonar
-                                    notificationPlayer.stop(); 
-                                    notificationPlayer.play();
-                                });
-                            }
+                            // Reproducir sonido
+                            reproducirSonido();
                             lastUnreadCount = unread;
                         } else {
                             lastUnreadCount = unread;
@@ -117,6 +98,46 @@ public class NotificacionScheduler {
         estadosService.setPeriod(Duration.seconds(60));
         estadosService.setDelay(Duration.seconds(5));
         estadosService.setRestartOnFailure(true);
+    }
+
+    // Método auxiliar para cargar el sonido de forma segura
+    private void cargarSonido() {
+        try {
+            URL url = getClass().getResource("/com/example/sound/notify.wav");
+            // Java Standard Audio prefiere .wav, pero algunos JDK modernos leen mp3.
+            // Si falla con mp3, te recomiendo convertir el archivo a .wav
+            if (url != null) {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+                notificationClip = AudioSystem.getClip();
+                notificationClip.open(audioIn);
+                ajustarVolumen(volumenActual);
+            } else {
+                System.err.println("No se encontró el archivo de sonido.");
+            }
+        } catch (Exception ex) {
+            System.err.println("Error cargando sonido (intenta usar .wav si falla): " + ex.getMessage());
+            notificationClip = null;
+        }
+    }
+
+    // Método para reproducir
+    private void reproducirSonido() {
+        if (notificationClip != null) {
+            // Reiniciar desde el principio
+            notificationClip.setFramePosition(0);
+            notificationClip.start();
+        }
+    }
+
+    // Método para ajustar volumen (conversión logarítmica para dB)
+    private void ajustarVolumen(float volumen0to1) {
+        if (notificationClip != null && notificationClip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+            FloatControl gainControl = (FloatControl) notificationClip.getControl(FloatControl.Type.MASTER_GAIN);
+            // Convertir 0-1 a decibeles. Rango aprox -80dB a 6dB
+            float range = gainControl.getMaximum() - gainControl.getMinimum();
+            float gain = (range * volumen0to1) + gainControl.getMinimum();
+            gainControl.setValue(gain);
+        }
     }
 
     public static NotificacionScheduler getInstance() {
@@ -179,10 +200,8 @@ public class NotificacionScheduler {
         }
     }
 
-    // CAMBIO: Ajustar volumen en MediaPlayer
     public void setNotificationVolume(double volume0to1) {
-        if (notificationPlayer != null) {
-            notificationPlayer.setVolume(Math.max(0, Math.min(1, volume0to1)));
-        }
+        this.volumenActual = (float) Math.max(0, Math.min(1, volume0to1));
+        ajustarVolumen(this.volumenActual);
     }
 }

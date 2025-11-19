@@ -20,3 +20,17 @@
 [2025-11-19 16:41:32] Usuario: Martin Schonberger (Rol: Administrador) Acción: Pedido creado: Usuario con productos: [Torta de chocolate]
 [2025-11-19 16:41:32] Usuario: Martin Schonberger (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [InsumoFaltante(id=null, catalogoInsumo=CatalogoInsumo(id=3, nombre=LECHE, estado=LÍQUIDO, proveedor=Lacteos SA), cantidadFaltante=200.0, unidad=ML, resuelto=false)]
 [2025-11-19 16:41:34] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-19 17:32:23] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-19 17:32:29] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-11-19 17:32:32] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-11-19 17:32:38] Usuario: Sofia Lopez (Rol: Administrador) Acción: Empleado eliminado: Albaro Benitez
+[2025-11-19 17:32:39] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-19 17:32:39] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-11-19 17:32:41] Usuario: Sofia Lopez (Rol: Administrador) Acción: Accedió a la sección de Pedidos
+[2025-11-19 17:32:50] Usuario: Sofia Lopez (Rol: Administrador) Acción: Catálogo abierto correctamente.
+[2025-11-19 17:32:53] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-19 17:32:54] Usuario: Sofia Lopez (Rol: Administrador) Acción: Accedió a la sección de Productos
+[2025-11-19 17:33:00] Usuario: Sofia Lopez (Rol: Administrador) Acción: Producto eliminado: Prueba
+[2025-11-19 17:33:02] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-19 17:33:02] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario regresó al menú principal desde la pantalla de Productos.
+[2025-11-19 17:33:07] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario cerró sesión
