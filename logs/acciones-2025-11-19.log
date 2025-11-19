@@ -20,3 +20,4 @@
 [2025-11-19 16:41:32] Usuario: Martin Schonberger (Rol: Administrador) Acción: Pedido creado: Usuario con productos: [Torta de chocolate]
 [2025-11-19 16:41:32] Usuario: Martin Schonberger (Rol: Administrador) Acción: No hay insumos suficientes para el pedido. Faltantes: [InsumoFaltante(id=null, catalogoInsumo=CatalogoInsumo(id=3, nombre=LECHE, estado=LÍQUIDO, proveedor=Lacteos SA), cantidadFaltante=200.0, unidad=ML, resuelto=false)]
 [2025-11-19 16:41:34] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-19 16:43:31] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario cerró sesión
