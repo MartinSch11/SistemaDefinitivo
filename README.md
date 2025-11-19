@@ -62,6 +62,10 @@ README.md
 ## Flujo Operativo Recomendado del Sistema
 A continuación se describe el flujo sugerido para la utilización integral y correcta del sistema de gestión de pastelería, asegurando la trazabilidad de los datos y la demostración de las principales funcionalidades:
 
+### Gestión de Empleados
+- Acceda al módulo de empleados.
+- Registre un nuevo empleado, completando los datos requeridos para su identificación, logueo y contacto.
+
 ### Gestión de Proveedores
 - Acceda al módulo de proveedores.
 - Registre un nuevo proveedor, completando los datos requeridos para su identificación y contacto.
@@ -106,11 +110,12 @@ Se recomienda seguir este flujo para garantizar la correcta vinculación de dato
 
 ## Usuarios de ejemplo del sistema
 
-| DNI        | Contraseña         | Rol           |
-|------------|--------------------|---------------|
-| 12345678   | contraseña123      | Administrador |
-| 15975368   | contraseña_jose    | Cajera        |
-| 39393939   | contraseña_lionel  | Empleado      |
+| DNI      | Contraseña        | Rol           |
+|----------|-------------------|---------------|
+| 43832594 | 12345678          | Administrador |
+| 44280200 | 12345678          | Administrador |
+| 15975368 | contraseña_jose   | Cajera        |
+| 39393939 | contraseña_lionel | Empleado      |
 
 ## Autores
 

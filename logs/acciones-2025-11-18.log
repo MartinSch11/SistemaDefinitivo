@@ -334,3 +334,9 @@
 [2025-11-18 20:53:32] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario abrió la ventana de gestión de clientes para administrar la información de los clientes.
 [2025-11-18 20:53:33] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario ha iniciado sesión.
 [2025-11-18 20:53:33] Usuario: Martin Schonberger (Rol: Administrador) Acción: El usuario regresó al menú principal.
+[2025-11-18 22:26:17] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario ha iniciado sesión.
+[2025-11-18 22:26:21] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario accedió a la sección de Configuración
+[2025-11-18 22:26:24] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para modificar los datos de un empleado existente.
+[2025-11-18 22:26:50] Usuario: Sofia Lopez (Rol: Administrador) Acción: Empleado con DNI 44280200 actualizado.
+[2025-11-18 22:26:51] Usuario: Sofia Lopez (Rol: Administrador) Acción: El usuario abrió el formulario para eliminar un empleado del sistema.
+[2025-11-18 22:26:57] Usuario: Sofia Lopez (Rol: Administrador) Acción: Empleado eliminado: Albaro Benitez
