@@ -9,22 +9,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import model.Insumo;
 import model.Pedido;
 import model.PedidoProducto;
 import model.IngresoDetallado;
 import model.EgresoDetallado;
-import model.HistorialCompra;
+import model.MovimientoStock;
 import model.Evento;
 
 public class EstadisticasService {
     private PedidoDAO pedidoDAO;
-    private InsumoDAO insumoDAO;
     private HistorialCompraDAO historialCompraDAO = new HistorialCompraDAO();
 
     public EstadisticasService() {
         this.pedidoDAO = new PedidoDAO();
-        this.insumoDAO = new InsumoDAO();
     }
 
     // Obtener ingresos desde los pedidos
@@ -55,17 +52,20 @@ public class EstadisticasService {
         return ingresosPorFecha;
     }
 
-    // Obtener egresos desde los insumos comprados
+    // Obtener egresos desde los insumos comprados (V2.0: Usamos MovimientoStock, es más preciso)
     public Map<String, Double> obtenerEgresosPorFecha(LocalDate fechaDesde, LocalDate fechaHasta) {
-        List<Insumo> insumos = insumoDAO.findAll().stream()
-                .filter(i -> i.getFechaCompra() != null) // Evitar NullPointerException
-                .filter(i -> !i.getFechaCompra().isBefore(fechaDesde)
-                        && !i.getFechaCompra().isAfter(fechaHasta))
+        // CORRECCIÓN: En vez de mirar lotes (que pueden haberse consumido), miramos el historial de compras
+        List<MovimientoStock> compras = historialCompraDAO.findAll().stream()
+                .filter(m -> m.getTipo() == MovimientoStock.TipoMovimiento.COMPRA)
+                .filter(m -> {
+                    LocalDate fechaMov = m.getFechaMovimiento().toLocalDate();
+                    return !fechaMov.isBefore(fechaDesde) && !fechaMov.isAfter(fechaHasta);
+                })
                 .collect(Collectors.toList());
 
-        return insumos.stream().collect(Collectors.groupingBy(
-                i -> i.getFechaCompra().toString(),
-                Collectors.summingDouble(Insumo::getPrecio)));
+        return compras.stream().collect(Collectors.groupingBy(
+                m -> m.getFechaMovimiento().toLocalDate().toString(),
+                Collectors.summingDouble(MovimientoStock::getCostoTotal)));
     }
 
     // Obtener productos vendidos por cantidad in un rango de fechas
@@ -147,22 +147,25 @@ public class EstadisticasService {
         return detalles;
     }
 
-    // Obtener egresos detallados para exportar desde historial_compra
+    // Obtener egresos detallados para exportar desde historial_compra (V2.0)
     public List<EgresoDetallado> obtenerEgresosDetallados(LocalDate fechaDesde, LocalDate fechaHasta) {
-        List<HistorialCompra> compras = historialCompraDAO.findAll().stream()
-                .filter(c -> c.getFechaCompra() != null)
-                .filter(c -> !c.getFechaCompra().isBefore(fechaDesde)
-                        && !c.getFechaCompra().isAfter(fechaHasta))
+        List<MovimientoStock> compras = historialCompraDAO.findAll().stream()
+                .filter(c -> c.getTipo() == MovimientoStock.TipoMovimiento.COMPRA)
+                .filter(c -> {
+                    LocalDate fecha = c.getFechaMovimiento().toLocalDate();
+                    return !fecha.isBefore(fechaDesde) && !fecha.isAfter(fechaHasta);
+                })
                 .collect(Collectors.toList());
+                
         List<EgresoDetallado> detalles = new java.util.ArrayList<>();
-        for (HistorialCompra compra : compras) {
+        for (MovimientoStock compra : compras) {
             detalles.add(new EgresoDetallado(
-                    compra.getFechaCompra(),
-                    compra.getInsumo(),
+                    compra.getFechaMovimiento().toLocalDate(), // Convertir LocalDateTime a LocalDate
+                    compra.getNombreIngrediente(), // getNombreIngrediente()
                     compra.getCantidad(),
                     compra.getMedida(),
-                    compra.getProveedor(),
-                    compra.getPrecio()
+                    compra.getDetalle(), // Proveedor está en detalle
+                    compra.getCostoTotal() // getCostoTotal()
             ));
         }
         return detalles;
@@ -206,5 +209,4 @@ public class EstadisticasService {
                 .collect(java.util.stream.Collectors.toList());
         return eventos;
     }
-
 }

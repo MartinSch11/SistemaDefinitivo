@@ -13,7 +13,7 @@ import persistence.dao.NotificacionEntityDAO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl; // Para el volumen
+import javax.sound.sampled.FloatControl;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,13 +27,14 @@ public class NotificacionScheduler {
 
     private final NotificacionEntityDAO notiDAO = new NotificacionEntityDAO();
     
-    // VARIABLES PARA AUDIO ESTÁNDAR (javax.sound)
     private Clip notificationClip; 
     private float volumenActual = 0.8f; // Valor entre 0.0 y 1.0 (aproximado)
     
     private volatile int lastUnreadCount = -1;
 
     private NotificacionScheduler() {
+        // === Inicializar sonido con Java Standard Audio (Sin JavaFX Media) ===
+        cargarSonido();
         // === Inicializar sonido con Java Standard Audio (Sin JavaFX Media) ===
         cargarSonido();
 

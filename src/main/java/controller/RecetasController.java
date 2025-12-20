@@ -13,40 +13,29 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.InsumoReceta;
+import model.Ingrediente; // Nuevo modelo
+import model.RecetaDetalle;
 import model.Receta;
-import model.Insumo;
 import persistence.dao.RecetaDAO;
 import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.SceneLoader;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecetasController {
 
-    @FXML
-    private TableView<Receta> tableRecetas;
-    @FXML
-    private TableColumn<Receta, String> colNomReceta;
-    @FXML
-    private TableColumn<Receta, String> colIngReceta;
-    @FXML
-    private Button btnAgregar;
-    @FXML
-    private Button btnModificar;
-    @FXML
-    private Button btnEliminar;
-    @FXML
-    private Pane paneDetallesReceta;
-    @FXML
-    private Label labelNombreReceta;
-    @FXML
-    private FlowPane flowIngredientes;
-
-    // (Opcional pero recomendado para wrap responsivo)
-    @FXML
-    private ScrollPane scrollIngredientes;
+    @FXML private TableView<Receta> tableRecetas;
+    @FXML private TableColumn<Receta, String> colNomReceta;
+    @FXML private TableColumn<Receta, String> colIngReceta;
+    @FXML private Button btnAgregar;
+    @FXML private Button btnModificar;
+    @FXML private Button btnEliminar;
+    @FXML private Pane paneDetallesReceta;
+    @FXML private Label labelNombreReceta;
+    @FXML private FlowPane flowIngredientes;
+    @FXML private ScrollPane scrollIngredientes;
 
     private ObservableList<Receta> listaRecetas = FXCollections.observableArrayList();
 
@@ -55,25 +44,24 @@ public class RecetasController {
         configurarColumnas();
         tableRecetas.setItems(listaRecetas);
 
-        // 👉 Ajustar el wrap del FlowPane al ancho visible del ScrollPane
+        // Ajuste responsivo del FlowPane
         if (flowIngredientes != null && scrollIngredientes != null) {
             flowIngredientes.prefWrapLengthProperty().bind(
-                    scrollIngredientes.viewportBoundsProperty().map(b -> b.getWidth() - 20) // margen visual
+                    scrollIngredientes.viewportBoundsProperty().map(b -> b.getWidth() - 20)
             );
         }
 
-        // Permisos del usuario
+        // Permisos (Mantengo tu lógica original)
         java.util.List<String> permisos = model.SessionContext.getInstance().getPermisos();
         boolean puedeCrear = permisos != null && permisos.contains("Recetas-crear");
         boolean puedeModificar = permisos != null && permisos.contains("Recetas-modificar");
         boolean puedeEliminar = permisos != null && permisos.contains("Recetas-eliminar");
 
-        if (btnAgregar != null)
-            btnAgregar.setDisable(!puedeCrear);
+        if (btnAgregar != null) btnAgregar.setDisable(!puedeCrear);
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
 
-        tableRecetas.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
+        tableRecetas.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newSelection) -> {
             if (newSelection != null) {
                 mostrarDetallesReceta(newSelection);
                 btnModificar.setDisable(!puedeModificar);
@@ -94,15 +82,15 @@ public class RecetasController {
     }
 
     private void configurarColumnas() {
-        colNomReceta.setCellValueFactory(cellData -> cellData.getValue().nombreRecetaProperty());
+        // CORRECCIÓN 1: Creamos la propiedad al vuelo porque el modelo no tiene Property
+        colNomReceta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreReceta()));
 
-        // Celda con wrap + tooltip para ingredientes concatenados
-        colIngReceta.setCellFactory(_ -> new TableCell<Receta, String>() {
+        // Celda con wrap + tooltip
+        colIngReceta.setCellFactory(column -> new TableCell<Receta, String>() {
             private final javafx.scene.text.Text text = new javafx.scene.text.Text();
             {
-                text.wrappingWidthProperty().bind(colIngReceta.widthProperty().subtract(10));
+                text.wrappingWidthProperty().bind(column.widthProperty().subtract(10));
             }
-
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -116,36 +104,44 @@ public class RecetasController {
             }
         });
 
+        // CORRECCIÓN 2: Adaptado a la nueva lista de ingredientes (V2.0)
         colIngReceta.setCellValueFactory(cellData -> {
             Receta receta = cellData.getValue();
-            List<String> nombresInsumos = receta.getInsumos().stream()
-                    .map(Insumo::getNombre)
-                    .toList();
-            String ingredientesConcatenados = String.join(", ", nombresInsumos);
-            return new SimpleStringProperty(ingredientesConcatenados);
+            // Mapeamos los nombres de los ingredientes desde RecetaDetalle -> Ingrediente
+            List<String> nombres = receta.getIngredientes().stream()
+                    .map(detalle -> detalle.getIngrediente().getNombre())
+                    .collect(Collectors.toList());
+            
+            return new SimpleStringProperty(String.join(", ", nombres));
         });
     }
 
-    // ✅ MÉTODO ACTUALIZADO: ahora llena "chips" en el FlowPane
+    // MÉTODO ACTUALIZADO: Usa getIngredientes() y getCantidad()
     private void mostrarDetallesReceta(Receta receta) {
         paneDetallesReceta.setVisible(true);
         labelNombreReceta.setText(receta.getNombreReceta());
         flowIngredientes.getChildren().clear();
 
-        for (InsumoReceta insumoReceta : receta.getInsumosReceta()) {
-            Insumo insumo = insumoReceta.getInsumo();
+        for (RecetaDetalle detalle : receta.getIngredientes()) { // CAMBIO: getIngredientes
+            Ingrediente ingrediente = detalle.getIngrediente();  // CAMBIO: getIngrediente
 
-            String textoIngrediente = String.format(
-                    "%s %d %s",
-                    insumo.getNombre(),
-                    (int) insumoReceta.getCantidadUtilizada(), // igual que tu lógica previa
-                    insumoReceta.getUnidad());
+            // Formateo lindo para decimales
+            double cantidad = detalle.getCantidad(); // CAMBIO: getCantidad (double)
+            String cantStr = (cantidad == Math.floor(cantidad)) 
+                    ? String.format("%.0f", cantidad) 
+                    : String.valueOf(cantidad);
 
-            Label chip = new Label(textoIngrediente);
-            // Estilo chip simple (podés pasarlo a tu CSS global con una clase, ej. .chip)
-            chip.getStyleClass().add("chip");
+            String texto = String.format("%s %s %s", ingrediente.getNombre(), cantStr, detalle.getUnidad());
 
-            chip.setTooltip(new Tooltip(textoIngrediente));
+            Label chip = new Label(texto);
+            chip.getStyleClass().add("chip"); // Asegurate de tener .chip en tu CSS o usásetStyle
+            chip.setTooltip(new Tooltip(texto));
+            
+            // Si no tenés la clase chip, le damos un estilo básico inline para que se vea bien igual
+            if (chip.getStyleClass().size() == 1) { 
+                chip.setStyle("-fx-background-color: #e0e0e0; -fx-background-radius: 15; -fx-padding: 5 10; -fx-border-color: #bdbdbd; -fx-border-radius: 15;");
+            }
+            
             flowIngredientes.getChildren().add(chip);
         }
     }
@@ -155,21 +151,25 @@ public class RecetasController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevaReceta.fxml"));
             Parent root = loader.load();
             NuevaRecetaController dialogController = loader.getController();
+            
             if (receta != null) {
                 dialogController.cargarRecetaParaModificar(receta);
                 dialogController.setTitulo("Editar Receta");
             } else {
                 dialogController.setTitulo("Nueva Receta");
             }
+            
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(receta == null ? "Agregar Receta" : "Modificar Receta");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            cargarRecetas();
+            
+            cargarRecetas(); // Recargar tabla al volver
+            
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarError("No se pudo cargar el diálogo de la receta. Intenta nuevamente.");
+            mostrarError("No se pudo cargar la ventana de receta.");
         }
     }
 
@@ -183,41 +183,55 @@ public class RecetasController {
 
     @FXML
     void handleVolver(ActionEvent event) {
-        ActionLogger.log("El usuario regresó al menú principal desde la pantalla de gestión de recetas.");
+        ActionLogger.log("Regreso al menú principal.");
         SceneLoader.handleVolver(event, Paths.MAINMENU, "/css/mainMenu.css", false);
     }
 
     @FXML
     void handleAgregar(ActionEvent event) {
-        ActionLogger.log("El usuario quiere agregar una nueva receta.");
+        ActionLogger.log("Abriendo nueva receta.");
         abrirPanelReceta(null);
     }
 
     @FXML
     void handleModificar(ActionEvent event) {
-        Receta recetaSeleccionada = tableRecetas.getSelectionModel().getSelectedItem();
-        if (recetaSeleccionada != null) {
-            ActionLogger.log("El usuario quiere modificar la receta: " + recetaSeleccionada.getNombreReceta());
-            abrirPanelReceta(recetaSeleccionada);
+        Receta seleccionada = tableRecetas.getSelectionModel().getSelectedItem();
+        if (seleccionada != null) {
+            ActionLogger.log("Modificando receta: " + seleccionada.getNombreReceta());
+            abrirPanelReceta(seleccionada);
         } else {
-            mostrarError("Por favor, selecciona una receta para modificar.");
+            mostrarError("Seleccioná una receta primero.");
         }
     }
 
     @FXML
     void handleEliminar(ActionEvent event) {
-        Receta recetaSeleccionada = tableRecetas.getSelectionModel().getSelectedItem();
-        if (recetaSeleccionada != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmación de Eliminación");
-            alert.setHeaderText("¿Estás seguro de que deseas eliminar esta receta?");
-            alert.setContentText("Esta acción no se puede deshacer.");
+        Receta seleccionada = tableRecetas.getSelectionModel().getSelectedItem();
 
-            if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-                ActionLogger.log("El usuario quiere eliminar la receta: " + recetaSeleccionada.getNombreReceta());
-                RecetaDAO recetaDAO = new RecetaDAO();
-                recetaDAO.delete(recetaSeleccionada);
-                cargarRecetas();
+        if (seleccionada != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, 
+                "¿Eliminar '" + seleccionada.getNombreReceta() + "'?\nEsta acción no se puede deshacer.",
+                ButtonType.YES, ButtonType.NO);
+            alert.setHeaderText("Confirmar eliminación");
+
+            if (alert.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
+                try {
+                    RecetaDAO dao = new RecetaDAO();
+                    dao.delete(seleccionada);
+                    
+                    ActionLogger.log("Receta eliminada: " + seleccionada.getNombreReceta());
+                    cargarRecetas();
+                    paneDetallesReceta.setVisible(false);
+
+                } catch (Exception e) {
+                    // Manejo específico si hay restricción de FK (Producto usando Receta)
+                    Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+                    errorAlert.setTitle("No se puede eliminar");
+                    errorAlert.setHeaderText("Receta en uso");
+                    errorAlert.setContentText("No podés borrar esta receta porque está asociada a un PRODUCTO activo.\n\n" +
+                            "Primero desvinculá o eliminá el producto.");
+                    errorAlert.showAndWait();
+                }
             }
         }
     }

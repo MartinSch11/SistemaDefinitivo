@@ -9,8 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.CatalogoInsumo;
-import persistence.dao.CatalogoInsumoDAO;
+import model.Ingrediente;
+import persistence.dao.IngredienteDAO;
 import utilities.ActionLogger;
 
 import java.io.IOException;
@@ -19,18 +19,18 @@ import java.util.Optional;
 
 public class TableInsumosController {
 
-    @FXML private TableView<CatalogoInsumo> tableInsumos;
-    @FXML private TableColumn<CatalogoInsumo, String> colInsumo;
-    @FXML private TableColumn<CatalogoInsumo, String> colProveedor;
+    @FXML private TableView<Ingrediente> tableInsumos;
+    @FXML private TableColumn<Ingrediente, String> colInsumo;
+    @FXML private TableColumn<Ingrediente, String> colProveedor;
     @FXML private Button btnAgregar;
     @FXML private Button btnModificar;
     @FXML private Button btnEliminar;
 
-    private CatalogoInsumoDAO catalogoInsumoDAO;
-    private ObservableList<CatalogoInsumo> catalogoList;
+    private IngredienteDAO catalogoInsumoDAO;
+    private ObservableList<Ingrediente> catalogoList;
 
     public TableInsumosController() {
-        catalogoInsumoDAO = new CatalogoInsumoDAO();
+        catalogoInsumoDAO = new IngredienteDAO();
     }
 
     @FXML
@@ -81,7 +81,7 @@ public class TableInsumosController {
 
     @FXML
     private void handleModificar() {
-        CatalogoInsumo insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
+        Ingrediente insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
         if (insumoSeleccionado != null) {
             // Registro de la acción del usuario
             ActionLogger.log("El usuario modificó el insumo del catálogo: " + insumoSeleccionado.getNombre());
@@ -102,34 +102,44 @@ public class TableInsumosController {
 
     @FXML
     private void handleEliminar() {
-        CatalogoInsumo insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
+        Ingrediente insumoSeleccionado = tableInsumos.getSelectionModel().getSelectedItem();
 
         if (insumoSeleccionado != null) {
-
-            // Mostrar mensaje de confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar eliminación");
             alert.setHeaderText(null);
             alert.setContentText("¿Desea eliminar el insumo? Esta acción no se puede deshacer.");
 
-            // Esperar respuesta del usuario
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                // Registro de la acción del usuario
-                ActionLogger.log("El usuario eliminó el insumo del catálogo: " + insumoSeleccionado.getNombre());
-
-                // Eliminación en BD
-                catalogoInsumoDAO.delete(insumoSeleccionado);
-
-                // Eliminación en la tabla
-                catalogoList.remove(insumoSeleccionado);
+                try {
+                    // Intentamos borrar
+                    catalogoInsumoDAO.delete(insumoSeleccionado);
+                    
+                    // Si no explotó, actualizamos la tabla y logueamos
+                    catalogoList.remove(insumoSeleccionado);
+                    ActionLogger.log("El usuario eliminó el insumo del catálogo: " + insumoSeleccionado.getNombre());
+                    
+                } catch (Exception e) {
+                    // ACÁ ESTÁ LA MAGIA: Si falla por integridad referencial, caemos acá.
+                    // (Generalmente es RollbackException o PersistenceException)
+                    
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("No se puede eliminar");
+                    errorAlert.setHeaderText("El insumo está en uso");
+                    errorAlert.setContentText("No podés eliminar este insumo porque hay recetas o stock que lo están usando.\n\n" +
+                                              "Primero eliminá las recetas/stock asociados o modificalo en lugar de borrarlo.");
+                    errorAlert.showAndWait();
+                    
+                    // Opcional: Imprimir el error real en consola para vos
+                    System.err.println("Error al eliminar insumo: " + e.getMessage());
+                }
             }
         }
     }
 
-
-    private void abrirFormularioInsumo(CatalogoInsumo insumo) {
+    private void abrirFormularioInsumo(Ingrediente insumo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoInsumo.fxml"));
             Stage stage = new Stage();
@@ -151,7 +161,7 @@ public class TableInsumosController {
     }
 
     public void cargarInsumos() {
-        List<CatalogoInsumo> catalogo = catalogoInsumoDAO.findAll();
+        List<Ingrediente> catalogo = catalogoInsumoDAO.findAll();
         catalogoList = FXCollections.observableArrayList(catalogo);
         tableInsumos.setItems(catalogoList);
         tableInsumos.refresh(); // Forzar refresco visual

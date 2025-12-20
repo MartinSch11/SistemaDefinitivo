@@ -15,9 +15,11 @@ import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 import utilities.Paths;
 import utilities.SceneLoader;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class ProveedoresController {
     @FXML
@@ -55,12 +57,43 @@ public class ProveedoresController {
         // Configuración de las columnas
         colCuit.setCellValueFactory(new PropertyValueFactory<>("cuit"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        // Mostrar insumos de catalogo_insumo usando el DAO
+        /// 1. EL DATO: En vez de confiar en lo que tiene el objeto memoria,
+        // le preguntamos a la base de datos "Che, ¿qué insumos tiene este proveedor?".
         colInsumo.setCellValueFactory(cellData -> {
-            Proveedor proveedor = cellData.getValue();
-            java.util.List<String> insumos = proveedorDAO.findInsumosByProveedor(proveedor.getNombre());
-            String insumosStr = insumos.isEmpty() ? "No tiene insumos" : String.join(", ", insumos);
-            return new javafx.beans.property.SimpleStringProperty(insumosStr);
+            Proveedor p = cellData.getValue();
+            // Usamos tu DAO para buscar los insumos por nombre EN ESTE MOMENTO
+            List<String> insumos = proveedorDAO.findInsumosByProveedor(p.getNombre());
+            
+            String texto;
+            if (insumos == null || insumos.isEmpty()) {
+                texto = "No tiene insumos";
+            } else {
+                // Unimos la lista con comas (Ej: "Harina, Huevo, Azucar")
+                texto = String.join(", ", insumos);
+            }
+            
+            return new javafx.beans.property.SimpleStringProperty(texto);
+        });
+
+        // 2. EL DISEÑO (WRAP): Esto lo tenías bien, dejalo así que es lo que hace que baje el renglón.
+        colInsumo.setCellFactory(columna -> {
+            return new TableCell<Proveedor, String>() {
+                private final Text text = new Text();
+                {
+                    text.wrappingWidthProperty().bind(columna.widthProperty().subtract(10));
+                }
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setGraphic(null);
+                        setText(null); // Limpiamos texto plano por las dudas
+                    } else {
+                        text.setText(item);
+                        setGraphic(text);
+                    }
+                }
+            };
         });
         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         colUbicacion.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
@@ -119,17 +152,37 @@ public class ProveedoresController {
         if (proveedorSeleccionado != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");
-            alert.setHeaderText("Estás a punto de eliminar a " + proveedorSeleccionado.getNombre());
-            alert.setContentText("¿Estás seguro de que deseas eliminar a este proveedor?");
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
+            alert.setHeaderText("Eliminar Proveedor");
+            alert.setContentText("¿Estás seguro de que deseas eliminar a: " + proveedorSeleccionado.getNombre()
+                    + "?\nEsta acción no se puede deshacer.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                try {
+                    // 1. INTENTO DE BORRADO
                     proveedorDAO.delete(proveedorSeleccionado);
-                    cargarDatos();
-                    mostrarAlerta("Proveedor eliminado", "El proveedor ha sido eliminado exitosamente.",
+
+                    // 2. ACTUALIZAR TABLA
+                    proveedoresList.remove(proveedorSeleccionado);
+                    tableViewProveedores.refresh();
+
+                    mostrarAlerta("Éxito", "El proveedor ha sido eliminado correctamente.",
                             Alert.AlertType.INFORMATION);
                     ActionLogger.log("El usuario eliminó el proveedor: " + proveedorSeleccionado.getNombre());
+
+                } catch (Exception e) {
+                    // 3. ATAJAMOS EL ERROR DE INTEGRIDAD
+                    Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+                    errorAlert.setTitle("No se puede eliminar");
+                    errorAlert.setHeaderText("Proveedor con historial");
+                    errorAlert.setContentText("No podés eliminar a '" + proveedorSeleccionado.getNombre() +
+                            "' porque ya tenés INSUMOS cargados o un HISTORIAL DE COMPRAS con él.\n\n" +
+                            "El sistema protege esos registros contables.");
+                    errorAlert.showAndWait();
+
+                    System.err.println("Error al eliminar proveedor: " + e.getMessage());
                 }
-            });
+            }
         } else {
             mostrarAlerta("Selección requerida", "Por favor, selecciona un proveedor para eliminar.",
                     Alert.AlertType.WARNING);

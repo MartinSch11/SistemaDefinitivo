@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Insumo;
+import model.Lote;
 import persistence.dao.InsumoDAO;
 import utilities.Paths;
 import utilities.SceneLoader;
@@ -23,24 +23,16 @@ import java.util.stream.Collectors;
 
 public class StockController {
 
-    @FXML
-    private TableView<InsumoViewModel> tableInsumos;
-    @FXML
-    private TableColumn<InsumoViewModel, String> colNombre;
-    @FXML
-    private TableColumn<InsumoViewModel, String> colFechaCompra;
-    @FXML
-    private TableColumn<InsumoViewModel, String> colCaducidad;
-    @FXML
-    private TableColumn<InsumoViewModel, String> colCantidad;
-    @FXML
-    private TableColumn<InsumoViewModel, String> colProveedor;
-    @FXML
-    private TextField txtBuscar;
+    @FXML private TableView<InsumoViewModel> tableInsumos;
+    @FXML private TableColumn<InsumoViewModel, String> colNombre;
+    @FXML private TableColumn<InsumoViewModel, String> colFechaCompra;
+    @FXML private TableColumn<InsumoViewModel, String> colCaducidad;
+    @FXML private TableColumn<InsumoViewModel, String> colCantidad;
+    @FXML private TableColumn<InsumoViewModel, String> colProveedor;
+    @FXML private TextField txtBuscar;
 
     private final InsumoDAO insumoDAO = new InsumoDAO();
-    private final javafx.collections.ObservableList<InsumoViewModel> insumosObservable = javafx.collections.FXCollections
-            .observableArrayList();
+    private final javafx.collections.ObservableList<InsumoViewModel> insumosObservable = javafx.collections.FXCollections.observableArrayList();
 
     public void initialize() {
         colNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
@@ -60,21 +52,25 @@ public class StockController {
     private void cargarInsumos() {
         insumosObservable.clear();
 
-        // Asegurate de que InsumoDAO haga una consulta nueva a la DB
-        List<Insumo> insumosActualizados = insumoDAO.findAll(); // asegurate de no usar objetos cacheados
+        List<Lote> insumosActualizados = insumoDAO.findAll(); 
 
         List<InsumoViewModel> viewModels = insumosActualizados.stream()
-                .filter(i -> i.getCantidad() > 0.0001)
+                // CORRECCIÓN: getCantidadActual()
+                .filter(i -> i.getCantidadActual() > 0.0001)
                 .map(insumo -> {
                     InsumoViewModel vm = new InsumoViewModel(insumo);
-                    // Formatear cantidad: sin decimales si es entero, con dos decimales si no
-                    double cantidad = insumo.getCantidad();
+                    
+                    // CORRECCIÓN: getCantidadActual()
+                    double cantidad = insumo.getCantidadActual();
                     String medida = insumo.getMedida();
-                    String cantidadStr = (cantidad == Math.floor(cantidad)) ? String.format("%.0f", cantidad)
+                    
+                    String cantidadStr = (cantidad == Math.floor(cantidad)) 
+                            ? String.format("%.0f", cantidad)
                             : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
-                    // Eliminar ".0" si el número es entero (por si acaso)
+                    
                     if (cantidadStr.endsWith(".00"))
                         cantidadStr = cantidadStr.substring(0, cantidadStr.length() - 3);
+                    
                     vm.setCantidad(cantidadStr + " " + (medida != null ? medida : ""));
                     return vm;
                 })
@@ -89,13 +85,21 @@ public class StockController {
             return;
         }
         String filtroLower = filtro.toLowerCase();
+        
         List<InsumoViewModel> filtrados = insumoDAO.findAll().stream()
-                .filter(i -> i.getNombre().toLowerCase().contains(filtroLower)
-                        || (i.getCatalogoInsumo() != null && i.getCatalogoInsumo().getEstado() != null
-                                && i.getCatalogoInsumo().getEstado().toLowerCase().contains(filtroLower)))
-                .filter(i -> i.getCantidad() > 0.0001)
+                .filter(i -> {
+                    // CORRECCIÓN: Usamos getIngrediente() (o getNombre() helper si lo tiene)
+                    String nombre = i.getIngrediente() != null ? i.getIngrediente().getNombre() : "";
+                    String estado = i.getIngrediente() != null ? i.getIngrediente().getEstado() : "";
+                    
+                    return nombre.toLowerCase().contains(filtroLower)
+                            || estado.toLowerCase().contains(filtroLower);
+                })
+                // CORRECCIÓN: getCantidadActual()
+                .filter(i -> i.getCantidadActual() > 0.0001)
                 .map(InsumoViewModel::new)
                 .collect(Collectors.toList());
+                
         tableInsumos.setItems(FXCollections.observableArrayList(filtrados));
     }
 
@@ -104,8 +108,12 @@ public class StockController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/StockForm.fxml"));
             AnchorPane root = loader.load();
-            StockFormController formController = loader.getController();
+            
+            // Ojo acá: StockFormController seguro necesitará ajuste si lo usás, 
+            // pero por ahora que compile este archivo.
+            controller.StockFormController formController = loader.getController();
             formController.setStockController(this);
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Agregar Insumo");
@@ -130,8 +138,7 @@ public class StockController {
     @FXML
     private void abrirHistorialCompras(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/pasteleria/HistorialComprasDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/HistorialComprasDialog.fxml"));
             AnchorPane root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -147,17 +154,16 @@ public class StockController {
     @FXML
     private void abrirInsumosFaltantes(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/pasteleria/InsumosFaltantesDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/InsumosFaltantesDialog.fxml"));
             AnchorPane root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Historial de compras de insumos");
+            stage.setTitle("Insumos Faltantes");
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
-            ActionLogger.log("Error al abrir el historial de compras: " + e.getMessage());
+            ActionLogger.log("Error al abrir insumos faltantes: " + e.getMessage());
         }
     }
 }

@@ -4,7 +4,7 @@ import model.Evento;
 import model.Notificacion;
 import model.NotificacionEntity;
 import model.Pedido;
-import model.Insumo;
+import model.Lote;
 import model.Agenda;
 import persistence.dao.*;
 
@@ -22,8 +22,7 @@ public class NotificacionService {
     public List<Notificacion> obtenerTodasLasNotificaciones(
             int diasAnticipoEventos,
             int diasAnticipoCaducidad,
-            int diasAnticipoPedidos
-    ) {
+            int diasAnticipoPedidos) {
         List<Notificacion> notificaciones = new ArrayList<>();
         LocalDate hoy = LocalDate.now();
 
@@ -36,10 +35,13 @@ public class NotificacionService {
         Map<LocalDate, Long> pendientesPorDia = pedidos.stream()
                 .filter(p -> {
                     LocalDate f = p.getFechaEntrega();
-                    if (f == null) return false;
-                    if (f.isBefore(hoy) || f.isAfter(limitePedidos)) return false;
+                    if (f == null)
+                        return false;
+                    if (f.isBefore(hoy) || f.isAfter(limitePedidos))
+                        return false;
                     String estado = p.getEstadoPedido();
-                    return !(estado != null && (estado.equalsIgnoreCase("Hecho") || estado.equalsIgnoreCase("Entregado")));
+                    return !(estado != null
+                            && (estado.equalsIgnoreCase("Hecho") || estado.equalsIgnoreCase("Entregado")));
                 })
                 .collect(Collectors.groupingBy(Pedido::getFechaEntrega, Collectors.counting()));
 
@@ -58,27 +60,31 @@ public class NotificacionService {
             notificaciones.add(new Notificacion(mensaje, "Pedidos", hoy));
         }
 
-        // --- INSUMOS por caducar ---
+        // --- INSUMOS (LOTES) por caducar ---
         InsumoDAO insumoDAO = new InsumoDAO();
-        List<Insumo> insumos = insumoDAO.findAll();
+        List<Lote> insumos = insumoDAO.findAll(); // Ahora trae Lotes
         LocalDate limiteCaducidad = hoy.plusDays(diasAnticipoCaducidad);
 
-        for (Insumo insumo : insumos) {
-            if (insumo.getFechaCaducidad() != null && insumo.getCantidad() > 0) {
-                LocalDate caducidad = insumo.getFechaCaducidad();
+        for (Lote lote : insumos) {
+            // CORRECCIÓN: Usamos getCantidadActual()
+            if (lote.getFechaCaducidad() != null && lote.getCantidadActual() > 0) {
+                LocalDate caducidad = lote.getFechaCaducidad();
+
                 if (!caducidad.isBefore(hoy) && !caducidad.isAfter(limiteCaducidad)) {
                     long diasRestantes = ChronoUnit.DAYS.between(hoy, caducidad);
-                    String nombre = insumo.getCatalogoInsumo() != null
-                            ? insumo.getCatalogoInsumo().getNombre()
-                            : "Insumo";
+
+                    // CORRECCIÓN: Usamos getIngrediente() en vez de getCatalogoInsumo()
+                    String nombre = lote.getIngrediente() != null
+                            ? lote.getIngrediente().getNombre()
+                            : "Insumo Desconocido";
+
                     String mensaje = String.format(
-                            "El insumo '%s' vence %s (%s)",
+                            "El lote de '%s' vence %s (%s)",
                             nombre,
                             humanizaDias(diasRestantes).toLowerCase(),
-                            caducidad
-                    );
+                            caducidad);
 
-                    guardarNotificacionSiNoExiste(mensaje, "Insumos", hoy);
+                    guardarNotificacionSiNoExiste(mensaje, "Inventario", hoy);
                     notificaciones.add(new Notificacion(mensaje, nombre, hoy));
                 }
             }
@@ -91,10 +97,12 @@ public class NotificacionService {
 
         for (Evento evento : eventos) {
             LocalDate fecha = evento.getFecha_evento();
-            if (fecha == null || fecha.isBefore(hoy) || fecha.isAfter(hastaEventos)) continue;
+            if (fecha == null || fecha.isBefore(hoy) || fecha.isAfter(hastaEventos))
+                continue;
 
             Evento eventoConItems = eventoDAO.findByIdWithItems(evento.getId());
-            if (eventoConItems == null) continue;
+            if (eventoConItems == null)
+                continue;
 
             long sinTerminar = eventoConItems.getItems() == null ? 0
                     : eventoConItems.getItems().stream().filter(it -> !it.isHecho()).count();
@@ -104,13 +112,13 @@ public class NotificacionService {
 
             String msg = (sinTerminar > 0)
                     ? String.format("%s hay evento: '%s' y hay %d %s por terminar",
-                                    cuando,
-                                    eventoConItems.getNombre_evento(),
-                                    sinTerminar,
-                                    plural(sinTerminar, "producto", "productos"))
+                            cuando,
+                            eventoConItems.getNombre_evento(),
+                            sinTerminar,
+                            plural(sinTerminar, "producto", "productos"))
                     : String.format("%s hay evento: '%s'",
-                                    cuando,
-                                    eventoConItems.getNombre_evento());
+                            cuando,
+                            eventoConItems.getNombre_evento());
 
             guardarNotificacionSiNoExiste(msg, "Eventos", hoy);
             notificaciones.add(new Notificacion(msg, eventoConItems.getNombre_evento(), hoy));
@@ -125,9 +133,11 @@ public class NotificacionService {
         for (Agenda tarea : tareasSemana) {
             if (tarea.getEstado() == null || tarea.getEstado().equalsIgnoreCase("Pendiente")) {
                 LocalDate fechaTarea = tarea.getFecha();
-                if (fechaTarea == null) continue;
+                if (fechaTarea == null)
+                    continue;
                 long diasRestantes = ChronoUnit.DAYS.between(hoy, fechaTarea);
-                if (diasRestantes < 0) continue;
+                if (diasRestantes < 0)
+                    continue;
 
                 String cuando = humanizaDias(diasRestantes);
                 String mensaje = String.format("%s tienes una tarea pendiente: '%s'",
@@ -141,7 +151,10 @@ public class NotificacionService {
         return notificaciones;
     }
 
-    /** Compatibilidad hacia atrás: delega a la versión con 3 parámetros (pedidos=1 día por defecto). */
+    /**
+     * Compatibilidad hacia atrás: delega a la versión con 3 parámetros (pedidos=1
+     * día por defecto).
+     */
     public List<Notificacion> obtenerTodasLasNotificaciones(int diasAnticipoEventos, int diasAnticipoCaducidad) {
         return obtenerTodasLasNotificaciones(diasAnticipoEventos, diasAnticipoCaducidad, 1);
     }
@@ -161,8 +174,10 @@ public class NotificacionService {
     }
 
     private static String humanizaDias(long dias) {
-        if (dias == 0) return "Hoy";
-        if (dias == 1) return "Mañana";
+        if (dias == 0)
+            return "Hoy";
+        if (dias == 1)
+            return "Mañana";
         return "En " + dias + " " + plural(dias, "día", "días");
     }
 }

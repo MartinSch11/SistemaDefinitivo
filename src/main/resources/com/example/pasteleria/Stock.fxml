@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockController">
+<AnchorPane prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockController">
    <children>
       <Pane prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: f7ede3;">
          <children>
             <Pane prefHeight="55.0" prefWidth="1360.0" style="-fx-background-color: B70505;">
                <children>
-                  <Label layoutX="650.0" layoutY="14.0" text="Stock" textFill="WHITE">
+                  <Label layoutX="631.0" layoutY="12.0" text="Inventario" textFill="WHITE">
                      <font>
                         <Font name="Inter Regular" size="22.0" />
                      </font>

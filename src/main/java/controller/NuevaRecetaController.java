@@ -11,12 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.CatalogoInsumo;
-import model.Insumo;
-import model.InsumoReceta;
+import model.Ingrediente;
+import model.RecetaDetalle;
 import model.Receta;
-import persistence.dao.CatalogoInsumoDAO;
-import persistence.dao.InsumoDAO;
+import persistence.dao.IngredienteDAO; // Asumo que este DAO ahora maneja la entidad Ingrediente
 import persistence.dao.RecetaDAO;
 import utilities.ActionLogger;
 
@@ -25,75 +23,83 @@ import java.io.IOException;
 public class NuevaRecetaController {
 
     @FXML private TextField txtNomReceta;
-    @FXML private ComboBox<CatalogoInsumo> cmbIngredientes;
+    @FXML private ComboBox<Ingrediente> cmbIngredientes;
     @FXML private TextField txtCantIngrediente;
     @FXML private ComboBox<String> cmbUnidad;
     @FXML private Button btnAgregar;
     @FXML private Button btnEditar;
-    @FXML private TableView<InsumoReceta> tableIngredientes;
-    @FXML private TableColumn<InsumoReceta, String> colIngrediente;
-    @FXML private TableColumn<InsumoReceta, String> colCantidad;
+    @FXML private TableView<RecetaDetalle> tableIngredientes;
+    @FXML private TableColumn<RecetaDetalle, String> colIngrediente;
+    @FXML private TableColumn<RecetaDetalle, String> colCantidad;
     @FXML private Button btnEliminar;
     @FXML private Button btnCancelar;
     @FXML private Button btnGuardar;
-    @FXML private GridPane gridAcciones; // Grid de Agregar/Editar/Eliminar
-    @FXML private GridPane gridEdicion;  // Grid de Guardar cambios/Cancelar edición
+    @FXML private GridPane gridAcciones; 
+    @FXML private GridPane gridEdicion;  
     @FXML private Button btnGuardarCambios;
     @FXML private Button btnCancelarEdicion;
     @FXML private Label lblTitulo;
 
-    private ObservableList<InsumoReceta> listaInsumosReceta = FXCollections.observableArrayList();
+    private ObservableList<RecetaDetalle> listaInsumosReceta = FXCollections.observableArrayList();
     private RecetaDAO recetaDAO = new RecetaDAO();
     private Receta recetaModificada;
 
+    private IngredienteDAO ingredienteDAO = new IngredienteDAO(); 
+
     @FXML
     public void initialize() {
-        colIngrediente
-                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsumo().getNombre()));
+        // 1. Configurar Columna Nombre (Ahora navegamos getIngrediente())
+        colIngrediente.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getIngrediente().getNombre()));
+
+        // 2. Configurar Columna Cantidad (Ahora es getCantidad() y es double)
         colCantidad.setCellValueFactory(cellData -> {
-            InsumoReceta insumoReceta = cellData.getValue();
-            double cantidad = insumoReceta.getCantidadUtilizada();
-            int cantidadInt = (int) cantidad;
-            String cantidadStr = (cantidad == cantidadInt) ? String.valueOf(cantidadInt) : String.valueOf(cantidad);
-            return new SimpleStringProperty(cantidadStr + " " + insumoReceta.getUnidad());
+            RecetaDetalle detalle = cellData.getValue();
+            double cantidad = detalle.getCantidad();
+            // Formateo visual para quitar decimales .0
+            String cantidadStr = (cantidad == Math.floor(cantidad)) 
+                    ? String.format("%.0f", cantidad) 
+                    : String.format(java.util.Locale.ROOT, "%.2f", cantidad);
+            
+            return new SimpleStringProperty(cantidadStr + " " + detalle.getUnidad());
         });
 
-        cmbIngredientes.setItems(FXCollections.observableArrayList(new CatalogoInsumoDAO().findAll()));
+        // 3. Cargar Combo de Ingredientes
+        cmbIngredientes.setItems(FXCollections.observableArrayList(ingredienteDAO.findAll()));
         cmbUnidad.setItems(FXCollections.observableArrayList("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES"));
 
-        // Mostrar solo el nombre en el ComboBox de ingredientes
-        cmbIngredientes.setCellFactory(_ -> new ListCell<>() {
+        // Renderizado del ComboBox (Nombre del ingrediente)
+        cmbIngredientes.setCellFactory(lv -> new ListCell<>() {
             @Override
-            protected void updateItem(CatalogoInsumo item, boolean empty) {
+            protected void updateItem(Ingrediente item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getNombre());
             }
         });
         cmbIngredientes.setButtonCell(new ListCell<>() {
             @Override
-            protected void updateItem(CatalogoInsumo item, boolean empty) {
+            protected void updateItem(Ingrediente item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getNombre());
             }
         });
 
-        // Listener para filtrar unidades según el estado del insumo seleccionado
-        cmbIngredientes.valueProperty().addListener((_, _, newCatalogo) -> {
-            filtrarUnidadesPorEstado(newCatalogo);
-        });
+        // Listener para filtrar unidades
+        cmbIngredientes.valueProperty().addListener((obs, oldVal, newVal) -> filtrarUnidadesPorEstado(newVal));
 
         tableIngredientes.setItems(listaInsumosReceta);
         btnEliminar.setDisable(true);
 
-        tableIngredientes.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) -> {
-            btnEliminar.setDisable(newSelection == null);
-            btnEditar.setDisable(newSelection == null);
+        tableIngredientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean haySeleccion = (newSelection != null);
+            btnEliminar.setDisable(!haySeleccion);
+            btnEditar.setDisable(!haySeleccion);
         });
 
-        // Filtro para que txtCantIngrediente solo acepte números enteros
-        txtCantIngrediente.setTextFormatter(new TextFormatter<String>(change -> {
+        // Filtro para input numérico (permite decimales ahora con \\d*\\.?\\d*)
+        txtCantIngrediente.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
-            if (newText.matches("\\d*")) {
+            if (newText.matches("\\d*\\.?\\d*")) { 
                 return change;
             }
             return null;
@@ -103,32 +109,19 @@ public class NuevaRecetaController {
         gridAcciones.setVisible(true);
     }
 
-    /**
-     * Filtra las unidades de medida disponibles según el estado del insumo
-     * seleccionado.
-     * LÍQUIDO: ML, L
-     * SÓLIDO: GR, KG
-     * UNIDAD: UNIDAD, UNIDADES
-     */
-    private void filtrarUnidadesPorEstado(CatalogoInsumo catalogoInsumo) {
+    private void filtrarUnidadesPorEstado(Ingrediente ingrediente) {
         cmbUnidad.getItems().clear();
-        String estado = (catalogoInsumo != null) ? catalogoInsumo.getEstado() : null;
+        String estado = (ingrediente != null) ? ingrediente.getEstado() : null;
+        
         if (estado == null) {
             cmbUnidad.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
             return;
         }
         switch (estado) {
-            case "LÍQUIDO":
-                cmbUnidad.getItems().addAll("ML", "L");
-                break;
-            case "SÓLIDO":
-                cmbUnidad.getItems().addAll("GR", "KG");
-                break;
-            case "UNIDAD":
-                cmbUnidad.getItems().addAll("UNIDAD", "UNIDADES");
-                break;
-            default:
-                cmbUnidad.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
+            case "LÍQUIDO": cmbUnidad.getItems().addAll("ML", "L"); break;
+            case "SÓLIDO": cmbUnidad.getItems().addAll("GR", "KG"); break;
+            case "UNIDAD": cmbUnidad.getItems().addAll("UNIDAD", "UNIDADES"); break;
+            default: cmbUnidad.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
         }
         if (!cmbUnidad.getItems().isEmpty()) {
             cmbUnidad.setValue(cmbUnidad.getItems().get(0));
@@ -137,70 +130,51 @@ public class NuevaRecetaController {
 
     @FXML
     private void handleAgregar(ActionEvent event) {
-        // Validación de campos obligatorios
-        if (cmbIngredientes.getValue() == null || txtCantIngrediente.getText().isEmpty()
-                || cmbUnidad.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos para agregar un ingrediente.");
+        if (cmbIngredientes.getValue() == null || txtCantIngrediente.getText().isEmpty() || cmbUnidad.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos.");
             return;
         }
 
         try {
-            int cantidad = Integer.parseInt(txtCantIngrediente.getText());
-            CatalogoInsumo catalogoSeleccionado = cmbIngredientes.getValue();
+            double cantidad = Double.parseDouble(txtCantIngrediente.getText());
+            Ingrediente ingredienteSeleccionado = cmbIngredientes.getValue();
             String unidadSeleccionada = cmbUnidad.getValue();
 
             // Verificar duplicados
-            boolean ingredienteYaExiste = listaInsumosReceta.stream()
-                    .anyMatch(insumoReceta -> insumoReceta.getInsumo().getCatalogoInsumo().equals(catalogoSeleccionado));
+            boolean yaExiste = listaInsumosReceta.stream()
+                    .anyMatch(d -> d.getIngrediente().getId().equals(ingredienteSeleccionado.getId()));
 
-            if (ingredienteYaExiste) {
+            if (yaExiste) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Este ingrediente ya está en la receta.");
                 return;
             }
 
-            // Buscar el Insumo persistente asociado al CatalogoInsumo seleccionado
-            InsumoDAO insumoDAO = new InsumoDAO();
-            Insumo insumoPersistente = insumoDAO.findByCatalogoInsumoId(catalogoSeleccionado.getId());
-            if (insumoPersistente == null) {
-                // Crear insumo nuevo con cantidad 0 y datos mínimos
-                insumoPersistente = new Insumo();
-                insumoPersistente.setCatalogoInsumo(catalogoSeleccionado);
-                insumoPersistente.setNombre(catalogoSeleccionado.getNombre());
-                insumoPersistente.setCantidad(0.0);
-                insumoPersistente.setMedida(unidadSeleccionada);
-                insumoDAO.save(insumoPersistente);
-            }
+            // CAMBIO IMPORTANTE: Creamos RecetaDetalle apuntando al Ingrediente, no al Lote
+            // (El primer parámetro es la receta, que se asigna al guardar)
+            RecetaDetalle nuevoDetalle = new RecetaDetalle(null, ingredienteSeleccionado, cantidad, unidadSeleccionada);
+            
+            listaInsumosReceta.add(nuevoDetalle);
 
-            // Crear nuevo objeto InsumoReceta y agregar a la lista
-            InsumoReceta nuevoInsumoReceta = new InsumoReceta(null, insumoPersistente, cantidad, unidadSeleccionada);
-            listaInsumosReceta.add(nuevoInsumoReceta);
+            ActionLogger.log("Ingrediente agregado: " + ingredienteSeleccionado.getNombre() + ", Cant: " + cantidad);
 
-            // Log de la acción
-            ActionLogger.log("Ingrediente agregado: " + catalogoSeleccionado.getNombre() + ", Cantidad: " + cantidad + " " + unidadSeleccionada);
-
-            // Limpiar campos después de agregar
-            cmbIngredientes.setValue(null);
-            txtCantIngrediente.clear();
-            cmbUnidad.setValue(null);
-
-            // Refrescar la tabla
+            limpiarFormulario();
             tableIngredientes.refresh();
+
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número entero válido.");
+            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido.");
         }
     }
 
     @FXML
     private void handleEliminar(ActionEvent event) {
-        InsumoReceta selectedInsumoReceta = tableIngredientes.getSelectionModel().getSelectedItem();
-        if (selectedInsumoReceta != null) {
-            if (recetaModificada != null && selectedInsumoReceta.getId() != null) {
-                // Eliminar de la base de datos si el insumo ya estaba almacenado
-                recetaDAO.eliminarInsumoDeReceta(selectedInsumoReceta.getId());
-                ActionLogger.log("Ingrediente eliminado de la receta: " + selectedInsumoReceta.getInsumo().getNombre());
+        RecetaDetalle seleccionado = tableIngredientes.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            // Si estamos editando una receta existente y el detalle ya tiene ID, lo borramos de la DB
+            if (recetaModificada != null && seleccionado.getId() != null) {
+                recetaDAO.eliminarInsumoDeReceta(seleccionado.getId());
+                ActionLogger.log("Ingrediente eliminado de receta: " + seleccionado.getIngrediente().getNombre());
             }
-            // Eliminar de la lista en memoria
-            listaInsumosReceta.remove(selectedInsumoReceta);
+            listaInsumosReceta.remove(seleccionado);
             tableIngredientes.getSelectionModel().clearSelection();
         }
     }
@@ -208,155 +182,109 @@ public class NuevaRecetaController {
     @FXML
     private void handleGuardar(ActionEvent event) {
         if (txtNomReceta.getText().isEmpty() || tableIngredientes.getItems().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar el nombre y agregar ingredientes.");
             return;
         }
-        RecetaDAO recetaDAO = new RecetaDAO();
+
         if (recetaModificada == null) {
+            // NUEVA RECETA
             recetaModificada = new Receta(txtNomReceta.getText());
-            for (InsumoReceta insumoReceta : listaInsumosReceta) {
-                insumoReceta.setReceta(recetaModificada);
-                recetaModificada.addInsumo(insumoReceta);
+            // Vinculamos los detalles a la receta padre
+            for (RecetaDetalle detalle : listaInsumosReceta) {
+                detalle.setReceta(recetaModificada);
+                recetaModificada.getIngredientes().add(detalle); // CAMBIO: getIngredientes()
             }
             recetaDAO.save(recetaModificada);
-            ActionLogger.log("Receta guardada: " + recetaModificada.getNombreReceta());
+            ActionLogger.log("Receta creada: " + recetaModificada.getNombreReceta());
         } else {
+            // EDICIÓN DE RECETA EXISTENTE
             recetaModificada.setNombreReceta(txtNomReceta.getText());
-            recetaModificada.getInsumosReceta().clear();
-            for (InsumoReceta insumoReceta : listaInsumosReceta) {
-                insumoReceta.setReceta(recetaModificada);
-                recetaModificada.addInsumo(insumoReceta);
+            
+            // Limpiamos la lista actual de la entidad para reemplazarla o actualizarla
+            recetaModificada.getIngredientes().clear();
+            
+            for (RecetaDetalle detalle : listaInsumosReceta) {
+                detalle.setReceta(recetaModificada);
+                recetaModificada.getIngredientes().add(detalle);
             }
             recetaDAO.update(recetaModificada);
             ActionLogger.log("Receta modificada: " + recetaModificada.getNombreReceta());
         }
-        // Cerrar ventana
+        
         ((Stage) btnGuardar.getScene().getWindow()).close();
     }
 
     @FXML
     private void handleCancelar(ActionEvent event) {
-        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmAlert.setTitle("Confirmar cancelación");
-        confirmAlert.setHeaderText("¿Estás seguro que quieres cancelar?");
-        confirmAlert.setContentText("Los cambios no guardados se perderán.");
-        ButtonType btnSi = new ButtonType("Sí", ButtonBar.ButtonData.YES);
-        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.NO);
-        confirmAlert.getButtonTypes().setAll(btnSi, btnNo);
-        confirmAlert.showAndWait().ifPresent(response -> {
-            if (response == btnSi) {
-                limpiarFormulario();
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
-                btnEditar.setText("Editar");
-                ActionLogger.log("Operación cancelada en la pantalla de nueva receta.");
-                // Cerrar ventana
-                Stage stage = (Stage) btnCancelar.getScene().getWindow();
-                stage.close();
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "¿Cancelar? Se perderán los cambios.", ButtonType.YES, ButtonType.NO);
+        confirm.showAndWait().ifPresent(resp -> {
+            if (resp == ButtonType.YES) {
+                ((Stage) btnCancelar.getScene().getWindow()).close();
             }
         });
     }
 
     @FXML
     private void handleEditar(ActionEvent event) {
-        InsumoReceta insumoRecetaSeleccionado = tableIngredientes.getSelectionModel().getSelectedItem();
-        if (insumoRecetaSeleccionado != null) {
-            if (btnEditar.getText().equals("Editar")) {
-                cargarDatosParaEdicion(insumoRecetaSeleccionado);
-                ActionLogger.log("Insumo de receta seleccionado para editar: "
-                        + insumoRecetaSeleccionado.getInsumo().getNombre());
-                // Cambios para modo edición
-                gridAcciones.setVisible(false);
-                gridEdicion.setVisible(true);
-                tableIngredientes.setDisable(true);
-                cmbIngredientes.setDisable(true);
-            } else {
-                actualizarIngrediente(insumoRecetaSeleccionado);
-                ActionLogger.log("Cambios guardados para ingrediente: " + insumoRecetaSeleccionado.getInsumo().getNombre());
-            }
+        RecetaDetalle seleccionado = tableIngredientes.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            cargarDatosParaEdicion(seleccionado);
+            gridAcciones.setVisible(false);
+            gridEdicion.setVisible(true);
+            tableIngredientes.setDisable(true);
+            cmbIngredientes.setDisable(true); // No dejamos cambiar el ingrediente, solo cantidad
         }
     }
 
     @FXML
     private void handleGuardarCambios(ActionEvent event) {
-        InsumoReceta insumoRecetaSeleccionado = tableIngredientes.getSelectionModel().getSelectedItem();
-        if (insumoRecetaSeleccionado != null) {
-            actualizarIngrediente(insumoRecetaSeleccionado);
-            // Restaurar estado
-            gridAcciones.setVisible(true);
-            gridEdicion.setVisible(false);
-            tableIngredientes.setDisable(false);
-            cmbIngredientes.setDisable(false);
+        RecetaDetalle seleccionado = tableIngredientes.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            try {
+                double nuevaCant = Double.parseDouble(txtCantIngrediente.getText());
+                String nuevaUnidad = cmbUnidad.getValue();
+                
+                seleccionado.setCantidad(nuevaCant); // CAMBIO: setCantidad (double)
+                seleccionado.setUnidad(nuevaUnidad);
+                
+                tableIngredientes.refresh();
+                restaurarModoNormal();
+                
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Cantidad inválida.");
+            }
         }
     }
 
     @FXML
     private void handleCancelarEdicion(ActionEvent event) {
-        // Restaurar estado
+        restaurarModoNormal();
+    }
+
+    private void restaurarModoNormal() {
         limpiarFormulario();
         gridAcciones.setVisible(true);
         gridEdicion.setVisible(false);
         tableIngredientes.setDisable(false);
         cmbIngredientes.setDisable(false);
-        btnAgregar.setDisable(false);
-        btnEliminar.setDisable(false);
-        btnEditar.setText("Editar");
-    }
-
-    private void cargarDatosParaEdicion(InsumoReceta insumoReceta) {
-        CatalogoInsumo catalogo = insumoReceta.getInsumo().getCatalogoInsumo();
-        if (!cmbIngredientes.getItems().contains(catalogo)) {
-            cmbIngredientes.getItems().add(catalogo);
-        }
-        cmbIngredientes.setValue(catalogo);
-        // Mostrar la cantidad como entero si es posible
-        int cantidadInt = (int) insumoReceta.getCantidadUtilizada();
-        if (insumoReceta.getCantidadUtilizada() == cantidadInt) {
-            txtCantIngrediente.setText(String.valueOf(cantidadInt));
-        } else {
-            txtCantIngrediente.setText(String.valueOf(insumoReceta.getCantidadUtilizada()));
-        }
-        if (!cmbUnidad.getItems().contains(insumoReceta.getUnidad())) {
-            cmbUnidad.getItems().add(insumoReceta.getUnidad());
-        }
-        cmbUnidad.setValue(insumoReceta.getUnidad());
-
-        btnAgregar.setDisable(true);
+        btnEditar.setDisable(true);
         btnEliminar.setDisable(true);
-        btnEditar.setText("Guardar cambios");
+        tableIngredientes.getSelectionModel().clearSelection();
     }
 
-    private void actualizarIngrediente(InsumoReceta insumoRecetaSeleccionado) {
-        if (validarCamposIngrediente()) {
-            CatalogoInsumo catalogoSeleccionado = cmbIngredientes.getValue();
-            Insumo insumo = insumoRecetaSeleccionado.getInsumo();
-            insumo.setCatalogoInsumo(catalogoSeleccionado);
-            insumo.setNombre(catalogoSeleccionado.getNombre());
-            insumoRecetaSeleccionado.setCantidadUtilizada(Integer.parseInt(txtCantIngrediente.getText()));
-            insumoRecetaSeleccionado.setUnidad(cmbUnidad.getValue());
-
-            tableIngredientes.refresh();
-            btnAgregar.setDisable(false);
-            btnEliminar.setDisable(false);
-            btnEditar.setText("Editar");
-
-            limpiarFormulario();
+    private void cargarDatosParaEdicion(RecetaDetalle detalle) {
+        Ingrediente ingrediente = detalle.getIngrediente();
+        cmbIngredientes.setValue(ingrediente);
+        
+        // Formateo visual para editar
+        double cant = detalle.getCantidad();
+        if (cant == Math.floor(cant)) {
+            txtCantIngrediente.setText(String.format("%.0f", cant));
+        } else {
+            txtCantIngrediente.setText(String.valueOf(cant));
         }
-    }
-
-    private boolean validarCamposIngrediente() {
-        if (cmbIngredientes.getValue() == null || txtCantIngrediente.getText().isEmpty()
-                || cmbUnidad.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos.");
-            return false;
-        }
-        try {
-            Integer.parseInt(txtCantIngrediente.getText());
-            return true;
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido.");
-            return false;
-        }
+        
+        cmbUnidad.setValue(detalle.getUnidad());
     }
 
     private void limpiarFormulario() {
@@ -365,42 +293,31 @@ public class NuevaRecetaController {
         cmbUnidad.setValue(null);
     }
 
-    public Receta getRecetaModificada() {
-        return recetaModificada;
-    }
-
     public void cargarRecetaParaModificar(Receta receta) {
         this.recetaModificada = receta;
         if (receta != null) {
             txtNomReceta.setText(receta.getNombreReceta());
-            listaInsumosReceta.setAll(receta.getInsumosReceta());
+            listaInsumosReceta.setAll(receta.getIngredientes()); // CAMBIO: getIngredientes()
         }
     }
 
-    private void abrirFormularioInsumo(CatalogoInsumo insumo) {
+    // Método para abrir el ABM de Ingredientes (Nuevo Insumo)
+    @FXML
+    private void abrirFormularioInsumo() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoInsumo.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
-            stage.setTitle(insumo == null ? "Agregar Insumo al Catálogo" : "Modificar Insumo del Catálogo");
+            stage.setTitle("Gestión de Ingredientes");
             stage.initModality(Modality.WINDOW_MODAL);
-
-            NuevoInsumoController controller = loader.getController();
-            if (insumo != null) {
-                controller.setInsumo(insumo);
-            }
-
             stage.showAndWait();
-            recargarComboInsumos(); // Recargar la lista del ComboBox después de cerrar el formulario
+            
+            // Recargar combo al volver
+            cmbIngredientes.setItems(FXCollections.observableArrayList(ingredienteDAO.findAll()));
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void abrirFormularioInsumo() {
-        abrirFormularioInsumo(null);
-        recargarComboInsumos(); // Recargar ComboBox de insumos después de cerrar el formulario
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -410,13 +327,7 @@ public class NuevaRecetaController {
         alert.showAndWait();
     }
 
-    private void recargarComboInsumos() {
-        cmbIngredientes.setItems(FXCollections.observableArrayList(new CatalogoInsumoDAO().findAll()));
-    }
-
     public void setTitulo(String titulo) {
-        if (lblTitulo != null) {
-            lblTitulo.setText(titulo);
-        }
+        if (lblTitulo != null) lblTitulo.setText(titulo);
     }
 }

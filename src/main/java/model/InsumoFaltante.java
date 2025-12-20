@@ -19,7 +19,7 @@ public class InsumoFaltante {
 
     @ManyToOne
     @JoinColumn(name = "id_catalogo_insumo")
-    private CatalogoInsumo catalogoInsumo;
+    private Ingrediente catalogoInsumo;
 
     @Column(name ="cantidad_faltante")
     private double cantidadFaltante;
@@ -36,10 +36,10 @@ public class InsumoFaltante {
     public void setId(Long id) {
         this.id = id;
     }
-    public CatalogoInsumo getCatalogoInsumo() {
+    public Ingrediente getCatalogoInsumo() {
         return catalogoInsumo;
     }
-    public void setCatalogoInsumo(CatalogoInsumo catalogoInsumo) {
+    public void setCatalogoInsumo(Ingrediente catalogoInsumo) {
         this.catalogoInsumo = catalogoInsumo;
     }
     public double getCantidadFaltante() {

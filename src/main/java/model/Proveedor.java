@@ -42,7 +42,7 @@ public class Proveedor {
 
     // Relación con Insumos
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Insumo> insumos;
+    private List<Lote> insumos;
 
     // Constructor con parámetros
     public Proveedor(String nombre, String telefono, String ubicacion, String correo, String prefijo, String dni, String postfijo) {
@@ -70,11 +70,11 @@ public class Proveedor {
         if (insumos == null || insumos.isEmpty()) {
             return "No tiene insumos";
         }
-        // Obtener los nombres de productos de catalogo_insumo asociados a cada insumo
+        // CORRECCIÓN: Usamos .getIngrediente() en vez de .getCatalogoInsumo()
         return insumos.stream()
-                .map(insumo -> {
-                    if (insumo.getCatalogoInsumo() != null) {
-                        return insumo.getCatalogoInsumo().getNombre();
+                .map(lote -> {
+                    if (lote.getIngrediente() != null) {
+                        return lote.getIngrediente().getNombre();
                     } else {
                         return "(Sin producto)";
                     }
@@ -130,10 +130,10 @@ public class Proveedor {
     public void setPostfijo(String postfijo) {
         this.postfijo = postfijo;
     }
-    public List<Insumo> getInsumos() {
+    public List<Lote> getInsumos() {
         return insumos;
     }
-    public void setInsumos(List<Insumo> insumos) {
+    public void setInsumos(List<Lote> insumos) {
         this.insumos = insumos;
     }
 

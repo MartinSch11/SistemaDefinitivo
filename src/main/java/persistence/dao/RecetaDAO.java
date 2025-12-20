@@ -15,7 +15,8 @@ public class RecetaDAO {
             em.persist(receta);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
+            if (transaction.isActive())
+                transaction.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -25,6 +26,7 @@ public class RecetaDAO {
     public Receta findByProducto(Producto producto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
+            // Nota: Si Producto tiene la relación mapeada, esto está bien.
             return em.createQuery("SELECT r FROM Receta r WHERE r.producto = :producto", Receta.class)
                     .setParameter("producto", producto)
                     .getSingleResult();
@@ -64,7 +66,8 @@ public class RecetaDAO {
             em.merge(receta);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
+            if (transaction.isActive())
+                transaction.rollback();
             e.printStackTrace();
         } finally {
             em.close();
@@ -88,18 +91,17 @@ public class RecetaDAO {
         }
     }
 
-    public void eliminarInsumoDeReceta(int insumoRecetaId) {
+    public void eliminarInsumoDeReceta(int idDetalle) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
-            Query query = em.createQuery("DELETE FROM InsumoReceta ir WHERE ir.id = :id");
-            query.setParameter("id", insumoRecetaId);
+            Query query = em.createQuery("DELETE FROM RecetaDetalle rd WHERE rd.id = :id");
+            query.setParameter("id", idDetalle);
             query.executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
+            if (em.getTransaction().isActive())
                 em.getTransaction().rollback();
-            }
             throw e;
         } finally {
             em.close();
@@ -110,7 +112,7 @@ public class RecetaDAO {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery(
-                            "SELECT r FROM Receta r LEFT JOIN FETCH r.insumosReceta WHERE r.id = :id", Receta.class)
+                    "SELECT r FROM Receta r LEFT JOIN FETCH r.ingredientes WHERE r.id = :id", Receta.class)
                     .setParameter("id", recetaId)
                     .getSingleResult();
         } catch (Exception e) {

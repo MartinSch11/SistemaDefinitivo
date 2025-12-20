@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Categoria;
 import model.Combo;
@@ -296,28 +295,48 @@ public class CrudProductosController {
     @FXML
     void handleEliminar(ActionEvent event) {
         Producto productoSeleccionado = tableProductos.getSelectionModel().getSelectedItem();
+
         if (productoSeleccionado != null) {
-            // Crear un cuadro de diálogo de confirmación
+            // Confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");
             alert.setHeaderText("Eliminar Producto");
-            alert.setContentText(
-                    "¿Estás seguro de que deseas eliminar el producto: " + productoSeleccionado.getNombre() + "?");
+            alert.setContentText("¿Estás seguro de que deseas eliminar: " + productoSeleccionado.getNombre() + "?");
 
-            // Mostrar el cuadro de diálogo y esperar la respuesta
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                productoDAO.delete(productoSeleccionado);
-                listaProductos.remove(productoSeleccionado); // Eliminar el producto de la lista observable
-                tableProductos.setItems(listaProductos); // Asegurarse de que la tabla se actualice
+                try {
+                    // INTENTO DE BORRADO
+                    productoDAO.delete(productoSeleccionado);
 
-                // Log de la acción
-                ActionLogger.log("Producto eliminado: " + productoSeleccionado.getNombre());
+                    // Si llegamos acá, se borró bien
+                    listaProductos.remove(productoSeleccionado);
+                    tableProductos.refresh();
+
+                    ActionLogger.log("Producto eliminado: " + productoSeleccionado.getNombre());
+
+                    // Aviso de éxito (opcional, pero queda bien)
+                    showAlert(Alert.AlertType.INFORMATION, "Éxito", "El producto se eliminó correctamente.");
+
+                } catch (Exception e) {
+                    // ATAJADA DE PENAL (Integridad referencial)
+                    // Si el producto está en un Pedido o un Combo, cae acá.
+
+                    Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+                    errorAlert.setTitle("No se puede eliminar");
+                    errorAlert.setHeaderText("Producto en uso");
+                    errorAlert.setContentText(
+                            "No podés eliminar este producto porque forma parte de un COMBO o ya tiene VENTAS registradas.\n\n"
+                                    +
+                                    "El sistema protege el historial de ventas.");
+                    errorAlert.showAndWait();
+
+                    System.err.println("Error al eliminar producto: " + e.getMessage());
+                }
             }
         } else {
-            // Usar showAlert para mostrar un mensaje de error si no hay selección
-            showAlert(Alert.AlertType.ERROR, "No se ha seleccionado ningún producto",
-                    "Por favor, selecciona un producto para eliminar.");
+            showAlert(Alert.AlertType.ERROR, "Selección requerida",
+                    "Por favor, selecciona un producto de la lista para eliminar.");
         }
     }
 

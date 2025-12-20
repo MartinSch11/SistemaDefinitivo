@@ -1,7 +1,7 @@
 package persistence.dao;
 
 import jakarta.persistence.*;
-import model.CatalogoInsumo;
+import model.Ingrediente;
 import model.InsumoFaltante;
 import utilities.JpaUtil;
 import java.util.List;
@@ -38,7 +38,7 @@ public class InsumoFaltanteDAO {
         }
     }
 
-    public List<InsumoFaltante> findPendientesPorInsumo(CatalogoInsumo catalogoInsumo) {
+    public List<InsumoFaltante> findPendientesPorInsumo(Ingrediente catalogoInsumo) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             return em.createQuery("SELECT i FROM InsumoFaltante i WHERE i.catalogoInsumo = :catalogoInsumo AND i.resuelto = false",

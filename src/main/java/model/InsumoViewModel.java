@@ -1,11 +1,12 @@
 package model;
 
 import javafx.beans.property.*;
-
 import java.time.format.DateTimeFormatter;
 
 public class InsumoViewModel {
-    private final Insumo insumo;
+    
+    // Ahora envolvemos un LOTE (que es lo que tenés en stock)
+    private final Lote lote;
 
     private final StringProperty nombre = new SimpleStringProperty();
     private final StringProperty fechaCompra = new SimpleStringProperty();
@@ -13,44 +14,38 @@ public class InsumoViewModel {
     private final StringProperty cantidad = new SimpleStringProperty();
     private final StringProperty proveedor = new SimpleStringProperty();
 
-    public InsumoViewModel(Insumo insumo) {
-        this.insumo = insumo;
+    public InsumoViewModel(Lote lote) {
+        this.lote = lote;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        nombre.set(insumo.getNombre());
-        if (insumo.getFechaCompra() != null)
-            fechaCompra.set(insumo.getFechaCompra().format(formatter));
-        if (insumo.getFechaCaducidad() != null)
-            fechaCaducidad.set(insumo.getFechaCaducidad().format(formatter));
+        
+        // 1. Obtener nombre del Ingrediente (Navegamos la relación)
+        // Usamos el helper getNombre() que pusimos en la clase Lote nueva
+        nombre.set(lote.getNombre()); 
 
-        cantidad.set(insumo.getCantidad() + " " + insumo.getMedida());
+        // 2. Fechas
+        if (lote.getFechaCompra() != null)
+            fechaCompra.set(lote.getFechaCompra().format(formatter));
+        if (lote.getFechaCaducidad() != null)
+            fechaCaducidad.set(lote.getFechaCaducidad().format(formatter));
 
-        Proveedor p = insumo.getProveedor();
+        // 3. Cantidad y Medida
+        cantidad.set(lote.getCantidadActual() + " " + lote.getMedida());
+
+        // 4. Proveedor
+        Proveedor p = lote.getProveedor();
         proveedor.set(p != null ? p.getNombre() : "Sin proveedor");
     }
 
-    public Insumo getInsumo() {
-        return insumo;
+    public Lote getLote() { // Renombramos getInsumo a getLote para ser claros
+        return lote;
     }
 
-    public StringProperty nombreProperty() {
-        return nombre;
-    }
-
-    public StringProperty fechaCompraProperty() {
-        return fechaCompra;
-    }
-
-    public StringProperty fechaCaducidadProperty() {
-        return fechaCaducidad;
-    }
-
-    public StringProperty cantidadProperty() {
-        return cantidad;
-    }
-
-    public StringProperty proveedorProperty() {
-        return proveedor;
-    }
+    // Getters de propiedades para la tabla JavaFX
+    public StringProperty nombreProperty() { return nombre; }
+    public StringProperty fechaCompraProperty() { return fechaCompra; }
+    public StringProperty fechaCaducidadProperty() { return fechaCaducidad; }
+    public StringProperty cantidadProperty() { return cantidad; }
+    public StringProperty proveedorProperty() { return proveedor; }
 
     public void setCantidad(String cantidad) {
         this.cantidad.set(cantidad);

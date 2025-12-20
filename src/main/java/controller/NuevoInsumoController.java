@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.CatalogoInsumo;
+import model.Ingrediente;
 import model.Proveedor;
-import persistence.dao.CatalogoInsumoDAO;
+import persistence.dao.IngredienteDAO;
 import persistence.dao.ProveedorDAO;
 import utilities.ActionLogger;
 
@@ -33,13 +33,13 @@ public class NuevoInsumoController {
     private Button btnNuevoProveedor;
 
     private ProveedorDAO proveedorDAO;
-    private CatalogoInsumoDAO catalogoInsumoDAO;
+    private IngredienteDAO catalogoInsumoDAO;
     private TableInsumosController tableInsumosController; // Referencia al controlador de la tabla
-    private CatalogoInsumo insumoEditando = null;
+    private Ingrediente insumoEditando = null;
 
     public NuevoInsumoController() {
         proveedorDAO = new ProveedorDAO();
-        catalogoInsumoDAO = new CatalogoInsumoDAO(); // Recuerda ajustar el constructor según tu EntityManager
+        catalogoInsumoDAO = new IngredienteDAO(); // Recuerda ajustar el constructor según tu EntityManager
     }
 
     @FXML
@@ -52,8 +52,7 @@ public class NuevoInsumoController {
     private void configurarCampoNombreInsumo() {
         txtNomInsumo.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
-            // Permitir letras y espacios
-            if (newText.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*")) {
+            if (newText.matches("[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ 0-9]*")) {
                 change.setText(change.getText().toUpperCase());
                 return change;
             } else {
@@ -84,7 +83,7 @@ public class NuevoInsumoController {
             if (insumoEditando == null) {
                 // Alta: solo guardar si no existe
                 if (catalogoInsumoDAO.findByNombre(nombreInsumo) == null) {
-                    CatalogoInsumo cat = new CatalogoInsumo(nombreInsumo, estadoSeleccionado,
+                    Ingrediente cat = new Ingrediente(nombreInsumo, estadoSeleccionado,
                             proveedorSeleccionado.getNombre());
                     catalogoInsumoDAO.save(cat);
                     ActionLogger.log("CatalogoInsumo " + nombreInsumo + " creado con éxito.");
@@ -128,7 +127,7 @@ public class NuevoInsumoController {
     }
 
     // Método para recibir un insumo para editarlo
-    public void setInsumo(CatalogoInsumo insumo) {
+    public void setInsumo(Ingrediente insumo) {
         this.insumoEditando = insumo;
         txtNomInsumo.setText(insumo.getNombre());
         // Buscar el proveedor por nombre y seleccionarlo en el ComboBox

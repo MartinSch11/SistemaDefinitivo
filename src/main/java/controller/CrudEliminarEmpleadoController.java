@@ -2,17 +2,13 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
 import model.Trabajador;
-import persistence.dao.PedidoDAO;
 import persistence.dao.TrabajadorDAO;
 import utilities.ActionLogger;
 import java.util.List;
@@ -20,10 +16,14 @@ import java.util.Optional;
 
 public class CrudEliminarEmpleadoController {
 
-    @FXML private Button btnCancelar;
-    @FXML private Button btnGuardar;
-    @FXML private ComboBox<String> cmbEliminarEmpExistente;
-    @FXML private Pane paneEliminarEmpleado;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private ComboBox<String> cmbEliminarEmpExistente;
+    @FXML
+    private Pane paneEliminarEmpleado;
     private SettingsController settingsController;
 
     private TrabajadorDAO trabajadorDAO = new TrabajadorDAO();
@@ -46,7 +46,6 @@ public class CrudEliminarEmpleadoController {
     void vaciarCampos() {
         cmbEliminarEmpExistente.setValue(null);
     }
-
 
     public void mensajeAdvertenciaCamposVacios() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -96,104 +95,83 @@ public class CrudEliminarEmpleadoController {
             cmbEliminarEmpExistente.setItems(FXCollections.observableArrayList(nombres));
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se pudieron cargar los nombres de los empleados: " + e.getMessage());
             ActionLogger.log("Error al cargar los nombres de empleados: " + e.getMessage());
         }
     }
 
-
     @FXML
     void handleGuardarEmpleados(ActionEvent event) {
-        try {
-            String eliminarEmpleadoSeleccionado = cmbEliminarEmpExistente.getValue();
+        String eliminarEmpleadoSeleccionado = cmbEliminarEmpExistente.getValue();
 
-            if (eliminarEmpleadoSeleccionado != null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmación de eliminación");
-                alert.setHeaderText(null);
-                alert.setContentText("¿Desea eliminar el empleado seleccionado? Esta acción no se puede revertir.");
+        if (eliminarEmpleadoSeleccionado == null) {
+            mensajeAdvertenciaCamposVacios();
+            ActionLogger.log("Advertencia: intento de eliminar empleado sin selección");
+            return;
+        }
 
-                ButtonType buttonSi = new ButtonType("Sí");
-                ButtonType buttonCancelar = new ButtonType("Cancelar");
+        // Confirmación
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de baja");
+        alert.setHeaderText(null);
+        alert.setContentText(
+                "¿Desea eliminar al empleado " + eliminarEmpleadoSeleccionado + "?\nEsta acción es irreversible.");
 
-                alert.getButtonTypes().setAll(buttonSi, buttonCancelar);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) { // Comparar con ButtonType.OK es más seguro que el
+                                                                   // texto "Sí"
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == buttonSi) {
-                    Trabajador trabajador = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
-                    if (trabajador != null) {
+            try {
+                Trabajador trabajador = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
 
-                        // Validar que NO sea administrador
-                        if (trabajador.getRol() != null &&
-                                "administrador".equalsIgnoreCase(trabajador.getRol().getNombre())) {
-                            showAlert(Alert.AlertType.ERROR, "Acción no permitida",
-                                    "No puedes eliminar un usuario con rol de administrador.");
-                            ActionLogger.log("Intento de eliminación de un administrador bloqueado: " + trabajador.getNombre());
-                            return;
-                        }
-
-                        // Evitar auto-eliminación si el usuario logueado es el mismo
-                        String usuarioLogeado = model.SessionContext.getInstance().getUserName();
-                        if (usuarioLogeado != null && trabajador.getNombre().equals(usuarioLogeado)) {
-                            showAlert(Alert.AlertType.ERROR, "Acción no permitida",
-                                    "No puedes eliminar tu propio usuario mientras estás logueado.");
-                            ActionLogger.log("Intento de auto-eliminación bloqueado para el usuario logeado: " + usuarioLogeado);
-                            return;
-                        }
-
-                            // Eliminar trabajador
-                        try {
-                            trabajadorDAO.delete(trabajador);
-
-                            // Si el empleado no fue eliminado, se ve un mensaje
-                            // Verifica si todavía existe en bd
-
-                            Trabajador aunExiste = trabajadorDAO.findByNombre(eliminarEmpleadoSeleccionado);
-
-                            if (aunExiste != null) {
-                                // Caso: tenía pedidos asignados o falló la eliminación
-                                showAlert(Alert.AlertType.ERROR,
-                                        "Empleado no eliminable",
-                                        "El empleado no se puede dar de baja debido a que tiene pedidos asignados.");
-                                ActionLogger.log("Intento fallido de eliminar empleado con pedidos asignados: " + eliminarEmpleadoSeleccionado);
-                                return;
-                            }
-
-                            // Caso normal: se eliminó correctamente
-                            settingsController.cargarNombresEnComboBox();
-                            settingsController.cerrarCrudEliminarEmpleado();
-                            cargarNombresEnComboBox();
-
-                            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado exitosamente.");
-                            ActionLogger.log("Empleado eliminado: " + eliminarEmpleadoSeleccionado);
-                            visibilidadButtons();
-
-                        } catch (Exception ex) {
-                            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el empleado.");
-                            ActionLogger.log("Error al intentar eliminar: " + ex.getMessage());
-                        }
-
-
-                        visibilidadButtons();
-
-                    } else {
-                        showAlert(Alert.AlertType.ERROR, "Error", "No se encontró un trabajador con ese nombre.");
-                        ActionLogger.log("Error: No se encontró el empleado: " + eliminarEmpleadoSeleccionado);
+                if (trabajador != null) {
+                    // Validaciones de negocio (Admin y Auto-eliminación)
+                    if (trabajador.getRol() != null
+                            && "administrador".equalsIgnoreCase(trabajador.getRol().getNombre())) {
+                        showAlert(Alert.AlertType.ERROR, "Acción denegada", "No podés eliminar a un Administrador.");
+                        return;
                     }
 
+                    String usuarioLogeado = model.SessionContext.getInstance().getUserName();
+                    if (usuarioLogeado != null && trabajador.getNombre().equals(usuarioLogeado)) {
+                        showAlert(Alert.AlertType.ERROR, "Acción denegada",
+                                "No podés auto-eliminarte mientras estás logueado.");
+                        return;
+                    }
+
+                    // INTENTO DE BORRADO
+                    trabajadorDAO.delete(trabajador);
+
+                    // ÉXITO
+                    showAlert(Alert.AlertType.INFORMATION, "Éxito", "Empleado eliminado correctamente.");
+                    ActionLogger.log("Empleado eliminado: " + eliminarEmpleadoSeleccionado);
+
+                    // Actualizar interfaz
+                    vaciarCampos();
+                    cargarNombresEnComboBox();
+                    if (settingsController != null) {
+                        settingsController.cargarNombresEnComboBox();
+                        settingsController.cerrarCrudEliminarEmpleado();
+                    }
+                    visibilidadButtons();
+
                 } else {
-                    alert.close();
+                    showAlert(Alert.AlertType.ERROR, "Error", "No se encontró el trabajador en la base de datos.");
                 }
 
-            } else {
-                mensajeAdvertenciaCamposVacios();
-                ActionLogger.log("Advertencia: intento de eliminar empleado sin selección en el ComboBox");
-            }
+            } catch (Exception ex) {
+                // ERROR DE INTEGRIDAD (Tiene ventas/pedidos)
+                Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+                errorAlert.setTitle("No se puede eliminar");
+                errorAlert.setHeaderText("Empleado con historial");
+                errorAlert.setContentText("No se puede eliminar a " + eliminarEmpleadoSeleccionado +
+                        " porque tiene PEDIDOS o VENTAS registradas a su nombre.\n\n" +
+                        "El sistema debe mantener el registro de quién hizo esas ventas.");
+                errorAlert.showAndWait();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos del empleado: " + e.getMessage());
-            ActionLogger.log("Error al guardar los cambios del empleado: " + e.getMessage());
+                ActionLogger.log("Error de integridad al eliminar empleado: " + ex.getMessage());
+            }
         }
     }
 }

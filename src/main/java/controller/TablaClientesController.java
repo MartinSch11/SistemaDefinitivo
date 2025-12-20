@@ -67,7 +67,6 @@ public class TablaClientesController {
         colDireccion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDireccion()));
         colCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
 
-        // Listener para habilitar/deshabilitar botones de modificar y eliminar al seleccionar un cliente
         tableClientes.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             btnModificar.setDisable(newValue == null);
             btnEliminar.setDisable(newValue == null);
@@ -81,7 +80,6 @@ public class TablaClientesController {
 
     @FXML
     private void handleAgregar() {
-        // Registro de la acción del usuario
         ActionLogger.log("El usuario agregó un nuevo cliente.");
         abrirFormularioCliente(null);
     }
@@ -90,50 +88,48 @@ public class TablaClientesController {
     private void handleModificar() {
         Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
         if (clienteSeleccionado != null) {
-            // Registro de la acción del usuario
             ActionLogger.log("El usuario modificó el cliente: " + clienteSeleccionado.getDni());
             abrirFormularioCliente(clienteSeleccionado);
         }
     }
-/*
-    @FXML
-    private void handleEliminar() {
-        Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
-        if (clienteSeleccionado != null) {
-            // Registro de la acción del usuario
-            ActionLogger.log("El usuario eliminó el cliente: " + clienteSeleccionado.getDni());
-            clienteDAO.delete(clienteSeleccionado.getDni());  // Usamos el DNI para eliminar
-            clientesList.remove(clienteSeleccionado);
-        }
-    }*/
 
     @FXML
     private void handleEliminar() {
         Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
 
         if (clienteSeleccionado != null) {
-
-            // Mostrar mensaje de advertencia antes de eliminar
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar eliminación");
-            alert.setHeaderText(null);
-            alert.setContentText("¿Desea eliminar el cliente? Esta acción no se puede deshacer.");
+            alert.setHeaderText("Eliminar Cliente");
+            alert.setContentText("¿Estás seguro de eliminar a " + clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellido() + "?\nEsta acción no se puede deshacer.");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                // Registro de la acción del usuario
-                ActionLogger.log("El usuario eliminó el cliente: " + clienteSeleccionado.getDni());
+                try {
+                    // 1. INTENTAMOS BORRAR
+                    clienteDAO.delete(clienteSeleccionado.getDni());
 
-                // Eliminación en BD usando DNI
-                clienteDAO.delete(clienteSeleccionado.getDni());
+                    // 2. ACTUALIZAMOS TABLA
+                    clientesList.remove(clienteSeleccionado);
+                    tableClientes.refresh(); // <--- REFRESH POR LAS DUDAS
+                    
+                    ActionLogger.log("El usuario eliminó el cliente: " + clienteSeleccionado.getDni());
 
-                // Eliminación en la tabla
-                clientesList.remove(clienteSeleccionado);
+                } catch (Exception e) {
+                    // 3. ATAJAMOS EL ERROR (Si el cliente tiene PEDIDOS)
+                    Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+                    errorAlert.setTitle("No se puede eliminar");
+                    errorAlert.setHeaderText("Cliente con historial");
+                    errorAlert.setContentText("No podés eliminar a este cliente porque ya tiene PEDIDOS registrados.\n\n" +
+                                              "El sistema debe mantener el historial de quién compró.");
+                    errorAlert.showAndWait();
+                    
+                    System.err.println("Error al eliminar cliente: " + e.getMessage());
+                }
             }
         }
     }
-
 
     private void abrirFormularioCliente(Cliente cliente) {
         try {
@@ -148,16 +144,18 @@ public class TablaClientesController {
                 controller.cargarClienteParaModificar(cliente);
             }
 
-            // Usamos 'controller' en lugar de llamar a 'getController' nuevamente
-            controller.setTableClientesController(this);  // Este es el paso correcto
+            controller.setTableClientesController(this);
 
-            stage.showAndWait();
-            cargarClientes();  // Recargamos la tabla después de cerrar el formulario
+            stage.showAndWait(); // Espera a que cierres la ventana
+            
+            // --- ACÁ ESTÁ LA SOLUCIÓN ---
+            cargarClientes();      // 1. Trae los datos frescos de la BD
+            tableClientes.refresh(); // 2. OBLIGA a la tabla a repintarse visualmente
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void cargarClientes() {
         List<Cliente> clientes = clienteDAO.findAll();

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import model.Pedido;
 import model.PedidoProducto;
 import java.util.List;
-
-import model.Trabajador;
 import utilities.JpaUtil;
 
 public class PedidoDAO {

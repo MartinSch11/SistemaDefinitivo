@@ -15,14 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComboFormController {
-    @FXML private TextField txtNombre;
-    @FXML private TextArea txtDescripcion;
-    @FXML private TextField txtPrecio;
-    @FXML private ListView<String> listProductos;
-    @FXML private Button btnAgregarProducto;
-    @FXML private Button btnQuitarProducto;
-    @FXML private Button btnGuardar;
-    @FXML private Button btnCancelar;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextArea txtDescripcion;
+    @FXML
+    private TextField txtPrecio;
+    @FXML
+    private ListView<String> listProductos;
+    @FXML
+    private Button btnAgregarProducto;
+    @FXML
+    private Button btnQuitarProducto;
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private Button btnCancelar;
 
     private ObservableList<Producto> productosDisponibles = FXCollections.observableArrayList();
     private List<ComboProducto> productosCombo = new ArrayList<>();
@@ -33,8 +41,8 @@ public class ComboFormController {
     public void initialize() {
         // Solo productos con receta
         productosDisponibles.addAll(productoDAO.findAll().stream()
-            .filter(p -> p.getReceta() != null && p.getReceta().getId() != null)
-            .toList());
+                .filter(p -> p.getReceta() != null && p.getReceta().getIdReceta() != null)
+                .toList());
         actualizarListaProductos();
         btnAgregarProducto.setOnAction(_ -> agregarProductoAlCombo());
         btnQuitarProducto.setOnAction(_ -> quitarProductoDelCombo());
@@ -69,7 +77,8 @@ public class ComboFormController {
                         productosCombo.add(cp);
                         actualizarListaProductos();
                     }
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException ignored) {
+                }
             });
         });
     }

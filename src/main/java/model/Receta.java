@@ -1,118 +1,58 @@
 package model;
 
 import jakarta.persistence.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "recetas")
+@Table(name = "receta")
 public class Receta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_receta")
-    private Integer id;
+    private Integer idReceta;
 
-    @Column(name = "nombre_receta")
-    private String nombreRecetaTexto;
+    @Column(name = "nombre_receta", nullable = false, unique = true)
+    private String nombreReceta;
 
-    @Transient
-    private StringProperty nombreReceta = new SimpleStringProperty();
+    // Relación con los detalles (ingredientes abstractos)
+    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<RecetaDetalle> ingredientes = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InsumoReceta> insumosReceta = new ArrayList<>();
-
-    @PostLoad
-    public void initializeNombreReceta() {
-        if (nombreRecetaTexto != null) {
-            nombreReceta.set(nombreRecetaTexto);
-        }
+    // Constructor simple
+    public Receta(String nombreReceta) {
+        this.nombreReceta = nombreReceta;
     }
 
-    // Constructor vacío
-    public Receta() {
-        this.nombreReceta = new SimpleStringProperty();
-        this.insumosReceta = new ArrayList<>();
+    // Método helper para agregar ingredientes fácil
+    public void agregarIngrediente(Ingrediente ingrediente, int cantidad, String unidad) {
+        RecetaDetalle detalle = new RecetaDetalle(this, ingrediente, cantidad, unidad);
+        this.ingredientes.add(detalle);
     }
 
-    // Constructor con nombre
-    public Receta(String nombreRecetaTexto) {
-        this();
-        setNombreReceta(nombreRecetaTexto);
-    }
-
-    public String getNombreReceta() {
-        return nombreReceta.get();
-    }
-
-    public void setNombreReceta(String nombre) {
-        this.nombreReceta.set(nombre);
-        this.nombreRecetaTexto = nombre;
-    }
-
-    public StringProperty nombreRecetaProperty() {
-        return nombreReceta;
-    }
-
-    public StringProperty idProperty() {
-        return new SimpleStringProperty(id != null ? String.valueOf(id) : "");
-    }
-
-    public void addInsumo(InsumoReceta insumoReceta) {
-        if (insumoReceta == null || insumosReceta.contains(insumoReceta)) {
-            return; // Evita agregar nulos o duplicados
-        }
-        insumosReceta.add(insumoReceta);
-        insumoReceta.setReceta(this);
-    }
-
-    public void removeInsumo(InsumoReceta insumoReceta) {
-        if (insumoReceta == null || !insumosReceta.contains(insumoReceta)) {
-            return; // Evita eliminar nulos o elementos inexistentes
-        }
-        insumosReceta.remove(insumoReceta);
-        insumoReceta.setReceta(null); // Rompe la asociación bidireccional
-    }
-
-    public List<Insumo> getInsumos() {
-        return insumosReceta.stream()
-                .map(InsumoReceta::getInsumo)
-                .toList(); // Devuelve una lista de insumos asociados a la receta
-    }
-
-    public double getCantidadInsumo(Insumo insumo) {
-        return insumosReceta.stream()
-                .filter(insumoReceta -> insumoReceta.getInsumo().equals(insumo))
-                .findFirst()
-                .map(ir -> (double) ir.getCantidadUtilizada())
-                .orElse(0.0);
+    // ESTE METODO ES EL QUE DABA ERROR DE MAPEO
+    // Devuelve un string bonito con los ingredientes
+    public String getResumenIngredientes() {
+        if (ingredientes == null || ingredientes.isEmpty()) return "Sin ingredientes";
+        
+        return ingredientes.stream()
+                .map(d -> {
+                    // Accedemos a 'ingrediente' y a 'cantidad' (double)
+                    String nombre = d.getIngrediente() != null ? d.getIngrediente().getNombre() : "??";
+                    return nombre + " (" + d.getCantidad() + " " + d.getUnidad() + ")";
+                })
+                .collect(Collectors.joining(", "));
     }
 
     @Override
     public String toString() {
-        return nombreReceta.get(); // Retorna el valor de la propiedad
-    }
-
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public String getNombreRecetaTexto() {
-        return nombreRecetaTexto;
-    }
-    public void setNombreRecetaTexto(String nombreRecetaTexto) {
-        this.nombreRecetaTexto = nombreRecetaTexto;
-    }
-    public List<InsumoReceta> getInsumosReceta() {
-        return insumosReceta;
-    }
-    public void setInsumosReceta(List<InsumoReceta> insumosReceta) {
-        this.insumosReceta = insumosReceta;
+        return nombreReceta;
     }
 }

@@ -57,31 +57,49 @@ public class AccionesUsuariosController {
         List<ActionLog> logs = obtenerLogsDeArchivo(fechaSeleccionada);
 
         if (logs.isEmpty()) {
+            // Ojo: Si es un día que no hubo actividad, es normal que esté vacío.
+            // A veces es molesto el popup cada vez que clickeas un día vacío, 
+            // pero dejalo si te sirve para confirmar.
             mostrarAlerta("Sin datos", "No se encontraron logs para la fecha seleccionada.");
         }
 
-        tableAcciones.getItems().setAll(logs); // Actualizar la tabla con los nuevos datos
+        tableAcciones.getItems().setAll(logs); 
     }
 
     private List<ActionLog> obtenerLogsDeArchivo(String fechaSeleccionada) {
         List<ActionLog> logs = new ArrayList<>();
 
-        // Utilizamos la ruta absoluta, asumiendo que la carpeta logs está en la raíz del proyecto
-        String logFileName = "logs/acciones-" + fechaSeleccionada + ".log";
-        File logFile = new File(logFileName);
+        // -----------------------------------------------------------------------
+        // CAMBIO IMPORTANTE: Usamos la ruta de usuario (user.home)
+        // Esta ruta TIENE que coincidir con la que pusiste en ActionLogger.java
+        // -----------------------------------------------------------------------
+        String userHome = System.getProperty("user.home");
+        
+        // Si usaste la opción PRO (AppData):
+        String directory = userHome + "\\AppData\\Local\\SistemaDefinitivo\\logs";
+        
+        // Si usaste la opción SIMPLE, descomentá esta y comentá la de arriba:
+        // String directory = userHome + "\\SistemaDefinitivo_Logs";
 
-        // Verificamos si el archivo existe y si la carpeta 'logs' existe
+        String fileName = "acciones-" + fechaSeleccionada + ".log";
+        
+        // Usamos el constructor (File parent, String child) para unir la ruta y el nombre
+        File logFile = new File(directory, fileName);
+
+        // Verificamos si el archivo existe
         if (!logFile.exists()) {
+            // Si no existe el archivo, retornamos la lista vacía nomás
             return logs;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Verificar si la línea contiene la fecha seleccionada
+                // Verificar si la línea contiene la fecha seleccionada (filtro extra de seguridad)
                 if (line.contains(fechaSeleccionada)) {
                     try {
                         // Extraer los datos mediante split y substring
+                        // Ojo con los índices acá, si cambiás el formato del Log, esto se rompe.
                         String timestamp = line.substring(1, 20); // [YYYY-MM-DD HH:mm:ss]
                         String usuario = extractValue(line, "Usuario:", "(Rol:");
                         String rol = extractValue(line, "(Rol:", ") Acción:");
@@ -90,12 +108,14 @@ public class AccionesUsuariosController {
                         logs.add(new ActionLog(timestamp, usuario, rol, accion));
                     } catch (Exception e) {
                         System.err.println("Error procesando la línea: " + line);
-                        e.printStackTrace();
+                        // No hacemos printStackTrace en producción para no ensuciar, 
+                        // pero para debugear viene bien.
                     }
                 }
             }
         } catch (IOException e) {
             System.err.println("Error al leer el archivo de logs: " + e.getMessage());
+            mostrarAlerta("Error de Lectura", "No se pudo leer el archivo de logs. Verificá permisos.");
         }
 
         return logs;
@@ -111,7 +131,6 @@ public class AccionesUsuariosController {
         return "Desconocido";
     }
 
-    // Método para mostrar alertas al usuario
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(titulo);

@@ -9,12 +9,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
-import model.CatalogoInsumo;
-import model.HistorialCompra;
-import model.Insumo;
+import model.Ingrediente;
+import model.MovimientoStock;
+import model.Lote;
 import model.Proveedor;
-import persistence.dao.CatalogoInsumoDAO;
+import persistence.dao.IngredienteDAO;
 import persistence.dao.HistorialCompraDAO;
 import persistence.dao.InsumoDAO;
 import persistence.dao.ProveedorDAO;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class StockFormController {
 
-    @FXML private ComboBox<CatalogoInsumo> cmbInsumos;
+    @FXML private ComboBox<Ingrediente> cmbInsumos;
     @FXML private TextField cantidadField;
     @FXML private DatePicker fechaCaducidadData;
     @FXML private DatePicker fechaCompraData;
@@ -40,18 +39,16 @@ public class StockFormController {
 
     private InsumoDAO insumoDAO;
     private ProveedorDAO proveedorDAO;
-    private CatalogoInsumoDAO catalogoInsumoDAO;
+    private IngredienteDAO catalogoInsumoDAO;
     private HistorialCompraDAO historialCompraDAO = new HistorialCompraDAO();
     private final RecetaProcessor recetaProcessor = new RecetaProcessor();
 
-    // Referencia al controlador principal para refrescar la tabla
     private StockController stockController;
 
-    // Constructor vacío requerido por JavaFX/FXML
     public StockFormController() {
         this.insumoDAO = new InsumoDAO();
         this.proveedorDAO = new ProveedorDAO();
-        this.catalogoInsumoDAO = new CatalogoInsumoDAO();
+        this.catalogoInsumoDAO = new IngredienteDAO();
     }
 
     public void setStockController(StockController stockController) {
@@ -60,21 +57,18 @@ public class StockFormController {
 
     @FXML
     private void initialize() {
-        // Llenar el ChoiceBox con las unidades de medida (todas, para inicialización)
         medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
 
-        // Llenar el ComboBox con los insumos
         cargarInsumos();
         cargarProveedores();
 
-        // Listener para filtrar unidades según el estado del insumo seleccionado
         cmbInsumos.valueProperty().addListener((_, _, newVal) -> {
             filtrarUnidadesPorEstado(newVal);
         });
 
-        // Configurar validadores para cantidadField y precioTextField
-        cantidadField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0, change -> {
-            if (change.getControlNewText().matches("^[0-9]*$")) {
+        // CORRECCIÓN: Permitir decimales en cantidad (0.5 KG)
+        cantidadField.setTextFormatter(new TextFormatter<>(new DoubleStringConverter(), 0.0, change -> {
+            if (change.getControlNewText().matches("^[0-9]*\\.?[0-9]*$")) {
                 return change;
             }
             return null;
@@ -87,8 +81,6 @@ public class StockFormController {
             return null;
         }));
 
-        // Validación: la fecha de caducidad no puede ser inferior a la de compra, y se
-        // muestra en rojo
         fechaCompraData.valueProperty().addListener((_, _, newVal) -> {
             fechaCaducidadData.setDayCellFactory(_ -> new DateCell() {
                 @Override
@@ -106,35 +98,19 @@ public class StockFormController {
         });
     }
 
-    /**
-     * Filtra las unidades de medida disponibles según el estado del insumo
-     * seleccionado.
-     * LÍQUIDO: ML, L
-     * SÓLIDO: GR, KG
-     * UNIDAD: UNIDAD, UNIDADES
-     */
-    private void filtrarUnidadesPorEstado(CatalogoInsumo insumo) {
+    private void filtrarUnidadesPorEstado(Ingrediente insumo) {
         medidaChoiceBox.getItems().clear();
         String estado = (insumo != null) ? insumo.getEstado() : null;
         if (estado == null) {
-            // Si no hay insumo seleccionado, mostrar todas
             medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
             return;
         }
         switch (estado) {
-            case "LÍQUIDO":
-                medidaChoiceBox.getItems().addAll("ML", "L");
-                break;
-            case "SÓLIDO":
-                medidaChoiceBox.getItems().addAll("GR", "KG");
-                break;
-            case "UNIDAD":
-                medidaChoiceBox.getItems().addAll("UNIDAD", "UNIDADES");
-                break;
-            default:
-                medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
+            case "LÍQUIDO": medidaChoiceBox.getItems().addAll("ML", "L"); break;
+            case "SÓLIDO": medidaChoiceBox.getItems().addAll("GR", "KG"); break;
+            case "UNIDAD": medidaChoiceBox.getItems().addAll("UNIDAD", "UNIDADES"); break;
+            default: medidaChoiceBox.getItems().addAll("GR", "KG", "ML", "L", "UNIDAD", "UNIDADES");
         }
-        // Seleccionar la primera opción por defecto
         if (!medidaChoiceBox.getItems().isEmpty()) {
             medidaChoiceBox.setValue(medidaChoiceBox.getItems().get(0));
         }
@@ -145,7 +121,6 @@ public class StockFormController {
         cmbProveedor.getItems().clear();
         cmbProveedor.getItems().addAll(proveedores);
 
-        // Configura la celda y el botón con la misma lógica
         Callback<ListView<Proveedor>, ListCell<Proveedor>> cellFactory = _ -> new ListCell<Proveedor>() {
             @Override
             protected void updateItem(Proveedor item, boolean empty) {
@@ -158,21 +133,21 @@ public class StockFormController {
     }
 
     private void cargarInsumos() {
-        List<CatalogoInsumo> catalogo = catalogoInsumoDAO.findAll();
+        List<Ingrediente> catalogo = catalogoInsumoDAO.findAll();
         cmbInsumos.getItems().clear();
         cmbInsumos.getItems().addAll(catalogo);
 
-        cmbInsumos.setCellFactory(_ -> new ListCell<CatalogoInsumo>() {
+        cmbInsumos.setCellFactory(_ -> new ListCell<Ingrediente>() {
             @Override
-            protected void updateItem(CatalogoInsumo item, boolean empty) {
+            protected void updateItem(Ingrediente item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getNombre());
             }
         });
 
-        cmbInsumos.setButtonCell(new ListCell<CatalogoInsumo>() {
+        cmbInsumos.setButtonCell(new ListCell<Ingrediente>() {
             @Override
-            protected void updateItem(CatalogoInsumo item, boolean empty) {
+            protected void updateItem(Ingrediente item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getNombre());
             }
@@ -181,8 +156,8 @@ public class StockFormController {
 
     @FXML
     private void handleGuardar(ActionEvent event) {
-        CatalogoInsumo insumoSeleccionado = cmbInsumos.getValue();
-        Proveedor proveedorSeleccionado = (Proveedor) cmbProveedor.getValue();
+        Ingrediente insumoSeleccionado = cmbInsumos.getValue();
+        Proveedor proveedorSeleccionado = cmbProveedor.getValue();
         String cantidad = cantidadField.getText();
         String precio = precioTextField.getText();
         LocalDate fechaCaducidad = fechaCaducidadData.getValue();
@@ -192,47 +167,55 @@ public class StockFormController {
         if (insumoSeleccionado == null || proveedorSeleccionado == null || cantidad.isEmpty() || precio.isEmpty() ||
                 fechaCaducidad == null || fechaCompra == null || medida == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Por favor, complete todos los campos.");
-            ActionLogger.log("El usuario intentó guardar un insumo sin completar todos los campos.");
             return;
         }
 
         try {
-            int cantidadNumerica = Integer.parseInt(cantidad);
+            // CORRECCIÓN: Parseamos a Double para soportar "0.5"
+            double cantidadNumerica = Double.parseDouble(cantidad);
             double precioDouble = Double.parseDouble(precio);
 
-            Insumo insumo = new Insumo(insumoSeleccionado, cantidadNumerica, precioDouble, medida, fechaCompra,
-                    fechaCaducidad);
-            insumo.setProveedor(proveedorSeleccionado);
+            // CORRECCIÓN 1: Constructor V2.0 de Lote (Con Proveedor al final)
+            Lote insumo = new Lote(
+                insumoSeleccionado, 
+                cantidadNumerica, 
+                precioDouble, 
+                medida, 
+                fechaCompra,
+                fechaCaducidad,
+                proveedorSeleccionado
+            );
 
             insumoDAO.save(insumo);
-            ActionLogger.log("El usuario guardó correctamente un insumo: " + insumoSeleccionado.getNombre());
+            ActionLogger.log("Insumo guardado: " + insumoSeleccionado.getNombre());
 
-            // Guardar en historial de compras
-            HistorialCompra compra = new HistorialCompra(
+            // CORRECCIÓN 2: Constructor V2.0 de MovimientoStock
+            // (Tipo, Ingrediente, Cantidad, Medida, Detalle, Costo)
+            MovimientoStock compra = new MovimientoStock(
+                    MovimientoStock.TipoMovimiento.COMPRA,
                     insumoSeleccionado.getNombre(),
                     cantidadNumerica,
                     medida,
-                    fechaCompra,
-                    proveedorSeleccionado.getNombre(),
-                    precioDouble);
+                    proveedorSeleccionado.getNombre(), // Detalle = Proveedor
+                    precioDouble
+            );
             historialCompraDAO.save(compra);
 
             resolverFaltantesPorCatalogoInsumo(insumoSeleccionado);
-            // Refrescar la tabla de insumos si se abrió desde StockController
+            
             if (stockController != null) {
                 stockController.recargarTablaInsumos();
             }
             cerrarFormulario();
+            
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "La cantidad o el precio no son válidos.");
-            ActionLogger.log("El usuario intentó guardar un insumo con datos inválidos.");
         }
     }
 
     @FXML
     private void handleCancelar(ActionEvent event) {
         cerrarFormulario();
-        ActionLogger.log("El usuario canceló la operación y cerró el formulario de insumo.");
     }
 
     private void cerrarFormulario() {
@@ -247,17 +230,11 @@ public class StockFormController {
         alert.showAndWait();
     }
 
-    /**
-     * Resuelve faltantes pendientes para un insumo de catálogo usando la lógica centralizada de RecetaProcessor.
-     */
-    public void resolverFaltantesPorCatalogoInsumo(CatalogoInsumo catalogoInsumo) {
-        // Llama a la lógica centralizada (resuelve todos los faltantes posibles)
+    public void resolverFaltantesPorCatalogoInsumo(Ingrediente catalogoInsumo) {
         var resumen = recetaProcessor.resolverFaltantesPorCatalogoInsumo();
-        // Refrescar la tabla de insumos si se abrió desde StockController
         if (stockController != null) {
             stockController.recargarTablaInsumos();
         }
-        // Mostrar resumen profesional si se resolvió algún faltante
         if (resumen != null && !resumen.isEmpty()) {
             StringBuilder msg = new StringBuilder("Faltantes resueltos automáticamente:\n");
             resumen.forEach((nombre, cantidad) -> msg.append("- ").append(nombre).append(": ").append(cantidad).append("\n"));
@@ -265,30 +242,23 @@ public class StockFormController {
         }
     }
 
-    private void abrirFormularioInsumo(CatalogoInsumo insumo) {
+    @FXML
+    private void abrirFormularioInsumo() {
+        abrirFormularioInsumo(null);
+        cargarInsumos();
+    }
+    
+    private void abrirFormularioInsumo(Ingrediente insumo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pasteleria/NuevoInsumo.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
-            stage.setTitle(insumo == null ? "Agregar Insumo al Catálogo" : "Modificar Insumo del Catálogo");
+            stage.setTitle("Nuevo Ingrediente");
             stage.initModality(Modality.WINDOW_MODAL);
-
-            NuevoInsumoController controller = loader.getController();
-            if (insumo != null) {
-                controller.setInsumo(insumo);
-            }
-
             stage.showAndWait();
-            cargarInsumos(); // Recargar la tabla después de cerrar el formulario
+            cargarInsumos();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private void abrirFormularioInsumo() {
-        abrirFormularioInsumo(null);
-        cargarInsumos(); // Recargar ComboBox de insumos después de cerrar el formulario
-    }
-
 }

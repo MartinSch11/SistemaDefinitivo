@@ -46,9 +46,19 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
               <transformers>
                 <transformer>
-                  <mainClass>application.App</mainClass>
+                  <mainClass>application.Launcher</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -102,9 +112,9 @@
     </dependency>
   </dependencies>
   <properties>
+    <java.version>22</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javafx.version>23.0.1</javafx.version>
     <junit.version>5.10.2</junit.version>
-    <java.version>22</java.version>
   </properties>
 </project>
