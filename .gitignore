@@ -1,0 +1,9 @@
+target/
+logs/
+reportes/
+*.log
+*.db
+*.mv.db
+.idea/
+*.class
+*.iml
